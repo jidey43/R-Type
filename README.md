@@ -4,6 +4,8 @@ Lancer le CMakeLists.txt à la racine via la gui de CMake génerer le projet en 
 
 La SFML est directement embarquée dans le dossier du client, pour rendre le projet completment portable.
 
+La SFML est compilée satiquement
+
 Les executables sont générés dans /bin
 
 Les projets doivents etres générés en debug mode
