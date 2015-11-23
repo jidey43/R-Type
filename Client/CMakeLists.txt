@@ -1,7 +1,7 @@
 # Usefull variables
 # CMAKE_CURRENT_SOURCE_DIR = Racine du projet, dans les faits c'est le dossier ou est spécifié le CMakeLists.txt top level
 
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.0)
 
 project(RTypeClient)
 
@@ -23,13 +23,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 set(SFML_STATIC_LIBRARIES TRUE)
 
+if(WIN32)
 set(SFML_ROOT "${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win")
-
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/Client/cmake_modules_win")
-
-
 find_package(SFML 2.3.2 REQUIRED system window graphics network audio)
-
 if (SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
     target_link_libraries(RTypeClient ${SFML_LIBRARIES})
@@ -48,5 +45,19 @@ if (SFML_FOUND)
     						)
 
 endif(SFML_FOUND)
+endif(WIN32)
+
+if (UNIX)
+  
+set(SFML_ROOT "${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-uni")
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/Client/cmake_modules_uni")
+MESSAGE(STATUS "SFML_ROOT : " ${SFML_ROOT})
+find_package(SFML 2 REQUIRED system window graphics network audio)
+if (SFML_FOUND)
+    include_directories(${SFML_INCLUDE_DIR})
+    target_link_libraries(RTypeClient ${SFML_LIBRARIES})
+endif(SFML_FOUND)
+  
+endif(UNIX)
 
 # END SFML CONFIG
