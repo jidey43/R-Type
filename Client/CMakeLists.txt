@@ -21,11 +21,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 # SFML CONFIG
 
-set(SFML_STATIC_LIBRARIES TRUE)
+#set(SFML_STATIC_LIBRARIES TRUE)
+
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/Client/cmake_modules")
 
 if(WIN32)
 set(SFML_ROOT "${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win")
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/Client/cmake_modules_win")
 find_package(SFML 2.3.2 REQUIRED system window graphics network audio)
 if (SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
@@ -48,9 +49,9 @@ endif(SFML_FOUND)
 endif(WIN32)
 
 if (UNIX)
-  
+
+set(SFMLDIR "${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-uni")
 set(SFML_ROOT "${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-uni")
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/Client/cmake_modules_uni")
 MESSAGE(STATUS "SFML_ROOT : " ${SFML_ROOT})
 find_package(SFML 2 REQUIRED system window graphics network audio)
 if (SFML_FOUND)
