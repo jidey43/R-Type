@@ -4,9 +4,9 @@ Object::Object() {}
 
 Object::~Object() {}
 
-ObjectInfo::Type const	&Object::getObjtype() const
+ObjectInfo::Type	&Object::getObjType()
 {
   return _objType;
 }
 
-void			Object::update() const {}
+void			Object::update() {}

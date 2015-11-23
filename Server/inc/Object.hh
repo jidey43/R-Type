@@ -11,14 +11,14 @@ public:
   ~Object();
 
 public:
-  ObjectInfo::Type const	&getObjType() const;
+  ObjectInfo::Type		&getObjType();
   void				update();
 
 private:
-  Vector2f			_speed;
-  Vector2i			_size;
-  Vector2i			_pos;
+  sf::Vector2f			_speed;
+  sf::Vector2i			_size;
+  sf::Vector2i			_pos;
   ObjectInfo::Type		_objType;
-}
+};
 
 #endif

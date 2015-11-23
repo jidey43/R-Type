@@ -3,14 +3,14 @@
 
 # include "ObjectInfo.hpp"
 
-class Iobject
+class IObject
 {
 public:
   virtual ~IObject() {}
 
 public:
-  virtual ObjectInfo::Type	&getObjType() = 0;
-  virtual void			uptade() = 0;
+  virtual ObjectInfo::Type		&getObjType() = 0;
+  virtual void				uptade() = 0;
 };
 
 #endif
