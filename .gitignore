@@ -222,3 +222,7 @@ CMakeFiles/
 CMakeCache.txt
 *moc*
 Makefile
+cmake_install.cmake
+*.o
+*~
+*#
