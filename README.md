@@ -5,6 +5,8 @@ pour génerer
 * une solution Visual 2k15 (v14.0) sous Windows
 * un Makefile sous Unix
 
+_Pour éviter les bétises, n'oublier pas dans Visual de faire : Projet->Afficher tout les fichiers_
+
 La SFML est directement embarquée dans le dossier du client, pour rendre le projet completment portable.
 
 La SFML est compilée satiquement sous windows
