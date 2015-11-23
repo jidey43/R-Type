@@ -71,6 +71,15 @@ typedef struct
   ObjectInfo::ShotType		type;
 }  __attribute__ ((packed))	CreObjData;
 
+int				id;
+float				x;
+float				y;
+float				speed;
+uint32_t			magic;
+ObjectInfo::ObstacleType		type;
+}  __attribute__ ((packed))	CreObstacleData;
+
+
 typedef struct
 {
   int				id;

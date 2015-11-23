@@ -7,7 +7,8 @@ enum Type
   {
     PLAYER = 0,
     ALIEN,
-    SHOT
+    SHOT,
+    OBSTACLE
   };
 
 enum PlayerType
@@ -24,6 +25,14 @@ enum ShotType
   PLAYERREGULAR = 1,
   ALIENREGULAR,
   NUMBEROFSHOT
+};
+
+enum ObstacleType
+{
+  TYPE1,
+  TYPE2,
+  TYPE3,
+  TYPE4
 };
 
 enum WaveType
