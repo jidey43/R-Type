@@ -221,3 +221,4 @@ CMakeFiles/
 *.sdf
 CMakeCache.txt
 *moc*
+Makefile
