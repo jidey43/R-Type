@@ -23,9 +23,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 set(SFML_STATIC_LIBRARIES TRUE)
 
-set(SFML_ROOT "${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2")
+set(SFML_ROOT "${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win")
 
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/Client/cmake_modules")
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/Client/cmake_modules_win")
 
 
 find_package(SFML 2.3.2 REQUIRED system window graphics network audio)
@@ -35,14 +35,14 @@ if (SFML_FOUND)
     target_link_libraries(RTypeClient ${SFML_LIBRARIES})
 
     target_link_libraries(RTypeClient 
-    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2/lib/flac.lib
-    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2/lib/freetype.lib
-    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2/lib/jpeg.lib
-    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2/lib/ogg.lib
-    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2/lib/openal32.lib
-    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2/lib/vorbis.lib
-    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2/lib/vorbisenc.lib
-    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2/lib/vorbisfile.lib
+    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win/lib/flac.lib
+    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win/lib/freetype.lib
+    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win/lib/jpeg.lib
+    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win/lib/ogg.lib
+    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win/lib/openal32.lib
+    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win/lib/vorbis.lib
+    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win/lib/vorbisenc.lib
+    					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win/lib/vorbisfile.lib
     					winmm.lib
     					opengl32.lib	
     						)
