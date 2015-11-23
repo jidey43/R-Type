@@ -1,4 +1,4 @@
-# Install script for directory: /home/roman/Documents/R-Type
+# Install script for directory: /home/giudic_a/rendu/R-Type
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ else()
   set(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 endif()
 
-string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
-       "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/roman/Documents/R-Type/${CMAKE_INSTALL_MANIFEST}"
-     "${CMAKE_INSTALL_MANIFEST_CONTENT}")
+file(WRITE "/home/giudic_a/rendu/R-Type/${CMAKE_INSTALL_MANIFEST}" "")
+foreach(file ${CMAKE_INSTALL_MANIFEST_FILES})
+  file(APPEND "/home/giudic_a/rendu/R-Type/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+endforeach()
