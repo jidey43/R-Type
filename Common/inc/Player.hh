@@ -12,7 +12,7 @@ public:
   ~Player();
 
 public:
-  bool				update(std::vector<IObject*>&, sf::Clock const&);
+  bool				update(sf::Clock const&, std::vector<IObject*>&);
   bool				update(sf::Clock const&);
   BasicPlayerProjectile		*BasicShoot();
   bool				tryShoot();

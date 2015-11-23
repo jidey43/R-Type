@@ -1,6 +1,7 @@
 #ifndef _ALIEN_HH_
 # define _ALIEN_HH_
 
+# define _USE_MATH_DEFINES
 # include <cmath>
 # include "BasicAlienProjectile.hh"
 # include "Object.hh"
@@ -12,8 +13,8 @@ public:
   ~Alien();
 
 public:
-  bool				update(std::vector<IObject*>&, sf::Clock const&);
-  bool				update(sf::Clock const&);
+  virtual bool		        update(sf::Clock const&, std::vector<IObject*>&);
+  virtual bool		        update(sf::Clock const&);
   const float&			getCoeff() const;
   BasicAlienProjectile		*BasicShoot();
   const ObjectInfo::WaveType	&getRealType() const;

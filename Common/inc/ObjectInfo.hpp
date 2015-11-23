@@ -8,7 +8,6 @@ enum Type
     PLAYER = 0,
     ALIEN,
     SHOT,
-    OBSTACLE
   };
 
 enum PlayerType
@@ -27,14 +26,6 @@ enum ShotType
   NUMBEROFSHOT
 };
 
-enum ObstacleType
-{
-  TYPE1,
-  TYPE2,
-  TYPE3,
-  TYPE4
-};
-
 enum WaveType
   {
     BYDO = 0,
@@ -46,8 +37,17 @@ enum WaveType
     SHELL,
     YORK,
     XELF16,
-    WALL,
+    OBSTACLE,
     NUMBEROFWAVE
+  };
+
+enum ObstacleType
+  {
+    NOT_WALL = -1,
+    TYPE1,
+    TYPE2,
+    TYPE3,
+    TYPE4
   };
 };
 

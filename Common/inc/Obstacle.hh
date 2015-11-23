@@ -1,18 +1,22 @@
 #ifndef _OBSTACLE_HH_
 # define _OBSTACLE_HH_
 
-# include <cmath>
-# include "Object.hh"
+# include "Alien.hh"
 
-class Obstacle : public Object
+class Obstacle : public Alien
 {
+private:
+  ObjectInfo::ObstacleType _obstacleType;
+
 public:
-  Obstacle(sf::Vector2f, sf::Vector2f, sf::Vector2i, unsigned int);
+  Obstacle(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff, ObjectInfo::ObstacleType);
   ~Obstacle();
 
 public:
-  bool				update(std::vector<IObject*>&, sf::Clock const&);
+  bool				update(sf::Clock const&, std::vector<IObject*>&);
   bool				update(sf::Clock const&);
+  IObject	*BasicShoot();
+  ObjectInfo::ObstacleType getObstacleType() const;
 };
 
 # endif

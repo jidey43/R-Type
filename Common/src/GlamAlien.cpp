@@ -24,7 +24,7 @@ bool		GlamAlien::update(sf::Clock const& clock)
 }
 
 
-bool		GlamAlien::update(std::vector<IObject*>& map, sf::Clock const& clock)
+bool		GlamAlien::update(sf::Clock const& clock, std::vector<IObject*>& map)
 {
   this->update(clock);
   this->collision(map);

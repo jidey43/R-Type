@@ -7,10 +7,11 @@ BasicAlienProjectile::BasicAlienProjectile(sf::Vector2f speed, sf::Vector2f pos,
 BasicAlienProjectile::~BasicAlienProjectile()
 {}
 
-bool		BasicAlienProjectile::update(std::vector<IObject*>& map, sf::Clock const& clock)
+bool		BasicAlienProjectile::update(sf::Clock const& clock, std::vector<IObject*>& map)
 {
   this->update(clock);
   this->collision(map);
+  return true;
 }
 
 bool		BasicAlienProjectile::update(sf::Clock const& clock)
@@ -19,4 +20,5 @@ bool		BasicAlienProjectile::update(sf::Clock const& clock)
       || _pos.y + _size.y < 0 || _pos.y > MAP_SIZE_Y)
     _isAlive = false;
   this->_pos.x = this->_pos.x + this->_speed.x;
+  return true;
 }
