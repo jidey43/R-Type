@@ -46,6 +46,12 @@ void		MapController::addObject(IObject* obj)
   _map.push_back(obj);
 }
 
+void		MapController::addAlien(IObject* obj)
+{
+  IObject *o = new Alien(*(static_cast<Alien*>(obj)));
+  _map.push_back(o);
+}
+
 void		MapController::updateMap(sf::Clock const& clock)
 {
   auto it = _map.begin();
