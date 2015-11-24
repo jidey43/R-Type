@@ -4,7 +4,8 @@
 ViewController::ViewController()
 {
 	_mainWindow = new sf::RenderWindow(sf::VideoMode(800, 800), "RType");//,sf::Style::Fullscreen);
-	_mainWindow->setKeyRepeatEnabled(true);
+	_mainWindow->setKeyRepeatEnabled(false);
+	_soundTrack = ac->getSoundTrack();
 }
 
 ViewController::~ViewController()
@@ -40,4 +41,9 @@ keyboardStatus					ViewController::getEvents()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		state.right = true;
 	return state;
+}
+
+void ViewController::startSoundtrack()
+{
+	_soundTrack->play();
 }

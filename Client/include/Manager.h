@@ -1,9 +1,10 @@
 #pragma once
 
 #include "ViewController.h"
-#include "SoundController.h"
+#include "AssetsController.h"
 
 extern ViewController *vc;
+extern AssetsController *ac;
 
 class					Manager
 {
@@ -19,5 +20,4 @@ private:
 	sf::Time			_loopTime;
 
 private:
-	SoundController		*_soundCtrl;
 };

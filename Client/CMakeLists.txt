@@ -44,6 +44,7 @@ if (SFML_FOUND)
     					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win/lib/vorbis.lib
     					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win/lib/vorbisenc.lib
     					${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win/lib/vorbisfile.lib
+                        ${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win/lib/openal32.lib
     					winmm.lib
     					opengl32.lib	
     						)

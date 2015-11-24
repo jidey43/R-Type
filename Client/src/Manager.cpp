@@ -2,7 +2,6 @@
 
 Manager::Manager()
 {
-	//_soundCtrl = new SoundController;
 }
 
 Manager::~Manager()
@@ -14,15 +13,19 @@ void					Manager::loop()
 {
 	sf::Sprite sprite;
 	sf::Texture texture;
-	texture.loadFromFile("./toto.jpg");
+	texture.loadFromFile("ship1.png");
+	//texture.loadFromFile("toto.jpg");
 	sprite.setTexture(texture);
-
-
-		while (1)
+	std::cout << "salut" << std::endl;
+	//STARTING
+	//vc->startSoundtrack();
+	//GAME LOOP
+	while (1)
 	{
 		_clock.restart();
 		vc->clear();
 		vc->getEvents();
+
 		vc->draw(&sprite);
 		vc->refresh();
 		_loopTime = _clock.getElapsedTime();
