@@ -3,6 +3,7 @@
 # include <iostream>
 # include <SFML/Graphics.hpp>
 # include <SFML/Audio.hpp>
+# include "GameItem.h"
 # include "KeyboardStatus.h"
 # include "AssetsController.h"
 
@@ -19,6 +20,7 @@ public:
 	void			refresh();
 	void			draw(sf::Drawable*);
 	void			clear();
+	void			operator<<(GameItem*);
 
 //INPUT STUFF
 	keyboardStatus	getEvents();

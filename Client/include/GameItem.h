@@ -8,6 +8,9 @@ public:
 	GameItem() {}
 	virtual ~GameItem() {}
 
-private:
-	sf::Sprite			mySprite;
+public:
+	sf::Drawable*		getDrawable();
+
+protected:
+	sf::Sprite			*_sprite;
 };

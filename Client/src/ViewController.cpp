@@ -16,7 +16,12 @@ ViewController::~ViewController()
 void							ViewController::clear()
 {
 	_mainWindow->clear();
-}	
+}
+
+void ViewController::operator<<(GameItem *item)
+{
+	draw(item->getDrawable());
+}
 
 void							ViewController::refresh()
 {
