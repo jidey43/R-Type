@@ -15,7 +15,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/server)
 
 file(GLOB SERVERSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Server/src/*.cpp)
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Server/Include")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Server/includes")
 
 add_executable(RTypeServer ${SERVERSOURCES})
-
