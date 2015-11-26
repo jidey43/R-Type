@@ -2,9 +2,9 @@
 
 #include <string>
 #include <iostream>
-#include <tchar.h>
+// #include <tchar.h>
 #include <stdio.h>
-#include <strsafe.h>
+// #include <strsafe.h>
 
 template <typename T>
 UNetwork<T>::UNetwork()
@@ -97,7 +97,7 @@ SOCKET UNetwork<T>::getFd() const
 }
 
 template <typename T>
-INetwork*		getNetworkInstance()
+INetwork<T>*		getNetworkInstance()
 {
 	return new UNetwork<T>();
 }

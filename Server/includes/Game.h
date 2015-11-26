@@ -16,4 +16,4 @@ public:
 	std::string		getName() const;
 };
 
-#endif GAME_H_
+#endif /*!GAME_H_*/

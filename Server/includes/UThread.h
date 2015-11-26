@@ -9,16 +9,16 @@
 class CUThread : public IThread
 {
 public:
-	CUThread(SafeQueue &safeStock);
+	CUThread(SafeQueue *safeStock);
 	~CUThread();
 
 private:
-	SafeQueue&		_safeStock;
+	SafeQueue*		_safeStock;
 	std::thread*	_thread;
-	void			(*_routine)(IMutex *param);
+	void			(*_routine)(SafeQueue *safeStock);
 
 public:
-	bool		InitThread(void routine(SafeQueue &params));
+	bool		InitThread(void routine(SafeQueue *params));
 	bool		StartThread();
 	bool		WaitThread();
 	void		DestroyThread();

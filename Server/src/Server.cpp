@@ -1,6 +1,8 @@
 #include "Server.h"
 
 #include <iostream>
+#include <algorithm>
+#include <string.h>
 #include "NetworkDefines.h"
 #include "WNetwork.hh"
 
@@ -28,7 +30,7 @@ void Server::start()
 		if (_network->isClientSet(_listen) && !acceptClient())
 		{
 			std::cout << "client connection failed, closing server" << std::endl;
-			system("pause");
+			// system("pause");
 			return;
 		}
 		setClients();
@@ -93,11 +95,11 @@ void Server::wipePacket()
 	memset(_cPacket, 0, sizeof(*_cPacket));
 }
 
-void Server::fillPacket(ClientCommand command, std::string & data)
+void Server::fillPacket(ClientCommand command, std::string const& data)
 {
 	wipePacket();
 	_cPacket->command = command;
-	strncpy_s(_cPacket->data, data.c_str(), data.size());
+	// strncpy_s(_cPacket->data, data.c_str(), data.size());
 }
 
 bool Server::describeGame(ClientInfo * client)
@@ -122,4 +124,3 @@ bool Server::createGame(ClientInfo * client)
 	_network->sendToClient(client->getSocket(), _cPacket);
 	return true;
 }
-

@@ -7,6 +7,8 @@
 # include "UDPSocket.h"
 # include "NetworkDefines.h"
 # include "INetwork.h"
+# include "UNetwork.hh"
+# include "WNetwork.hh"
 # include "ClientInfo.h"
 
 template class				INetwork<TCPSocket>;

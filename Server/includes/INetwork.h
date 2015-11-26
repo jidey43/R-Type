@@ -11,7 +11,7 @@ typedef enum	e_TransmitStatus
 	PASSED = 1,
 }				TransmitStatus;
 
-template <class T>
+template <typename T>
 class									INetwork
 {
 public:

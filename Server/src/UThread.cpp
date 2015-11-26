@@ -2,8 +2,8 @@
 
 #include "UThread.h"
 
-CUThread::CUThread(IMutex *mutex)
-	: _mutex(mutex)
+CUThread::CUThread(SafeQueue *safeStock)
+	: _safeStock(safeStock)
 {
 }
 
@@ -12,7 +12,7 @@ CUThread::~CUThread()
 {
 }
 
-bool CUThread::InitThread(void routine(IMutex *params))
+bool CUThread::InitThread(void routine(SafeQueue *safeStock))
 {
 	_routine = routine;
 	return true;
@@ -20,7 +20,7 @@ bool CUThread::InitThread(void routine(IMutex *params))
 
 bool CUThread::StartThread()
 {
-	_thread = new std::thread(_routine, _mutex);
+	_thread = new std::thread(_routine, _safeStock);
 	return true;
 }
 

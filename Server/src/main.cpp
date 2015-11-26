@@ -4,8 +4,6 @@
 # include "IThread.h"
 #include <iostream>
 
-#include <Windows.h>
-
 int main()
 {
 	int *a = 0;/*

@@ -15,7 +15,10 @@ typedef SOCKET SOCKET;
 # include <netdb.h>
 # include <sys/types.h>
 # include <sys/socket.h>
+# define INVALID_SOCKET -1
+
 typedef int SOCKET;
+;
 
 # endif
 typedef addrinfo ConnectionData;

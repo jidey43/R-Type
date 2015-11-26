@@ -9,7 +9,7 @@ public:
 	virtual ~IThread() {}
 
 public:
-	virtual bool	InitThread(void routine(SafeQueue &params)) = 0;
+	virtual bool	InitThread(void routine(SafeQueue *params)) = 0;
 	virtual bool	StartThread() = 0;
 	virtual bool	WaitThread() = 0;
 	virtual void	DestroyThread() = 0;

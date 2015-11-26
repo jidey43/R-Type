@@ -1,12 +1,8 @@
 #ifndef TCPSOCKET_H_
 # define TCPSOCKET_H_
 
-# ifdef _WIN32
-
 # include "NetworkDefines.h"
 # include "INetwork.h"
-
-# pragma comment(lib, "ws2_32.lib")
 
 class							TCPSocket
 {
@@ -26,6 +22,3 @@ public:
 };
 
 #endif
-
-#endif
-

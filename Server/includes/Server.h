@@ -25,7 +25,7 @@ public:
 	void						parser(ClientInfo* client);
 	void						deleteClient(std::vector<ClientInfo*>::iterator& it, ClientInfo* info);
 	void						wipePacket();
-	void						fillPacket(ClientCommand command, std::string& data);
+	void						fillPacket(ClientCommand command, std::string const& data);
 
 public:
 	bool						describeGame(ClientInfo* client);
