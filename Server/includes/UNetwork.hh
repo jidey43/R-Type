@@ -3,10 +3,10 @@
 
 # ifdef __linux__
 
-# include "INetwork.h"
+# include "INetwork.hh"
 
-template <typename T>
-class UNetwork : public INetwork
+template <class T>
+class UNetwork : public INetwork<T>
 {
 private:
 	T*							_socket;

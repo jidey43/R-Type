@@ -11,8 +11,7 @@ typedef enum	e_TransmitStatus
 	PASSED = 1,
 }				TransmitStatus;
 
-template <typename T>
-class									INetwork
+template <class T> class									INetwork
 {
 public:
 	virtual bool					initServerSocket(std::string const &ip, std::string const &port) = 0;
@@ -26,7 +25,7 @@ public:
 	virtual bool					closeConnection(SOCKET) = 0;
 };
 
-template <typename T>
-INetwork<T>*								getNetworkInstance();
+/* template <class T> */
+/* INetwork<T>*								getNetworkInstance(); */
 
 #endif

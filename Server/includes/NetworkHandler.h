@@ -6,7 +6,7 @@
 # include "TCPSocket.h"
 # include "UDPSocket.h"
 # include "NetworkDefines.h"
-# include "INetwork.h"
+# include "INetwork.hh"
 # include "UNetwork.hh"
 # include "WNetwork.hh"
 # include "ClientInfo.h"

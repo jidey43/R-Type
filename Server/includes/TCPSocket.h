@@ -2,7 +2,7 @@
 # define TCPSOCKET_H_
 
 # include "NetworkDefines.h"
-# include "INetwork.h"
+# include "INetwork.hh"
 
 class							TCPSocket
 {
