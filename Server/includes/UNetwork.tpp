@@ -1,7 +1,8 @@
 #ifdef __linux__
 
-#include <string>
+#include <string.h>
 #include <iostream>
+#include <unistd.h>
 // #include <tchar.h>
 #include <stdio.h>
 // #include <strsafe.h>
@@ -34,12 +35,12 @@ void		UNetwork<T>::selectClients(std::vector<int>& fd, struct timeval *to)
 {
 	std::vector<int> buffer;
 	FD_ZERO(_readSet);
-	for (std::vector<int>::iterator it = fd.begin(); it: = fd.end(); ++it)
+	for (std::vector<int>::iterator it = fd.begin(); it = fd.end(); ++it)
 		FD_SET((*it), _readSet);
-	if (select(_listen + 1, _readSet, NULL, NULL, &to) < 0) {
+	if (select(_listen + 1, _readSet, NULL, NULL, to) < 0) {
 		perror("select error");
 	}
-	for (std::vector<int>::iterator it = fd.begin(); it: = fd.end(); ++it)
+	for (std::vector<int>::iterator it = fd.begin(); it = fd.end(); ++it)
 	{
 		if (FD_ISSET((*it), _readSet))
 			buffer.push_back((*it));
@@ -83,7 +84,7 @@ TransmitStatus UNetwork<T>::sendData(SOCKET sock, void *data, int size)
 	return _socket->sendData(data, size, sock);
 }
 
-template <typename>
+template <typename T>
 bool UNetwork<T>::closeConnection(SOCKET socket)
 {
 	close(socket);

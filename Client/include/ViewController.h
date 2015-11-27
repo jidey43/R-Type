@@ -4,7 +4,7 @@
 # include <SFML/Graphics.hpp>
 # include <SFML/Audio.hpp>
 # include "KeyboardStatus.h"
-# include "assetsController.h"
+# include "AssetsController.h"
 
 extern AssetsController *ac;
 
