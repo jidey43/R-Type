@@ -25,19 +25,29 @@ public:
   bool					initServerSocket(std::string const &, std::string const &);
   SOCKET					acceptSocket();
 
-  // template <typename TCPSocket>
   TransmitStatus			recvData(SOCKET, void *data, int size);
-  // template <typename TCPSocket>
   TransmitStatus			sendData(SOCKET, void *data, int size);
 
-  // template <typename UDPSocket>
   TransmitStatus			recvData(void *data, int size, ConnectionData *addr);
-  // template <typename UDPSocket>
   TransmitStatus			sendData(void *data, int size, ConnectionData *addr);
 
   SOCKET					getFd() const;
   void					selectClients(std::vector<int>& fd, struct timeval *to);
   bool					closeConnection(SOCKET);
+};
+
+template <>
+class UNetwork<TCPSocket>
+{
+  TransmitStatus			recvData(SOCKET, void *data, int size);
+  TransmitStatus			sendData(SOCKET, void *data, int size);
+};
+
+template <>
+class UNetwork<UDPSocket>
+{
+  TransmitStatus			recvData(void *data, int size, ConnectionData *addr);
+  TransmitStatus			sendData(void *data, int size, ConnectionData *addr);
 };
 
 # include "UNetwork.tpp"

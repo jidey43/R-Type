@@ -25,7 +25,7 @@ public:
 	virtual bool					closeConnection(SOCKET) = 0;
 };
 
-/* template <class T> */
-/* INetwork<T>*								getNetworkInstance(); */
+template <class T>
+INetwork<T>*								getNetworkInstance();
 
 #endif

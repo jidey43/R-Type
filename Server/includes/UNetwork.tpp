@@ -63,25 +63,25 @@ SOCKET UNetwork<T>::acceptSocket()
 	return accept;
 }
 
-template <>
+template <typename UDPSocket>
 TransmitStatus UNetwork<UDPSocket>::recvData(void *data, int size, ConnectionData *addr)
 {
 	return _socket->rcvData(data, size, addr);
 }
 
-template <>
+template <typename TCPSocket>
 TransmitStatus UNetwork<TCPSocket>::recvData(SOCKET sock, void *data, int size)
 {
 	return _socket->rcvData(sock, data, size);
 }
 
-template <>
+template <typename UDPSocket>
 TransmitStatus UNetwork<UDPSocket>::sendData(void *data, int size, ConnectionData *addr)
 {
 	return _socket->sendData(data, size, addr);
 }
 
-template <>
+template <typename TCPSocket>
 TransmitStatus UNetwork<TCPSocket>::sendData(SOCKET sock, void *data, int size)
 {
 	return _socket->sendData(data, size, sock);
@@ -103,7 +103,7 @@ SOCKET UNetwork<T>::getFd() const
 template <typename T>
 INetwork<T>*		getNetworkInstance()
 {
-	return new UNetwork<T>();
+  return new UNetwork<T>();
 }
 
 #endif
