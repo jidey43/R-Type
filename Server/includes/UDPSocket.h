@@ -1,10 +1,8 @@
 #ifndef UDPSOCKET_H_
 # define UDPSOCKET_H_
 
-# ifdef _WIN32
-
 # include "NetworkDefines.h"
-# include "INetwork.h"
+# include "INetwork.hh"
 
 # pragma comment(lib, "ws2_32.lib")
 
@@ -23,6 +21,3 @@ public:
 };
 
 #endif
-
-#endif
-
