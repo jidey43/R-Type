@@ -14,7 +14,7 @@ public:
   ObjectInfo::Type		&getObjType();
   void				update();
 
-private:
+protected:
   sf::Vector2f			_speed;
   sf::Vector2i			_size;
   sf::Vector2i			_pos;
