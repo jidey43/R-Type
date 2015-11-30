@@ -4,9 +4,6 @@
 # ifdef __linux__
 
 # include "INetwork.hh"
-#include "TCPSocket.h"
-#include "UDPSocket.h"
-
 
 template <class T>
 class UNetwork : public INetwork<T>
@@ -22,32 +19,13 @@ public:
 	~UNetwork();
 
 public:
-  bool					initServerSocket(std::string const &, std::string const &);
-  SOCKET					acceptSocket();
-
-  TransmitStatus			recvData(SOCKET, void *data, int size);
-  TransmitStatus			sendData(SOCKET, void *data, int size);
-
-  TransmitStatus			recvData(void *data, int size, ConnectionData *addr);
-  TransmitStatus			sendData(void *data, int size, ConnectionData *addr);
-
-  SOCKET					getFd() const;
-  void					selectClients(std::vector<int>& fd, struct timeval *to);
-  bool					closeConnection(SOCKET);
-};
-
-template <>
-class UNetwork<TCPSocket>
-{
-  TransmitStatus			recvData(SOCKET, void *data, int size);
-  TransmitStatus			sendData(SOCKET, void *data, int size);
-};
-
-template <>
-class UNetwork<UDPSocket>
-{
-  TransmitStatus			recvData(void *data, int size, ConnectionData *addr);
-  TransmitStatus			sendData(void *data, int size, ConnectionData *addr);
+	bool					initServerSocket(std::string const &, std::string const &);
+	SOCKET					acceptSocket();
+	TransmitStatus			recvData(void *data, SOCKET, ConnectionData *addr);
+	TransmitStatus			sendData(void *data, int size, SOCKET, ConnectionData *addr);
+	SOCKET					getFd() const;
+	void					selectClients(std::vector<SOCKET>& fd, struct timeval *to);
+	bool					closeConnection(SOCKET);
 };
 
 # include "UNetwork.tpp"

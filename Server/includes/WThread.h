@@ -10,15 +10,15 @@
 class CWThread : public IThread
 {
 public:
-	CWThread(SafeQueue &safeStock);
+	CWThread(SafeQueue *safeStock);
 	~CWThread();
 
 private:
-	SafeQueue&	_safeStock;
+	SafeQueue*	_safeStock;
 	HANDLE		_thread;
 
 public:
-	bool	InitThread(void routine(SafeQueue &params));
+	bool	InitThread(void routine(SafeQueue *params));
 	bool	StartThread();
 	bool	WaitThread();
 	void	DestroyThread();

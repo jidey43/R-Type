@@ -2,8 +2,8 @@
 
 #include "UThread.h"
 
-CUThread::CUThread(SafeQueue *safeStock)
-	: _safeStock(safeStock)
+CUThread::CUThread(SafeQueue* stock)
+  : _safeStock(stock)
 {
 }
 
@@ -12,7 +12,7 @@ CUThread::~CUThread()
 {
 }
 
-bool CUThread::InitThread(void routine(SafeQueue *safeStock))
+bool CUThread::InitThread(void routine(SafeQueue* stock))
 {
 	_routine = routine;
 	return true;

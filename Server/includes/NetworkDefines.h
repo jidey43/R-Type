@@ -3,6 +3,7 @@
 
 # include <string>
 # include <iostream>
+# define BUFF_LEN 256
 
 # ifdef _WIN32
 # include <io.h>
@@ -16,24 +17,33 @@ typedef SOCKET SOCKET;
 # include <sys/types.h>
 # include <sys/socket.h>
 # define INVALID_SOCKET -1
-
+# define SOCKET_ERROR -1
 typedef int SOCKET;
-;
 
 # endif
 typedef addrinfo ConnectionData;
 
 typedef enum
 {
+	CPACKET
+}		PacketSize;
+
+typedef enum
+{
 	DESCRIBE_GAME = 0,
+	SET_NICK,
 	JOIN_GAME,
 	CREATE_GAME
 }		ClientCommand;
 
+/*
+	Packet : client -> server
+*/
+
 typedef struct		s_ClientPacket
 {
 	ClientCommand	command;
-	char			data[256];
+	char			name[256];
 }					ClientPacket;
 
 #endif

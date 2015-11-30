@@ -14,8 +14,8 @@ public:
 
 private:
 	SafeQueue*		_safeStock;
-	std::thread*	_thread;
-	void			(*_routine)(SafeQueue *safeStock);
+	std::thread*		_thread;
+	void			(*_routine)(SafeQueue* stock);
 
 public:
 	bool		InitThread(void routine(SafeQueue *params));

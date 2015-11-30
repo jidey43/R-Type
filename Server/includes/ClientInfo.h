@@ -8,15 +8,20 @@ class ClientInfo
 {
 public:
 	ClientInfo(SOCKET socket);
+	ClientInfo(SOCKET socket, std::string const& nick);
 	~ClientInfo();
 
 private:
 	bool			_isInGame;
-	SOCKET		_socket;
+	SOCKET			_socket;
 	std::string		_nickname;
+	std::string		_packet;
 
 public:
-	SOCKET		getSocket() const;
+	bool			isInGame() const;
+	void			setPacket(std::string const& str);
+	std::string		getPacket() const;
+	SOCKET			getSocket() const;
 	std::string		getNickname() const;
 };
 

@@ -5,6 +5,12 @@
 #include <tchar.h>
 #include <stdio.h>
 #include <strsafe.h>
+#include <vector>
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include "TCPSocket.h"
+#include "UDPSocket.h"
+#include "INetwork.hh"
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 
 template <typename T>
@@ -33,7 +39,7 @@ bool WNetwork<T>::initServerSocket(std::string const &ip, std::string const &por
 		return false;
 	}
 	ZeroMemory(&hints, sizeof(hints));
-	if (_listen = _socket->startNetwork(ip, port, hints) == INVALID_SOCKET)
+	if ((_listen = _socket->startNetwork(ip, port, hints)) == INVALID_SOCKET)
 	{
 		WSACleanup();
 		return false;
@@ -42,28 +48,32 @@ bool WNetwork<T>::initServerSocket(std::string const &ip, std::string const &por
 }
 
 template <typename T>
-void		WNetwork<T>::selectClients(std::vector<int>& fd, struct timeval *to)
+void		WNetwork<T>::selectClients(std::vector<SOCKET>& fd, struct timeval *to)
 {
-	std::vector<int> buffer;
+	std::vector<SOCKET> buffer;
 	FD_ZERO(_readSet);
-	for (std::vector<int>::iterator it = fd.begin(); it: = fd.end(); ++it)
+	FD_SET(_listen, _readSet);
+	for (std::vector<SOCKET>::iterator it = fd.begin(); it != fd.end(); ++it)
+	{
 		FD_SET((*it), _readSet);
-	if (select(_listen + 1, _readSet, NULL, NULL, &to) < 0) {
-		perror("select error");
 	}
-	for (std::vector<int>::iterator it = fd.begin(); it: = fd.end(); ++it)
+	if (select(_listen + 1, _readSet, NULL, NULL, to) == -1) {
+		perror("select error");
+		fd.clear();
+		return;
+	}
+	for (std::vector<SOCKET>::iterator it = fd.begin(); it != fd.end(); ++it)
 	{
 		if (FD_ISSET((*it), _readSet))
 			buffer.push_back((*it));
 	}
-	fd.clear();
 	fd = buffer;
 }
 
 template <typename T>
 SOCKET WNetwork<T>::acceptSocket()
 {
-	SOCKET accept = _socket->acceptClient(_listen);
+	SOCKET accept = _socket->acceptClient();
 	if (accept == INVALID_SOCKET)
 	{
 		WSACleanup();
@@ -73,27 +83,15 @@ SOCKET WNetwork<T>::acceptSocket()
 }
 
 template <typename T>
-TransmitStatus WNetwork<T>::recvData(void *data, int size, ConnectionData *addr)
+TransmitStatus WNetwork<T>::sendData(void *data, int size, SOCKET sock, ConnectionData *addr)
 {
-	return _socket->rcvData(data, size, addr);
+	return _socket->sendData(data, size, sock, addr);
 }
 
 template <typename T>
-TransmitStatus WNetwork<T>::recvData(SOCKET sock, void *data, int size)
+TransmitStatus WNetwork<T>::recvData(void *data, SOCKET sock, ConnectionData *addr)
 {
-	return _socket->rcvData(sock, data, size);
-}
-
-template <typename T>
-TransmitStatus WNetwork<T>::sendData(void *data, int size, ConnectionData *addr)
-{
-	return _socket->sendData(data, size, addr);
-}
-
-template <typename T>
-TransmitStatus WNetwork<T>::sendData(SOCKET sock, void *data, int size)
-{
-	return _socket->sendData(data, size, sock);
+	return _socket->rcvData(data, sock, addr);
 }
 
 template <typename T>
@@ -110,7 +108,7 @@ SOCKET WNetwork<T>::getFd() const
 }
 
 template <typename T>
-INetwork*		getNetworkInstance()
+INetwork<T>*		getNetworkInstance()
 {
 	return new WNetwork<T>();
 }

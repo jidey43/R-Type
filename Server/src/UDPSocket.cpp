@@ -14,10 +14,10 @@ int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, ad
 {
 	struct addrinfo *addr = NULL;
 	int result;
-	hints.ai_flags = AF_INET;
-	hints.ai_family = SOCK_DGRAM;
-	hints.ai_socktype = IPPROTO_UDP;
-	hints.ai_protocol = AI_PASSIVE;
+	hints.ai_flags = AI_PASSIVE;
+	hints.ai_family = AF_INET;
+	hints.ai_socktype = SOCK_DGRAM;
+	hints.ai_protocol = IPPROTO_UDP;
 	hints.ai_addr = INADDR_ANY;
 	result = getaddrinfo(ip.c_str(), port.c_str(), &hints, &addr);
 	if (result != 0) {
@@ -30,7 +30,7 @@ int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, ad
 	return _listen;
 }
 
-TransmitStatus	UDPSocket::sendData(const void *buffer, int size, ConnectionData *addr)
+TransmitStatus			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, ConnectionData *addr)
 {
 	int res = sendto(_listen, (char*)buffer, size, 0, (sockaddr *)&addr, sizeof(addr));
 
@@ -39,13 +39,12 @@ TransmitStatus	UDPSocket::sendData(const void *buffer, int size, ConnectionData 
 	return (res == -1 ? ERR : PASSED);
 }
 
-TransmitStatus			UDPSocket::rcvData(void* buffer, int size, ConnectionData *addr)
+TransmitStatus			UDPSocket::rcvData(void* buffer, SOCKET sock, ConnectionData *addr)
 {
-	int			addr_len = sizeof(addr);
-	int			res = 0;
+	int				addr_len = sizeof(addr);
+	int				res;
 
-	res = recvfrom(_listen, (char*)buffer, size, 0, (sockaddr*)&addr, &addr_len);
-
+	res = recvfrom(_listen, (char*)buffer, BUFF_LEN, 0, (sockaddr*)&addr, &addr_len);
 	return (res == -1 ? ERR : (res == 0 ? DISCONNECTED : PASSED));
 }
 

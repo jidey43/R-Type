@@ -4,6 +4,8 @@
 # include "NetworkDefines.h"
 # include "INetwork.hh"
 
+# pragma comment(lib, "ws2_32.lib")
+
 class							TCPSocket
 {
 private:
@@ -15,10 +17,10 @@ public:
 	TCPSocket();
 	~TCPSocket();
 
-	int							startNetwork(std::string const &ip, std::string const &port, addrinfo);
+	SOCKET						startNetwork(std::string const &ip, std::string const &port, addrinfo);
 	SOCKET						acceptClient();
-	TransmitStatus				sendData(const void *buffer, int size, SOCKET socket);
-	TransmitStatus				rcvData(SOCKET socket, void* buffer, int size);
+	TransmitStatus				sendData(const void *buffer, int size, SOCKET socket, ConnectionData *addr);
+	TransmitStatus				rcvData(void*, SOCKET socket, ConnectionData *addr);
 };
 
 #endif

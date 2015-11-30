@@ -2,7 +2,7 @@
 
 # include "WThread.h"
 
-CWThread::CWThread(SafeQueue &stock)
+CWThread::CWThread(SafeQueue *stock)
 	: _safeStock(stock), _thread(NULL)
 {
 }
@@ -11,13 +11,13 @@ CWThread::~CWThread()
 {
 }
 
-bool CWThread::InitThread(void routine(SafeQueue &params))
+bool CWThread::InitThread(void routine(SafeQueue *params))
 {
 	return ((_thread = CreateThread(
 		NULL,									// default security attributes
 		0,										// use default stack size  
 		(LPTHREAD_START_ROUTINE)routine,		// thread function name
-		&_safeStock,									// argument to thread function 
+		_safeStock,									// argument to thread function 
 		CREATE_SUSPENDED,						// use default creation flags 
 		0										// returns the thread identifier 
 		)) == NULL ? false : true);	

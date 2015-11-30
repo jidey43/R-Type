@@ -1,14 +1,14 @@
 #ifdef __linux__
 
-#include <string.h>
+#include <string>
 #include <iostream>
-#include <unistd.h>
-// #include <tchar.h>
 #include <stdio.h>
-#include "UDPSocket.h"
+#include <vector>
+#include <string.h>
+#include <unistd.h>
 #include "TCPSocket.h"
+#include "UDPSocket.h"
 #include "INetwork.hh"
-// #include <strsafe.h>
 
 template <typename T>
 UNetwork<T>::UNetwork()
@@ -63,35 +63,23 @@ SOCKET UNetwork<T>::acceptSocket()
 	return accept;
 }
 
-template <typename UDPSocket>
-TransmitStatus UNetwork<UDPSocket>::recvData(void *data, int size, ConnectionData *addr)
+template <typename T>
+TransmitStatus UNetwork<T>::recvData(void *data, SOCKET sock, ConnectionData *addr)
 {
-	return _socket->rcvData(data, size, addr);
+	return _socket->rcvData(data, sock, addr);
 }
 
-template <typename TCPSocket>
-TransmitStatus UNetwork<TCPSocket>::recvData(SOCKET sock, void *data, int size)
+template <typename T>
+TransmitStatus UNetwork<T>::sendData(void *data, int size, SOCKET sock, ConnectionData *addr)
 {
-	return _socket->rcvData(sock, data, size);
-}
-
-template <typename UDPSocket>
-TransmitStatus UNetwork<UDPSocket>::sendData(void *data, int size, ConnectionData *addr)
-{
-	return _socket->sendData(data, size, addr);
-}
-
-template <typename TCPSocket>
-TransmitStatus UNetwork<TCPSocket>::sendData(SOCKET sock, void *data, int size)
-{
-	return _socket->sendData(data, size, sock);
+  return _socket->sendData(data, size, sock, addr);
 }
 
 template <typename T>
 bool UNetwork<T>::closeConnection(SOCKET socket)
 {
 	close(socket);
-	return false;
+	return true;
 }
 
 template <typename T>
@@ -103,7 +91,7 @@ SOCKET UNetwork<T>::getFd() const
 template <typename T>
 INetwork<T>*		getNetworkInstance()
 {
-  return new UNetwork<T>();
+	return new UNetwork<T>();
 }
 
 #endif

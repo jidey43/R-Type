@@ -2,8 +2,9 @@
 # define SERVER_H_
 
 # include <vector>
-# include "Game.h"
+# include "GameInfo.h"
 # include "NetworkHandler.h"
+# include "GameHandler.h"
 
 class Server
 {
@@ -12,24 +13,18 @@ public:
 	~Server();
 
 private:
-	std::vector<ClientInfo*>	_clientList;
-	std::vector<Game*>			_gameList;
 	NetworkHandler*				_network;
-	ClientPacket*				_cPacket;
-	SOCKET					_listen;
+	GameHandler*				_games;
 
 public:
 	void						start();
-	void						setClients();
-	bool						acceptClient();
+	void						answerClients();
 	void						parser(ClientInfo* client);
 	void						deleteClient(std::vector<ClientInfo*>::iterator& it, ClientInfo* info);
-	void						wipePacket();
-	void						fillPacket(ClientCommand command, std::string const& data);
 
 public:
 	bool						describeGame(ClientInfo* client);
-	bool						createGame(ClientInfo* client);
+	bool						createGame(ClientInfo* client, std::string& data);
 };
 
 #endif

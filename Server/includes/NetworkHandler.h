@@ -23,17 +23,21 @@ private:
 	std::string					_ip;
 	std::string					_port;
 	INetwork<TCPSocket>*		_network;
+	std::vector<ClientInfo*>	_clientList;
+	std::vector<ClientInfo*>	_activeClients;
+	std::string					_packet;
 	SOCKET						_listen;
 
 public:
-	SOCKET						initSocket();
-	SOCKET						acceptNewClient();
-	void						selectClient(std::vector<ClientInfo*>& list);
-	bool						isClientSet(SOCKET sock);
-	void						broadcast(std::vector<ClientInfo*>& clientList, char* msg);
-	TransmitStatus				receiveFromClient(SOCKET sock, ClientPacket *data);
-	TransmitStatus				sendToClient(SOCKET sock, ClientPacket *data);
-	void						closeConnection(SOCKET sock);
+	bool						initSocket();
+	bool						acceptNewClient();
+	bool						selectClient();
+	ClientInfo*					getActiveClient();
+	void						broadcast(char* msg);
+	bool						sendToClient(ClientInfo* client, std::string const& data);
+	TransmitStatus				receiveFromClient(ClientInfo* client);
+	TransmitStatus				receiveFromClient(SOCKET client);
+	void						closeConnection(ClientInfo* client);
 };
 
 #endif
