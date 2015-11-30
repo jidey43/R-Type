@@ -31,8 +31,8 @@ public:
 	void						selectClient(std::vector<ClientInfo*>& list);
 	bool						isClientSet(SOCKET sock);
 	void						broadcast(std::vector<ClientInfo*>& clientList, char* msg);
-	TransmitStatus				receiveFromClient(SOCKET sock, ClientPacket *data);
-	TransmitStatus				sendToClient(SOCKET sock, ClientPacket *data);
+	TransmitStatus					receiveFromClient(SOCKET sock, ClientPacket *data);
+	TransmitStatus					sendToClient(SOCKET sock, ClientPacket *data);
 	void						closeConnection(SOCKET sock);
 };
 
