@@ -20,6 +20,7 @@ void					Manager::loop()
 	_itemCtrl->addShip(2);
 	_itemCtrl->addShip(3);
 	_itemCtrl->addShip(4);
+	_itemCtrl->addShot(sf::Vector2f(0, 500), 1, 1, 1);
 
 	_itemCtrl->moveShip(1, sf::Vector2f(800, 600));
 	_itemCtrl->moveShip(2, sf::Vector2f(200, 200));
@@ -33,6 +34,7 @@ void					Manager::loop()
 		_clock.restart();
 		//vc->clear();
 		vc->getEvents();
+		_itemCtrl->update();
 		_itemCtrl->draw();
 		vc->refresh();
 		_loopTime = _clock.getElapsedTime();

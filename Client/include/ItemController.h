@@ -15,13 +15,14 @@ public:
 
 public:
 	void						draw();
+	void						update();
 
 public:
 	void						addShip(int id);
 	void						moveShip(int id, sf::Vector2f);
 
 public:
-	void						addShot(int, int, int);
+	void						addShot(sf::Vector2f, int, int, int);
 
 public:
 	void						setBackgroud(int id);

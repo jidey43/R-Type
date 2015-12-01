@@ -20,6 +20,20 @@ void ItemController::draw()
 	{
 		*vc << _ships[i];
 	}
+	for (int i = 0; i != _shots.size(); i++)
+	{
+		*vc << _shots[i];
+	}
+
+}
+
+void ItemController::update()
+{
+	for (int i = 0; i != _shots.size(); i++)
+	{
+		_shots[i]->update();
+	}
+
 }
 
 void ItemController::setBackgroud(int id)
@@ -37,6 +51,7 @@ void ItemController::moveShip(int id, sf::Vector2f pos)
 	_ships[id - 1]->setPosition(pos);
 }
 
-void ItemController::addShot(int, int, int)
+void ItemController::addShot(sf::Vector2f startpos, int distance, int time, int skin)
 {
+	_shots.emplace_back(new ShotItem(startpos, distance, time, skin));
 }

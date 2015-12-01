@@ -10,7 +10,8 @@
 extern AssetsController *ac;
 
 #define SCREENRATIO 0.83333
-#define SHIPASSETSIZE 300
+#define SHIP_ASSET_SIZE_Y 300
+#define SHOT_ASSET_SIZE_Y 20 
 
 class GameItem;
 
