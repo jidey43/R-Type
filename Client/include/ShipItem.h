@@ -12,4 +12,8 @@ class                 ShipItem : public GameItem
 public:
 	ShipItem(int id);
 	~ShipItem();
+
+public:
+	void			setPosition(sf::Vector2f);
+	void			update() {}
 };

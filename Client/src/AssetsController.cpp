@@ -2,7 +2,8 @@
 
 AssetsController::AssetsController(const char *assetsPath)
 {
-	_assetsPath = std::string(assetsPath);	_soundTrack = new sf::Music;
+	_assetsPath = std::string(assetsPath);	
+	_soundTrack = new sf::Music;
 }
 
 AssetsController::~AssetsController()
@@ -14,7 +15,9 @@ bool AssetsController::loadAssets()
 {
 	if (
 		loadShipsAssets() &&
-		loadSoundAssets()
+		loadSoundAssets() &&
+		loadBackground() &&
+		loadShots()
 		)
 		return (true);
 	return (false);
@@ -43,6 +46,28 @@ bool AssetsController::loadShipsAssets()
 	return false;
 }
 
+bool AssetsController::loadBackground()
+{
+	for (int i = 0; i != 2; i++)
+	{
+		_backgroundTexture.emplace_back(new sf::Texture);
+	}
+	if (
+		_backgroundTexture[0]->loadFromFile(_assetsPath + "background/background1.png") &&
+		_backgroundTexture[1]->loadFromFile(_assetsPath + "background/background1.png")
+		)
+		return true;
+	return false;
+}
+
+bool AssetsController::loadShots()
+{
+	_shipShot = new sf::Texture;
+	if (_shipShot->loadFromFile(_assetsPath + "shipShot.png"))
+		return true;
+	return false;
+}
+
 sf::Music * AssetsController::getSoundTrack()
 {
 	return _soundTrack;
@@ -51,4 +76,14 @@ sf::Music * AssetsController::getSoundTrack()
 sf::Texture* AssetsController::getShipTexture(int id)
 {
 	return _shipTexture[id - 1];
+}
+
+sf::Texture* AssetsController::getBackground(int id)
+{
+	return _backgroundTexture[id - 1];
+}
+
+sf::Texture* AssetsController::getShot(int id)
+{
+	return _shipShot;
 }

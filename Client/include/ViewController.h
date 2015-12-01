@@ -9,6 +9,11 @@
 
 extern AssetsController *ac;
 
+#define SCREENRATIO 0.83333
+#define SHIPASSETSIZE 300
+
+class GameItem;
+
 class				ViewController
 {
 public:
