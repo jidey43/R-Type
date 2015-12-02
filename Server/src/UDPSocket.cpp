@@ -1,6 +1,4 @@
-#ifdef _WIN32
-
-#include "UDPSocket.h"
+#include "UDPSocket.hh"
 
 UDPSocket::UDPSocket()
 {
@@ -35,7 +33,7 @@ TransmitStatus			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, 
 	int res = sendto(_listen, (char*)buffer, size, 0, (sockaddr *)&addr, sizeof(addr));
 
 	if (res == -1)
-		printf("send failed: %d\n", WSAGetLastError());
+	  printf("send failed: \n");
 	return (res == -1 ? ERR : PASSED);
 }
 
@@ -44,8 +42,6 @@ TransmitStatus			UDPSocket::rcvData(void* buffer, int size, SOCKET sock, Connect
 	int				addr_len = sizeof(addr);
 	int				res;
 
-	res = recvfrom(_listen, (char*)buffer, BUFF_LEN, 0, (sockaddr*)&addr, &addr_len);
+	// res = recvfrom(_listen, (char*)buffer, BUFF_LEN, 0, (sockaddr*)&addr, &addr_len);
 	return (res == -1 ? ERR : (res == 0 ? DISCONNECTED : PASSED));
 }
-
-#endif
