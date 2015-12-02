@@ -5,8 +5,8 @@
 #include <iostream>
 
 
-int main()
+int main(int ac, char **av)
 {
-  Server* server = new Server("127.0.0.1", "4342");
+  Server* server = new Server("127.0.0.1", av[1]);
   std::cout << "ok" << std::endl;
 }

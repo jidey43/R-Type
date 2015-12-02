@@ -28,8 +28,8 @@ bool UNetwork<T>::initClientSocket(std::string const &ip, std::string const &por
 	addrinfo *hints = new addrinfo;
 
 	bzero(hints, sizeof(hints));
-	if (_listen = _socket->startNetwork(ip, port, hints) == INVALID_SOCKET)
-		return false;
+	if ((_listen = _socket->startNetwork(ip, port, hints)) == INVALID_SOCKET)
+	  return false;
 	return true;
 }
 

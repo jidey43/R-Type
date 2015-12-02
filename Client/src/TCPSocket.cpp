@@ -46,10 +46,10 @@ SOCKET			TCPSocket::startNetwork(std::string const &ip, std::string const &port,
 
 TransmitStatus	TCPSocket::sendData(const void *buffer, int size, SOCKET socket, ConnectionData *addr)
 {
-	int res = send(socket, (char*)buffer, size, 0);
-	if (res == -1)
-		printf("send failed\n");
-	return (res == -1 ? ERR : PASSED);
+  int res = send(socket, (char*)buffer, size, 0);
+  if (res == -1)
+    perror("send failed");
+  return (res == -1 ? ERR : PASSED);
 }
 
 TransmitStatus			TCPSocket::rcvData(void* buffer, int size, SOCKET socket, ConnectionData *addr)

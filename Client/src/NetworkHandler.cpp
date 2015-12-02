@@ -16,6 +16,7 @@ bool NetworkHandler::initSocket()
 	if (_network->initClientSocket(_ip, _port))
 	{
 		_listen = _network->getFd();
+		std::cout << _listen << std::endl;
 		return true;
 	}
 	return false;
@@ -101,7 +102,7 @@ bool NetworkHandler::sendToServer(std::string const& data)
 
 	memset(buff, 0, size);
 	memcpy(buff, data.c_str(), data.size());
-	std::cout << "before send :: " << data << "END" << std::endl;
+	std::cout << "before send :: " << buff << " socket = " << _listen << " END" << std::endl;
 	_network->sendData(buff, size, _listen, NULL);
 	return (true);
 }

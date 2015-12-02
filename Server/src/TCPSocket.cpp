@@ -64,5 +64,6 @@ TransmitStatus			TCPSocket::rcvData(void* buffer, int size, SOCKET socket, Conne
 	int				res;
 
 	res = recv(socket, (char*)buffer, BUFF_LEN, 0);
+	std::cout << (char*)buffer << std::endl;
 	return (res == -1 ? ERR : (res == 0 ? DISCONNECTED : PASSED));
 }
