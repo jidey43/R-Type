@@ -1,5 +1,5 @@
 #include <iostream>
-#include "NetworkHandler.h"
+#include "NetworkHandler.hh"
 
 NetworkHandler::NetworkHandler(std::string const & ip, std::string const & port)
 	: _ip(ip), _port(port), _network(getNetworkInstance<TCPSocket>())

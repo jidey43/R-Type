@@ -55,7 +55,7 @@ void		UNetwork<T>::selectFD(std::vector<int>& fd, struct timeval *to)
 template <typename T>
 TransmitStatus UNetwork<T>::recvData(void *data, int size, SOCKET sock, ConnectionData *addr)
 {
-	return _socket->rcvData(data, sock, addr);
+  return _socket->rcvData(data, size, sock, addr);
 }
 
 template <typename T>
