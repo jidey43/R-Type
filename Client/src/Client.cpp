@@ -27,6 +27,7 @@ void Client::start()
 	std::string		str;
 	std::string		str2;
 
+	std::cout << "lol" << std::endl;
 	while (1)
 	{
 		std::cin >> str;

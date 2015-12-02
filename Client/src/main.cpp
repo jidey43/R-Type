@@ -1,7 +1,11 @@
+# include <iostream>
 # include "Client.h"
 # include "NetworkHandler.h"
-#include <iostream>
-#include <Windows.h>
+# include "ViewController.h"
+# include "AssetsController.h"
+
+ViewController *vc = new ViewController();
+AssetsController *ac = new AssetsController("./assets");
 
 int main()
 {
