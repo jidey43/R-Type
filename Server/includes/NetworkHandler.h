@@ -4,7 +4,7 @@
 # include <string>
 # include <vector>
 # include "TCPSocket.hh"
-# include "UDPSocket.h"
+# include "UDPSocket.hh"
 # include "NetworkDefines.h"
 # include "INetwork.hh"
 # include "UNetwork.hh"
@@ -30,7 +30,7 @@ private:
 
 public:
 	bool						initSocket();
-	bool						acceptNewClient();
+	SOCKET						acceptNewClient();
 	bool						selectClient();
 	ClientInfo*					getActiveClient();
 	void						broadcast(char* msg);
