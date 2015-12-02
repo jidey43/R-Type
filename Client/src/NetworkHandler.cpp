@@ -1,5 +1,4 @@
 #include <iostream>
-#include <algorithm>
 #include "NetworkHandler.h"
 
 NetworkHandler::NetworkHandler(std::string const & ip, std::string const & port)
@@ -14,41 +13,22 @@ NetworkHandler::~NetworkHandler()
 
 bool NetworkHandler::initSocket()
 {
-	if (_network->initServerSocket(_ip, _port))
+	if (_network->initClientSocket(_ip, _port))
 	{
 		_listen = _network->getFd();
 		return true;
 	}
 	return false;
 }
-
-bool NetworkHandler::acceptNewClient()
-{
-	SOCKET			sock = _network->acceptSocket();
-
-	if (sock == INVALID_SOCKET)
-		return false;
-	receiveFromClient(sock);
-	if (_packet != "")
-	{
-	  _clientList.push_back(new ClientInfo(sock, _packet));
-	  std::cout << "new client : " << sock << std::endl;
-	}
-	else
-	{
-	  std::cout << "nick not received" << std::endl;
-	}
-	return true;
-}
-
-bool NetworkHandler::selectClient()
+/*
+bool NetworkHandler::selectSockets()
 {
 	std::vector<SOCKET>	fdList;
 
 	fdList.push_back(_listen);
 	for (std::vector<ClientInfo*>::iterator it = _clientList.begin(); it != _clientList.end(); ++it)
-	  fdList.push_back((*it)->getSocket());
-	_network->selectClients(fdList, NULL);
+		fdList.push_back((*it)->getSocket());
+	_network->selectFD(fdList, NULL);
 	if (fdList.size() <= 0)
 		return false;
 	std::vector<SOCKET>::iterator fit = fdList.begin();
@@ -82,14 +62,14 @@ ClientInfo * NetworkHandler::getActiveClient()
 	client->setPacket("");
 	char	data[BUFF_LEN];
 
-	if (_network->recvData((void*)data, BUFF_LEN, client->getSocket(), NULL) == PASSED)
+	if (_network->recvData(data, client->getSocket(), NULL) == PASSED)
 	{
 		client->setPacket(std::string(data));
 		return client;
 	}
 	return NULL;
 }
-
+*/
 void	NetworkHandler::broadcast(char* msg)
 {
 	for (std::vector<ClientInfo*>::iterator it = _clientList.begin(); it != _clientList.end(); ++it)
@@ -98,7 +78,7 @@ void	NetworkHandler::broadcast(char* msg)
 	}
 }
 
-TransmitStatus NetworkHandler::receiveFromClient(ClientInfo* client)
+TransmitStatus NetworkHandler::receiveFromServer()
 {
 	TransmitStatus ret;
 	char	buffer[BUFF_LEN];
@@ -107,30 +87,14 @@ TransmitStatus NetworkHandler::receiveFromClient(ClientInfo* client)
 	while (std::string(buffer).find("\r\n", 0) == std::string::npos)
 	{*/
 	memset(buffer, 0, BUFF_LEN);
-	ret = _network->recvData(buffer, BUFF_LEN, client->getSocket(), NULL);
+	ret = _network->recvData(buffer, BUFF_LEN, _listen, NULL);
 	//								}
 	_packet = std::string(buffer);
 	_packet = _packet.substr(0, _packet.find("\n", 0));
 	return ret;
 }
 
-TransmitStatus NetworkHandler::receiveFromClient(SOCKET sock)
-{
-	TransmitStatus ret;
-	char	buffer[BUFF_LEN];
-
-	/*
-	while (std::string(buffer).find("\r\n", 0) == std::string::npos)
-	{*/
-	memset(buffer, 0, BUFF_LEN);
-	ret = _network->recvData(buffer, BUFF_LEN, sock, NULL);
-	//								}
-	_packet = std::string(buffer);
-	_packet = _packet.substr(0, _packet.find("\n", 0));
-	return ret;
-}
-
-bool NetworkHandler::sendToClient(ClientInfo *client, std::string const& data)
+bool NetworkHandler::sendToServer(std::string const& data)
 {
 	int		size = ((data.size() / BUFF_LEN) + 1) * BUFF_LEN;
 	char *buff = new char(size);
@@ -138,12 +102,16 @@ bool NetworkHandler::sendToClient(ClientInfo *client, std::string const& data)
 	memset(buff, 0, size);
 	memcpy(buff, data.c_str(), data.size());
 	std::cout << "before send :: " << data << "END" << std::endl;
-	_network->sendData(buff, size, client->getSocket(), NULL);
+	_network->sendData(buff, size, _listen, NULL);
 	return (true);
 }
-void NetworkHandler::closeConnection(ClientInfo* client)
+
+void NetworkHandler::closeConnection()
 {
-	_network->closeConnection(client->getSocket());
-	_clientList.erase(std::find(_clientList.begin(), _clientList.end(), client));
-	delete client;
+	_network->closeConnection(_listen);
+}
+
+std::string NetworkHandler::getPacket() const
+{
+	return _packet;
 }

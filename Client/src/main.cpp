@@ -1,22 +1,10 @@
+# include "Client.h"
+# include "NetworkHandler.h"
 #include <iostream>
-#include "ViewController.h"
-#include "Manager.h"
-
-ViewController *vc;
-AssetsController *ac;
+#include <Windows.h>
 
 int main()
 {
-	ac = new AssetsController("../../assets/");
-	if (ac->loadAssets() == false)
-	{
-		std::cerr << "assets could not be loaded, aborting . . ." << std::endl;
-		return -1;
-	}
-
-	vc = new ViewController;
-
- 	Manager m;
-	
-	m.loop();
+	Client* client = new Client("127.0.0.1", "4342");
+	system("pause");
 }

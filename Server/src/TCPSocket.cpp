@@ -34,7 +34,7 @@ SOCKET			TCPSocket::startNetwork(std::string const &ip, std::string const &port,
 		freeaddrinfo(addr);
 		return INVALID_SOCKET;
 	}
-	if ((_listen = listen(Thatsocket, SOMAXCONN)) == SOCKET_ERROR)
+	if (listen(Thatsocket, SOMAXCONN) == SOCKET_ERROR)
 	  printf("Listen failed with error\n");
 	_listen = Thatsocket;
 	return _listen;

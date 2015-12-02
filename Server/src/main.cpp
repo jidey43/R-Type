@@ -7,5 +7,6 @@
 
 int main()
 {
-	Server* server = new Server("127.0.0.1", "4342");
+  Server* server = new Server("127.0.0.1", "4342");
+  std::cout << "ok" << std::endl;
 }
