@@ -98,11 +98,11 @@ TransmitStatus NetworkHandler::receiveFromServer()
 bool NetworkHandler::sendToServer(std::string const& data)
 {
 	int		size = ((data.size() / BUFF_LEN) + 1) * BUFF_LEN;
-	char *buff = new char(size);
+	char *buff = new char[size];
 
 	memset(buff, 0, size);
 	memcpy(buff, data.c_str(), data.size());
-	std::cout << "before send :: " << buff << " socket = " << _listen << " END" << std::endl;
+	std::cout << "before send socket = " << _listen << std::endl;
 	_network->sendData(buff, size, _listen, NULL);
 	return (true);
 }

@@ -40,8 +40,10 @@ void		UNetwork<T>::selectClients(std::vector<int>& fd, struct timeval *to)
 	FD_ZERO(_readSet);
 	for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
 	  FD_SET((*it), _readSet);
+	std::cout << "before" << std::endl;
 	if (select(_listen + 1, _readSet, NULL, NULL, to) < 0) {
 		perror("select error");
+	std::cout << "after" << std::endl;
 	}
 	for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
 	{
