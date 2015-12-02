@@ -21,6 +21,7 @@ SOCKET			TCPSocket::startNetwork(std::string const &ip, std::string const &port,
 	hints.ai_protocol = IPPROTO_TCP;
 	hints.ai_addr = NULL;
 
+	std::cout << "avant getaddrinfo" << std::endl;
 	result = getaddrinfo(ip.c_str(), port.c_str(), &hints, &addr);
 	if (result != 0) {
 		printf("getaddrinfo failed: %d\n", result);

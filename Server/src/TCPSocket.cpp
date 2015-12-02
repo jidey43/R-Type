@@ -37,6 +37,7 @@ SOCKET			TCPSocket::startNetwork(std::string const &ip, std::string const &port,
 	if (listen(Thatsocket, SOMAXCONN) == SOCKET_ERROR)
 	  printf("Listen failed with error\n");
 	_listen = Thatsocket;
+	std::cout << "listening on " << _listen << std::endl;
 	return _listen;
 }
 
