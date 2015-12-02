@@ -6,7 +6,6 @@ Serializer::Serializer()
 	_structSize[CPACKET] = sizeof(ClientPacket);
 }
 
-
 Serializer::~Serializer()
 {
 }

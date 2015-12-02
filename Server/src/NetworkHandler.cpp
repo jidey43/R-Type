@@ -82,7 +82,7 @@ ClientInfo * NetworkHandler::getActiveClient()
 	client->setPacket("");
 	char	data[BUFF_LEN];
 
-	if (_network->recvData(data, client->getSocket(), NULL) == PASSED)
+	if (_network->recvData((void*)data, BUFF_LEN, client->getSocket(), NULL) == PASSED)
 	{
 		client->setPacket(std::string(data));
 		return client;
@@ -100,40 +100,47 @@ void	NetworkHandler::broadcast(char* msg)
 
 TransmitStatus NetworkHandler::receiveFromClient(ClientInfo* client)
 {
-	char	buffer[256];
+	TransmitStatus ret;
+	char	buffer[BUFF_LEN];
 
-	*buffer = 0;/*
-				while (std::string(buffer).find("\r\n", 0) == std::string::npos)
-				{*/
-	if (_network->recvData(buffer, client->getSocket(), NULL) == PASSED)
-		closeConnection(client);/*
-								}*/
+	/*
+	while (std::string(buffer).find("\r\n", 0) == std::string::npos)
+	{*/
+	memset(buffer, 0, BUFF_LEN);
+	ret = _network->recvData(buffer, BUFF_LEN, client->getSocket(), NULL);
+	//								}
 	_packet = std::string(buffer);
-	_packet = _packet.substr(0, 4 - 1);
+	_packet = _packet.substr(0, _packet.find("\n", 0));
+	return ret;
 }
 
 TransmitStatus NetworkHandler::receiveFromClient(SOCKET sock)
 {
 	TransmitStatus ret;
-	char	buffer[256];
+	char	buffer[BUFF_LEN];
 
-	*buffer = 0;/*
-				while (std::string(buffer).find("\r\n", 0) == std::string::npos)
-				{*/
-	ret = _network->recvData(buffer, sock, NULL);
-//								}
+	/*
+	while (std::string(buffer).find("\r\n", 0) == std::string::npos)
+	{*/
+	memset(buffer, 0, BUFF_LEN);
+	ret = _network->recvData(buffer, BUFF_LEN, sock, NULL);
+	//								}
 	_packet = std::string(buffer);
-	_packet = _packet.substr(0, 4 - 1);
+	_packet = _packet.substr(0, _packet.find("\n", 0));
 	return ret;
 }
 
 bool NetworkHandler::sendToClient(ClientInfo *client, std::string const& data)
 {
+	int		size = ((data.size() / BUFF_LEN) + 1) * BUFF_LEN;
+	char *buff = new char(size);
+
+	memset(buff, 0, size);
+	memcpy(buff, data.c_str(), data.size());
 	std::cout << "before send :: " << data << "END" << std::endl;
-	_network->sendData((void*)data.c_str(), data.size(), client->getSocket(), NULL);
+	_network->sendData(buff, size, client->getSocket(), NULL);
 	return (true);
 }
-
 void NetworkHandler::closeConnection(ClientInfo* client)
 {
 	_network->closeConnection(client->getSocket());

@@ -39,7 +39,7 @@ TransmitStatus			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, 
 	return (res == -1 ? ERR : PASSED);
 }
 
-TransmitStatus			UDPSocket::rcvData(void* buffer, SOCKET sock, ConnectionData *addr)
+TransmitStatus			UDPSocket::rcvData(void* buffer, int size, SOCKET sock, ConnectionData *addr)
 {
 	int				addr_len = sizeof(addr);
 	int				res;

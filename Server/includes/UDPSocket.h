@@ -17,7 +17,7 @@ public:
 
 	int							startNetwork(std::string const &ip, std::string const &port, addrinfo);
 	TransmitStatus				sendData(const void *buffer, int size, SOCKET sock, ConnectionData *addr);
-	TransmitStatus				rcvData(void* buffer, SOCKET sock, ConnectionData *addr);
+	TransmitStatus				rcvData(void* buffer, int size, SOCKET sock, ConnectionData *addr);
 	//void						zeroBytes(void* buff);
 };
 

@@ -35,4 +35,9 @@ void CUThread::DestroyThread()
 	delete _thread;
 }
 
+IThread*				getThreadInstance(SafeQueue* queue)
+{
+	return new CUThread(queue);
+}
+
 #endif
