@@ -6,8 +6,8 @@
 #include <vector>
 #include <string.h>
 #include <unistd.h>
-#include "TCPSocket.h"
-#include "UDPSocket.h"
+#include "TCPSocket.hh"
+#include "UDPSocket.hh"
 #include "INetwork.hh"
 
 template <typename T>

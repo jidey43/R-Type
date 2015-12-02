@@ -22,12 +22,12 @@ bool NetworkHandler::initSocket()
 	return false;
 }
 
-bool NetworkHandler::acceptNewClient()
+SOCKET NetworkHandler::acceptNewClient()
 {
 	SOCKET			sock = _network->acceptSocket();
 
 	if (sock == INVALID_SOCKET)
-		return false;
+		return INVALID_SOCKET;
 	receiveFromClient(sock);
 	if (_packet != "")
 	{
@@ -38,7 +38,7 @@ bool NetworkHandler::acceptNewClient()
 	{
 	  std::cout << "nick not received" << std::endl;
 	}
-	return true;
+	return sock;
 }
 
 bool NetworkHandler::selectClient()
@@ -51,11 +51,15 @@ bool NetworkHandler::selectClient()
 	_network->selectClients(fdList, NULL);
 	if (fdList.size() <= 0)
 		return false;
+
 	std::vector<SOCKET>::iterator fit = fdList.begin();
-	if ((*fit) == _listen && !acceptNewClient())
+	SOCKET sock = INVALID_SOCKET;
+	if ((*fit) == _listen && (sock = acceptNewClient()) == INVALID_SOCKET)
 		return false;
 
 	_activeClients.clear();
+	if (sock != INVALID_SOCKET)
+	  _activeClients.push_back(_clientList.back());
 	std::vector<ClientInfo*>::iterator it = _clientList.begin();
 	for (fit; fit != fdList.end(); ++fit)
 	{
@@ -68,6 +72,7 @@ bool NetworkHandler::selectClient()
 			}
 		}
 	}
+	std::cout << "active clients : " << _activeClients.size() << std::endl;
 	return true;
 }
 
