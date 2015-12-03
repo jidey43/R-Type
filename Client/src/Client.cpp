@@ -11,7 +11,7 @@ Client::Client(std::string const & ip, std::string const & port)
 	{
 		std::string		str;
 		std::cout << "Client started" << std::endl;
-		std::cin >> str;
+		std::getline(std::cin, str);
 		_network->sendToServer(str);
 		start();
 	}
@@ -29,7 +29,7 @@ void Client::start()
 
 	while (1)
 	{
-	  std::cin >> str;
+	  std::getline(std::cin, str);
 	  _network->sendToServer(str);
 	  _network->receiveFromServer();
 	  std::cout << "SERVER : " << _network->getPacket() << std::endl;

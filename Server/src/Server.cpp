@@ -21,11 +21,11 @@ Server::~Server()
 
 void Server::start()
 {
-	while (1)
-	{
-		_network->selectClient();
-		answerClients();
-	}
+  while (1)
+    {
+      _network->selectClient();
+      answerClients();
+    }
 }
 
 void Server::answerClients()
@@ -43,7 +43,8 @@ void Server::parser(ClientInfo * client)
 {
 	if (client->getPacket().find(" ", 0) != std::string::npos)
 	{
-		std::string command = client->getPacket().substr(0, client->getPacket().find(" ", 0));
+	  std::cout << "parse" << std::endl;
+	  std::string command = client->getPacket().substr(0, client->getPacket().find(" ", 0));
 		std::string data = client->getPacket().substr(client->getPacket().find(" ", 0) + 1, client->getPacket().find("\n", 0) - 1);
 
 		std::cout << DESCRIBE_GAME << "  " << command << std::endl;
@@ -55,7 +56,10 @@ void Server::parser(ClientInfo * client)
 			std::cout << "no match..." << std::endl;
 	}
 	else
-		std::cout << "fuck ya" << std::endl;
+	  {
+	    _network->sendToClient(client, "fuck ya");
+	    std::cout << "fuck ya" << std::endl;
+	  }
 	//int i = _cPacket->command;
 	//if (_cPacket->command == DESCRIBE_GAME)
 	//	describeGame(client);

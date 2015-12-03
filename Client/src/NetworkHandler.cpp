@@ -13,13 +13,13 @@ NetworkHandler::~NetworkHandler()
 
 bool NetworkHandler::initSocket()
 {
-	if (_network->initClientSocket(_ip, _port))
-	{
-		_listen = _network->getFd();
-		std::cout << _listen << std::endl;
-		return true;
-	}
-	return false;
+  if (_network->initClientSocket(_ip, _port))
+    {
+      _listen = _network->getFd();
+      std::cout << "new socket = " << _listen << std::endl;
+      return true;
+    }
+  return false;
 }
 /*
 bool NetworkHandler::selectSockets()

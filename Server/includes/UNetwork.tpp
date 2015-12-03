@@ -36,12 +36,17 @@ bool UNetwork<T>::initServerSocket(std::string const &ip, std::string const &por
 template <typename T>
 void		UNetwork<T>::selectClients(std::vector<int>& fd, struct timeval *to)
 {
-	std::vector<int> buffer;
+	std::vector<int>	buffer;
+	SOCKET			maxFd = 0;
+
 	FD_ZERO(_readSet);
 	for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
-	  FD_SET((*it), _readSet);
-	std::cout << "before" << std::endl;
-	if (select(_listen + 1, _readSet, NULL, NULL, to) < 0) {
+	  {
+	    FD_SET((*it), _readSet);
+	    if (*it > maxFd)
+	      maxFd = *it;
+	  }
+	if (select(maxFd + 1, _readSet, NULL, NULL, to) < 0) {
 		perror("select error");
 	std::cout << "after" << std::endl;
 	}
