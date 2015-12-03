@@ -78,21 +78,24 @@ bool NetworkHandler::selectClient()
 
 ClientInfo * NetworkHandler::getActiveClient()
 {
-	if (_activeClients.size() < 1)
-		return NULL;
+  if (_activeClients.size() < 1)
+    return NULL;
 
-	ClientInfo*	client = _activeClients.back();
-	_activeClients.pop_back();
+  ClientInfo*	client = _activeClients.back();
+  _activeClients.pop_back();
 
-	client->setPacket("");
-	char	data[BUFF_LEN];
+  client->setPacket("");
+  char	data[BUFF_LEN];
+  TransmitStatus	ret = _network->recvData((void*)data, BUFF_LEN, client->getSocket(), NULL);
 
-	if (_network->recvData((void*)data, BUFF_LEN, client->getSocket(), NULL) == PASSED)
-	{
-		client->setPacket(std::string(data));
-		return client;
-	}
-	return NULL;
+  if (ret == DISCONNECTED || ret == ERR)
+    closeConnection(client);
+  else
+    {
+      client->setPacket(std::string(data));
+      return client;
+    }
+  return NULL;
 }
 
 void	NetworkHandler::broadcast(char* msg)
