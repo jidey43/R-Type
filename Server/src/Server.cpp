@@ -16,6 +16,7 @@ Server::Server(std::string const & ip, std::string const & port)
 
 Server::~Server()
 {
+
 	delete _network;
 }
 
@@ -30,13 +31,13 @@ void Server::start()
 
 void Server::answerClients()
 {
-	ClientInfo*			client;
+  ClientInfo*			client;
 
-	while ((client = _network->getActiveClient()))
-	{
-		std::cout << "--> client [" << client->getNickname() << "] says : " << client->getPacket() << "END" << std::endl;
-		parser(client);
-	}
+  while ((client = _network->getActiveClient()))
+    {
+      std::cout << "--> client [" << client->getNickname() << "] says : " << client->getPacket() << "END" << std::endl;
+      parser(client);
+    }
 }
 
 void Server::parser(ClientInfo * client)
@@ -75,9 +76,9 @@ void Server::deleteClient(std::vector<ClientInfo*>::iterator& it, ClientInfo* cl
 
 bool Server::describeGame(ClientInfo * client)
 {
-	for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
-		_network->sendToClient(client, (*it)->getName() + "\n");
-	return true;
+  for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
+    _network->sendToClient(client, (*it)->getName() + "\r\n");
+  return true;
 }
 
 bool Server::createGame(ClientInfo * client, std::string& data)
@@ -85,6 +86,6 @@ bool Server::createGame(ClientInfo * client, std::string& data)
 	if (client->isInGame())
 		return false;
 	_games->startNewGame(data);
-	_network->sendToClient(client, "okkkkkkk bolosse\n");
+	_network->sendToClient(client, "okkkkkkk bolosse\r\n");
 	return true;
 }

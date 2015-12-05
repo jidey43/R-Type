@@ -11,34 +11,34 @@ TCPSocket::~TCPSocket()
 
 SOCKET			TCPSocket::startNetwork(std::string const &ip, std::string const &port, addrinfo hints)
 {
-	struct addrinfo *addr = NULL;
-	int result;
-	hints.ai_flags = AI_PASSIVE;
-	hints.ai_family = AF_INET;
-	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_protocol = IPPROTO_TCP;
-	hints.ai_addr = INADDR_ANY;
-	std::cout << ip << "   " << port << std::endl;
-	result = getaddrinfo(ip.c_str(), port.c_str(), &hints, &addr);
-	if (result != 0) {
-		printf("getaddrinfo failed: %d\n", result);
-		return INVALID_SOCKET;
-	}
+  struct addrinfo *addr = NULL;
+  int result;
+  hints.ai_flags = AI_PASSIVE;
+  hints.ai_family = AF_INET;
+  hints.ai_socktype = SOCK_STREAM;
+  hints.ai_protocol = IPPROTO_TCP;
+  hints.ai_addr = INADDR_ANY;
+  std::cout << ip << "   " << port << std::endl;
+  result = getaddrinfo(ip.c_str(), port.c_str(), &hints, &addr);
+  if (result != 0) {
+    printf("getaddrinfo failed: %d\n", result);
+    return INVALID_SOCKET;
+  }
 
-	SOCKET Thatsocket = INVALID_SOCKET;
-	if ((Thatsocket = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol)) == -1)
-	  printf("socket failed with error\n");
-	if (bind(Thatsocket, addr->ai_addr, (int)addr->ai_addrlen) == SOCKET_ERROR)
-	{
-	  printf("bind failed with error\n");
-		freeaddrinfo(addr);
-		return INVALID_SOCKET;
-	}
-	if (listen(Thatsocket, SOMAXCONN) == SOCKET_ERROR)
-	  printf("Listen failed with error\n");
-	_listen = Thatsocket;
-	std::cout << "listening on " << _listen << std::endl;
-	return _listen;
+  SOCKET Thatsocket = INVALID_SOCKET;
+  if ((Thatsocket = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol)) == -1)
+    printf("socket failed with error\n");
+  if (bind(Thatsocket, addr->ai_addr, (int)addr->ai_addrlen) == SOCKET_ERROR)
+    {
+      printf("bind failed with error\n");
+      freeaddrinfo(addr);
+      return INVALID_SOCKET;
+    }
+  if (listen(Thatsocket, SOMAXCONN) == SOCKET_ERROR)
+    printf("Listen failed with error\n");
+  _listen = Thatsocket;
+  std::cout << "listening on " << _listen << std::endl;
+  return _listen;
 }
 
 SOCKET	TCPSocket::acceptClient()
@@ -64,6 +64,7 @@ TransmitStatus			TCPSocket::rcvData(void* buffer, int size, SOCKET socket, Conne
 	int				res;
 
 	res = recv(socket, (char*)buffer, BUFF_LEN, 0);
-	std::cout << (char*)buffer << std::endl;
+	std::cout << res << std::endl;
+	std::cout << std::string(static_cast<char *>(buffer)) << "ENDOFRECEIVEDATA" << std::endl;
 	return (res == -1 ? ERR : (res == 0 ? DISCONNECTED : PASSED));
 }

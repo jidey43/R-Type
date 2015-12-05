@@ -11,6 +11,8 @@
 # include "WNetwork.hh"
 # include "ClientInfo.h"
 
+extern	SOCKET				_listen;
+extern  std::vector<ClientInfo*>	_clientList;
 template class				INetwork<TCPSocket>;
 
 class NetworkHandler
@@ -22,11 +24,9 @@ public:
 private:
 	std::string					_ip;
 	std::string					_port;
-	INetwork<TCPSocket>*		_network;
-	std::vector<ClientInfo*>	_clientList;
-	std::vector<ClientInfo*>	_activeClients;
+	INetwork<TCPSocket>*				_network;
+	std::vector<ClientInfo*>			_activeClients;
 	std::string					_packet;
-	SOCKET						_listen;
 
 public:
 	bool						initSocket();
@@ -35,8 +35,8 @@ public:
 	ClientInfo*					getActiveClient();
 	void						broadcast(char* msg);
 	bool						sendToClient(ClientInfo* client, std::string const& data);
-	TransmitStatus				receiveFromClient(ClientInfo* client);
-	TransmitStatus				receiveFromClient(SOCKET client);
+	TransmitStatus					receiveFromClient(ClientInfo* client);
+	TransmitStatus					receiveFromClient(SOCKET client);
 	void						closeConnection(ClientInfo* client);
 };
 

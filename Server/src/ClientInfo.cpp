@@ -1,7 +1,7 @@
 # include "ClientInfo.h"
 
 ClientInfo::ClientInfo(SOCKET socket)
-	: _isInGame(false), _socket(socket)
+  : _isInGame(false), _socket(socket), _remainPacket("")
 {
 }
 
@@ -37,4 +37,15 @@ SOCKET ClientInfo::getSocket() const
 std::string ClientInfo::getNickname() const
 {
 	return _nickname;
+}
+
+std::string ClientInfo::getRemainPacket() const
+{
+  return _remainPacket;
+}
+
+
+void		ClientInfo::setRemainPacket(std::string const& remain)
+{
+  _remainPacket = remain;
 }

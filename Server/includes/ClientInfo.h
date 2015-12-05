@@ -16,6 +16,7 @@ private:
 	SOCKET			_socket;
 	std::string		_nickname;
 	std::string		_packet;
+	std::string		_remainPacket;
 
 public:
 	bool			isInGame() const;
@@ -23,6 +24,8 @@ public:
 	std::string		getPacket() const;
 	SOCKET			getSocket() const;
 	std::string		getNickname() const;
+	std::string		getRemainPacket() const;
+	void			setRemainPacket(std::string const&);
 };
 
 #endif
