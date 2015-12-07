@@ -85,7 +85,7 @@ ClientInfo*	NetworkHandler::getActiveClient()
 
   IPacket* packet = receiveFromClient(client);
 
-  if (client-> == DISCONNECTED || ret == ERR)
+  if (clien == DISCONNECTED || ret == ERR)
     closeConnection(client);
   else
     {
@@ -165,16 +165,32 @@ void	NetworkHandler::broadcast(char* msg)
 
 IPacket*		NetworkHandler::receiveFromClient(ClientInfo* client)
 {
-  HeaderNetwork*	header = new HeaderNetwork();
-  char*			buf;
+  TransmitStatus	ret;
+  HeaderNetwork*	header = new HeaderNetwork;
+  std::string		tmp;
+  char*			buff = new char[sizeof(HeaderNetwork) + 5];
   IPacket*		packet;
 
-  ret = _network->recvData(header, sizeof(HeaderNetwork), client->getSocket(), NULL);
-  buf = new char[header->size];
-  ret = _network->recvData(buf, header->size, client->getSocket(), NULL);
-  //packet = _packetFactory->build(header, buf);
-  // header + data ok
-  return packet;
+  if ((ret = _network->recvData(buff, sizeof(HeaderNetwork) + 4, client->getSocket(), NULL)) == PASSED)
+    {
+      buff[sizeof(HeaderNetwork) + 4] = 0;
+      tmp = std::string(buff);
+      if (static_cast<int>(tmp.substr(tmp.size() - 4, tmp.size()).c_str()) != MAGIC)
+	return ERR;
+      header = static_cast<HeaderNetwork>(tmp.substr(0, tmp.size() - 5).c_str());
+    }
+  delete (buff);
+  buff = new char[header->size + 5];
+  if ((ret = _network->recvData(buff, header->size + 4, client->getSocket(), NULL)) == PASSED)
+    {
+      buff[header->size + 4] = 0;
+      tmp = std::string(buff);
+      if (static_cast<int>(tmp.substr(tmp.size() - 4, tmp.size()).c_str()) != MAGIC)
+	return ERR;
+      tmp = tmp.substr(0, tmp.size() - 5);
+    }
+  client->setPacket(_packetFactory->build(header->command, tmp));
+  return ret;
 }
 
 bool		NetworkHandler::sendToClient(ClientInfo* client, IPacket* packet)

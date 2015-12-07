@@ -4,6 +4,7 @@
 # include <string>
 # include <iostream>
 # define BUFF_LEN 256
+# define MAGIC 0xc33df721
 
 # ifdef _WIN32
 # include <io.h>
