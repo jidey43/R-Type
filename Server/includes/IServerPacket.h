@@ -1,5 +1,4 @@
 #include "NetworkDefines.h"
-#include "IPacket.h"
 
 typedef struct
 {
@@ -17,7 +16,7 @@ typedef struct
   int				id;
   char				gameName[256];
   char				players[256];
-} __attribute__ ((packed))	GameInfoData;
+} __attribute__ ((packed))	DesGameData;
 
 typedef integerData GameOverData;
 
@@ -28,5 +27,5 @@ public:
   virtual ~IServerPacket() {};
 
 public:
-  virtual std::string const&	deserialize() const = 0;
+  virtual std::string const&	deserialize() = 0;
 };
