@@ -11,6 +11,7 @@ typedef struct
   int				port;
 } __attribute__ ((packed))	GameInfoData;
 
+
 typedef struct
 {
   int				id;
@@ -21,6 +22,7 @@ typedef struct
 
 typedef integerData GameOverData;
 typedef integerData AuthData;
+typedef integerData GameListData;
 
 class IServerPacket
 {
