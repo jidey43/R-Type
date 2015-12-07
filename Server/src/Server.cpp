@@ -1,23 +1,22 @@
-#include "Server.h"
-
 #include <iostream>
+#include "Server.h"
 #include "NetworkDefines.h"
 #include "WNetwork.hh"
 
-
 Server::Server(std::string const & ip, std::string const & port)
-	: _network(new NetworkHandler(ip, port)), _games(new GameHandler())
+ : _network(new NetworkHandler(ip, port)),
+	  _games(new GameHandler())
 {
-	if (_network->initSocket())
-	{
-		start();
-	}
+  if (_network->initSocket())
+    {
+      start();
+    }
 }
 
 Server::~Server()
 {
 
-	delete _network;
+  delete _network;
 }
 
 void Server::start()
@@ -43,32 +42,32 @@ void Server::answerClients()
 
 void Server::parser(ClientInfo * client)
 {
-	// if (client->getPacket().find(" ", 0) != std::string::npos)
-	// {
-	//   std::cout << "parse" << std::endl;
-	//   std::string command = client->getPacket().substr(0, client->getPacket().find(" ", 0));
-	// 	std::string data = client->getPacket().substr(client->getPacket().find(" ", 0) + 1, client->getPacket().find("\n", 0) - 1);
+  // if (client->getPacket().find(" ", 0) != std::string::npos)
+  // {
+  //   std::cout << "parse" << std::endl;
+  //   std::string command = client->getPacket().substr(0, client->getPacket().find(" ", 0));
+  // 	std::string data = client->getPacket().substr(client->getPacket().find(" ", 0) + 1, client->getPacket().find("\n", 0) - 1);
 
-	// 	std::cout << DESCRIBE_GAME << "  " << command << std::endl;
-	// 	if (command == "DES_GAME")
-	// 		describeGame(client);
-	// 	else if (command == "CRE_GAME")
-	// 		createGame(client, data);
-	// 	else
-	// 		std::cout << "no match..." << std::endl;
-	// }
-	// else
-	//   {
-	//     _network->sendToClient(client, "fuck ya");
-	//     std::cout << "fuck ya" << std::endl;
-	//   }
-	//int i = _cPacket->command;
-	//if (_cPacket->command == DESCRIBE_GAME)
-	//	describeGame(client);
-	//else if (_cPacket->command == CREATE_GAME)
-	//	createGame(client);
-	//else
-	//	std::cout << "no match..." << std::endl;
+  // 	std::cout << DESCRIBE_GAME << "  " << command << std::endl;
+  // 	if (command == "DES_GAME")
+  // 		describeGame(client);
+  // 	else if (command == "CRE_GAME")
+  // 		createGame(client, data);
+  // 	else
+  // 		std::cout << "no match..." << std::endl;
+  // }
+  // else
+  //   {
+  //     _network->sendToClient(client, "fuck ya");
+  //     std::cout << "fuck ya" << std::endl;
+  //   }
+  //int i = _cPacket->command;
+  //if (_cPacket->command == DESCRIBE_GAME)
+  //	describeGame(client);
+  //else if (_cPacket->command == CREATE_GAME)
+  //	createGame(client);
+  //else
+  //	std::cout << "no match..." << std::endl;
 }
 
 void Server::deleteClient(std::vector<ClientInfo*>::iterator& it, ClientInfo* client)
@@ -84,9 +83,9 @@ bool Server::describeGame(ClientInfo * client)
 
 bool Server::createGame(ClientInfo * client, std::string& data)
 {
-	// if (client->isInGame())
-	// 	return false;
-	// _games->startNewGame(data);
-	// _network->sendToClient(client, "okkkkkkk bolosse\r\n");
-	return true;
+  // if (client->isInGame())
+  // 	return false;
+  // _games->startNewGame(data);
+  // _network->sendToClient(client, "okkkkkkk bolosse\r\n");
+  return true;
 }

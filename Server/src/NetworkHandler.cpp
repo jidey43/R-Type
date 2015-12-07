@@ -85,8 +85,8 @@ ClientInfo*	NetworkHandler::getActiveClient()
 
   TransmitStatus ret;
   ClientInfo*	client = _activeClients.back();
-  _activeClients.pop_back();
 
+  _activeClients.pop_back();
   ret = receiveFromClient(client);
 
   if (ret == DISCONNECTED || ret == ERR)
@@ -98,10 +98,58 @@ ClientInfo*	NetworkHandler::getActiveClient()
 
 void	NetworkHandler::broadcast(char* msg)
 {
-	for (std::vector<ClientInfo*>::iterator it = _clientList.begin(); it != _clientList.end(); ++it)
-	{/*
-		_network->sendData((*it)->getSocket(), msg, sizeof(msg));*/
-	}
+  for (std::vector<ClientInfo*>::iterator it = _clientList.begin(); it != _clientList.end(); ++it)
+    {/*
+       _network->sendData((*it)->getSocket(), msg, sizeof(msg));*/
+    }
+}
+
+TransmitStatus		NetworkHandler::receiveFromClient(ClientInfo* client)
+{
+  TransmitStatus	ret;
+  HeaderNetwork*	header = new HeaderNetwork;
+  std::string		tmp;
+  char*			buff = new char[sizeof(HeaderNetwork) + 5];
+  IClientPacket*		packet;
+
+  if ((ret = _network->recvData(buff, sizeof(HeaderNetwork) + 4, client->getSocket(), NULL)) == PASSED)
+    {
+      buff[sizeof(HeaderNetwork) + 4] = 0;
+      tmp = std::string(buff);
+
+      int *nb = (int*)(tmp.substr(tmp.size() - 4, tmp.size()).c_str());
+      if (*nb != MAGIC)
+	return ERR;
+      memcpy(header, (tmp.substr(0, sizeof(HeaderNetwork)).c_str()), sizeof(HeaderNetwork));
+    }
+  delete (buff);
+  buff = new char[header->size + 5];
+  if ((ret = _network->recvData(buff, header->size + 4, client->getSocket(), NULL)) == PASSED)
+    {
+      buff[header->size + 4] = 0;
+      tmp = std::string(buff);
+
+      int *nb = (int*)(tmp.substr(tmp.size() - 4, tmp.size()).c_str());
+      if (*nb != MAGIC)
+	return ERR;
+      tmp = tmp.substr(0, tmp.size() - 5);
+    }
+  client->setPacket(_factory->build(header->command, tmp));
+  return ret;
+}
+
+bool		NetworkHandler::sendToClient(ClientInfo* client, IServerPacket* packet)
+{
+  std::string	toSend = pack->deserialize();
+
+  _network->sendData(toSend.c_str(), size, client->getSocket(), NULL);
+}
+
+void	NetworkHandler::closeConnection(ClientInfo* client)
+{
+  _network->closeConnection(client->getSocket());
+  _clientList.erase(std::find(_clientList.begin(), _clientList.end(), client));
+  delete client;
 }
 
 /*
@@ -163,49 +211,3 @@ void	NetworkHandler::broadcast(char* msg)
 //   _network->sendData(buff, size, client->getSocket(), NULL);
 //   return (true);
 // }
-
-TransmitStatus		NetworkHandler::receiveFromClient(ClientInfo* client)
-{
-  TransmitStatus	ret;
-  HeaderNetwork*	header = new HeaderNetwork;
-  std::string		tmp;
-  char*			buff = new char[sizeof(HeaderNetwork) + 5];
-  IClientPacket*		packet;
-
-  if ((ret = _network->recvData(buff, sizeof(HeaderNetwork) + 4, client->getSocket(), NULL)) == PASSED)
-    {
-      buff[sizeof(HeaderNetwork) + 4] = 0;
-      tmp = std::string(buff);
-
-      int *nb = (int*)(tmp.substr(tmp.size() - 4, tmp.size()).c_str());
-      if (*nb != MAGIC)
-	return ERR;
-      memcpy(header, (tmp.substr(0, sizeof(HeaderNetwork)).c_str()), sizeof(HeaderNetwork));
-    }
-  delete (buff);
-  buff = new char[header->size + 5];
-  if ((ret = _network->recvData(buff, header->size + 4, client->getSocket(), NULL)) == PASSED)
-    {
-      buff[header->size + 4] = 0;
-      tmp = std::string(buff);
-
-      int *nb = (int*)(tmp.substr(tmp.size() - 4, tmp.size()).c_str());
-      if (*nb != MAGIC)
-	return ERR;
-      tmp = tmp.substr(0, tmp.size() - 5);
-    }
-  client->setPacket(_factory->build(header->command, tmp));
-  return ret;
-}
-
-bool		NetworkHandler::sendToClient(ClientInfo* client, IServerPacket* packet)
-{
-
-}
-
-void	NetworkHandler::closeConnection(ClientInfo* client)
-{
-  _network->closeConnection(client->getSocket());
-  _clientList.erase(std::find(_clientList.begin(), _clientList.end(), client));
-  delete client;
-}
