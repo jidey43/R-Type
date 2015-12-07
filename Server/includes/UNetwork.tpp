@@ -71,13 +71,13 @@ SOCKET UNetwork<T>::acceptSocket()
 }
 
 template <typename T>
-IPacket* UNetwork<T>::recvData(void *data, int size, SOCKET sock, ConnectionData *addr)
+TransmitStatus UNetwork<T>::recvData(void *data, int size, SOCKET sock, ConnectionData *addr)
 {
   return _socket->rcvData(data, size, sock, addr);
 }
 
 template <typename T>
-IPacket* UNetwork<T>::sendData(void *data, int size, SOCKET sock, ConnectionData *addr)
+TransmitStatus UNetwork<T>::sendData(void *data, int size, SOCKET sock, ConnectionData *addr)
 {
   return _socket->sendData(data, size, sock, addr);
 }
@@ -85,20 +85,20 @@ IPacket* UNetwork<T>::sendData(void *data, int size, SOCKET sock, ConnectionData
 template <typename T>
 bool UNetwork<T>::closeConnection(SOCKET socket)
 {
-	close(socket);
-	return true;
+  close(socket);
+  return true;
 }
 
 template <typename T>
 SOCKET UNetwork<T>::getFd() const
 {
-	return (_listen);
+  return (_listen);
 }
 
 template <typename T>
 INetwork<T>*		getNetworkInstance()
 {
-	return new UNetwork<T>();
+  return new UNetwork<T>();
 }
 
 #endif

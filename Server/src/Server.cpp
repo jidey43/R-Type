@@ -77,16 +77,16 @@ void Server::deleteClient(std::vector<ClientInfo*>::iterator& it, ClientInfo* cl
 
 bool Server::describeGame(ClientInfo * client)
 {
-  for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
-    _network->sendToClient(client, (*it)->getName() + "\r\n");
+  // for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
+  //   _network->sendToClient(client, (*it)->getName() + "\r\n");
   return true;
 }
 
 bool Server::createGame(ClientInfo * client, std::string& data)
 {
-	if (client->isInGame())
-		return false;
-	_games->startNewGame(data);
-	_network->sendToClient(client, "okkkkkkk bolosse\r\n");
+	// if (client->isInGame())
+	// 	return false;
+	// _games->startNewGame(data);
+	// _network->sendToClient(client, "okkkkkkk bolosse\r\n");
 	return true;
 }

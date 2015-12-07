@@ -26,7 +26,6 @@ public:
   /* virtual bool			setRawHeader(std::string const&) = 0; */
   /* virtual HeaderNetwork const&	getHeader() const = 0; */
   virtual bool			setRawData(std::string const&) = 0;
-  virtual IPacket const&	getData() const = 0;
   /* virtual bool			processCommand() = 0; */
 };
 

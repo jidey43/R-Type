@@ -9,13 +9,16 @@ std::vector<ClientInfo*>	_clientList;
 NetworkHandler::NetworkHandler(std::string const & ip, std::string const & port)
 	: _ip(ip),
 	  _port(port),
-	  _network(getNetworkInstance<TCPSocket>())
+	  _network(getNetworkInstance<TCPSocket>()),
+	  _packet(NULL),
+	  _factory(new PacketFactory())
 {
 }
 
 NetworkHandler::~NetworkHandler()
 {
   delete _network;
+  delete _factory;
 }
 
 bool NetworkHandler::initSocket()
@@ -80,18 +83,16 @@ ClientInfo*	NetworkHandler::getActiveClient()
   if (_activeClients.empty())
     return NULL;
 
+  TransmitStatus ret;
   ClientInfo*	client = _activeClients.back();
   _activeClients.pop_back();
 
-  IPacket* packet = receiveFromClient(client);
+  ret = receiveFromClient(client);
 
-  if (clien == DISCONNECTED || ret == ERR)
+  if (ret == DISCONNECTED || ret == ERR)
     closeConnection(client);
   else
-    {
-      client->setPacket(packet);
-      return client;
-    }
+    return client;
   return NULL;
 }
 
@@ -163,7 +164,7 @@ void	NetworkHandler::broadcast(char* msg)
 //   return (true);
 // }
 
-IPacket*		NetworkHandler::receiveFromClient(ClientInfo* client)
+TransmitStatus		NetworkHandler::receiveFromClient(ClientInfo* client)
 {
   TransmitStatus	ret;
   HeaderNetwork*	header = new HeaderNetwork;
@@ -175,9 +176,11 @@ IPacket*		NetworkHandler::receiveFromClient(ClientInfo* client)
     {
       buff[sizeof(HeaderNetwork) + 4] = 0;
       tmp = std::string(buff);
-      if (static_cast<int>(tmp.substr(tmp.size() - 4, tmp.size()).c_str()) != MAGIC)
+
+      int *nb = (int*)(tmp.substr(tmp.size() - 4, tmp.size()).c_str());
+      if (*nb != MAGIC)
 	return ERR;
-      header = static_cast<HeaderNetwork>(tmp.substr(0, tmp.size() - 5).c_str());
+      memcpy(header, (tmp.substr(0, sizeof(HeaderNetwork)).c_str()), sizeof(HeaderNetwork));
     }
   delete (buff);
   buff = new char[header->size + 5];
@@ -185,11 +188,13 @@ IPacket*		NetworkHandler::receiveFromClient(ClientInfo* client)
     {
       buff[header->size + 4] = 0;
       tmp = std::string(buff);
-      if (static_cast<int>(tmp.substr(tmp.size() - 4, tmp.size()).c_str()) != MAGIC)
+
+      int *nb = (int*)(tmp.substr(tmp.size() - 4, tmp.size()).c_str());
+      if (*nb != MAGIC)
 	return ERR;
       tmp = tmp.substr(0, tmp.size() - 5);
     }
-  client->setPacket(_packetFactory->build(header->command, tmp));
+  client->setPacket(_factory->build(header->command, tmp));
   return ret;
 }
 
