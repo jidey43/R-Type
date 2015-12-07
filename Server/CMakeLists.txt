@@ -17,10 +17,10 @@ endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/server)
 
-file(GLOB SERVERSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
+file(GLOB SERVERSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Server/src/*.cpp)
 
 MESSAGE("${SERVERSOURCES}")
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/includes")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Server/includes")
 
 add_executable(RTypeServer ${SERVERSOURCES})
