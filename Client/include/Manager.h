@@ -15,11 +15,13 @@ public:
 
 public:
 	void				loop();
+	void				treatEvents();
 
 private:
 	sf::Clock			_clock;
 	sf::Time			_loopTime;
 
 private:
+	keyboardStatus		_keyboardStatus;
 	ItemController		*_itemCtrl;
 };

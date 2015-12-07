@@ -32,7 +32,7 @@ public:
 	void			operator<<(GameItem*);
 
 //INPUT STUFF
-	keyboardStatus	getEvents();
+	keyboardStatus	getKeyboardStatus();
 
 //AUDIO STUFF
 public:

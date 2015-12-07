@@ -32,12 +32,21 @@ void					Manager::loop()
 	while (1)
 	{
 		_clock.restart();
-		//vc->clear();
-		vc->getEvents();
+		vc->clear();
+
 		_itemCtrl->update();
 		_itemCtrl->draw();
+		
+		_keyboardStatus =  vc->getKeyboardStatus();
+		treatEvents();
+
 		vc->refresh();
 		_loopTime = _clock.getElapsedTime();
 		sf::sleep(sf::Time(sf::microseconds(16666)) - _loopTime);
 	}
+}
+
+void Manager::treatEvents()
+{
+	
 }

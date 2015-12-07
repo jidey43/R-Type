@@ -33,7 +33,7 @@ void							ViewController::draw(sf::Drawable* drawable)
 	_mainWindow->draw(*drawable);
 }
 
-keyboardStatus					ViewController::getEvents()
+keyboardStatus					ViewController::getKeyboardStatus()
 {
 	keyboardStatus		state = {false, false, false, false};
 
