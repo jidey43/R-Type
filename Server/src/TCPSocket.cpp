@@ -46,15 +46,15 @@ SOCKET	TCPSocket::acceptClient()
 	SOCKET socket = INVALID_SOCKET;
 
 	if ((socket = accept(_listen, NULL, NULL)) == INVALID_SOCKET)
-	  printf("accept failed\n");
+	  std::cerr << "accept failed" << std::endl;
 	return socket;
 }
 
 TransmitStatus	TCPSocket::sendData(const void *buffer, int size, SOCKET socket, ConnectionData *addr)
 {
-	int res = send(socket, (char*)buffer, size, 0);
+	int res = send(socket, (void*)buffer, size, 0);
 	if (res == -1)
-		printf("send failed\n");
+	  std::cerr << "send failed" << std::endl;
 	return (res == -1 ? ERR : PASSED);
 }
 
@@ -63,8 +63,6 @@ TransmitStatus			TCPSocket::rcvData(void* buffer, int size, SOCKET socket, Conne
 	int				addr_len = sizeof(addr);
 	int				res;
 
-	res = recv(socket, (char*)buffer, BUFF_LEN, 0);
-	std::cout << res << std::endl;
-	std::cout << std::string(static_cast<char *>(buffer)) << "ENDOFRECEIVEDATA" << std::endl;
+	res = recv(socket, (void*)buffer, size, 0);
 	return (res == -1 ? ERR : (res == 0 ? DISCONNECTED : PASSED));
 }

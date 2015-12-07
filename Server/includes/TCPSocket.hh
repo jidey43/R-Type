@@ -11,7 +11,7 @@ class							TCPSocket
 private:
 	std::string					_ip;
 	std::string					_port;
-	int							_listen;
+	int						_listen;
 
 public:
 	TCPSocket();
@@ -19,8 +19,8 @@ public:
 
 	SOCKET						startNetwork(std::string const &ip, std::string const &port, addrinfo);
 	SOCKET						acceptClient();
-	TransmitStatus				sendData(const void *buffer, int size, SOCKET socket, ConnectionData *addr);
-	TransmitStatus				rcvData(void*, int size, SOCKET socket, ConnectionData *addr);
+	TransmitStatus					sendData(const void *buffer, int size, SOCKET socket, ConnectionData *addr);
+	TransmitStatus					rcvData(void*, int size, SOCKET socket, ConnectionData *addr);
 };
 
 #endif

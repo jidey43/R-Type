@@ -35,32 +35,33 @@ void Server::answerClients()
 
   while ((client = _network->getActiveClient()))
     {
-      std::cout << "--> client [" << client->getNickname() << "] says : " << client->getPacket() << "END" << std::endl;
-      parser(client);
+      std::cout << client->getSocket() << std::endl;
+      //std::cout << "--> client [" << client->getNickname() << "] says : " << client->getPacket() << "END" << std::endl;
+      //parser(client);
     }
 }
 
 void Server::parser(ClientInfo * client)
 {
-	if (client->getPacket().find(" ", 0) != std::string::npos)
-	{
-	  std::cout << "parse" << std::endl;
-	  std::string command = client->getPacket().substr(0, client->getPacket().find(" ", 0));
-		std::string data = client->getPacket().substr(client->getPacket().find(" ", 0) + 1, client->getPacket().find("\n", 0) - 1);
+	// if (client->getPacket().find(" ", 0) != std::string::npos)
+	// {
+	//   std::cout << "parse" << std::endl;
+	//   std::string command = client->getPacket().substr(0, client->getPacket().find(" ", 0));
+	// 	std::string data = client->getPacket().substr(client->getPacket().find(" ", 0) + 1, client->getPacket().find("\n", 0) - 1);
 
-		std::cout << DESCRIBE_GAME << "  " << command << std::endl;
-		if (command == "DES_GAME")
-			describeGame(client);
-		else if (command == "CRE_GAME")
-			createGame(client, data);
-		else
-			std::cout << "no match..." << std::endl;
-	}
-	else
-	  {
-	    _network->sendToClient(client, "fuck ya");
-	    std::cout << "fuck ya" << std::endl;
-	  }
+	// 	std::cout << DESCRIBE_GAME << "  " << command << std::endl;
+	// 	if (command == "DES_GAME")
+	// 		describeGame(client);
+	// 	else if (command == "CRE_GAME")
+	// 		createGame(client, data);
+	// 	else
+	// 		std::cout << "no match..." << std::endl;
+	// }
+	// else
+	//   {
+	//     _network->sendToClient(client, "fuck ya");
+	//     std::cout << "fuck ya" << std::endl;
+	//   }
 	//int i = _cPacket->command;
 	//if (_cPacket->command == DESCRIBE_GAME)
 	//	describeGame(client);
