@@ -131,6 +131,7 @@ TransmitStatus NetworkHandler::receiveFromClient(ClientInfo* client)
     }
   client->setRemainPacket(entry.substr(pos + 1, entry.size()));
   _packet += entry.substr(0, pos);
+  client->setPacket(_packet);
   return PASSED;
 }
 
