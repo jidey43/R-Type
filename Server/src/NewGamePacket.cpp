@@ -2,7 +2,7 @@
 #include "NewGamePacket.h"
 
 NewGamePacket::NewGamePacket(std::string const& data)
-  : _command(CREATE_GAME), _data(new NewGameData)
+  : _command(ADD_GAME), _data(new NewGameData)
 {
   setRawData(data);
 }

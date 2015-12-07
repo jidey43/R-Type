@@ -14,13 +14,13 @@ IClientPacket*		PacketFactory::build(ClientCommand cmd, std::string const& data)
     // case DESCRIBE_GAME:
     //   return new DescribePacket(data)
     //   break;
-    // case SET_NICK:
+    // case AUTH_TCP:
     //   return new SetNickPacket(data)
     //   break;
     // case JOIN_GAME:
     //   return new JoinPacket(data)
     //   break;
-    case CREATE_GAME:
+    case ADD_GAME:
       return new NewGamePacket(data);
       break;
     default:
