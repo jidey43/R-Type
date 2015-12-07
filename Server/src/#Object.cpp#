@@ -1,0 +1,18 @@
+#include "Object.hh"
+
+Object::Object(sf::Vector2f speed, sf::Vector2i size)
+  : _speed(speed), _size(size)
+{}
+
+Object::Object(sf::Vector2f speed, sf::Vector2i size, float coeff)
+  :_speed(speed), _size(size),  _coeff(coeff)
+{}
+
+
+ObjectInfo::Type	&Object::getObjType()
+{
+  return _objType;
+}
+
+void			Object::update()
+{}

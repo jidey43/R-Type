@@ -2,7 +2,7 @@
 # define _OBJECT_HH_
 
 # include <SFML/System/Vector2.hpp>
-# include <Time.hpp>
+# include <SFML/System/Time.hpp>
 # include "IObject.hh"
 
 class Object : public IObject
@@ -12,9 +12,9 @@ public:
   ~Object();
 
 public:
-  ObjectInfo::Type		&getObjType() const;
-  sf::Vector2i			&getSize() const;
-  sf::Vector2f			&getSpeed() const;
+  ObjectInfo::Type		getObjType() const;
+  sf::Vector2i			getSize() const;
+  sf::Vector2f			getSpeed() const;
   void				update();
   
 protected:

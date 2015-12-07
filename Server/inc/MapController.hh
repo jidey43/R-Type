@@ -2,6 +2,7 @@
 # define _MAP_CONTROLLER_HH_
 
 # include <vector>
+# include "IObject.hh"
 
 class	MapController
 {

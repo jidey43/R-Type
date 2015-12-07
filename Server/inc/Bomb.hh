@@ -6,7 +6,7 @@
 class Bomb : public Projectile
 {
 public:
-  Bomb(Object::Type , sf::Vector2i);
+  Bomb(ObjectInfo::Type, sf::Vector2f, sf::Vector2i, float);
   ~Bomb();
 
 public:
@@ -15,6 +15,6 @@ public:
 
 private:
   short		_countDown;
-}
+};
 
 # endif

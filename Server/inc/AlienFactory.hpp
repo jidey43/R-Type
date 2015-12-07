@@ -1,35 +1,37 @@
 #ifndef _ALIENFACTORY_HH_
 # define _ALIENFACTORY_HH_
 
-# include <vector>
-# inluce "IObject.hh"
+# include <deque>
+# include "IObject.hh"
 # include "Waves.hh"
+# include <cstddef>
 
 template <class T>
 class	AlienFactory
 {
 public:
-  AlienFactory();
-  ~AlienFactory();
+  AlienFactory() {};
+  ~AlienFactory() {};
 
 public:
-  IObject	*getNextEnemy();
+
+  IObject	*getNextEnemy()
   {
-    if (_order.front()->getTime() == /* future timer*/)
+    IObject *obj;
+    if (   0/*_order.front()->getTime() == 0 future timer*/)
       {
-	IObject *obj = new T(_order.front()->getSpeed(), _order.front()->getPos(), _order.front()->getCoeff());
-	_order.pop();
+        obj = new T(_order.front()->getSpeed(), _order.front()->getPos(), _order.front()->getCoeff());
+	_order.front()->pop();
       }
     else
-      IObject *obj = NULL;
-    if (_oder->front().getCount() == 0)
-      _order->pop_front();
+      obj = NULL;
+    if (_order.front()->getCount() == 0)
+      _order.pop_front();
     return (obj);
   }
-
   
 public:
-  std::vector<Waves*>	_order;
+  std::deque<Waves*>	_order;
 };
 
 #endif

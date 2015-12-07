@@ -6,12 +6,12 @@
 class BydoAlien : public Alien
 {
 public:
-  BydoAlien(sf::Vector2i pos);
+  BydoAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff);
   ~BydoAlien();
 
 public:
   void		update();
-  IObject	*Basicshoot();
-}
+  IObject	*BasicShoot();
+};
 
 # endif

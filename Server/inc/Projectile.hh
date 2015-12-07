@@ -6,11 +6,11 @@
 class Projectile : public Object
 {
 public:
-  Projectile(Object::Type , sf::Vector2i);
+  Projectile(sf::Vector2f, sf::Vector2i, float);
   ~Projectile();
 
 public:
   void		update();
-}
+};
 
 # endif

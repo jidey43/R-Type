@@ -7,12 +7,12 @@
 class Player: public Object
 {
 public:
-  Player(sf::Vector2i);
+  Player(sf::Vector2f, sf::Vector2i, float );
   ~Player();
 
 public:
   void		update();
   IObject	*BasicShoot();
-}
+};
 
 # endif

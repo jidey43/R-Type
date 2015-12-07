@@ -1,6 +1,6 @@
 #include "BydoAlien.hh"
 
-BydoAlien::BydoAlien()
+BydoAlien::BydoAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff) : Alien(speed, pos, coeff)
 {}
 
 BydoAlien::~BydoAlien()

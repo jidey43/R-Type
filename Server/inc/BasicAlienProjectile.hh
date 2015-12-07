@@ -6,11 +6,11 @@
 class BasicAlienProjectile : public Projectile
 {
 public:
-  BasicAlienProjectile(Object::Type , sf::Vector2i);
+  BasicAlienProjectile(sf::Vector2f speed, sf::Vector2i pos, float coeff);
   ~BasicAlienProjectile();
 
 public:
   void		update();
-}
+};
 
 # endif

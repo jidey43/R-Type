@@ -6,12 +6,12 @@
 class Alien : public Object
 {
 public:
-  Alien(sf::Vector2i pos);
+  Alien(sf::Vector2f, sf::Vector2i, float);
   ~Alien();
 
 public:
   void		update();
   IObject	*Basicshoot();
-}
+};
 
 # endif

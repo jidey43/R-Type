@@ -10,6 +10,20 @@ namespace ObjectInfo
       PROJECTILE_PLAYER,
       PROJECTILE_ALIEN
     };
+
+  enum WaweType
+    {
+      BYDO,
+      GLAM,
+      DOKAN,
+      KAYBEROS,
+      RIOS,
+      SCANT,
+      SHELL,
+      YORK,
+      XELF16
+    };
+  
 };
 
 #endif

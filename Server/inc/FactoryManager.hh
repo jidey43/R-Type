@@ -3,18 +3,17 @@
 
 # include <vector>
 # include "MapController.hh"
-# include "AlienFactory.hh"
+# include "AlienFactory.hpp"
 
 class FactoryManager
 {
-
 public:
-  FactoryManager(MapController);
+  FactoryManager(MapController*);
   ~FactoryManager();
 
   void		update();
 
- private:
+private:
   MapController			*_map;
   std::vector<AlienFactory*>	_factories;
 };

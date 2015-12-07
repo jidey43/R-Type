@@ -19,3 +19,45 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Server/inc")
 
 add_executable(RTypeServer ${SERVERSOURCES})
 
+# SFML CONFIG
+
+if (WIN32)
+  set(SFML_STATIC_LIBRARIES TRUE)
+endif(WIN32)
+
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake_modules")
+
+if(WIN32)
+  set(SFML_ROOT "${PROJECT_SOURCE_DIR}/../SFML-2.3.2-win")
+  find_package(SFML 2.3.2 REQUIRED system window graphics network audio)
+  if (SFML_FOUND)
+    include_directories(${SFML_INCLUDE_DIR})
+    target_link_libraries(RTypeServer ${SFML_LIBRARIES})
+
+    target_link_libraries(RTypeServer
+      ${PROJECT_SOURCE_DIR}/SFML-2.3.2-win/lib/flac.lib
+      ${PROJECT_SOURCE_DIR}/SFML-2.3.2-win/lib/freetype.lib
+      ${PROJECT_SOURCE_DIR}/SFML-2.3.2-win/lib/jpeg.lib
+      ${PROJECT_SOURCE_DIR}/SFML-2.3.2-win/lib/ogg.lib
+      ${PROJECT_SOURCE_DIR}/SFML-2.3.2-win/lib/openal32.lib
+      ${PROJECT_SOURCE_DIR}/SFML-2.3.2-win/lib/vorbis.lib
+      ${PROJECT_SOURCE_DIR}/SFML-2.3.2-win/lib/vorbisenc.lib
+      ${PROJECT_SOURCE_DIR}/SFML-2.3.2-win/lib/vorbisfile.lib
+      winmm.lib
+      opengl32.lib
+      )
+
+  endif(SFML_FOUND)
+endif(WIN32)
+
+if (UNIX)
+
+  set(SFMLDIR "${PROJECT_SOURCE_DIR}/SFML-2.3.2-uni")
+  set(SFML_ROOT "${PROJECT_SOURCE_DIR}/SFML-2.3.2-uni")
+  MESSAGE(STATUS "SFML_ROOT : " ${SFML_ROOT})
+  find_package(SFML 2 REQUIRED system window graphics network audio)
+  if (SFML_FOUND)
+    include_directories(${SFML_INCLUDE_DIR})
+    target_link_libraries(RTypeServer ${SFML_LIBRARIES})
+  endif(SFML_FOUND)
+endif(UNIX)
