@@ -11,6 +11,7 @@
 # include "WNetwork.hh"
 # include "ClientInfo.h"
 # include "PacketFactory.hh"
+# include "IServerPacket.h"
 
 extern	SOCKET				_listen;
 extern  std::vector<ClientInfo*>	_clientList;
