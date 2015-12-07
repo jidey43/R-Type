@@ -27,7 +27,7 @@ private:
 	std::string					_port;
 	INetwork<TCPSocket>*				_network;
 	std::vector<ClientInfo*>			_activeClients;
-	IPacket*					_packet;
+	IClientPacket*					_packet;
 	PacketFactory*					_factory;
 
 public:
@@ -39,7 +39,7 @@ public:
 	void						closeConnection(ClientInfo *);
 
 private:
-	bool						sendToClient(ClientInfo *, IPacket *);
+	bool						sendToClient(ClientInfo *, IServerPacket *);
 	TransmitStatus					receiveFromClient(ClientInfo *);
 };
 

@@ -3,7 +3,7 @@
 
 # include <string>
 # include "NetworkDefines.h"
-# include "IPacket.h"
+# include "IClientPacket.hh"
 
 class ClientInfo
 {
@@ -17,12 +17,12 @@ class ClientInfo
   bool			_disconnected;
   SOCKET		_socket;
   std::string		_nickname;
-  IPacket*		_packet;
+  IClientPacket*	_packet;
 
  public:
   bool			isInGame() const;
-  void			setPacket(IPacket*);
-  IPacket*		getPacket() const;
+  void			setPacket(IClientPacket*);
+  IClientPacket*	getPacket() const;
   SOCKET		getSocket() const;
   std::string		getNickname() const;
   bool			getDisconnected() const;

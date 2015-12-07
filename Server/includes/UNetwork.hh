@@ -4,7 +4,6 @@
 # ifdef __linux__
 
 # include "INetwork.hh"
-# include "IPacket.h"
 
 template <class T>
 class UNetwork : public INetwork<T>

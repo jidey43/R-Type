@@ -1,9 +1,9 @@
 #ifndef NEWGAMEPACKET_H_
 # define NEWGAMEPACKET_H_
 
-# include "IPacket.h"
+# include "IClientPacket.hh"
 
-class NewGamePacket : public IPacket
+class NewGamePacket : public IClientPacket
 {
 public:
   NewGamePacket(std::string const&);
@@ -15,11 +15,8 @@ private:
 
 public:
   ClientCommand const&	getCommandType() const;
-  /* bool			setRawHeader(std::string const&); */
-  /* HeaderNetwork const&	getHeader() const; */
-  bool			setRawData(std::string const&);
+  void			setRawData(std::string const&);
   NewGameData*		getData() const;
-  /* bool			processCommand(); */
 };
 
 #endif

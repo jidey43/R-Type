@@ -22,14 +22,14 @@ bool ClientInfo::isInGame() const
   return _isInGame;
 }
 
-void ClientInfo::setPacket(IPacket* packet)
+void ClientInfo::setPacket(IClientPacket* packet)
 {
   if (!_packet)
     delete (_packet);
   _packet = packet;
 }
 
-IPacket* ClientInfo::getPacket() const
+IClientPacket* ClientInfo::getPacket() const
 {
   return _packet;
 }

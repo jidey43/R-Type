@@ -7,7 +7,7 @@ PacketFactory::PacketFactory()
 PacketFactory::~PacketFactory()
 {}
 
-IPacket*		PacketFactory::build(ClientCommand cmd, std::string const& data)
+IClientPacket*		PacketFactory::build(ClientCommand cmd, std::string const& data)
 {
   switch(cmd)
     {
@@ -28,7 +28,7 @@ IPacket*		PacketFactory::build(ClientCommand cmd, std::string const& data)
     }
 }
 
-std::string const&	PacketFactory::disassemble(IPacket* packet)
+std::string const&	PacketFactory::disassemble(IClientPacket* packet)
 {
   std::string		ret;
 

@@ -16,16 +16,7 @@ ClientCommand const&	NewGamePacket::getCommandType() const
   return _command;
 }
 
-// bool			NewGamePacket::setRawHeader(std::string const& data)
-// {
-// }
-
-// HeaderNetwork const&	NewGamePacket::getHeader() const
-// {
-
-// }
-
-bool			NewGamePacket::setRawData(std::string const& data)
+void			NewGamePacket::setRawData(std::string const& data)
 {
   void*			buff;
 
@@ -37,8 +28,3 @@ NewGameData*		NewGamePacket::getData() const
 {
   return _data;
 }
-
-// bool			NewGamePacket::processCommand()
-// {
-
-// }

@@ -1,4 +1,4 @@
-#include "IPacket.h"
+#include "IClientPacket.hh"
 #include "NetworkDefines.h"
 
 class PacketFactory
@@ -7,7 +7,6 @@ public:
   PacketFactory();
   virtual ~PacketFactory();
 
-  IPacket*		build(ClientCommand cmd, std::string const& data);
-  std::string const&	disassemble(IPacket* packet);
-
+  IClientPacket*		build(ClientCommand cmd, std::string const& data);
+  std::string const&	disassemble(IClientPacket* packet);
 };

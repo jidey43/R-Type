@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include "NetworkHandler.h"
-#include "IPacket.h"
+#include "IClientPacket.hh"
 
 SOCKET				_listen = -1;
 std::vector<ClientInfo*>	_clientList;
@@ -170,7 +170,7 @@ TransmitStatus		NetworkHandler::receiveFromClient(ClientInfo* client)
   HeaderNetwork*	header = new HeaderNetwork;
   std::string		tmp;
   char*			buff = new char[sizeof(HeaderNetwork) + 5];
-  IPacket*		packet;
+  IClientPacket*		packet;
 
   if ((ret = _network->recvData(buff, sizeof(HeaderNetwork) + 4, client->getSocket(), NULL)) == PASSED)
     {
@@ -198,7 +198,7 @@ TransmitStatus		NetworkHandler::receiveFromClient(ClientInfo* client)
   return ret;
 }
 
-bool		NetworkHandler::sendToClient(ClientInfo* client, IPacket* packet)
+bool		NetworkHandler::sendToClient(ClientInfo* client, IServerPacket* packet)
 {
 
 }
