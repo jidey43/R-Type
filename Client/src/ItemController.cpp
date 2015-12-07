@@ -17,21 +17,18 @@ void ItemController::draw()
 	if (_background->getTexture() != NULL)
 		vc->draw(_background);
 	for (int i = 0; i != _ships.size(); i++)
-	{
 		*vc << _ships[i];
-	}
 	for (int i = 0; i != _shots.size(); i++)
-	{
 		*vc << _shots[i];
-	}
-
 }
 
 void ItemController::update()
 {
 	for (int i = 0; i != _shots.size(); i++)
 	{
-		_shots[i]->update();
+			_shots[i]->update();
+		//if (_shots[i]->die())
+		//	_shots.erase(i);
 	}
 
 }
