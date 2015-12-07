@@ -12,7 +12,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/client)
 
 file(GLOB CLIENTSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/*.cpp)
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include ")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Client/include ")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../Server/includes ")
 
 add_executable(RTypeClient ${CLIENTSOURCES})
