@@ -1,12 +1,12 @@
 # include "ClientInfo.h"
 
 ClientInfo::ClientInfo(SOCKET socket)
-  : _isInGame(false), _socket(socket), _remainPacket("")
+  : _isInGame(false), _disconnected(false), _socket(socket)
 {
 }
 
 ClientInfo::ClientInfo(SOCKET socket, std::string const & nick)
-	: _isInGame(false), _socket(socket), _nickname(nick)
+  : _isInGame(false), _disconnected(false), _socket(socket), _nickname(nick)
 {
 }
 
@@ -19,12 +19,12 @@ bool ClientInfo::isInGame() const
 	return _isInGame;
 }
 
-void ClientInfo::setPacket(std::string const& str)
+void ClientInfo::setPacket(IPacket* packet)
 {
-	_packet = str;
+	_packet = packet;
 }
 
-std::string ClientInfo::getPacket() const
+IPacket* ClientInfo::getPacket() const
 {
 	return _packet;
 }
@@ -34,18 +34,17 @@ SOCKET ClientInfo::getSocket() const
 	return _socket;
 }
 
+void	ClientInfo::setDisconnected(bool disc)
+{
+	_disconnected = disc;
+}
+
+bool	ClientInfo::getDisconnected() const
+{
+	return _disconnected;
+}
+
 std::string ClientInfo::getNickname() const
 {
 	return _nickname;
-}
-
-std::string ClientInfo::getRemainPacket() const
-{
-  return _remainPacket;
-}
-
-
-void		ClientInfo::setRemainPacket(std::string const& remain)
-{
-  _remainPacket = remain;
 }

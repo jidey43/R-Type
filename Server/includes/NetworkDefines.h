@@ -24,26 +24,17 @@ typedef int SOCKET;
 typedef addrinfo ConnectionData;
 
 typedef enum
-{
-	CPACKET
-}		PacketSize;
-
-typedef enum
-{
-	DESCRIBE_GAME = 0,
-	SET_NICK,
-	JOIN_GAME,
-	CREATE_GAME
-}		ClientCommand;
+  {
+    INVALID = 0,
+    DESCRIBE_GAME,
+    SET_NICK,
+    JOIN_GAME,
+    CREATE_GAME
+  }		ClientCommand;
 
 /*
 	Packet : client -> server
 */
 
-typedef struct		s_ClientPacket
-{
-	ClientCommand	command;
-	char			name[256];
-}					ClientPacket;
 
 #endif

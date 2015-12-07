@@ -10,6 +10,7 @@
 # include "UNetwork.hh"
 # include "WNetwork.hh"
 # include "ClientInfo.h"
+//# include "PacketFactory.hh"
 
 extern	SOCKET				_listen;
 extern  std::vector<ClientInfo*>	_clientList;
@@ -26,18 +27,19 @@ private:
 	std::string					_port;
 	INetwork<TCPSocket>*				_network;
 	std::vector<ClientInfo*>			_activeClients;
-	std::string					_packet;
+	IPacket*					_packet;
 
 public:
 	bool						initSocket();
 	SOCKET						acceptNewClient();
 	bool						selectClient();
 	ClientInfo*					getActiveClient();
-	void						broadcast(char* msg);
-	bool						sendToClient(ClientInfo* client, std::string const& data);
-	TransmitStatus					receiveFromClient(ClientInfo* client);
-	TransmitStatus					receiveFromClient(SOCKET client);
-	void						closeConnection(ClientInfo* client);
+	void						broadcast(char *);
+	void						closeConnection(ClientInfo *);
+
+private:
+	bool						sendToClient(ClientInfo *, IPacket *);
+	IPacket*					receiveFromClient(ClientInfo *);
 };
 
 #endif
