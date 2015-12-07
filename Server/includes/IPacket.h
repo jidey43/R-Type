@@ -12,9 +12,10 @@ typedef struct
 typedef struct
 {
   char		data[BUFF_LEN];
-} __attribute__ ((packed)) NewGameData;
+} __attribute__ ((packed)) stringData;
 
-typedef NewGameData NickData;
+typedef stringData NickData;
+typedef stringData NewGameData;
 
 class IPacket
 {

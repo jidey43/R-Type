@@ -27,11 +27,22 @@ typedef addrinfo ConnectionData;
 typedef enum
   {
     INVALID = 0,
-    DESCRIBE_GAME,
-    SET_NICK,
+    AUTH_TCP,
+    ADD_GAME,
     JOIN_GAME,
-    CREATE_GAME
+    QUIT
   }		ClientCommand;
+
+typedef enum
+{
+  AUTH_OK,
+  AUTH_KO,
+  GAME_OVER,
+  GAME_INFO,
+  START_GAME_LIST,
+  END_GAME_LIST,
+  DES_GAME
+}		ServerResponse;
 
 /*
 	Packet : client -> server
