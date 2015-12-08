@@ -9,7 +9,7 @@
 # include "INetwork.hh"
 # include "UNetwork.hh"
 # include "WNetwork.hh"
-# include "ClientInfo.h"
+# include "GamerInfo.hh"
 # include "PacketFactory.hh"
 # include "IServerPacket.hh"
 
@@ -20,20 +20,24 @@ class UDPNetworkHandler
 public:
   UDPNetworkHandler(std::string const&, std::string const&);
   virtual ~UDPNetworkHandler();
-  std::string					_ip;
-  std::string					_port;
-  INetwork<UDPSocket>*				_network;
-  std::vector<ClientInfo*>			_activeClients;
-  PacketFactory*				_factory;
-  SOCKET					_socket;
 
 private:
   UDPNetworkHandler(const UDPNetworkHandler &);
-  UDPNetworkHandler &operator=(const UDPNetworkHandler &);
+  UDPNetworkHandler	&operator=(const UDPNetworkHandler &);
+  GamerInfo*		getClient(ClientDatas*);
 
 public:
   bool						initSocket();
   bool						selectClient();
+private:
+  std::string					_ip;
+  std::string					_port;
+  INetwork<UDPSocket>*				_network;
+  std::vector<GamerInfo*>			_clients;
+  PacketFactory*				_factory;
+  SOCKET					_socket;
 };
+
+bool		operator==(ClientDatas left, ClientDatas right);
 
 #endif /* !UDPNETWORKHANDLER_H_ */

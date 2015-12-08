@@ -26,6 +26,7 @@ typedef int SOCKET;
 
 # endif
 typedef addrinfo ConnectionData;
+typedef struct sockaddr_in ClientDatas;
 
 typedef enum
   {

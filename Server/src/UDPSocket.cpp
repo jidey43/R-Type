@@ -36,7 +36,7 @@ int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, ad
   return _listen;
 }
 
-TransmitStatus			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, ConnectionData *addr)
+TransmitStatus			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr)
 {
   int res = sendto(_listen, (void *)buffer, size, 0, (sockaddr *)&addr, sizeof(addr));
 
@@ -45,7 +45,7 @@ TransmitStatus			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, 
   return (res == -1 ? ERR : PASSED);
 }
 
-TransmitStatus			UDPSocket::rcvData(void* buffer, int size, SOCKET sock, ConnectionData *addr)
+TransmitStatus			UDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)
 {
   socklen_t			addr_len = sizeof(addr);
   int				res;

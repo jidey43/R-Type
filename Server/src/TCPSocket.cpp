@@ -51,7 +51,7 @@ SOCKET	TCPSocket::acceptClient()
 	return socket;
 }
 
-TransmitStatus	TCPSocket::sendData(const void *buffer, int size, SOCKET socket, ConnectionData *addr)
+TransmitStatus	TCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientDatas *addr)
 {
 	int res = send(socket, (void*)buffer, size, 0);
 	if (res == -1)
@@ -59,7 +59,7 @@ TransmitStatus	TCPSocket::sendData(const void *buffer, int size, SOCKET socket, 
 	return (res == -1 ? ERR : PASSED);
 }
 
-TransmitStatus			TCPSocket::rcvData(void* buffer, int size, SOCKET socket, ConnectionData *addr)
+TransmitStatus			TCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *addr)
 {
   int				addr_len = sizeof(addr);
   int				res;
