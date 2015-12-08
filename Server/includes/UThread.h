@@ -1,7 +1,7 @@
 #ifndef UTHREAD_H_
 # define UTHREAD_H_
 
-# ifdef __linux__
+# ifndef _WIN32
 
 #include <thread>
 #include "IThread.h"

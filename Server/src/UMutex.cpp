@@ -1,5 +1,3 @@
-#ifdef __linux__
-
 # include "UMutex.h"
 
 CUMutex::CUMutex()
@@ -37,5 +35,3 @@ IMutex*				getMutexInstance()
 {
 	return new CUMutex;
 }
-
-#endif

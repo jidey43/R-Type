@@ -1,7 +1,7 @@
 #ifndef UMUTEX_H_
 # define UMUTEX_H_
 
-# ifdef __linux__
+# ifndef _WIN32
 
 # include <mutex>
 # include "IMutex.h"
