@@ -1,7 +1,7 @@
 #ifndef UNETWORK_H_
 # define UNETWORK_H_
 
-# ifdef __linux__
+# ifndef _WIN32
 
 # include "INetwork.hh"
 

@@ -16,7 +16,7 @@ int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, ad
 	hints.ai_family = AF_INET;
 	hints.ai_socktype = SOCK_DGRAM;
 	hints.ai_protocol = IPPROTO_UDP;
-	hints.ai_addr = INADDR_ANY;
+	//hints.ai_addr = INADDR_ANY;
 	result = getaddrinfo(ip.c_str(), port.c_str(), &hints, &addr);
 	if (result != 0) {
 		printf("getaddrinfo failed: %d\n", result);
