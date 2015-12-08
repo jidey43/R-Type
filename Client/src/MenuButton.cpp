@@ -1,4 +1,4 @@
-#include "..\inc\MenuButton.h"
+#include "../inc/MenuButton.h"
 
 MenuButton::MenuButton()
 {

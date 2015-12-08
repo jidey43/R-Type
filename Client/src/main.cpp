@@ -1,15 +1,13 @@
 # include <iostream>
-# include "Client.h"
-# include "NetworkHandler.hh"
-# include "ViewController.h"
+# include "ViewController.hh"
 # include "Manager.hh"
 # include "MenuController.hh"
-# include "AssetsController.h"
+# include "AssetsController.hh"
 
 ViewController *vc;
 AssetsController *ac;
 
-int main(int ac, char **av)
+int main(int argc, char **av)
 {
 	ac = new AssetsController("../../assets/");
 	if (ac->loadAssets() == false)
