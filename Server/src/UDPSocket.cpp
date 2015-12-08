@@ -1,7 +1,6 @@
 #include "UDPSocket.hh"
 
-UDPSocket::UDPSocket(int port)
-  : _port(port)
+UDPSocket::UDPSocket()
 {
 }
 
@@ -13,8 +12,8 @@ int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, ad
 {
   struct addrinfo *addr = NULL;
   int result;
-  _port = port
-    hints.ai_flags = AI_PASSIVE;
+  _port = port;
+  hints.ai_flags = AI_PASSIVE;
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_DGRAM;
   hints.ai_protocol = IPPROTO_UDP;
@@ -28,7 +27,7 @@ int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, ad
 			addr->ai_protocol)) == -1)
     throw Exceptions::NetworkExcept("SOCKET ERROR", errno);
 
-  if (bind(Thatsocket, addr->ai_addr, (int)addr->ai_addrlen) == SOCKET_ERROR)
+  if (bind(_listen, addr->ai_addr, (int)addr->ai_addrlen) == SOCKET_ERROR)
     {
       freeaddrinfo(addr);
       throw Exceptions::NetworkExcept("BIND ERROR", errno);
@@ -48,9 +47,14 @@ TransmitStatus			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, 
 
 TransmitStatus			UDPSocket::rcvData(void* buffer, int size, SOCKET sock, ConnectionData *addr)
 {
-  int				addr_len = sizeof(addr);
+  socklen_t			addr_len = sizeof(addr);
   int				res;
 
   res = recvfrom(_listen, (void *)buffer, size, 0, (sockaddr *)&addr, &addr_len);
   return (res == -1 ? ERR : (res == 0 ? DISCONNECTED : PASSED));
+}
+
+SOCKET				UDPSocket::acceptClient()
+{
+  return -1;
 }

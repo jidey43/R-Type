@@ -41,6 +41,6 @@ bool			UDPNetworkHandler::selectClient()
   _network->selectClients(fdList, NULL);
   if (!fdList.empty())
     {
-      _network->recvData(header, sizeof(HeaderServerUDP), _socket, &ConnectionData);
+      _network->recvData(header, sizeof(HeaderServerUDP), _socket, &clientDatas);
     }
 }

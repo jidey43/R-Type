@@ -29,8 +29,7 @@ typedef addrinfo ConnectionData;
 
 typedef enum
   {
-    FAIL = 0,
-    AUTH_TCP,
+    AUTH_TCP = 1,
     ADD_GAME,
     JOIN_GAME,
     QUIT
@@ -38,8 +37,7 @@ typedef enum
 
 typedef enum
 {
-  FAIL = 0,
-  AUTH,
+  AUTH = 1,
   GAME_OVER,
   GAME_INFO,
   START_GAME_LIST,
@@ -50,8 +48,7 @@ typedef enum
 
 typedef enum
   {
-    FAIL = 0,
-    AUTH_UDP
+    AUTH_UDP = 1
   }		GameServerCommand;
 
 typedef struct
