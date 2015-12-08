@@ -1,8 +1,6 @@
 #include <iostream>
 #include <algorithm>
 #include "NetworkHandler.h"
-#include "IClientPacket.hh"
-#include "IServerPacket.hh"
 
 SOCKET				_listen = -1;
 std::vector<ClientInfo*>	_clientList;
@@ -43,8 +41,7 @@ SOCKET NetworkHandler::acceptNewClient()
 
   ClientInfo*	client = _clientList.back();
 
-  receiveFromClient(client);
-  if (client->getPacket()->getCommandType() == AUTH_TCP)
+  if (receiveFromClient(client) == PASSED && client->getPacket()->getCommandType() == AUTH_TCP)
     client->setNickname((dynamic_cast<NickData*>(client->getPacket()))->data);
   else
     closeConnection(client);
@@ -105,11 +102,11 @@ ClientInfo*	NetworkHandler::getActiveClient()
   return NULL;
 }
 
-void	NetworkHandler::broadcast(char* msg)
+void	NetworkHandler::broadcast(IServerPacket* packet)
 {
   for (std::vector<ClientInfo*>::iterator it = _clientList.begin(); it != _clientList.end(); ++it)
-    {/*
-       _network->sendData((*it)->getSocket(), msg, sizeof(msg));*/
+    {
+      sendToClient((*it), packet);
     }
 }
 

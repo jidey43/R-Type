@@ -20,7 +20,7 @@ SOCKET			TCPSocket::startNetwork(std::string const &ip, std::string const &port,
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_protocol = IPPROTO_TCP;
-  hints.ai_addr = INADDR_ANY;
+  //hints.ai_addr = INADDR_ANY;
   std::cout << ip << "   " << port << std::endl;
   result = getaddrinfo(ip.c_str(), port.c_str(), &hints, &addr);
   if (result != 0) {

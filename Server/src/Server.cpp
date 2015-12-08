@@ -1,7 +1,18 @@
 #include <iostream>
-#include "Server.h"
+#include "Server.hh"
 #include "NetworkDefines.h"
 #include "WNetwork.hh"
+#include "NewGamePacket.h"
+#include "JoinPacket.hh"
+#include "GameListPacket.h"
+#include "DesGamePacket.h"
+#include "GameListPacket.h"
+#include "AuthPacket.h"
+#include "GameInfoPacket.h"
+#include "GameOverPacket.h"
+#include "FailPacket.h"
+#include "IServerPacket.hh"
+
 
 Server::Server(std::string const & ip, std::string const & port)
  : _network(new NetworkHandler(ip, port)),
@@ -45,7 +56,7 @@ void Server::parser(ClientInfo * client)
     {
     case JOIN_GAME:
       {
-	// joinGame(client);
+	joinGame(client);
 	break;
       }
     case ADD_GAME:
@@ -62,20 +73,50 @@ void Server::parser(ClientInfo * client)
 }
 
 void Server::deleteClient(std::vector<ClientInfo*>::iterator& it, ClientInfo* client)
-{}
+{
+}
 
 bool Server::describeGame(ClientInfo * client)
 {
-  // for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
-  //   _network->sendToClient(client, (*it)->getName() + "\r\n");
+  _network->sendToClient(client, new GameListPacket(START_GAME_LIST));
+  for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
+    {
+      _network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), (*it)->getClients()));
+    }
+  _network->sendToClient(client, new GameListPacket(END_GAME_LIST));
   return true;
 }
 
 bool Server::createGame(ClientInfo * client)
 {
-  // if (client->isInGame())
-  // 	return false;
-  // _games->startNewGame(data);
-  // _network->sendToClient(client, "okkkkkkk bolosse\r\n");
+  int		id;
+
+  if (client->isInGame() || (id = _games->startNewGame(dynamic_cast<NewGamePacket*>(client->getPacket())->getData()->data)) == -1)
+    {
+      _network->sendToClient(client, new FailPacket(DES_GAME));
+    }
+  else
+    {
+      joinGame(client, id);
+    }
   return true;
 }
+
+bool	Server::joinGame(ClientInfo* client)
+{
+  GameInfo*	game;
+
+  if ((game = _games->addClientInGame(client, dynamic_cast<JoinPacket*>(client->getPacket())->getData()->id)) != NULL)
+    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, game->getID(), game->getPort()));
+  else
+    _network->sendToClient(client, new FailPacket(FAIL));
+}
+
+bool	Server::joinGame(ClientInfo* client, int id)
+{
+  GameInfo*	game;
+
+  if ((game = _games->addClientInGame(client, id)) != NULL)
+    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, game->getID(), game->getPort()));
+  else
+    _network->sendToClient(client, new FailPacket(FAIL));}

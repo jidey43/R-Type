@@ -5,6 +5,9 @@
 # include <iostream>
 # define BUFF_LEN 256
 # define MAGIC 0xa3c89a44
+# define BASE_PORT 4010
+# define MAX_GAME 7
+# define MAX_PLAYERS 4
 
 # ifdef _WIN32
 # include <io.h>
@@ -41,7 +44,8 @@ typedef enum
   GAME_INFO,
   START_GAME_LIST,
   DES_GAME,
-  END_GAME_LIST
+  END_GAME_LIST,
+  FAIL
 }		ServerResponse;
 
 typedef enum

@@ -1,15 +1,15 @@
 # include <string.h>
-# include "GameListPacket.h"
+# include "FailPacket.h"
 
-GameListPacket::GameListPacket(ServerResponse resp) : _response(resp)
+FailPacket::FailPacket(ServerResponse resp) : _response(resp)
 {
 }
 
-GameListPacket::~GameListPacket()
+FailPacket::~FailPacket()
 {
 }
 
-std::string const&		GameListPacket::deserialize()
+std::string const&		FailPacket::deserialize()
 {
   ServerHeader			header;
   char*				buff = new char[sizeof(header) + 1];

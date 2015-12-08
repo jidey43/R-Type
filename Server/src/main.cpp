@@ -1,6 +1,6 @@
 # include <iostream>
 # include <signal.h>
-# include "Server.h"
+# include "Server.hh"
 # include "NetworkHandler.h"
 # include "ClientInfo.h"
 # include "IThread.h"
