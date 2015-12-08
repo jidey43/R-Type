@@ -1,10 +1,8 @@
 # include <string.h>
 # include "GameListPacket.h"
 
-GameListPacket::GameListPacket(ServerResponse resp, int data) : _response(resp), _data(new GameListData)
+GameListPacket::GameListPacket(ServerResponse resp) : _response(resp)
 {
-  _data->data = data;
-  _data->magic = MAGIC;
 }
 
 GameListPacket::~GameListPacket()
@@ -14,15 +12,14 @@ GameListPacket::~GameListPacket()
 std::string const&		GameListPacket::deserialize()
 {
   ServerHeader			header;
-  char*				buff = new char[sizeof(header) + sizeof(*_data) + 1];
+  char*				buff = new char[sizeof(header) + 1];
   static std::string		ret;
 
   header.magic = MAGIC;
   header.command = _response;
-  header.size = sizeof(*_data);
+  header.size = 0;
   memcpy(buff, &header, sizeof(header));
-  memcpy(*(&buff + sizeof(header)), _data, sizeof(*_data));
-  buff[sizeof(header) + sizeof(*_data)] = 0;
+  buff[sizeof(header)] = 0;
   ret = buff;
   return ret;
 }
