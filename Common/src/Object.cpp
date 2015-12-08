@@ -1,7 +1,7 @@
 #include "Object.hh"
 
 Object::Object(sf::Vector2f speed, sf::Vector2i pos, float coeff)
-  :_speed(speed), _pos(pos),  _coeff(coeff)
+  : _speed(speed), _pos(pos),  _coeff(coeff)
 {}
 
 Object::~Object() {}
@@ -21,5 +21,7 @@ sf::Vector2f		Object::getSpeed() const
   return _speed;
 }
 
-void			Object::update()
-{}
+sf::Vector2i		Object::getPos() const
+{
+  return _pos;
+}

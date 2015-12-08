@@ -10,3 +10,4 @@ Projectile::~Projectile() {}
 void		Projectile::update()
 {
 }
+

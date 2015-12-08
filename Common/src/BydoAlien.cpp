@@ -12,8 +12,10 @@ void		BydoAlien::update()
 {}
 
 IObject		*BydoAlien::BasicShoot()
-{ 
-	//debug
-	
-	return NULL;
+{
+  sf::Vector2i pos;
+
+  pos.x = _pos.x + _speed.x;
+  pos.y = _pos.y;
+  return new BasicAlienProjectile(_speed, pos, 1.0);
 }
