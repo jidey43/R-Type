@@ -13,8 +13,9 @@ void		Player::update()
 
 IObject		*Player::BasicShoot()
 {
-  //sf::Vector2i	pos(_size.x + _pos.x, _pos.y);
-  //IObject *shoot = new BasicPlayerProjectile(_pos);
+  sf::Vector2i pos;
   
-  //return (shoot);
+  pos.x = _pos.x + _size.x;
+  pos.y = _pos.y;
+  return new BasicPlayerProjectile(_speed, pos, 1.0);
 }
