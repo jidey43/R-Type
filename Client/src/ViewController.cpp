@@ -37,6 +37,12 @@ keyboardStatus					ViewController::getKeyboardStatus()
 {
 	keyboardStatus		state = {false, false, false, false};
 
+
+	//debug
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		exit(0);
+
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		state.up = true;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
