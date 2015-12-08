@@ -1,21 +1,27 @@
-#include <SFML/Window.hpp>
+#include <iostream>
+#include "ViewController.h"
+#include "Manager.h"
+
+ViewController *vc;
+AssetsController *ac;
 
 int main()
 {
-	sf::Window window(sf::VideoMode(800, 600), "My window");
-
-	// on fait tourner le programme jusqu'à ce que la fenêtre soit fermée
-	while (window.isOpen())
+	ac = new AssetsController("../../assets/");
+	if (ac->loadAssets() == false)
 	{
-		// on inspecte tous les évènements de la fenêtre qui ont été émis depuis la précédente itération
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			// évènement "fermeture demandée" : on ferme la fenêtre
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
+		std::cerr << "assets could not be loaded, aborting . . ." << std::endl;
+		return -1;
 	}
 
+<<<<<<< HEAD
 	return 0;
 }
+=======
+	vc = new ViewController;
+
+ 	Manager m;
+	
+	m.loop();
+}
+>>>>>>> b59878fc2805aa1ec6be79819cebe072d2954a90

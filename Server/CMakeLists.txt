@@ -5,8 +5,11 @@ cmake_minimum_required(VERSION 3.0)
 
 project(RTypeServer)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-
+if(COMPILER_SUPPORTS_CXX11)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+else()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+endif()
 
 
 # COMPILATION DU SERVER
@@ -15,6 +18,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/server)
 
 file(GLOB SERVERSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Server/src/*.cpp)
 
+<<<<<<< HEAD
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Server/inc")
 
 add_executable(RTypeServer ${SERVERSOURCES})
@@ -61,3 +65,8 @@ if (UNIX)
     target_link_libraries(RTypeServer ${SFML_LIBRARIES})
   endif(SFML_FOUND)
 endif(UNIX)
+=======
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Server/includes")
+
+add_executable(RTypeServer ${SERVERSOURCES})
+>>>>>>> b59878fc2805aa1ec6be79819cebe072d2954a90
