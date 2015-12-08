@@ -7,21 +7,21 @@ PacketFactory::PacketFactory()
 PacketFactory::~PacketFactory()
 {}
 
-IClientPacket*		PacketFactory::build(ClientCommand cmd, std::string const& data)
+IClientPacket*		PacketFactory::build(ClientCommand cmd)
 {
   switch(cmd)
     {
     // case DESCRIBE_GAME:
-    //   return new DescribePacket(data)
+    //   return new DescribePacket()
     //   break;
     // case AUTH_TCP:
-    //   return new SetNickPacket(data)
+    //   return new SetNickPacket()
     //   break;
     // case JOIN_GAME:
-    //   return new JoinPacket(data)
+    //   return new JoinPacket()
     //   break;
     case ADD_GAME:
-      return new NewGamePacket(data);
+      return new NewGamePacket();
       break;
     default:
       return NULL;

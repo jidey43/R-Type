@@ -35,7 +35,6 @@ typedef integerData GameOverData;
 typedef integerData AuthData;
 typedef integerData GameListData;
 
-
 class IServerPacket
 {
 public:

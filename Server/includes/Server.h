@@ -24,7 +24,7 @@ public:
 
 public:
 	bool						describeGame(ClientInfo* client);
-	bool						createGame(ClientInfo* client, std::string& data);
+	bool						createGame(ClientInfo* client);
 };
 
 #endif
