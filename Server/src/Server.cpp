@@ -74,10 +74,12 @@ void Server::parser(ClientInfo * client)
 
 bool Server::describeGame(ClientInfo * client)
 {
-  _network->sendToClient(client, new GameListPacket(START_GAME_LIST));
+  if (_network->sendToClient(client, new GameListPacket(START_GAME_LIST)) != PASSED)
+    return false;
   for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
     {
-      _network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), (*it)->getClients()));
+      if (_network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), (*it)->getClients())) != PASSED)
+	return false;
     }
   _network->sendToClient(client, new GameListPacket(END_GAME_LIST));
   return true;
