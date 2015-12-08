@@ -3,19 +3,19 @@
 
 # include "AClientPacket.hh"
 
-class NewGamePacket : public AClientPacket
+class NickPacket : public AClientPacket
 {
 public:
-  NewGamePacket();
-  ~NewGamePacket();
+  NickPacket();
+  ~NickPacket();
 
 private:
   ClientCommand		_command;
-  NewGameData*		_data;
+  NickData*		_data;
 
 public:
   void			setRawData(std::string const&);
-  NewGameData*		getData() const;
+  NickData*		getData() const;
 };
 
 #endif

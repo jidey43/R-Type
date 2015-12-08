@@ -53,3 +53,11 @@ std::string ClientInfo::getNickname() const
 {
   return _nickname;
 }
+
+void ClientInfo::setNickname(std::string const& nick)
+{
+  if (nick.size() > 19)
+    _nickname = nick.substr(0, 19);
+  else
+    _nickname = nick;
+}

@@ -8,7 +8,8 @@ typedef struct
 {
   ClientCommand	command;
   int		size;
-} __attribute__ ((packed)) HeaderNetwork;
+  int		magic;
+} __attribute__ ((packed)) ClientHeader;
 
 typedef struct
 {
@@ -31,8 +32,9 @@ public:
   virtual ~IClientPacket() {};
 
 public:
-  virtual ClientCommand const&	getCommandType() const = 0;
+  virtual ClientCommand		getCommandType() const = 0;
   virtual void			setRawData(std::string const&) = 0;
+  virtual bool			setRawHeader(ClientHeader* header) = 0;
 };
 
 #endif

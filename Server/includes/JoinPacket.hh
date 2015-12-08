@@ -1,20 +1,19 @@
 #ifndef JOIN_PACKET_
 # define JOIN_PACKET_
 
-# include "IClientPacket.hh"
+# include "AClientPacket.hh"
 
-class JoinPacket : public IClientPacket
+class JoinPacket : public AClientPacket
 {
 public:
-  JoinPacket(std::string const&);
+  JoinPacket();
   ~JoinPacket();
 
 private:
   ClientCommand		_command;
   JoinData*		_data;
 
-protected:
-  ClientCommand const&	getCommandType() const;
+public:
   void			setRawData(std::string const&);
   JoinData*		getData() const;
 };

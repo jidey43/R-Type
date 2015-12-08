@@ -25,6 +25,7 @@ class ClientInfo
   IClientPacket*	getPacket() const;
   SOCKET		getSocket() const;
   std::string		getNickname() const;
+  void			setNickname(std::string const& nick);
   bool			getDisconnected() const;
   void			setDisconnected(bool);
 };

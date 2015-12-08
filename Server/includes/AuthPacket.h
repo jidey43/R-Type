@@ -1,3 +1,6 @@
+#ifndef AUTHPACKET_H_
+# define AUTH_PACKET_H_
+
 # include "IServerPacket.h"
 
 class AuthPacket : public IServerPacket
@@ -12,3 +15,5 @@ class AuthPacket : public IServerPacket
   ServerResponse		_response;
   AuthData*			_data;
 };
+
+#endif
