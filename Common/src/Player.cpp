@@ -1,4 +1,5 @@
 #include "Player.hh"
+#include <stdlib.h>
 
 Player::Player(sf::Vector2f speed, sf::Vector2i pos, float coeff) : Object(speed, pos, coeff)
 { 
@@ -15,6 +16,6 @@ IObject		*Player::BasicShoot()
 {
   //sf::Vector2i	pos(_size.x + _pos.x, _pos.y);
   //IObject *shoot = new BasicPlayerProjectile(_pos);
-  
+	return NULL;
   //return (shoot);
 }

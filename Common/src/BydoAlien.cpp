@@ -1,5 +1,6 @@
 #include "BydoAlien.hh"
 #include "BasicAlienProjectile.hh"
+#include <stdlib.h>
 
 BydoAlien::BydoAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff) : Alien(speed, pos, coeff)
 {}
@@ -14,5 +15,5 @@ IObject		*BydoAlien::BasicShoot()
 { 
 	//debug
 	
-	return new BasicAlienProjectile;
+	return NULL;
 }
