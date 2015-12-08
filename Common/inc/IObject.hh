@@ -10,7 +10,7 @@ public:
 
 public:
   virtual ObjectInfo::Type		&getObjType() = 0;
-  virtual void				uptade() = 0;
+  virtual void				update() = 0;
 };
 
 #endif
