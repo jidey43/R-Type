@@ -9,6 +9,7 @@
 #include "TCPSocket.hh"
 #include "UDPSocket.hh"
 #include "INetwork.hh"
+#include "Exceptions.hpp"
 
 template <typename T>
 UNetwork<T>::UNetwork()
@@ -29,7 +30,7 @@ bool UNetwork<T>::initServerSocket(std::string const &ip, std::string const &por
 
   bzero(&hints, sizeof(hints));
   if ((_listen = _socket->startNetwork(ip, port, hints)) == INVALID_SOCKET)
-    return false;
+    throw Exceptions::NetworkExcept("LISTEN ERROR", errno);
   return true;
 }
 
@@ -47,8 +48,7 @@ void		UNetwork<T>::selectClients(std::vector<int>& fd, struct timeval *to)
 	maxFd = *it;
     }
   if (select(maxFd + 1, _readSet, NULL, NULL, to) < 0) {
-    perror("select error");
-    std::cout << "after" << std::endl;
+    throw Exceptions::NetworkExcept("SELECT ERROR", errno);
   }
   for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
     {
