@@ -6,19 +6,20 @@
 
 # pragma comment(lib, "ws2_32.lib")
 
-class							UDPSocket
+class				UDPSocket
 {
 private:
-	int							_listen;
+  SOCKET			_listen;
+  std::string			_port;
 
 public:
-	UDPSocket();
-	~UDPSocket();
+  UDPSocket(int);
+  ~UDPSocket();
 
-	int							startNetwork(std::string const &ip, std::string const &port, addrinfo);
-	TransmitStatus				sendData(const void *buffer, int size, SOCKET sock, ConnectionData *addr);
-	TransmitStatus				rcvData(void* buffer, int size, SOCKET sock, ConnectionData *addr);
-	//void						zeroBytes(void* buff);
+  int				startNetwork(std::string const &ip, std::string const &port, addrinfo);
+  TransmitStatus		sendData(const void *buffer, int size, SOCKET sock, ConnectionData *addr);
+  TransmitStatus		rcvData(void* buffer, int size, SOCKET sock, ConnectionData *addr);
+  //void						zeroBytes(void* buff);
 };
 
 #endif

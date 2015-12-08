@@ -26,7 +26,7 @@ typedef addrinfo ConnectionData;
 
 typedef enum
   {
-    INVALID = 0,
+    FAIL = 0,
     AUTH_TCP,
     ADD_GAME,
     JOIN_GAME,
@@ -35,6 +35,7 @@ typedef enum
 
 typedef enum
 {
+  FAIL = 0,
   AUTH,
   GAME_OVER,
   GAME_INFO,
@@ -42,6 +43,20 @@ typedef enum
   DES_GAME,
   END_GAME_LIST
 }		ServerResponse;
+
+typedef enum
+  {
+    FAIL = 0,
+    AUTH_UDP
+  }		GameServerCommand;
+
+typedef struct
+{
+  uint32_t			magic;
+  GameServerCommand		id;
+  uint32_t			size;
+  uint32_t			idx;
+} __attribute__ ((packed))	HeaderServerUDP;
 
 /*
 	Packet : client -> server

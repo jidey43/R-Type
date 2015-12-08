@@ -29,8 +29,15 @@ bool UNetwork<T>::initServerSocket(std::string const &ip, std::string const &por
   addrinfo hints;
 
   bzero(&hints, sizeof(hints));
-  if ((_listen = _socket->startNetwork(ip, port, hints)) == INVALID_SOCKET)
-    throw Exceptions::NetworkExcept("LISTEN ERROR", errno);
+  try
+    {
+      _listen = _socket->startNetwork(ip, port, hints);
+    }
+  catch (Exceptions::NetworkExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+      return false;
+    }
   return true;
 }
 

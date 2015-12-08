@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <errno.h>
+#include <cerrno>
 #include "TCPSocket.hh"
 #include "Exceptions.hpp"
 
