@@ -1,4 +1,4 @@
-# include "IServerPacket.h"
+# include "IServerPacket.hh"
 
 class GameListPacket : public IServerPacket
 {
