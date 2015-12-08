@@ -5,8 +5,6 @@
 # include "INetwork.hh"
 # include "Exceptions.hpp"
 
-# pragma comment(lib, "ws2_32.lib")
-
 class				UDPSocket
 {
 private:

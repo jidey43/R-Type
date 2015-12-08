@@ -15,5 +15,5 @@ ClientCommand		AClientPacket::getCommandType() const
 
 bool			AClientPacket::setRawHeader(ClientHeader* header)
 {
-  return (header->magic != MAGIC ? false : (header->size >= 0 ? true : false));
+  return (static_cast<unsigned int>(header->magic) != MAGIC ? false : (header->size >= 0 ? true : false));
 }

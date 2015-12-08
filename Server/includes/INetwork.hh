@@ -5,7 +5,7 @@
 # include "NetworkDefines.h"
 
 typedef enum	e_TransmitStatus
-{
+  {
 	ERR = -1,
 	DISCONNECTED = 0,
 	PASSED = 1,

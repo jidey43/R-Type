@@ -82,13 +82,13 @@ SOCKET WNetwork<T>::acceptSocket()
 }
 
 template <typename T>
-TransmitStatus WNetwork<T>::sendData(void *data, int size, SOCKET sock, ConnectionData *addr)
+TransmitStatus WNetwork<T>::sendData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
 	return _socket->sendData(data, size, sock, addr);
 }
 
 template <typename T>
-TransmitStatus WNetwork<T>::recvData(void *data, int size, SOCKET sock, ConnectionData *addr)
+TransmitStatus WNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
 	return _socket->rcvData(data, size, sock, addr);
 }
