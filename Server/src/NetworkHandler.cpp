@@ -117,7 +117,7 @@ TransmitStatus		NetworkHandler::receiveFromClient(ClientInfo* client)
   TransmitStatus	ret;
   ClientHeader*		header = new ClientHeader;
   std::string		tmp;
-  char*			buff = new char[sizeof(ClientHeader) + 5];
+  char*			buff;
   IClientPacket*	packet;
 
   if ((ret = _network->recvData(header, sizeof(ClientHeader), client->getSocket(), NULL)) == PASSED)

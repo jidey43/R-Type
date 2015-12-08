@@ -12,36 +12,49 @@ int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, ad
 {
   struct addrinfo *addr = NULL;
   int result;
+  _port = port;
   hints.ai_flags = AI_PASSIVE;
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_DGRAM;
   hints.ai_protocol = IPPROTO_UDP;
-  //hints.ai_addr = INADDR_ANY;
+  hints.ai_addr = INADDR_ANY;
   result = getaddrinfo(ip.c_str(), port.c_str(), &hints, &addr);
   if (result != 0) {
-    printf("getaddrinfo failed: %d\n", result);
-    return INVALID_SOCKET;
+    throw Exceptions::NetworkExcept("GETADDRINFO ERROR", errno);
   }
 
-  _listen = socket(addr->ai_family, addr->ai_socktype,
-		   addr->ai_protocol);
+  if ((_listen = socket(addr->ai_family, addr->ai_socktype,
+			addr->ai_protocol)) == -1)
+    throw Exceptions::NetworkExcept("SOCKET ERROR", errno);
+
+  if (bind(_listen, addr->ai_addr, (int)addr->ai_addrlen) == SOCKET_ERROR)
+    {
+      freeaddrinfo(addr);
+      throw Exceptions::NetworkExcept("BIND ERROR", errno);
+    }
+  std::cout << "Listening on port : " + _port + " with socket : " << _listen << std::endl;
   return _listen;
 }
 
 TransmitStatus			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, ConnectionData *addr)
 {
-  int res = sendto(_listen, (char*)buffer, size, 0, (sockaddr *)&addr, sizeof(addr));
+  int res = sendto(_listen, (void *)buffer, size, 0, (sockaddr *)&addr, sizeof(addr));
 
   if (res == -1)
-    printf("send failed: \n");
+    throw Exceptions::NetworkExcept("SEND FAILED", errno);
   return (res == -1 ? ERR : PASSED);
 }
 
 TransmitStatus			UDPSocket::rcvData(void* buffer, int size, SOCKET sock, ConnectionData *addr)
 {
-  int				addr_len = sizeof(addr);
+  socklen_t			addr_len = sizeof(addr);
   int				res;
 
-  // res = recvfrom(_listen, (char*)buffer, BUFF_LEN, 0, (sockaddr*)&addr, &addr_len);
+  res = recvfrom(_listen, (void *)buffer, size, 0, (sockaddr *)&addr, &addr_len);
   return (res == -1 ? ERR : (res == 0 ? DISCONNECTED : PASSED));
+}
+
+SOCKET				UDPSocket::acceptClient()
+{
+  return -1;
 }

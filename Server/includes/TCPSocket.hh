@@ -9,7 +9,7 @@ class							TCPSocket
 private:
 	std::string					_ip;
 	std::string					_port;
-	int						_listen;
+	SOCKET						_listen;
 
 public:
 	TCPSocket();
