@@ -7,6 +7,6 @@ Projectile::Projectile(sf::Vector2f speed, sf::Vector2i pos, float coeff)
 
 Projectile::~Projectile() {}
 
-void		update()
+void		Projectile::update()
 {
 }

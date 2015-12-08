@@ -1,24 +1,23 @@
 #ifndef _ALIENFACTORY_HH_
 # define _ALIENFACTORY_HH_
 
-# include <deque>
-# include "IObject.hh"
-# include "Waves.hh"
 # include <cstddef>
+# include <deque>
+# include "IAlienFactory.hh"
+# include "Waves.hh"
 
 template <class T>
-class	AlienFactory
+class	AlienFactory : public IAlienFactory
 {
 public:
-  AlienFactory() {};
+  AlienFactory(const T& rhs) {};
   ~AlienFactory() {};
 
 public:
-
   IObject	*getNextEnemy()
   {
-    IObject *obj;
-    if (   0/*_order.front()->getTime() == 0 future timer*/)
+    IObject	*obj;
+    if (0 /*_order.front()->getTime() == 0 future timer*/ )
       {
         obj = new T(_order.front()->getSpeed(), _order.front()->getPos(), _order.front()->getCoeff());
 	_order.front()->pop();

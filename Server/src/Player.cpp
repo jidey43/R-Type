@@ -7,11 +7,11 @@ Player::Player(sf::Vector2f speed, sf::Vector2i pos, float coeff) : Object(speed
 
 Player::~Player() {}
 
-void		update()
+void		Player::update()
 {
 }
 
-IObject		*BasicShoot()
+IObject		*Player::BasicShoot()
 {
   //sf::Vector2i	pos(_size.x + _pos.x, _pos.y);
   //IObject *shoot = new BasicPlayerProjectile(_pos);

@@ -15,7 +15,7 @@ public:
 
 private:
   MapController			*_map;
-  std::vector<AlienFactory*>	_factories;
+  std::vector<IAlienFactory*>	_factories;
 };
 
 #endif

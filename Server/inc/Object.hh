@@ -15,7 +15,7 @@ public:
   ObjectInfo::Type		getObjType() const;
   sf::Vector2i			getSize() const;
   sf::Vector2f			getSpeed() const;
-  void				update();
+  virtual void		        update();
   
 protected:
   float				_coeff;

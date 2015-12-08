@@ -5,15 +5,15 @@ namespace ObjectInfo
 {
   enum Type
     {
-      PLAYER,
+      PLAYER = 0,
       ALIEN,
       PROJECTILE_PLAYER,
       PROJECTILE_ALIEN
     };
 
-  enum WaweType
+  enum WaveType
     {
-      BYDO,
+      BYDO = 0,
       GLAM,
       DOKAN,
       KAYBEROS,
@@ -22,8 +22,7 @@ namespace ObjectInfo
       SHELL,
       YORK,
       XELF16
-    };
-  
+    };  
 };
 
 #endif
