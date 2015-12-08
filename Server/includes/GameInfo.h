@@ -23,7 +23,7 @@ class GameInfo
   int				getID() const;
   int				getPort() const;
   bool				addClient(ClientInfo* client);
-  std::vector<ClientInfo*>	getClients() const;
+  std::string const		getClients() const;
 };
 
 #endif

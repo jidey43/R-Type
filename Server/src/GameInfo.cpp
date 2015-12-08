@@ -29,7 +29,13 @@ bool GameInfo::addClient(ClientInfo * client)
   _clients.push_back(client);
 }
 
-std::vector<ClientInfo*> GameInfo::getClients() const
+std::string const GameInfo::getClients() const
 {
-  return _clients;
+  std::string	buffer = "";
+
+  for (std::vector<ClientInfo*>::const_iterator it = _clients.begin(); it != _clients.end(); ++it)
+    {
+      buffer += (*it)->getNickname() + "\n";
+    }
+  return buffer;
 }

@@ -15,6 +15,7 @@ class		Server
  private:
   NetworkHandler*			_network;
   GameHandler*				_games;
+  IServerPacket*			_packet;
 
  private:
   void					start();

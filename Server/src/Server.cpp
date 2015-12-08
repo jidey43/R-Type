@@ -69,8 +69,12 @@ void Server::deleteClient(std::vector<ClientInfo*>::iterator& it, ClientInfo* cl
 
 bool Server::describeGame(ClientInfo * client)
 {
-  // for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
-  //   _network->sendToClient(client, (*it)->getName() + "\r\n");
+  _network->sendToClient(client, new GameListPacket(START_GAME_LIST));
+  for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
+    {
+      _network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), (*it)->get));
+    }
+  _network->sendToClient(client, new GameListPacket(END_GAME_LIST));
   return true;
 }
 
