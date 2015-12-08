@@ -35,13 +35,12 @@ typedef enum
 
 typedef enum
 {
-  AUTH_OK,
-  AUTH_KO,
+  AUTH,
   GAME_OVER,
   GAME_INFO,
   START_GAME_LIST,
-  END_GAME_LIST,
-  DES_GAME
+  DES_GAME,
+  END_GAME_LIST
 }		ServerResponse;
 
 /*
