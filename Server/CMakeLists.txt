@@ -15,8 +15,10 @@ endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/server)
 file(GLOB SERVERSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Server/src/*.cpp)
+file(GLOB COMMONSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Common/src/*.cpp)
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Server/inc")
-add_executable(RTypeServer ${SERVERSOURCES})
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Common/inc")
+add_executable(RTypeServer ${COMMONSOURCES} ${SERVERSOURCES})
 
 # SFML CONFIG
 

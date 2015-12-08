@@ -83,13 +83,3 @@ Waves		*LevelLoader::getNextWave()
 
   return (wave);
 }
-
-
-int	main()
-{
-  char *toto = strdup("../../Server/level/Level1.lvl");
-  LevelLoader level(toto);
-  Waves *waves;
-  level.parseLevel();
-  waves = level.getNextWave();
-}
