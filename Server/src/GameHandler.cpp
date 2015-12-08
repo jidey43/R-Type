@@ -17,11 +17,8 @@ GameInfo* GameHandler::addClientInGame(ClientInfo * client, int id)
 {
   for (std::vector<GameInfo*>::iterator it = _gameList.begin(); it != _gameList.end(); ++it)
     {
-      if ((*it)->getID() == id && (*it)->getPlayerNb() < MAX_PLAYERS)
-	{
-	  (*it)->addClient(client);
-	  return (*it);
-	}
+      if ((*it)->getID() == id && (*it)->addClient(client))
+	return (*it);
     }
   return NULL;
 }

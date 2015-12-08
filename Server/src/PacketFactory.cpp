@@ -32,5 +32,6 @@ std::string const&	PacketFactory::disassemble(IClientPacket* packet)
 {
   std::string		ret;
 
+  delete(packet);
   // ret +=
 }

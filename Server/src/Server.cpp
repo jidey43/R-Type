@@ -72,10 +72,6 @@ void Server::parser(ClientInfo * client)
     }
 }
 
-void Server::deleteClient(std::vector<ClientInfo*>::iterator& it, ClientInfo* client)
-{
-}
-
 bool Server::describeGame(ClientInfo * client)
 {
   _network->sendToClient(client, new GameListPacket(START_GAME_LIST));
@@ -110,6 +106,7 @@ bool	Server::joinGame(ClientInfo* client)
     _network->sendToClient(client, new GameInfoPacket(GAME_INFO, game->getID(), game->getPort()));
   else
     _network->sendToClient(client, new FailPacket(FAIL));
+  return true;
 }
 
 bool	Server::joinGame(ClientInfo* client, int id)
@@ -119,4 +116,6 @@ bool	Server::joinGame(ClientInfo* client, int id)
   if ((game = _games->addClientInGame(client, id)) != NULL)
     _network->sendToClient(client, new GameInfoPacket(GAME_INFO, game->getID(), game->getPort()));
   else
-    _network->sendToClient(client, new FailPacket(FAIL));}
+    _network->sendToClient(client, new FailPacket(FAIL));
+  return true;
+}

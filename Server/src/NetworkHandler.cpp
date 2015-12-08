@@ -64,14 +64,15 @@ bool NetworkHandler::selectClient()
   SOCKET sock = INVALID_SOCKET;
   if ((*fit) == _listen && (sock = acceptNewClient()) == INVALID_SOCKET)
     return false;
-
+  else
+    ++fit;
   _activeClients.clear();
   // if (sock != INVALID_SOCKET)
   //   _activeClients.push_back(_clientList.back());
-  std::vector<ClientInfo*>::iterator it = _clientList.begin();
-  for (fit; fit != fdList.end(); ++fit)
-    {
-      for (it; it != _clientList.end(); ++it)
+  std::vector<ClientInfo*>::iterator it;
+  while (fit != fdList.end())
+  {
+      for (it = _clientList.begin(); it != _clientList.end(); ++it)
 	{
 	  if ((*it)->getSocket() == (*fit))
 	    {
@@ -79,6 +80,7 @@ bool NetworkHandler::selectClient()
 	      break;
 	    }
 	}
+      ++fit;
     }
   std::cout << "active clients : " << _clientList.size() << std::endl;
   return true;
@@ -135,11 +137,17 @@ TransmitStatus		NetworkHandler::receiveFromClient(ClientInfo* client)
   return ret;
 }
 
-bool		NetworkHandler::sendToClient(ClientInfo* client, IServerPacket* packet)
+bool			NetworkHandler::sendToClient(ClientInfo* client, IServerPacket* packet)
 {
+  TransmitStatus	ret;
   std::string	toSend = packet->deserialize();
 
-  _network->sendData((void*)toSend.c_str(), toSend.size(), client->getSocket(), NULL);
+  ret = _network->sendData((void*)toSend.c_str(), toSend.size(), client->getSocket(), NULL);
+  if (ret != PASSED)
+    closeConnection(client);
+  else
+    return true;
+  return false;
 }
 
 void	NetworkHandler::closeConnection(ClientInfo* client)

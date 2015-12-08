@@ -15,13 +15,14 @@ template <class T>
 class									INetwork
 {
 public:
-	virtual bool					initServerSocket(std::string const &ip, std::string const &port) = 0;
-	virtual SOCKET					acceptSocket() = 0;
+  virtual ~INetwork() {};
+  virtual bool					initServerSocket(std::string const &ip, std::string const &port) = 0;
+  virtual SOCKET					acceptSocket() = 0;
   virtual TransmitStatus			recvData(void *data, int, SOCKET, ConnectionData *addr) = 0;
-	virtual TransmitStatus			sendData(void *data, int size, SOCKET, ConnectionData *addr) = 0;
-	virtual SOCKET					getFd() const = 0;
-	virtual void					selectClients(std::vector<SOCKET>& fd, struct timeval *to) = 0;
-	virtual bool					closeConnection(SOCKET) = 0;
+  virtual TransmitStatus			sendData(void *data, int size, SOCKET, ConnectionData *addr) = 0;
+  virtual SOCKET					getFd() const = 0;
+  virtual void					selectClients(std::vector<SOCKET>& fd, struct timeval *to) = 0;
+  virtual bool					closeConnection(SOCKET) = 0;
 };
 
 template <typename T>

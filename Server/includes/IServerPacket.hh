@@ -5,30 +5,30 @@
 
 typedef struct
 {
-  int				magic;
+  uint32_t			magic;
   ServerResponse		command;
-  int				size;
+  uint32_t			size;
 } __attribute__ ((packed))	ServerHeader;
 
 typedef struct
 {
-  int				data;
-  int				magic;
+  uint32_t			data;
+  uint32_t			magic;
 } __attribute__ ((packed))	integerData;
 
 typedef struct
 {
-  int				id;
-  int				port;
-  int				magic;
+  uint32_t			id;
+  uint32_t			port;
+  uint32_t			magic;
 } __attribute__ ((packed))	GameInfoData;
 
 typedef struct
 {
-  int				id;
+  uint32_t			id;
   char				gameName[256];
   char				players[256];
-  int				magic;
+  uint32_t			magic;
 } __attribute__ ((packed))	DesGameData;
 
 typedef integerData GameOverData;
