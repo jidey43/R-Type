@@ -3,12 +3,12 @@
 
 cmake_minimum_required(VERSION 3.0)
 project(RTypeClient)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 # COMPILATION DU CLIENT
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/client)
 file(GLOB CLIENTSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/*.cpp)
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Client/Include ")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Client/include")
 add_executable(RTypeClient ${CLIENTSOURCES})
 
 

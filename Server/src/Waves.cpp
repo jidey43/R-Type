@@ -1,7 +1,7 @@
 #include "Waves.hh"
 
-Waves::Waves(int count, sf::Time time, sf::Vector2i pos, sf::Vector2f speed, float coeff, ObjectInfo::WaveType type)
-  : _count(count), _time(time), _pos(pos), _speed(speed), _coeff(coeff), _type(type)
+Waves::Waves(int count, sf::Time time, sf::Time freq, sf::Vector2i pos, sf::Vector2f speed, float coeff, ObjectInfo::WaveType type)
+  : _count(count), _time(time), _frequency(freq), _pos(pos), _speed(speed), _coeff(coeff), _type(type)
 {}
 
 Waves::~Waves() {}
@@ -15,6 +15,11 @@ void		Waves::pop()
 int	        Waves::getCount() const
 {
   return _count;
+}
+
+sf::Time	Waves::getFreq() const
+{
+  return _frequency;
 }
 
 sf::Time	Waves::getTime() const
@@ -31,3 +36,4 @@ float		Waves::getCoeff() const
 {
   return _coeff;
 }
+

@@ -46,6 +46,7 @@ Waves		*LevelLoader::getNextWave()
 {
   std::string				str = _lines.front();
   sf::Time				time;
+  sf::Time				freq;
   sf::Vector2i				pos;
   sf::Vector2f				speed;
   std::istringstream                    buffer;
@@ -67,19 +68,18 @@ Waves		*LevelLoader::getNextWave()
   buffer >> fnb;
   speed.y = fnb;
   buffer >> fnb;
-  time = sf::seconds(fnb);
+  time = sf::milliseconds(fnb);
+  buffer >> fnb;
+  freq = sf::milliseconds(fnb);
   buffer >> coeff;
 
   int	i;
   for (i = 0; name != _compare[i];i = i + 1);
   ObjectInfo::WaveType			type = (ObjectInfo::WaveType)i;
    
-
   _lines.pop_front();
-  Waves	*wave = new Waves(nb, time, pos, speed, coeff, type);
+  Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type);
   std::cout << "NB ALien   " << wave->getCount() << " Type Alien " << type << " " << name << "pos : " << pos.x << " " << pos.y << "speed :  "  << speed.x << "  " << speed.y << " coeef  :" << wave->getCoeff() << std::endl;
-
-
 
   return (wave);
 }
