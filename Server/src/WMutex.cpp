@@ -1,5 +1,3 @@
-#include "WMutex.h"
-
 #ifdef _WIN32
 
 CWMutex::CWMutex()

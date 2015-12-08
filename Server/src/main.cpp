@@ -1,8 +1,6 @@
 # include <iostream>
 # include <signal.h>
 # include "Server.h"
-# include "NetworkHandler.h"
-# include "ClientInfo.h"
 # include "IThread.h"
 
 void	broadcast(std::string const& data)

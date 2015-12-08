@@ -1,8 +1,6 @@
 #include <iostream>
 #include <algorithm>
 #include "NetworkHandler.h"
-#include "IClientPacket.hh"
-#include "IServerPacket.hh"
 
 SOCKET				_listen = -1;
 std::vector<ClientInfo*>	_clientList;
