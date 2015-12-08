@@ -7,8 +7,9 @@
 
 typedef enum e_ButtonType
 {
-	JOIN,
+	JOIN = 0,
 	EXIT,
+	NUMBEROFBUTTON,
 }			ButtonType;
 
 
@@ -31,7 +32,7 @@ public:
 	sf::Texture					*getShipTexture(int id);
 	sf::Texture					*getBackground(int id);
 	sf::Texture					*getShot(int id);
-	sf::Texture					*getButton(ButtonType);
+	sf::Texture					*getButton(ButtonType, bool);
 
 private:
 	std::string					_assetsPath;
@@ -43,5 +44,6 @@ private:
 	std::vector<sf::Texture*>	_shipTexture;
 	std::vector<sf::Texture*>	_backgroundTexture;
 	std::vector<sf::Texture*>	_buttonTexture;
+	std::vector<sf::Texture*>	_buttonTextureHigh;
 	sf::Texture*				_shipShot;
 };

@@ -2,7 +2,9 @@
 
 MenuController::MenuController()
 {
-
+	_buttons.resize(NUMBEROFBUTTON);
+	_buttons[EXIT] = new JoinButton;
+	_buttons[JOIN] = new JoinButton;
 }
 
 MenuController::~MenuController()
@@ -12,20 +14,39 @@ MenuController::~MenuController()
 
 void MenuController::loop()
 {
-	_clock.restart();
-	vc->clear();
+	while (true)
+	{
+		_clock.restart();
+		vc->clear();
 
-	_keyboardStatus = vc->getKeyboardStatus();
-	treatEvents();
+		_keyboardStatus = vc->getKeyboardStatus();
+		treatEvents();
 
-	//_itemCtrl->update();
-	//_itemCtrl->draw();
+		update();
+		drawMenuItems();
 
-	vc->refresh();
-	_loopTime = _clock.getElapsedTime();
-	sf::sleep(sf::Time(sf::microseconds(16666)) - _loopTime);
+		vc->refresh();
+		_loopTime = _clock.getElapsedTime();
+		sf::sleep(sf::Time(sf::microseconds(16666)) - _loopTime);
+	}
 }
 
 void MenuController::treatEvents()
 {
+}
+
+void MenuController::update()
+{
+	for (int i = 0; i != _buttons.size(); i++)
+	{
+		_buttons[i]->update(_keyboardStatus.mousePos);
+	}
+}
+
+void MenuController::drawMenuItems()
+{
+	for (int i = 0; i != _buttons.size(); i++)
+	{
+		vc->draw(_buttons[i]->getDrawable());
+	}
 }

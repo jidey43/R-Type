@@ -72,9 +72,13 @@ bool AssetsController::loadShots()
 bool AssetsController::loadButtons()
 {
 	for (int i = 0; i != 3; i += 1)
+	{
 		_buttonTexture.emplace_back(new sf::Texture);
+		_buttonTextureHigh.emplace_back(new sf::Texture);
+	}
 	if (
-		_buttonTexture[JOIN]->loadFromFile(_assetsPath + "buttons/join.png")
+		_buttonTexture[JOIN]->loadFromFile(_assetsPath + "buttons/join.png") &&
+		_buttonTextureHigh[JOIN]->loadFromFile(_assetsPath + "buttons/join_high.png")
 		)
 		return true;
 	return false;
@@ -92,7 +96,7 @@ sf::Texture* AssetsController::getShipTexture(int id)
 
 sf::Texture* AssetsController::getBackground(int id)
 {
-	return _backgroundTexture[id - 1];
+	return _backgroundTexture[id - 1];	
 }
 
 sf::Texture* AssetsController::getShot(int)
@@ -100,7 +104,9 @@ sf::Texture* AssetsController::getShot(int)
 	return _shipShot;
 }
 
-sf::Texture * AssetsController::getButton(ButtonType button)
+sf::Texture * AssetsController::getButton(ButtonType button, bool highlight)
 {
+	if (highlight)
+		return _buttonTextureHigh[button];
 	return _buttonTexture[button];
 }
