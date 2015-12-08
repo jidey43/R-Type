@@ -5,7 +5,9 @@
 # include <iostream>
 # define BUFF_LEN 256
 # define MAGIC 0xa3c89a44
+# define BASE_PORT 4010
 # define MAX_GAME 7
+# define MAX_PLAYERS 4
 
 # ifdef _WIN32
 # include <io.h>

@@ -19,6 +19,11 @@ int GameInfo::getPort() const
   return _port;
 }
 
+int GameInfo::getPlayerNb() const
+{
+  return _clients.size();
+}
+
 int	GameInfo::getID() const
 {
   return _id;

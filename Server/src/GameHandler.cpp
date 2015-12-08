@@ -3,13 +3,10 @@
 GameHandler::GameHandler()
   : _maxID(13)
 {
-  _ports.push_back(4010);
-  _ports.push_back(4011);
-  _ports.push_back(4012);
-  _ports.push_back(4013);
-  _ports.push_back(4014);
-  _ports.push_back(4015);
-  _ports.push_back(4016);
+  for (int i = BASE_PORT; i < BASE_PORT + MAX_GAME; ++i)
+    {
+      _ports.push_back(i);
+    }
 }
 
 GameHandler::~GameHandler()
@@ -20,7 +17,7 @@ GameInfo* GameHandler::addClientInGame(ClientInfo * client, int id)
 {
   for (std::vector<GameInfo*>::iterator it = _gameList.begin(); it != _gameList.end(); ++it)
     {
-      if ((*it)->getID() == id /* && nbPlayer < n */)
+      if ((*it)->getID() == id && (*it)->getPlayerNb() < MAX_PLAYERS)
 	{
 	  (*it)->addClient(client);
 	  return (*it);

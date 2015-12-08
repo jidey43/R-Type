@@ -32,7 +32,7 @@ class NetworkHandler
   PacketFactory*				_factory;
 
  public:
-  void						broadcast(char *);
+  void						broadcast(IServerPacket*);
   bool						sendToClient(ClientInfo *, IServerPacket *);
   TransmitStatus				receiveFromClient(ClientInfo *);
   bool						initSocket();
