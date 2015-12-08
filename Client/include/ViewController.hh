@@ -3,9 +3,9 @@
 # include <iostream>
 # include <SFML/Graphics.hpp>
 # include <SFML/Audio.hpp>
-# include "GameItem.h"
-# include "KeyboardStatus.h"
-# include "AssetsController.h"
+# include "GameItem.hh"
+# include "KeyboardStatus.hh"
+# include "AssetsController.hh"
 
 extern AssetsController *ac;
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameItem.h"
+#include "GameItem.hh"
 
 class ShotItem : public GameItem
 {

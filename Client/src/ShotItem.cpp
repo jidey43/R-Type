@@ -1,4 +1,4 @@
-#include "ShotItem.h"
+#include "ShotItem.hh"
 
 ShotItem::ShotItem(sf::Vector2f startPos, int distance, int time, int skin)
 {

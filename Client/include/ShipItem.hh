@@ -1,8 +1,8 @@
 #pragma once
 
-# include "GameItem.h"
-# include "AssetsController.h"
-# include "ViewController.h"
+# include "GameItem.hh"
+# include "AssetsController.hh"
+# include "ViewController.hh"
 
 extern AssetsController *ac;
 extern ViewController *vc;

@@ -1,5 +1,5 @@
 
-#include "ViewController.h"
+#include "ViewController.hh"
 
 ViewController::ViewController()
 {
