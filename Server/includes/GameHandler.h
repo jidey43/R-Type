@@ -8,17 +8,18 @@
 class GameHandler
 {
 public:
-	GameHandler();
-	~GameHandler();
+  GameHandler();
+  ~GameHandler();
 
-private:
-	std::vector<GameInfo*>		_gameList;
-	int							_maxPort;
+ private:
+  std::vector<GameInfo*>		_gameList;
+  int					_maxID;
+  int					_maxPort;
 
-public:
-	bool						addClientInGame(ClientInfo* client, std::string const& name);
-	bool						startNewGame(std::string const& name);
-	std::vector<GameInfo*>&		getGameList();
+ public:
+  bool					addClientInGame(ClientInfo* client, int id);
+  bool					startNewGame(std::string const& name);
+  std::vector<GameInfo*>&		getGameList();
 };
 
 #endif

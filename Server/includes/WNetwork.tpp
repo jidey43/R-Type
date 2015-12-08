@@ -52,7 +52,6 @@ void		WNetwork<T>::selectClients(std::vector<SOCKET>& fd, struct timeval *to)
 {
 	std::vector<SOCKET> buffer;
 	FD_ZERO(_readSet);
-	FD_SET(_listen, _readSet);
 	for (std::vector<SOCKET>::iterator it = fd.begin(); it != fd.end(); ++it)
 	{
 		FD_SET((*it), _readSet);
@@ -89,9 +88,9 @@ TransmitStatus WNetwork<T>::sendData(void *data, int size, SOCKET sock, Connecti
 }
 
 template <typename T>
-TransmitStatus WNetwork<T>::recvData(void *data, SOCKET sock, ConnectionData *addr)
+TransmitStatus WNetwork<T>::recvData(void *data, int size, SOCKET sock, ConnectionData *addr)
 {
-	return _socket->rcvData(data, sock, addr);
+	return _socket->rcvData(data, size, sock, addr);
 }
 
 template <typename T>

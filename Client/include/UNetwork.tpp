@@ -36,20 +36,27 @@ bool UNetwork<T>::initClientSocket(std::string const &ip, std::string const &por
 template <typename T>
 void		UNetwork<T>::selectFD(std::vector<int>& fd, struct timeval *to)
 {
-	std::vector<int> buffer;
-	FD_ZERO(_readSet);
-	for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
-		FD_SET((*it), _readSet);
-	if (select(_listen + 1, _readSet, NULL, NULL, to) < 0) {
-		perror("select error");
-	}
-	for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
-	{
-		if (FD_ISSET((*it), _readSet))
-			buffer.push_back((*it));
-	}
-	fd.clear();
-	fd = buffer;
+  std::vector<int>	buffer;
+  SOCKET			maxFd = 0;
+
+  FD_ZERO(_readSet);
+  for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
+    {
+      FD_SET((*it), _readSet);
+      if (*it > maxFd)
+	maxFd = *it;
+    }
+  if (select(maxFd + 1, _readSet, NULL, NULL, to) < 0) {
+    perror("select error");
+    std::cout << "after" << std::endl;
+  }
+  for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
+    {
+      if (FD_ISSET((*it), _readSet))
+	buffer.push_back((*it));
+    }
+  fd.clear();
+  fd = buffer;
 }
 
 template <typename T>
