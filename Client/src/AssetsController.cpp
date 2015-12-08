@@ -1,4 +1,4 @@
-#include "assetsController.hh"
+#include "AssetsController.hh"
 
 AssetsController::AssetsController(const char *assetsPath)
 {
