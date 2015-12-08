@@ -1,3 +1,6 @@
+#ifndef GAMEOVERPACKET_H_
+# define GAMEOVERPACKET_H_
+
 # include "IServerPacket.hh"
 
 class GameOverPacket : public IServerPacket
@@ -12,3 +15,5 @@ class GameOverPacket : public IServerPacket
   ServerResponse		_response;
   GameOverData*			_data;
 };
+
+#endif /* !GAMEOVERPACKET_H_ */

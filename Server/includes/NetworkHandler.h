@@ -19,29 +19,29 @@ template class				INetwork<TCPSocket>;
 
 class NetworkHandler
 {
-public:
-	NetworkHandler(std::string const& ip, std::string const& port);
-	~NetworkHandler();
+ public:
+  NetworkHandler(std::string const& ip, std::string const& port);
+  ~NetworkHandler();
 
-private:
-	std::string					_ip;
-	std::string					_port;
-	INetwork<TCPSocket>*				_network;
-	std::vector<ClientInfo*>			_activeClients;
-	IClientPacket*					_packet;
-	PacketFactory*					_factory;
+ private:
+  std::string					_ip;
+  std::string					_port;
+  INetwork<TCPSocket>*				_network;
+  std::vector<ClientInfo*>			_activeClients;
+  IClientPacket*				_packet;
+  PacketFactory*				_factory;
 
-public:
-	bool						initSocket();
-	SOCKET						acceptNewClient();
-	bool						selectClient();
-	ClientInfo*					getActiveClient();
-	void						broadcast(char *);
-	void						closeConnection(ClientInfo *);
+ public:
+  void						broadcast(char *);
+  bool						sendToClient(ClientInfo *, IServerPacket *);
+  TransmitStatus				receiveFromClient(ClientInfo *);
+  bool						initSocket();
+  bool						selectClient();
+  ClientInfo*					getActiveClient();
 
-private:
-	bool						sendToClient(ClientInfo *, IServerPacket *);
-	TransmitStatus					receiveFromClient(ClientInfo *);
+ private:
+  SOCKET					acceptNewClient();
+  void						closeConnection(ClientInfo *);
 };
 
 #endif

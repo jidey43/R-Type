@@ -1,14 +1,18 @@
+#ifndef GAMELISTPACKET_H_
+# define GAMELISTPACKET_H_
+
 # include "IServerPacket.hh"
 
 class GameListPacket : public IServerPacket
 {
  public:
-  GameListPacket(ServerResponse, int);
+  GameListPacket(ServerResponse);
   ~GameListPacket();
 
   std::string const&		deserialize();
 
  private:
   ServerResponse		_response;
-  GameListData*			_data;
 };
+
+#endif /* !GAMELISTPACKET_H_ */
