@@ -8,7 +8,9 @@
 #include "DesGamePacket.h"
 #include "GameListPacket.h"
 #include "AuthPacket.h"
+#include "GameInfoPacket.h"
 #include "GameOverPacket.h"
+#include "FailPacket.h"
 #include "IServerPacket.hh"
 
 Server::Server(std::string const & ip, std::string const & port)
@@ -96,7 +98,6 @@ bool Server::createGame(ClientInfo * client)
     {
       joinGame(client, id);
     }
-  // _network->sendToClient(client, "okkkkkkk bolosse\r\n");
   return true;
 }
 
@@ -105,9 +106,9 @@ bool	Server::joinGame(ClientInfo* client)
   GameInfo*	game;
 
   if ((game = _games->addClientInGame(client, dynamic_cast<JoinPacket*>(client->getPacket())->getData()->id)) != NULL)
-    _network->sendToClient(client, new GameInfoPacket(ADD_GAME, game->getID(), game->getPort() game->getClients()));
+    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, game->getID(), game->getPort()));
   else
-    _network->sendToClient(client, new FailPacket(ADD_GAME));
+    _network->sendToClient(client, new FailPacket(FAIL));
 }
 
 bool	Server::joinGame(ClientInfo* client, int id)
@@ -115,6 +116,6 @@ bool	Server::joinGame(ClientInfo* client, int id)
   GameInfo*	game;
 
   if ((game = _games->addClientInGame(client, id)) != NULL)
-    _network->sendToClient(client, new GameInfoPacket(ADD_GAME, game->getID(), game->getPort() game->getClients()));
+    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, game->getID(), game->getPort()));
   else
-    _network->sendToClient(client, new FailPacket(ADD_GAME));}
+    _network->sendToClient(client, new FailPacket(FAIL));}

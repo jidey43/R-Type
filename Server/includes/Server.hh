@@ -22,10 +22,10 @@ class		Server
   void					answerClients();
   void					parser(ClientInfo* client);
   void					deleteClient(std::vector<ClientInfo*>::iterator& it, ClientInfo* info);
-
   bool					describeGame(ClientInfo* client);
   bool					createGame(ClientInfo* client);
   bool					joinGame(ClientInfo* client);
+  bool					joinGame(ClientInfo* client, int id);
 };
 
 #endif
