@@ -3,7 +3,7 @@
 class GameOverPacket : public IServerPacket
 {
  public:
-  GameOverPacket(ServerResponse, GameOverData const&);
+  GameOverPacket(ServerResponse, int);
   ~GameOverPacket();
 
   std::string const&		deserialize();
