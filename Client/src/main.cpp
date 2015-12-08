@@ -1,6 +1,7 @@
 #include <iostream>
 #include "ViewController.hh"
 #include "Manager.hh"
+#include "MenuController.hh"
 
 ViewController *vc;
 AssetsController *ac;
@@ -16,7 +17,14 @@ int main()
 
 	vc = new ViewController;
 
-	Manager m;
+	Manager *m;
+	MenuController menu;
 
-	m.loop();
+	while (true)
+	{
+		menu.loop();
+		m = new Manager();
+		m->loop();
+		delete m;
+	}
 }

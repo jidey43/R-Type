@@ -17,7 +17,8 @@ bool AssetsController::loadAssets()
 		loadShipsAssets() &&
 		loadSoundAssets() &&
 		loadBackground() &&
-		loadShots()
+		loadShots() &&
+		loadButtons()
 		)
 		return (true);
 	return (false);
@@ -68,6 +69,17 @@ bool AssetsController::loadShots()
 	return false;
 }
 
+bool AssetsController::loadButtons()
+{
+	for (int i = 0; i != 3; i += 1)
+		_buttonTexture.emplace_back(new sf::Texture);
+	if (
+		_buttonTexture[JOIN]->loadFromFile(_assetsPath + "buttons/join.png")
+		)
+		return true;
+	return false;
+}
+
 sf::Music * AssetsController::getSoundTrack()
 {
 	return _soundTrack;
@@ -83,7 +95,12 @@ sf::Texture* AssetsController::getBackground(int id)
 	return _backgroundTexture[id - 1];
 }
 
-sf::Texture* AssetsController::getShot(int id)
+sf::Texture* AssetsController::getShot(int)
 {
 	return _shipShot;
+}
+
+sf::Texture * AssetsController::getButton(ButtonType button)
+{
+	return _buttonTexture[button];
 }
