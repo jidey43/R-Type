@@ -13,6 +13,7 @@
 #include "FailPacket.h"
 #include "IServerPacket.hh"
 
+
 Server::Server(std::string const & ip, std::string const & port)
  : _network(new NetworkHandler(ip, port)),
 	  _games(new GameHandler())
