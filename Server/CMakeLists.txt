@@ -23,4 +23,6 @@ MESSAGE("${SERVERSOURCES}")
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Server/includes")
 
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Common/inc")
+
 add_executable(RTypeServer ${SERVERSOURCES})

@@ -4,7 +4,7 @@
 # include <deque>
 # include <string>
 # include "IMutex.h"
-# include "IObject.h"
+# include "IObject.hh"
 
 class SafeQueue
 {
