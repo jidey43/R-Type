@@ -1,9 +1,9 @@
-# include "IServerPacket.h"
+# include "IServerPacket.hh"
 
 class GameInfoPacket : public IServerPacket
 {
  public:
-  GameInfoPacket(ServerResponse, GameInfoData const&);
+  GameInfoPacket(ServerResponse, int, int);
   ~GameInfoPacket();
 
   std::string const&		deserialize();
