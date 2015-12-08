@@ -1,9 +1,9 @@
 #pragma once
 
 #include <vector>
-#include "ShipItem.h"
-#include "ShotItem.h"
-#include "ViewController.h"
+#include "ShipItem.hh"
+#include "ShotItem.hh"
+#include "ViewController.hh"
 
 extern ViewController *vc;
 

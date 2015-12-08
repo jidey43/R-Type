@@ -1,8 +1,8 @@
 #pragma once
 
-#include "ViewController.h"
-#include "AssetsController.h"
-#include "ItemController.h"
+#include "ViewController.hh"
+#include "AssetsController.hh"
+#include "ItemController.hh"
 
 extern ViewController *vc;
 extern AssetsController *ac;

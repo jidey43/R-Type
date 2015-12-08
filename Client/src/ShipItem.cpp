@@ -1,4 +1,4 @@
-#include "ShipItem.h"
+#include "ShipItem.hh"
 
 ShipItem::ShipItem(int id)
 {

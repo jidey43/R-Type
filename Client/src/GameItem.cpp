@@ -1,4 +1,4 @@
-#include "GameItem.h"
+#include "GameItem.hh"
 
 sf::Drawable * GameItem::getDrawable()
 {

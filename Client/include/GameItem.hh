@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
-#include "ViewController.h"
+#include "ViewController.hh"
 
 class                  GameItem
 {

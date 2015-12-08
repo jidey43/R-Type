@@ -1,6 +1,6 @@
 #include <iostream>
-#include "ViewController.h"
-#include "Manager.h"
+#include "ViewController.hh"
+#include "Manager.hh"
 
 ViewController *vc;
 AssetsController *ac;
