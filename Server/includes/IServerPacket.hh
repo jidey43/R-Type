@@ -13,7 +13,7 @@ typedef struct
 typedef struct
 {
   uint32_t			magic;
-  ServerTCPResponse		command;
+  ServerUDPResponse		command;
   uint32_t			size;
   uint32_t			idx;
 } __attribute__ ((packed))	ServerUDPHeader;
@@ -39,8 +39,22 @@ typedef struct
   uint32_t			magic;
 } __attribute__ ((packed))	DesGameData;
 
+typedef struct
+{
+  uint32_t			success;
+  char				name[256];
+  uint32_t			magic;
+}				AuthUDPData;
+
+typedef struct
+{
+  float				x;
+  float				y;
+  uint32_t			magic;
+}				CrePlayData;
+
 typedef integerData GameOverData;
-typedef integerData AuthData;
+typedef integerData AuthTCPData;
 typedef integerData GameListData;
 
 

@@ -112,14 +112,6 @@ void	NetworkHandler::broadcast(IServerPacket<ServerTCPResponse>* packet)
     }
 }
 
-void	NetworkHandler::broadcast(IServerPacket<ServerUDPResponse>* packet)
-{
-  for (std::vector<ClientInfo*>::iterator it = _clientList.begin(); it != _clientList.end(); ++it)
-    {
-      sendToClient((*it), packet);
-    }
-}
-
 void			NetworkHandler::receiveFromClient(ClientInfo* client)
 {
   ClientTCPHeader*			header = new ClientTCPHeader;
@@ -128,32 +120,20 @@ void			NetworkHandler::receiveFromClient(ClientInfo* client)
   IClientPacket<ClientTCPCommand>*	packet;
 
   client->setPacket(NULL);
+  memset(header, 0, sizeof(ClientTCPHeader) + 1);
   _network->recvData(header, sizeof(ClientTCPHeader), client->getSocket(), NULL);
   packet = _factory->build(header);
   if (!packet->checkHeader())
     return ;
   buff = new char[header->size + 1];
+  memset(buff, 0, header->size + 1);
   _network->recvData(buff, header->size, client->getSocket(), NULL);
-  buff[header->size] = 0;
   tmp = std::string(buff);
   packet->setRawData(tmp);
   client->setPacket(packet);
 }
 
 bool			NetworkHandler::sendToClient(ClientInfo* client, IServerPacket<ServerTCPResponse>* packet)
-{
-  TransmitStatus	ret;
-  std::string	toSend = packet->deserialize();
-
-  ret = _network->sendData((void*)toSend.c_str(), toSend.size(), client->getSocket(), NULL);
-  if (ret != PASSED)
-    closeConnection(client);
-  else
-    return true;
-  return false;
-}
-
-bool			NetworkHandler::sendToClient(ClientInfo* client, IServerPacket<ServerUDPResponse>* packet)
 {
   std::string	toSend = packet->deserialize();
 

@@ -7,7 +7,7 @@
 #include "GameListPacket.h"
 #include "DesGamePacket.h"
 #include "GameListPacket.h"
-#include "AuthPacket.h"
+#include "AuthTCPPacket.h"
 #include "GameInfoPacket.h"
 #include "GameOverPacket.h"
 #include "FailPacket.h"

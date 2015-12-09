@@ -1,19 +1,21 @@
 # include <string.h>
-# include "AuthPacket.h"
+# include "AuthUDPPacket.h"
 
-AuthPacket::AuthPacket(ServerTCPResponse resp, int data) : AServerPacket<ServerTCPResponse>(resp), _data(new AuthData)
+AuthUDPPacket::AuthUDPPacket(ServerUDPResponse resp, int success, std::string const& name) : AServerPacket<ServerUDPResponse>(resp), _data(new AuthUDPData)
 {
-  _data->data = data;
+  _data->success = success;
+  bzero(_data->name, 256);
+  memcpy(&(_data->name), name.c_str(), name.size());
   _data->magic = MAGIC;
 }
 
-AuthPacket::~AuthPacket()
+AuthUDPPacket::~AuthUDPPacket()
 {
 }
 
-std::string const&		AuthPacket::deserialize()
+std::string const&		AuthUDPPacket::deserialize()
 {
-  ServerTCPHeader			header;
+  ServerUDPHeader			header;
   char*				buff = new char[sizeof(header) + sizeof(*_data) + 1];
   static std::string		ret;
 

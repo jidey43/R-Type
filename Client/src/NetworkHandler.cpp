@@ -55,13 +55,14 @@ IServerPacket<ServerTCPResponse>*	NetworkHandler::receiveFromServer()
   char*					buff;
   IServerPacket<ServerTCPResponse>*	packet;
 
+  memset(header, 0, sizeof(ServerTCPHeader));
   tryReceive((char*)header, sizeof(ServerTCPHeader));
   packet = _factory->build(header);
   if (!packet->checkHeader())
     return NULL;
   buff = new char[header->size + 1];
+  memset(buff, 0, header->size + 1);
   tryReceive(buff, header->size);
-  buff[header->size] = 0;
   tmp = std::string(buff);
   packet->setRawData(tmp);
   return packet;
