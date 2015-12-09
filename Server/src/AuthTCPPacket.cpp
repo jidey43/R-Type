@@ -1,17 +1,17 @@
 # include <string.h>
-# include "AuthPacket.h"
+# include "AuthTCPPacket.h"
 
-AuthPacket::AuthPacket(ServerTCPResponse resp, int data) : AServerPacket<ServerTCPResponse>(resp), _data(new AuthData)
+AuthTCPPacket::AuthTCPPacket(ServerTCPResponse resp, int data) : AServerPacket<ServerTCPResponse>(resp), _data(new AuthData)
 {
   _data->data = data;
   _data->magic = MAGIC;
 }
 
-AuthPacket::~AuthPacket()
+AuthTCPPacket::~AuthTCPPacket()
 {
 }
 
-std::string const&		AuthPacket::deserialize()
+std::string const&		AuthTCPPacket::deserialize()
 {
   ServerTCPHeader			header;
   char*				buff = new char[sizeof(header) + sizeof(*_data) + 1];

@@ -3,11 +3,11 @@
 
 # include "AServerPacket.hh"
 
-class AuthPacket : public AServerPacket<ServerTCPResponse>
+class AuthTCPPacket : public AServerPacket<ServerTCPResponse>
 {
  public:
-  AuthPacket(ServerTCPResponse, int);
-  ~AuthPacket();
+  AuthTCPPacket(ServerTCPResponse, int);
+  ~AuthTCPPacket();
 
   std::string const&		deserialize();
 
