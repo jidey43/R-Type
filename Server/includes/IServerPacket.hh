@@ -46,6 +46,13 @@ typedef struct
   uint32_t			magic;
 }				AuthUDPData;
 
+typedef struct
+{
+  float				x;
+  float				y;
+  uint32_t			magic;
+}				CrePlayData;
+
 typedef integerData GameOverData;
 typedef integerData AuthTCPData;
 typedef integerData GameListData;
