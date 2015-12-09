@@ -1,8 +1,8 @@
 #include <string.h>
 #include "NickPacket.h"
 
-NickPacket::NickPacket()
-  : _command(AUTH_TCP), _data(new NickData)
+NickPacket::NickPacket(ClientTCPHeader *header)
+  : AClientPacket(header->command),  _data(new NickData), _header(header)
 {
 }
 
@@ -21,4 +21,9 @@ void			NickPacket::setRawData(std::string const& data)
 NickData*		NickPacket::getData() const
 {
   return _data;
+}
+
+bool			NickPacket::checkHeader()
+{
+
 }

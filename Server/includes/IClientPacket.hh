@@ -9,7 +9,7 @@ typedef struct
   ClientCommand	command;
   int		size;
   int		magic;
-} __attribute__ ((packed)) ClientHeader;
+} __attribute__ ((packed)) ClientTCPHeader;
 
 typedef struct
 {
@@ -34,7 +34,7 @@ public:
 public:
   virtual ClientCommand		getCommandType() const = 0;
   virtual void			setRawData(std::string const&) = 0;
-  virtual bool			setRawHeader(ClientHeader* header) = 0;
+  virtual bool			checkHeader() = 0;
 };
 
 #endif

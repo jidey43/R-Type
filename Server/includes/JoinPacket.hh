@@ -6,16 +6,17 @@
 class JoinPacket : public AClientPacket
 {
 public:
-  JoinPacket();
+  JoinPacket(ClientTCPHeader*);
   ~JoinPacket();
 
 private:
-  ClientCommand		_command;
+  ClientTCPHeader*	_header;
   JoinData*		_data;
 
 public:
   void			setRawData(std::string const&);
   JoinData*		getData() const;
+  bool			checkHeader();
 };
 
 #endif

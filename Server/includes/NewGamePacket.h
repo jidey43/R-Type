@@ -6,16 +6,17 @@
 class NewGamePacket : public AClientPacket
 {
 public:
-  NewGamePacket();
+  NewGamePacket(ClientTCPHeader*);
   ~NewGamePacket();
 
 private:
-  ClientCommand		_command;
   NewGameData*		_data;
+  ClientTCPHeader*	_header;
 
 public:
   void			setRawData(std::string const&);
   NewGameData*		getData() const;
+  bool			checkHeader();
 };
 
 #endif
