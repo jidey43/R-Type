@@ -11,7 +11,7 @@ GameListPacket::~GameListPacket()
 
 std::string const&		GameListPacket::deserialize()
 {
-  ServerHeader			header;
+  ServerTCPHeader			header;
   char*				buff = new char[sizeof(header) + 1];
   static std::string		ret;
 

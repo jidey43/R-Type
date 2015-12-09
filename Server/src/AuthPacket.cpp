@@ -13,7 +13,7 @@ AuthPacket::~AuthPacket()
 
 std::string const&		AuthPacket::deserialize()
 {
-  ServerHeader			header;
+  ServerTCPHeader			header;
   char*				buff = new char[sizeof(header) + sizeof(*_data) + 1];
   static std::string		ret;
 

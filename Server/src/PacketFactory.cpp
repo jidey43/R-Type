@@ -6,32 +6,32 @@ PacketFactory::PacketFactory()
 PacketFactory::~PacketFactory()
 {}
 
-// IClientPacket*		PacketFactory::build(ServerUDPHeader *header)
-// {
-//   switch(header->command)
-//     {
-//     default:
-//       return NULL;
-//     }
-// }
+IServerPacket*		PacketFactory::build(ServerUDPHeader *header)
+{
+  switch(header->command)
+    {
+    default:
+      return NULL;
+    }
+}
 
-// IClientPacket*		PacketFactory::build(ServerTCPHeader *header)
-// {
-//   switch(header->command)
-//     {
-//     default:
-//       return NULL;
-//     }
-// }
+IServerPacket*		PacketFactory::build(ServerTCPHeader *header)
+{
+  switch(header->command)
+    {
+    default:
+      return NULL;
+    }
+}
 
-// IClientPacket*		PacketFactory::build(ClientUDPHeader *header)
-// {
-//   switch(header->command)
-//     {
-//     default:
-//       return NULL;
-//     }
-// }
+IClientPacket*		PacketFactory::build(ClientUDPHeader *header)
+{
+  switch(header->command)
+    {
+    default:
+      return NULL;
+    }
+}
 
 IClientPacket*		PacketFactory::build(ClientTCPHeader* header)
 {

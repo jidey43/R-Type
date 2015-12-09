@@ -8,7 +8,15 @@ typedef struct
   uint32_t			magic;
   ServerResponse		command;
   uint32_t			size;
-} __attribute__ ((packed))	ServerHeader;
+} __attribute__ ((packed))	ServerTCPHeader;
+
+typedef struct
+{
+  uint32_t			magic;
+  ServerResponse		command;
+  uint32_t			size;
+  uint32_t			idx;
+} __attribute__ ((packed))	ServerUDPHeader;
 
 typedef struct
 {

@@ -14,7 +14,7 @@ typedef struct
 typedef struct
 {
   uint32_t			magic;
-  ClientCommand			id;
+  ClientCommand			command;
   uint32_t			size;
   uint32_t			idx;
 } __attribute__ ((packed))	ClientUDPHeader;
