@@ -6,14 +6,14 @@
 class AClientPacket : public IClientPacket
 {
 public:
-  AClientPacket(ClientCommand);
+  AClientPacket(ClientTCPCommand);
   virtual ~AClientPacket();
 
 protected:
-  ClientCommand		_command;
+  ClientTCPCommand		_command;
 
 public:
-  ClientCommand		getCommandType() const;
+  ClientTCPCommand		getCommandType() const;
   virtual bool		checkHeader() = 0;
   virtual void		setRawData(std::string const&) = 0;
 };

@@ -34,7 +34,7 @@ typedef enum
     ADD_GAME,
     JOIN_GAME,
     QUIT
-  }		ClientCommand;
+  }		ClientTCPCommand;
 
 typedef enum
 {
@@ -45,12 +45,23 @@ typedef enum
   DES_GAME,
   END_GAME_LIST,
   FAIL
-}		ServerResponse;
+}		ServerTCPResponse;
 
 typedef enum
   {
-    AUTH_UDP = 1
-  }		GameServerCommand;
+    AUTH_UDP = 1,
+    CRE_PLAY,
+    DEL_PLAY,
+    CRE_SHOT,
+    DEL_SHOT,
+    CRE_IA,
+    DEL_IA,
+    MOVE,
+  }		ServerUDPResponse;
+
+typedef enum
+  {
+  }		ClientUDPCommand;
 
 
 /*

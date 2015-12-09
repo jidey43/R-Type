@@ -3,12 +3,12 @@
 class DesGamePacket : public IServerPacket
 {
  public:
-  DesGamePacket(ServerResponse, int, std::string const&, std::string const&);
+  DesGamePacket(ServerTCPResponse, int, std::string const&, std::string const&);
   ~DesGamePacket();
 
   std::string const&		deserialize();
 
  private:
-  ServerResponse		_response;
+  ServerTCPResponse		_response;
   DesGameData*			_data;
 };

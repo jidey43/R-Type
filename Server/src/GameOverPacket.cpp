@@ -1,7 +1,7 @@
 # include <string.h>
 # include "GameOverPacket.h"
 
-GameOverPacket::GameOverPacket(ServerResponse resp, int data) : _response(resp), _data(new GameOverData)
+GameOverPacket::GameOverPacket(ServerTCPResponse resp, int data) : _response(resp), _data(new GameOverData)
 {
   _data->data = data;
   _data->magic = MAGIC;

@@ -1,7 +1,7 @@
 # include <string.h>
 # include "FailPacket.h"
 
-FailPacket::FailPacket(ServerResponse resp) : _response(resp)
+FailPacket::FailPacket(ServerTCPResponse resp) : _response(resp)
 {
 }
 

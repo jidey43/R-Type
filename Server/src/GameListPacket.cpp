@@ -1,7 +1,7 @@
 # include <string.h>
 # include "GameListPacket.h"
 
-GameListPacket::GameListPacket(ServerResponse resp) : _response(resp)
+GameListPacket::GameListPacket(ServerTCPResponse resp) : _response(resp)
 {
 }
 

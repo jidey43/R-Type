@@ -1,6 +1,6 @@
 #include "AClientPacket.hh"
 
-AClientPacket::AClientPacket(ClientCommand cmd) : _command(cmd)
+AClientPacket::AClientPacket(ClientTCPCommand cmd) : _command(cmd)
 {
 }
 
@@ -8,7 +8,7 @@ AClientPacket::~AClientPacket()
 {
 }
 
-ClientCommand		AClientPacket::getCommandType() const
+ClientTCPCommand		AClientPacket::getCommandType() const
 {
   return _command;
 }

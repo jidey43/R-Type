@@ -1,7 +1,7 @@
 # include <string.h>
 # include "GameInfoPacket.h"
 
-GameInfoPacket::GameInfoPacket(ServerResponse resp, int id, int port) : _response(resp), _data(new GameInfoData)
+GameInfoPacket::GameInfoPacket(ServerTCPResponse resp, int id, int port) : _response(resp), _data(new GameInfoData)
 {
   _data->id = id;
   _data->port = port;

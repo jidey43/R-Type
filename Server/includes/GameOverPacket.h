@@ -6,13 +6,13 @@
 class GameOverPacket : public IServerPacket
 {
  public:
-  GameOverPacket(ServerResponse, int);
+  GameOverPacket(ServerTCPResponse, int);
   ~GameOverPacket();
 
   std::string const&		deserialize();
 
  private:
-  ServerResponse		_response;
+  ServerTCPResponse		_response;
   GameOverData*			_data;
 };
 
