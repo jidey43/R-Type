@@ -1,7 +1,4 @@
 #include "PacketFactory.hh"
-#include "NickPacket.h"
-#include "JoinPacket.hh"
-#include "NewGamePacket.h"
 
 PacketFactory::PacketFactory()
 {}
@@ -51,6 +48,7 @@ IClientPacket*		PacketFactory::build(ClientTCPHeader* header)
       break;
     default:
       return NULL;
+      break;
     }
 }
 
