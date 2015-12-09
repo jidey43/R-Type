@@ -226,3 +226,4 @@ cmake_install.cmake
 *.o
 *~
 *#
+cmake_install.cmake
