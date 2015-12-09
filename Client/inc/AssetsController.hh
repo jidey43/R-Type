@@ -12,6 +12,12 @@ typedef enum e_ButtonType
 	NUMBEROFBUTTON,
 }			ButtonType;
 
+typedef enum e_BackgroundType
+{
+	MENU_BACKGROUND = 0,
+	BACKGROUND_ONE,
+	NUMBEROFBACKGROUND
+};
 
 class							AssetsController
 {
@@ -33,6 +39,7 @@ public:
 	sf::Texture					*getBackground(int id);
 	sf::Texture					*getShot(int id);
 	sf::Texture					*getButton(ButtonType, bool);
+	sf::Texture					*getLogo();
 
 private:
 	std::string					_assetsPath;
@@ -46,4 +53,5 @@ private:
 	std::vector<sf::Texture*>	_buttonTexture;
 	std::vector<sf::Texture*>	_buttonTextureHigh;
 	sf::Texture*				_shipShot;
+	sf::Texture*				_rtypeLogo;
 };

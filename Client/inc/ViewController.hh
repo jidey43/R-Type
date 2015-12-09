@@ -20,6 +20,8 @@ extern AssetsController *ac;
 #define SHIP_ASSET_SIZE_Y 300
 #define SHOT_ASSET_SIZE_Y 20
 
+#define LOGO_SIZE_X 500
+#define LOGO_SIZE_Y 100
 
 #define BUTTON_X 100
 #define BUTTON_Y 50

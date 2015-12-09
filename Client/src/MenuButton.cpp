@@ -8,7 +8,7 @@ MenuButton::MenuButton()
 
 sf::Drawable * MenuButton::getDrawable()
 {
-	if (isHigh)
+	if (_isHigh)
 		return _spriteHigh;
 	return _spriteReg;
 }
@@ -20,13 +20,22 @@ sf::Vector2f MenuButton::getPosition()
 
 void MenuButton::update(sf::Vector2i mousepos)
 {
+	_isHigh = cursorOnIt(mousepos);
+}
+
+bool MenuButton::cursorOnIt(sf::Vector2i mousepos)
+{
 	if (
 		mousepos.x > _position.x &&
 		mousepos.x < (_position.x + BUTTON_X) &&
 		mousepos.y > _position.y &&
 		mousepos.y < (_position.y + BUTTON_Y)
 		)
-		isHigh = true;
-	else
-		isHigh = false;
+		return true;
+	return false;
+}
+
+bool MenuButton::getIsHigh()
+{
+	return _isHigh;
 }

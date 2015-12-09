@@ -43,6 +43,9 @@ keyboardStatus					ViewController::getKeyboardStatus()
 		exit(0);
 
 	state.mousePos = sf::Mouse::getPosition(*_mainWindow);
+	
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		state.leftClick = true;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		state.up = true;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))

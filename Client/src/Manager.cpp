@@ -26,7 +26,7 @@ void					Manager::loop()
 	_itemCtrl->moveShip(2, sf::Vector2f(200, 200));
 	_itemCtrl->moveShip(3, sf::Vector2f(1300, 700));
 	_itemCtrl->moveShip(4, sf::Vector2f(1000, 300));
-	_itemCtrl->setBackgroud(1);
+	_itemCtrl->setBackgroud(BACKGROUND_ONE);
 
 	//GAME LOOP
 	while (1)
