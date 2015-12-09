@@ -6,34 +6,34 @@ PacketFactory::PacketFactory()
 PacketFactory::~PacketFactory()
 {}
 
-// IClientPacket*		PacketFactory::build(ServerUDPHeader *header)
-// {
-//   switch(header->command)
-//     {
-//     default:
-//       return NULL;
-//     }
-// }
+IServerPacket*		PacketFactory::build(ServerUDPHeader *header)
+{
+  switch(header->command)
+    {
+    default:
+      return NULL;
+    }
+}
 
-// IClientPacket*		PacketFactory::build(ServerTCPHeader *header)
-// {
-//   switch(header->command)
-//     {
-//     default:
-//       return NULL;
-//     }
-// }
+IServerPacket*		PacketFactory::build(ServerTCPHeader *header)
+{
+  switch(header->command)
+    {
+    default:
+      return NULL;
+    }
+}
 
-// IClientPacket*		PacketFactory::build(ClientUDPHeader *header)
-// {
-//   switch(header->command)
-//     {
-//     default:
-//       return NULL;
-//     }
-// }
+IClientPacket<ClientUDPCommand>*		PacketFactory::build(ClientUDPHeader *header)
+{
+  switch(header->command)
+    {
+    default:
+      return NULL;
+    }
+}
 
-IClientPacket*		PacketFactory::build(ClientTCPHeader* header)
+IClientPacket<ClientTCPCommand>*		PacketFactory::build(ClientTCPHeader* header)
 {
   switch(header->command)
     {
@@ -52,10 +52,23 @@ IClientPacket*		PacketFactory::build(ClientTCPHeader* header)
     }
 }
 
-std::string const&	PacketFactory::disassemble(IClientPacket* packet)
+std::string const&	PacketFactory::disassemble(IClientPacket<ClientUDPCommand>* packet)
 {
   std::string		ret;
 
   delete(packet);
-  // ret +=
+}
+
+std::string const&	PacketFactory::disassemble(IClientPacket<ClientTCPCommand>* packet)
+{
+  std::string		ret;
+
+  delete(packet);
+}
+
+std::string const&	PacketFactory::disassemble(IServerPacket* packet)
+{
+  std::string		ret;
+
+  delete(packet);
 }

@@ -114,10 +114,10 @@ void	NetworkHandler::broadcast(IServerPacket* packet)
 
 void			NetworkHandler::receiveFromClient(ClientInfo* client)
 {
-  ClientTCPHeader*	header = new ClientTCPHeader;
-  std::string		tmp;
-  char*			buff;
-  IClientPacket*	packet;
+  ClientTCPHeader*			header = new ClientTCPHeader;
+  std::string				tmp;
+  char*					buff;
+  IClientPacket<ClientTCPCommand>*	packet;
 
   client->setPacket(NULL);
   _network->recvData(header, sizeof(ClientTCPHeader), client->getSocket(), NULL);

@@ -1,7 +1,7 @@
 # include <string.h>
 # include "GameOverPacket.h"
 
-GameOverPacket::GameOverPacket(ServerResponse resp, int data) : _response(resp), _data(new GameOverData)
+GameOverPacket::GameOverPacket(ServerTCPResponse resp, int data) : _response(resp), _data(new GameOverData)
 {
   _data->data = data;
   _data->magic = MAGIC;
@@ -13,7 +13,7 @@ GameOverPacket::~GameOverPacket()
 
 std::string const&		GameOverPacket::deserialize()
 {
-  ServerHeader			header;
+  ServerTCPHeader			header;
   char*				buff = new char[sizeof(header) + sizeof(*_data) + 1];
   static std::string		ret;
 

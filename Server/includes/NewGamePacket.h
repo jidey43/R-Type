@@ -3,7 +3,7 @@
 
 # include "AClientPacket.hh"
 
-class NewGamePacket : public AClientPacket
+class NewGamePacket : public AClientPacket<ClientTCPCommand>
 {
 public:
   NewGamePacket(ClientTCPHeader*);

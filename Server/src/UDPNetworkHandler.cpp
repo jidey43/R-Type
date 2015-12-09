@@ -54,11 +54,12 @@ GamerInfo*		UDPNetworkHandler::getClient(ClientDatas* datas)
 
 bool			UDPNetworkHandler::selectClient()
 {
-  std::vector<int>	fdList;
-  ClientDatas*		clientDatas = new ClientDatas();
-  ClientUDPHeader*	header = new ClientUDPHeader();
-  GamerInfo*		client;
-  char*			buff;
+  std::vector<int>			fdList;
+  ClientDatas*				clientDatas = new ClientDatas();
+  ClientUDPHeader*			header = new ClientUDPHeader();
+  GamerInfo*				client;
+  char*					buff;
+  IClientPacket<ClientUDPCommand>*	packet;
 
   fdList.push_back(_socket);
   _network->selectClients(fdList, NULL);
@@ -70,7 +71,7 @@ bool			UDPNetworkHandler::selectClient()
 	  buff = new char[header->size + 1];
 	  memset(buff, 0, header->size + 1);
 	  _network->recvData(buff, header->size, _socket, clientDatas);
-
+	  _factory->build(header);
 	  std::cout << "TODO" << std::endl;
 	}
     }

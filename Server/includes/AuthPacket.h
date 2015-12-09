@@ -6,13 +6,13 @@
 class AuthPacket : public IServerPacket
 {
  public:
-  AuthPacket(ServerResponse, int);
+  AuthPacket(ServerTCPResponse, int);
   ~AuthPacket();
 
   std::string const&		deserialize();
 
  private:
-  ServerResponse		_response;
+  ServerTCPResponse		_response;
   AuthData*			_data;
 };
 

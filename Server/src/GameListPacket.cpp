@@ -1,7 +1,7 @@
 # include <string.h>
 # include "GameListPacket.h"
 
-GameListPacket::GameListPacket(ServerResponse resp) : _response(resp)
+GameListPacket::GameListPacket(ServerTCPResponse resp) : _response(resp)
 {
 }
 
@@ -11,7 +11,7 @@ GameListPacket::~GameListPacket()
 
 std::string const&		GameListPacket::deserialize()
 {
-  ServerHeader			header;
+  ServerTCPHeader			header;
   char*				buff = new char[sizeof(header) + 1];
   static std::string		ret;
 

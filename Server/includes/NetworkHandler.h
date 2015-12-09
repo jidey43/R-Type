@@ -29,7 +29,6 @@ class NetworkHandler
   std::string					_port;
   INetwork<TCPSocket>*				_network;
   std::vector<ClientInfo*>			_activeClients;
-  IClientPacket*				_packet;
   PacketFactory*				_factory;
 
  public:

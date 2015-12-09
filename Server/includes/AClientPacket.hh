@@ -3,19 +3,22 @@
 
 # include "IClientPacket.hh"
 
-class AClientPacket : public IClientPacket
+template <typename T>
+class AClientPacket : public IClientPacket<T>
 {
 public:
-  AClientPacket(ClientCommand);
+  AClientPacket(T);
   virtual ~AClientPacket();
 
 protected:
-  ClientCommand		_command;
+  T			_command;
 
 public:
-  ClientCommand		getCommandType() const;
+  T			getCommandType() const;
   virtual bool		checkHeader() = 0;
   virtual void		setRawData(std::string const&) = 0;
 };
+
+# include "AClientPacket.tpp"
 
 #endif

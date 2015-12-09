@@ -3,7 +3,7 @@
 
 # include "AClientPacket.hh"
 
-class NickPacket : public AClientPacket
+class NickPacket : public AClientPacket<ClientTCPCommand>
 {
 public:
   NickPacket(ClientTCPHeader*);

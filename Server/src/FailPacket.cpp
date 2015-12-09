@@ -1,7 +1,7 @@
 # include <string.h>
 # include "FailPacket.h"
 
-FailPacket::FailPacket(ServerResponse resp) : _response(resp)
+FailPacket::FailPacket(ServerTCPResponse resp) : _response(resp)
 {
 }
 
@@ -11,7 +11,7 @@ FailPacket::~FailPacket()
 
 std::string const&		FailPacket::deserialize()
 {
-  ServerHeader			header;
+  ServerTCPHeader			header;
   char*				buff = new char[sizeof(header) + 1];
   static std::string		ret;
 

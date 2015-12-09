@@ -1,7 +1,7 @@
 # include <string.h>
 # include "AuthPacket.h"
 
-AuthPacket::AuthPacket(ServerResponse resp, int data) : _response(resp), _data(new AuthData)
+AuthPacket::AuthPacket(ServerTCPResponse resp, int data) : _response(resp), _data(new AuthData)
 {
   _data->data = data;
   _data->magic = MAGIC;
@@ -13,7 +13,7 @@ AuthPacket::~AuthPacket()
 
 std::string const&		AuthPacket::deserialize()
 {
-  ServerHeader			header;
+  ServerTCPHeader			header;
   char*				buff = new char[sizeof(header) + sizeof(*_data) + 1];
   static std::string		ret;
 

@@ -2,7 +2,7 @@
 #include "NickPacket.h"
 
 NickPacket::NickPacket(ClientTCPHeader *header)
-  : AClientPacket(header->command),  _data(new NickData), _header(header)
+  : AClientPacket<ClientTCPCommand>(header->command),  _data(new NickData), _header(header)
 {
 }
 

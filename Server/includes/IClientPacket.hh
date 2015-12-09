@@ -7,14 +7,14 @@
 typedef struct
 {
   uint32_t			magic;
-  ClientCommand			command;
+  ClientTCPCommand			command;
   int				size;
 } __attribute__ ((packed))	ClientTCPHeader;
 
 typedef struct
 {
   uint32_t			magic;
-  ClientCommand			id;
+  ClientTCPCommand			command;
   uint32_t			size;
   uint32_t			idx;
 } __attribute__ ((packed))	ClientUDPHeader;
@@ -34,13 +34,14 @@ typedef struct
 
 typedef NewGameData NickData;
 
+template <typename T>
 class IClientPacket
 {
 public:
   virtual ~IClientPacket() {};
 
 public:
-  virtual ClientCommand		getCommandType() const = 0;
+  virtual T			getCommandType() const = 0;
   virtual void			setRawData(std::string const&) = 0;
   virtual bool			checkHeader() = 0;
 };

@@ -1,7 +1,7 @@
 # include <string.h>
 # include "DesGamePacket.h"
 
-DesGamePacket::DesGamePacket(ServerResponse resp, int id, std::string const& gameName, std::string const& players) : _response(resp), _data(new DesGameData)
+DesGamePacket::DesGamePacket(ServerTCPResponse resp, int id, std::string const& gameName, std::string const& players) : _response(resp), _data(new DesGameData)
 {
   _data->id = id;
   bzero(_data->gameName, 256);
@@ -17,7 +17,7 @@ DesGamePacket::~DesGamePacket()
 
 std::string const&		DesGamePacket::deserialize()
 {
-  ServerHeader			header;
+  ServerTCPHeader			header;
   char*				buff = new char[sizeof(header) + sizeof(*_data) + 1];
   static std::string		ret;
 

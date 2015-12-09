@@ -9,6 +9,7 @@
 # include "INetwork.hh"
 # include "UNetwork.hh"
 # include "WNetwork.hh"
+# include "PacketFactory.hh"
 
 template class				INetwork<TCPSocket>;
 
@@ -21,19 +22,19 @@ public:
 private:
   std::string				_ip;
   std::string				_port;
-  INetwork<TCPSocket>*		_network;
-  // std::vector<ClientInfo*>	_clientList;
-  // std::vector<ClientInfo*>	_activeClients;
+  INetwork<TCPSocket>*			_network;
+  std::vector<SOCKET>			_activeFD;
   PacketFactory*			_factory;
   std::string				_packet;
   SOCKET				_listen;
 
 public:
   bool						initSocket();
-  //bool						selectSockets();
-  //ClientInfo*					getActiveClient();
-  void						broadcast(char* msg);
+  bool						selectSockets();
+  bool						getActiveClient();
+  // void						broadcast(char* msg);
   bool						sendToServer(std::string const& data);
+  bool						tryReceive();
   TransmitStatus				receiveFromServer();
   void						closeConnection();
   std::string					getPacket() const;

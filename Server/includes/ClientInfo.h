@@ -5,6 +5,8 @@
 # include "NetworkDefines.h"
 # include "IClientPacket.hh"
 
+template class	IClientPacket<ClientTCPCommand>;
+
 class ClientInfo
 {
  public:
@@ -13,21 +15,21 @@ class ClientInfo
   ~ClientInfo();
 
  private:
-  bool			_isInGame;
-  bool			_disconnected;
-  SOCKET		_socket;
-  std::string		_nickname;
-  IClientPacket*	_packet;
+  bool					_isInGame;
+  bool					_disconnected;
+  SOCKET				_socket;
+  std::string				_nickname;
+  IClientPacket<ClientTCPCommand>*	_packet;
 
  public:
-  bool			isInGame() const;
-  void			setPacket(IClientPacket*);
-  IClientPacket*	getPacket() const;
-  SOCKET		getSocket() const;
-  std::string		getNickname() const;
-  void			setNickname(std::string const& nick);
-  bool			getDisconnected() const;
-  void			setDisconnected(bool);
+  bool					isInGame() const;
+  void					setPacket(IClientPacket<ClientTCPCommand>*);
+  IClientPacket<ClientTCPCommand>*	getPacket() const;
+  SOCKET				getSocket() const;
+  std::string				getNickname() const;
+  void					setNickname(std::string const& nick);
+  bool					getDisconnected() const;
+  void					setDisconnected(bool);
 };
 
 #endif

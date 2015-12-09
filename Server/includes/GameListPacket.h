@@ -6,13 +6,13 @@
 class GameListPacket : public IServerPacket
 {
  public:
-  GameListPacket(ServerResponse);
+  GameListPacket(ServerTCPResponse);
   ~GameListPacket();
 
   std::string const&		deserialize();
 
  private:
-  ServerResponse		_response;
+  ServerTCPResponse		_response;
 };
 
 #endif /* !GAMELISTPACKET_H_ */

@@ -6,13 +6,13 @@
 class FailPacket : public IServerPacket
 {
  public:
-  FailPacket(ServerResponse);
+  FailPacket(ServerTCPResponse);
   ~FailPacket();
 
   std::string const&		deserialize();
 
  private:
-  ServerResponse		_response;
+  ServerTCPResponse		_response;
 };
 
 #endif /* !FAILPACKET_H_ */
