@@ -1,5 +1,5 @@
-#ifndef AUTHPACKET_H_
-# define AUTH_PACKET_H_
+#ifndef AUTHTCPPACKET_H_
+# define AUTHTCPPACKET_H_
 
 # include "AServerPacket.hh"
 
@@ -12,7 +12,7 @@ class AuthTCPPacket : public AServerPacket<ServerTCPResponse>
   std::string const&		deserialize();
 
  private:
-  AuthData*			_data;
+  AuthTCPData*			_data;
 };
 
 #endif
