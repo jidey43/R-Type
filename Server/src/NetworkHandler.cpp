@@ -9,7 +9,6 @@ NetworkHandler::NetworkHandler(std::string const & ip, std::string const & port)
 	: _ip(ip),
 	  _port(port),
 	  _network(getNetworkInstance<TCPSocket>()),
-	  _packet(NULL),
 	  _factory(new PacketFactory())
 {
 }
@@ -114,11 +113,11 @@ void	NetworkHandler::broadcast(IServerPacket* packet)
 
 TransmitStatus		NetworkHandler::receiveFromClient(ClientInfo* client)
 {
-  TransmitStatus	ret;
-  ClientTCPHeader*		header = new ClientTCPHeader;
-  std::string		tmp;
-  char*			buff;
-  IClientPacket*	packet;
+  TransmitStatus			ret;
+  ClientTCPHeader*			header = new ClientTCPHeader;
+  std::string				tmp;
+  char*					buff;
+  IClientPacket<ClientTCPCommand>*	packet;
 
   if ((ret = _network->recvData(header, sizeof(ClientTCPHeader), client->getSocket(), NULL)) == PASSED)
     {

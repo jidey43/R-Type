@@ -2,7 +2,7 @@
 #include "NewGamePacket.h"
 
 NewGamePacket::NewGamePacket(ClientTCPHeader *header)
-  : AClientPacket(header->command), _data(new NewGameData), _header(header)
+  : AClientPacket<ClientTCPCommand>(header->command), _data(new NewGameData), _header(header)
 {
 }
 

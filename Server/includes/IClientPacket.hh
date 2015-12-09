@@ -34,13 +34,14 @@ typedef struct
 
 typedef NewGameData NickData;
 
+template <typename T>
 class IClientPacket
 {
 public:
   virtual ~IClientPacket() {};
 
 public:
-  virtual ClientTCPCommand		getCommandType() const = 0;
+  virtual T			getCommandType() const = 0;
   virtual void			setRawData(std::string const&) = 0;
   virtual bool			checkHeader() = 0;
 };

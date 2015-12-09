@@ -3,7 +3,7 @@
 
 # include "AClientPacket.hh"
 
-class JoinPacket : public AClientPacket
+class JoinPacket : public AClientPacket<ClientTCPCommand>
 {
 public:
   JoinPacket(ClientTCPHeader*);
