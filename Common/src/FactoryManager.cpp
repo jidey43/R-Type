@@ -30,9 +30,9 @@ void		FactoryManager::initialiseLevel()
 {
   int j = 0;
   int nb = _levelLoader.getWavesCount();
-  Waves waves[nb];
-
-  waves[0] = _levelLoader.getNextWave();
+  std::vector<Waves> waves(nb);
+  //a test
+  waves.push_back(_levelLoader.getNextWave());
   for (int i = 0; j != nb; i = i + 1)
     {
       if (i > (int)_nbFactory)
@@ -47,7 +47,7 @@ void		FactoryManager::initialiseLevel()
 	  _factories[i]->setWave(waves[j]);
 	  j = j + 1;
 	  if (j < _levelLoader.getWavesCount())
-	    waves[j] = _levelLoader.getNextWave();
+	    waves.push_back(_levelLoader.getNextWave());
 	  i = 0;
 	}
       std::cout << "nb " << nb << " j  " << j << " i " <<  i << std::endl;

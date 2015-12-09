@@ -16,16 +16,7 @@ void					Manager::loop()
 	//STARTING GAME
 
 	//vc->startSoundtrack();
-	_itemCtrl->addShip(1);
-	_itemCtrl->addShip(2);
-	_itemCtrl->addShip(3);
-	_itemCtrl->addShip(4);
-	_itemCtrl->addShot(sf::Vector2f(0, 500), 1, 1, 1);
-
-	_itemCtrl->moveShip(1, sf::Vector2f(800, 600));
-	_itemCtrl->moveShip(2, sf::Vector2f(200, 200));
-	_itemCtrl->moveShip(3, sf::Vector2f(1300, 700));
-	_itemCtrl->moveShip(4, sf::Vector2f(1000, 300));
+	_itemCtrl->addAlien(ObjectInfo::BYDO, sf::Vector2f(42, 42), sf::Vector2i(100, 100), 1 );
 	_itemCtrl->setBackgroud(BACKGROUND_ONE);
 
 	//GAME LOOP
@@ -35,10 +26,11 @@ void					Manager::loop()
 		vc->clear();
 
 		_itemCtrl->update();
-		_itemCtrl->draw();
 		
 		_keyboardStatus =  vc->getKeyboardStatus();
 		treatEvents();
+
+		_itemCtrl->draw();
 
 		vc->refresh();
 		_loopTime = _clock.getElapsedTime();

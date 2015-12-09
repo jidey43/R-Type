@@ -3,6 +3,7 @@
 #include "ViewController.hh"
 #include "AssetsController.hh"
 #include "ItemController.hh"
+#include "ObjectInfo.hpp"
 
 extern ViewController *vc;
 extern AssetsController *ac;
