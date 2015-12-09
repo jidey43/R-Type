@@ -1,4 +1,4 @@
- #pragma once
+#pragma once
 #include <string>
 #include <vector>
 #include <iostream>
@@ -17,7 +17,13 @@ typedef enum e_BackgroundType
 	MENU_BACKGROUND = 0,
 	BACKGROUND_ONE,
 	NUMBEROFBACKGROUND
-};
+}				BackgroundType;
+
+typedef enum e_Fonts
+{
+	STAR = 0,
+	NUMBEROFFONTS
+}			Font;
 
 class							AssetsController
 {
@@ -32,6 +38,7 @@ public:
 	bool						loadBackground();
 	bool						loadShots();
 	bool						loadButtons();
+	bool						loadFonts();
 
 public:
 	sf::Music					*getSoundTrack();
@@ -40,6 +47,7 @@ public:
 	sf::Texture					*getShot(int id);
 	sf::Texture					*getButton(ButtonType, bool);
 	sf::Texture					*getLogo();
+	sf::Font					*getFont(Font);
 
 private:
 	std::string					_assetsPath;
@@ -52,6 +60,7 @@ private:
 	std::vector<sf::Texture*>	_backgroundTexture;
 	std::vector<sf::Texture*>	_buttonTexture;
 	std::vector<sf::Texture*>	_buttonTextureHigh;
+	std::vector<sf::Font*>		_fonts;
 	sf::Texture*				_shipShot;
 	sf::Texture*				_rtypeLogo;
 };

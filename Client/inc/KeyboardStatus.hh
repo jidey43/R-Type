@@ -5,6 +5,7 @@
 typedef struct s_keyboarStatus
 {
 	sf::Vector2i mousePos;
+	char		textEntered;
 	bool		leftClick;
 	bool		up;
 	bool		down;

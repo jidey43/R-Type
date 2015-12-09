@@ -43,7 +43,8 @@ keyboardStatus					ViewController::getKeyboardStatus()
 		exit(0);
 
 	state.mousePos = sf::Mouse::getPosition(*_mainWindow);
-	
+	state.textEntered = getTextEntered();
+
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		state.leftClick = true;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -55,6 +56,18 @@ keyboardStatus					ViewController::getKeyboardStatus()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		state.right = true;
 	return state;
+}
+
+char ViewController::getTextEntered()
+{
+	sf::Event e;
+	_mainWindow->pollEvent(e);
+	if (e.type == sf::Event::TextEntered)
+	{
+		if (e.text.unicode < 128)
+			return(static_cast<char>(e.text.unicode));
+	}
+	return -1;
 }
 
 void ViewController::startSoundtrack()

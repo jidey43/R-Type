@@ -43,6 +43,7 @@ public:
 
 //INPUT STUFF
 	keyboardStatus	getKeyboardStatus();
+	char			getTextEntered();
 
 //AUDIO STUFF
 public:

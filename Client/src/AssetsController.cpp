@@ -18,7 +18,8 @@ bool AssetsController::loadAssets()
 		loadSoundAssets() &&
 		loadBackground() &&
 		loadShots() &&
-		loadButtons()
+		loadButtons() &&
+		loadFonts()
 		)
 		return (true);
 	return (false);
@@ -88,6 +89,17 @@ bool AssetsController::loadButtons()
 	return false;
 }
 
+bool AssetsController::loadFonts()
+{
+	for (int i = 0; i != NUMBEROFFONTS; i++)
+		_fonts.emplace_back(new sf::Font);
+	if (
+		_fonts[STAR]->loadFromFile(_assetsPath + "jedi.ttf")
+		)
+		return true;
+	return false;
+}
+
 sf::Music * AssetsController::getSoundTrack()
 {
 	return _soundTrack;
@@ -118,4 +130,9 @@ sf::Texture * AssetsController::getButton(ButtonType button, bool highlight)
 sf::Texture	*AssetsController::getLogo()
 {
 	return _rtypeLogo;
+}
+
+sf::Font* AssetsController::getFont(Font font)
+{
+	return _fonts[font];
 }
