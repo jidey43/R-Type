@@ -10,6 +10,13 @@ class GameListPacket : public AServerPacket<ServerTCPResponse>
   ~GameListPacket();
 
   std::string const&		deserialize();
+  bool				checkHeader();
+  void				setRawData(std::string const&);
+
+
+ private:
+  ServerTCPHeader*		_header;
+
 };
 
 #endif /* !GAMELISTPACKET_H_ */

@@ -1,8 +1,11 @@
 # include <string.h>
 # include "DesGamePacket.h"
 
-DesGamePacket::DesGamePacket(ServerTCPResponse resp, int id, std::string const& gameName, std::string const& players) : AServerPacket<ServerTCPResponse>(resp), _data(new DesGameData)
+DesGamePacket::DesGamePacket(ServerTCPResponse resp, int id, std::string const& gameName, std::string const& players) : AServerPacket<ServerTCPResponse>(resp), _header(new ServerTCPHeader), _data(new DesGameData)
 {
+  _header->magic = MAGIC;
+  _header->command = resp;
+  _header->size = sizeof(*_data);
   _data->id = id;
   bzero(_data->gameName, 256);
   bzero(_data->players, 256);
@@ -17,16 +20,32 @@ DesGamePacket::~DesGamePacket()
 
 std::string const&		DesGamePacket::deserialize()
 {
-  ServerTCPHeader			header;
-  char*				buff = new char[sizeof(header) + sizeof(*_data) + 1];
+  char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
   static std::string		ret;
 
-  header.magic = MAGIC;
-  header.command = _command;
-  header.size = sizeof(*_data);
-  memcpy(buff, &header, sizeof(header));
-  memcpy(*(&buff + sizeof(header)), _data, sizeof(*_data));
-  buff[sizeof(header) + sizeof(*_data)] = 0;
+  memcpy(buff, _header, sizeof(*_header));
+  memcpy(*(&buff + sizeof(*_header)), _data, sizeof(*_data));
+  buff[sizeof(*_header) + sizeof(*_data)] = 0;
   ret = buff;
   return ret;
+}
+
+bool				DesGamePacket::checkHeader()
+{
+  if (_header->magic != MAGIC)
+    return false;
+  else if (_header->command < AUTH || _header->command > FAIL)
+    return false;
+  else if (_header->size < 0)
+    return false;
+  return true;
+}
+
+void				DesGamePacket::setRawData(std::string const& data)
+{
+}
+
+DesGameData*			DesGamePacket::getData() const
+{
+  return _data;
 }

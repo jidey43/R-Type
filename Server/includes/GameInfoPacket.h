@@ -9,10 +9,15 @@ class GameInfoPacket : public AServerPacket<ServerTCPResponse>
   GameInfoPacket(ServerTCPResponse, int, int);
   ~GameInfoPacket();
 
-  std::string const&		deserialize();
-
  private:
+  ServerTCPHeader*		_header;
   GameInfoData*			_data;
+
+ public:
+  std::string const&		deserialize();
+  bool				checkHeader();
+  void				setRawData(std::string const&);
+  GameInfoData*			getData() const;
 };
 
 #endif /* !GAMEINFOPACKET_H_ */

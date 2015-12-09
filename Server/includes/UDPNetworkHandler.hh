@@ -31,7 +31,8 @@ private:
 public:
   bool						initSocket();
   GamerInfo*					selectClient();
-  IClientPacket<ClientUDPCommand>*		receiveFromClient(GamerInfo*);
+  IClientPacket<ClientUDPCommand>*		receiveFrom(GamerInfo*);
+  bool						sendTo(GamerInfo*, IServerPacket<ServerUDPResponse>*);
 
 private:
   std::string					_ip;

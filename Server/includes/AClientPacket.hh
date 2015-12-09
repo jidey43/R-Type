@@ -11,12 +11,13 @@ public:
   virtual ~AClientPacket();
 
 protected:
-  T			_command;
+  T				_command;
 
 public:
-  T			getCommandType() const;
-  virtual bool		checkHeader() = 0;
-  virtual void		setRawData(std::string const&) = 0;
+  T				getCommandType() const;
+  // virtual std::string const&	deserialize() = 0;
+  virtual bool			checkHeader() = 0;
+  virtual void			setRawData(std::string const&) = 0;
 };
 
 # include "AClientPacket.tpp"
