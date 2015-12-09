@@ -17,7 +17,7 @@ typedef struct
   ClientCommand			id;
   uint32_t			size;
   uint32_t			idx;
-} __attribute__ ((packed))	HeaderUDPClient;
+} __attribute__ ((packed))	ClientUDPHeader;
 
 typedef struct
 {

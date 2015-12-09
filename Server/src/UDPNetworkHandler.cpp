@@ -56,7 +56,7 @@ bool			UDPNetworkHandler::selectClient()
 {
   std::vector<int>	fdList;
   ClientDatas*		clientDatas = new ClientDatas();
-  HeaderUDPClient*	header = new HeaderUDPClient();
+  ClientUDPHeader*	header = new ClientUDPHeader();
   GamerInfo*		client;
   char*			buff;
 
