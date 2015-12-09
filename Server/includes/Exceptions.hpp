@@ -29,6 +29,26 @@ private:
   NetworkExcept &operator=(const NetworkExcept &) throw();
 };
 
+
+class BadHeaderRequest : public std::exception
+{
+public:
+  BadHeaderRequest(std::string const& msg) throw()
+    : _msg(msg) {}
+  BadHeaderRequest(const BadHeaderRequest& other) throw()
+    : _msg(other._msg) {}
+  virtual ~BadHeaderRequest() throw() {}
+  virtual const char*	what() const throw()
+  {
+    return _msg.c_str();
+  }
+
+private:
+  std::string		_msg;
+
+  BadHeaderRequest &operator=(const BadHeaderRequest &) throw();
+};
+
 };
 
 

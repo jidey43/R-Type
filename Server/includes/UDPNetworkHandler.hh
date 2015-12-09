@@ -12,13 +12,15 @@
 # include "GamerInfo.hh"
 # include "PacketFactory.hh"
 # include "IServerPacket.hh"
+# include "IClientPacket.hh"
+# include "Exceptions.hpp"
 
 template class					INetwork<UDPSocket>;
 
 class UDPNetworkHandler
 {
 public:
-  UDPNetworkHandler(std::string const&, std::string const&);
+  UDPNetworkHandler(std::string const&, std::string const&, std::vector<GamerInfo*>*);
   virtual ~UDPNetworkHandler();
 
 private:
@@ -28,12 +30,14 @@ private:
 
 public:
   bool						initSocket();
-  bool						selectClient();
+  GamerInfo*					selectClient();
+  IClientPacket<ClientUDPCommand>*		receiveFromClient(GamerInfo*);
+
 private:
   std::string					_ip;
   std::string					_port;
   INetwork<UDPSocket>*				_network;
-  std::vector<GamerInfo*>			_clients;
+  std::vector<GamerInfo*>*			_clients;
   PacketFactory*				_factory;
   SOCKET					_socket;
 };
