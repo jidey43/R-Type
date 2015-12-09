@@ -115,12 +115,12 @@ void	NetworkHandler::broadcast(IServerPacket* packet)
 TransmitStatus		NetworkHandler::receiveFromClient(ClientInfo* client)
 {
   TransmitStatus	ret;
-  ClientHeader*		header = new ClientHeader;
+  ClientTCPHeader*		header = new ClientTCPHeader;
   std::string		tmp;
   char*			buff;
   IClientPacket*	packet;
 
-  if ((ret = _network->recvData(header, sizeof(ClientHeader), client->getSocket(), NULL)) == PASSED)
+  if ((ret = _network->recvData(header, sizeof(ClientTCPHeader), client->getSocket(), NULL)) == PASSED)
     {
       packet = _factory->build(header->command);
       if (!packet->setRawHeader(header))

@@ -1,7 +1,7 @@
 #include "JoinPacket.hh"
 
-JoinPacket::JoinPacket()
-  : _command(JOIN_GAME), _data(new JoinData)
+JoinPacket::JoinPacket(ClientTCPHeader* header)
+  : AClientPacket(header->command), _data(new JoinData), _header(header)
 {
 }
 
@@ -20,4 +20,9 @@ void			JoinPacket::setRawData(std::string const& data)
 JoinData*		JoinPacket::getData() const
 {
   return _data;
+}
+
+bool			JoinPacket::checkHeader()
+{
+
 }

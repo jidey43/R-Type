@@ -10,7 +10,7 @@ public:
   PacketFactory();
   virtual ~PacketFactory();
 
-  IClientPacket*		build(ClientCommand cmd);
+  IClientPacket*		build(ClientTCPHeader*);
   std::string const&	disassemble(IClientPacket* packet);
 };
 

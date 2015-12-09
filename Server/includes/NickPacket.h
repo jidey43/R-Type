@@ -6,16 +6,17 @@
 class NickPacket : public AClientPacket
 {
 public:
-  NickPacket();
+  NickPacket(ClientTCPHeader*);
   ~NickPacket();
 
 private:
-  ClientCommand		_command;
+  ClientTCPHeader	*_header;
   NickData*		_data;
 
 public:
   void			setRawData(std::string const&);
   NickData*		getData() const;
+  bool			checkHeader();
 };
 
 #endif

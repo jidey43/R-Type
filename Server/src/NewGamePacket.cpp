@@ -1,8 +1,8 @@
 #include <string.h>
 #include "NewGamePacket.h"
 
-NewGamePacket::NewGamePacket()
-  : _command(ADD_GAME), _data(new NewGameData)
+NewGamePacket::NewGamePacket(ClientTCPHeader *header)
+  : AClientPacket(header->command), _data(new NewGameData), _header(header)
 {
 }
 
@@ -21,4 +21,9 @@ void			NewGamePacket::setRawData(std::string const& data)
 NewGameData*		NewGamePacket::getData() const
 {
   return _data;
+}
+
+bool			NewGamePacket::checkHeader()
+{
+
 }

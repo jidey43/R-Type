@@ -6,7 +6,7 @@
 class AClientPacket : public IClientPacket
 {
 public:
-  AClientPacket();
+  AClientPacket(ClientCommand);
   virtual ~AClientPacket();
 
 protected:
@@ -14,8 +14,7 @@ protected:
 
 public:
   ClientCommand		getCommandType() const;
-  bool			setRawHeader(ClientHeader* header);
-  bool			setRawHeader(HeaderServerUDP* header);
+  virtual bool		checkHeader() = 0;
   virtual void		setRawData(std::string const&) = 0;
 };
 
