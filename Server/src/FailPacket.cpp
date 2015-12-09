@@ -1,8 +1,12 @@
 # include <string.h>
 # include "FailPacket.h"
 
-FailPacket::FailPacket(ServerTCPResponse resp) : AServerPacket<ServerTCPResponse>(resp)
+FailPacket::FailPacket(ServerTCPResponse resp) : AServerPacket<ServerTCPResponse>(resp), _header(new ServerTCPHeader)
 {
+  _header->command = resp;
+  _header->magic = MAGIC;
+  _header->size = 0;
+
 }
 
 FailPacket::~FailPacket()
@@ -11,15 +15,27 @@ FailPacket::~FailPacket()
 
 std::string const&		FailPacket::deserialize()
 {
-  ServerTCPHeader			header;
-  char*				buff = new char[sizeof(header) + 1];
+  char*				buff = new char[sizeof(*_header) + 1];
   static std::string		ret;
 
-  header.magic = MAGIC;
-  header.command = _command;
-  header.size = 0;
-  memcpy(buff, &header, sizeof(header));
-  buff[sizeof(header)] = 0;
+  memcpy(buff, _header, sizeof(*_header));
+  buff[sizeof(*_header)] = 0;
   ret = buff;
   return ret;
+}
+
+bool				FailPacket::checkHeader()
+{
+  if (_header->magic != MAGIC)
+    return false;
+  else if (_header->command < AUTH || _header->command > FAIL)
+    return false;
+  else if (_header->size < 0)
+    return false;
+  return true;
+}
+
+void				FailPacket::setRawData(std::string const& data)
+{
+
 }

@@ -10,9 +10,13 @@ class AuthTCPPacket : public AServerPacket<ServerTCPResponse>
   ~AuthTCPPacket();
 
   std::string const&		deserialize();
+  bool				checkHeader();
+  void				setRawData(std::string const&);
+  AuthTCPData*			getData() const;
 
  private:
   AuthTCPData*			_data;
+  ServerTCPHeader*		_header;
 };
 
 #endif
