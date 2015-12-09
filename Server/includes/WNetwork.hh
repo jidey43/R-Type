@@ -25,10 +25,10 @@ public:
 
 public:
   bool					initServerSocket(std::string const &ip, std::string const &port);
-  SOCKET					acceptSocket();
-  TransmitStatus			recvData(void *data, int size, SOCKET, ClientDatas *addr);
-  TransmitStatus			sendData(void *data, int size, SOCKET, ClientDatas *addr);
-  SOCKET					getFd() const;
+  SOCKET				acceptSocket();
+  void					recvData(void *data, int size, SOCKET, ClientDatas *addr);
+  void					sendData(void *data, int size, SOCKET, ClientDatas *addr);
+  SOCKET				getFd() const;
   void					selectClients(std::vector<SOCKET>& fd, struct timeval *to);
   bool					closeConnection(SOCKET);
 };

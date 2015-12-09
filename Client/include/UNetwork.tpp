@@ -6,8 +6,8 @@
 #include <vector>
 #include <string.h>
 #include <unistd.h>
-#include "TCPSocket.h"
-#include "UDPSocket.h"
+#include "TCPSocket.hh"
+#include "UDPSocket.hh"
 #include "INetwork.hh"
 
 template <typename T>
@@ -28,9 +28,16 @@ bool UNetwork<T>::initClientSocket(std::string const &ip, std::string const &por
 	addrinfo *hints = new addrinfo;
 
 	bzero(hints, sizeof(hints));
-	if ((_listen = _socket->startNetwork(ip, port, hints)) == INVALID_SOCKET)
-	  return false;
-	return true;
+  try
+    {
+    _listen = _socket->startNetwork(ip, port, hints);
+    }
+  catch (Exceptions::NetworkExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+      return false;
+    }
+  return true;
 }
 
 template <typename T>
@@ -47,8 +54,7 @@ void		UNetwork<T>::selectFD(std::vector<int>& fd, struct timeval *to)
 	maxFd = *it;
     }
   if (select(maxFd + 1, _readSet, NULL, NULL, to) < 0) {
-    perror("select error");
-    std::cout << "after" << std::endl;
+    throw Exceptions::NetworkExcept("SELECT ERROR", errno);
   }
   for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
     {
@@ -60,15 +66,15 @@ void		UNetwork<T>::selectFD(std::vector<int>& fd, struct timeval *to)
 }
 
 template <typename T>
-TransmitStatus UNetwork<T>::recvData(void *data, int size, SOCKET sock, ConnectionData *addr)
+void UNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
-  return _socket->rcvData(data, size, sock, addr);
+  _socket->rcvData(data, size, sock, addr);
 }
 
 template <typename T>
-TransmitStatus UNetwork<T>::sendData(void *data, int size, SOCKET sock, ConnectionData *addr)
+void UNetwork<T>::sendData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
-  return _socket->sendData(data, size, sock, addr);
+  _socket->sendData(data, size, sock, addr);
 }
 
 template <typename T>

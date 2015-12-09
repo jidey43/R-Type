@@ -50,35 +50,38 @@ bool WNetwork<T>::initClientSocket(std::string const &ip, std::string const &por
 template <typename T>
 void		WNetwork<T>::selectFD(std::vector<SOCKET>& fd, struct timeval *to)
 {
-	std::vector<SOCKET> buffer;
-	FD_ZERO(_readSet);
-	for (std::vector<SOCKET>::iterator it = fd.begin(); it != fd.end(); ++it)
-	{
-		FD_SET((*it), _readSet);
-	}
-	if (select(_listen + 1, _readSet, NULL, NULL, to) == -1) {
-		perror("select error");
-		fd.clear();
-		return;
-	}
-	for (std::vector<SOCKET>::iterator it = fd.begin(); it != fd.end(); ++it)
-	{
-		if (FD_ISSET((*it), _readSet))
-			buffer.push_back((*it));
-	}
-	fd = buffer;
+  std::vector<int>	buffer;
+  SOCKET			maxFd = 0;
+
+  FD_ZERO(_readSet);
+  for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
+    {
+      FD_SET((*it), _readSet);
+      if (*it > maxFd)
+	maxFd = *it;
+    }
+  if (select(maxFd + 1, _readSet, NULL, NULL, to) < 0) {
+    throw Exceptions::NetworkExcept("SELECT ERROR", errno);
+  }
+  for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
+    {
+      if (FD_ISSET((*it), _readSet))
+	buffer.push_back((*it));
+    }
+  fd.clear();
+  fd = buffer;
 }
 
 template <typename T>
-TransmitStatus WNetwork<T>::sendData(void *data, int size, SOCKET sock, ConnectionData *addr)
+void WNetwork<T>::sendData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
-	return _socket->sendData(data, size, sock, addr);
+	 _socket->sendData(data, size, sock, addr);
 }
 
 template <typename T>
-TransmitStatus WNetwork<T>::recvData(void *data, int size, SOCKET sock, ConnectionData *addr)
+void WNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
-	return _socket->rcvData(data, size, sock, addr);
+	_socket->rcvData(data, size, sock, addr);
 }
 
 template <typename T>

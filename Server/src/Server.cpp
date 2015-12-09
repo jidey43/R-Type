@@ -13,7 +13,6 @@
 #include "FailPacket.h"
 #include "IServerPacket.hh"
 
-
 Server::Server(std::string const & ip, std::string const & port)
  : _network(new NetworkHandler(ip, port)),
 	  _games(new GameHandler())
@@ -26,7 +25,7 @@ Server::Server(std::string const & ip, std::string const & port)
 
 Server::~Server()
 {
-
+  
   delete _network;
 }
 
@@ -74,11 +73,11 @@ void Server::parser(ClientInfo * client)
 
 bool Server::describeGame(ClientInfo * client)
 {
-  if (_network->sendToClient(client, new GameListPacket(START_GAME_LIST)) != PASSED)
+  if (_network->sendToClient(client, new GameListPacket(START_GAME_LIST)))
     return false;
   for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
     {
-      if (_network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), (*it)->getClients())) != PASSED)
+      if (_network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), (*it)->getClients())))
 	return false;
     }
   _network->sendToClient(client, new GameListPacket(END_GAME_LIST));

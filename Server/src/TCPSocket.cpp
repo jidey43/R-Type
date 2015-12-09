@@ -12,22 +12,23 @@ TCPSocket::~TCPSocket()
 {
 }
 
-SOCKET			TCPSocket::startNetwork(std::string const &ip, std::string const &port, addrinfo hints)
+SOCKET			TCPSocket::startNetwork(std::string const &ip, std::string const &port, ConnectionData *hints)
 {
-  struct addrinfo *addr = NULL;
+  ConnectionData *addr = NULL;
   int result;
-  hints.ai_flags = AI_PASSIVE;
-  hints.ai_family = AF_INET;
-  hints.ai_socktype = SOCK_STREAM;
-  hints.ai_protocol = IPPROTO_TCP;
-  //hints.ai_addr = INADDR_ANY;
+  hints->ai_flags = AI_PASSIVE;
+  hints->ai_family = AF_INET;
+  hints->ai_socktype = SOCK_STREAM;
+  hints->ai_protocol = IPPROTO_TCP;
+  //hints->ai_addr = INADDR_ANY;
   std::cout << ip << "   " << port << std::endl;
-  result = getaddrinfo(ip.c_str(), port.c_str(), &hints, &addr);
+  result = getaddrinfo(ip.c_str(), port.c_str(), hints, &addr);
   if (result != 0) {
     throw Exceptions::NetworkExcept("GETADDRINFO ERROR", errno);
   }
 
   SOCKET Thatsocket = INVALID_SOCKET;
+
   if ((Thatsocket = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol)) == -1)
     throw Exceptions::NetworkExcept("SOCKET ERROR", errno);
   if (bind(Thatsocket, addr->ai_addr, (int)addr->ai_addrlen) == SOCKET_ERROR)
@@ -44,28 +45,32 @@ SOCKET			TCPSocket::startNetwork(std::string const &ip, std::string const &port,
 
 SOCKET	TCPSocket::acceptClient()
 {
-	SOCKET socket = INVALID_SOCKET;
+  SOCKET socket = INVALID_SOCKET;
 
-	if ((socket = accept(_listen, NULL, NULL)) == INVALID_SOCKET)
-	  throw Exceptions::NetworkExcept("ACCEPT FAILED", errno);
-	return socket;
+  if ((socket = accept(_listen, NULL, NULL)) == INVALID_SOCKET)
+    throw Exceptions::NetworkExcept("ACCEPT FAILED", errno);
+  return socket;
 }
 
-TransmitStatus	TCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientDatas *addr)
+void	TCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientDatas *addr)
 {
-	int res = send(socket, (void*)buffer, size, 0);
-	if (res == -1)
-	  throw Exceptions::NetworkExcept("SEND FAILED", errno);
-	return (res == -1 ? ERR : PASSED);
+  int res = send(socket, (void*)buffer, size, 0);
+
+  if (res == -1)
+    throw Exceptions::NetworkExcept("SEND FAILED", errno);
+  if (res == 0)
+    throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
 }
 
-TransmitStatus			TCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *addr)
+void			TCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *addr)
 {
   int				addr_len = sizeof(addr);
   int				res;
 
   res = recv(socket, (void*)buffer, size, 0);
+
   if (res == -1)
     throw Exceptions::NetworkExcept("RECEIVE FAILED", errno);
-  return (res == -1 ? ERR : (res == 0 ? DISCONNECTED : PASSED));
+  if (res == 0)
+    throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
 }

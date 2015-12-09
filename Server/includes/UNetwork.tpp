@@ -26,7 +26,7 @@ UNetwork<T>::~UNetwork()
 template <typename T>
 bool UNetwork<T>::initServerSocket(std::string const &ip, std::string const &port)
 {
-  addrinfo hints;
+  addrinfo *hints;
 
   bzero(&hints, sizeof(hints));
   try
@@ -67,7 +67,7 @@ void		UNetwork<T>::selectClients(std::vector<int>& fd, struct timeval *to)
 }
 
 template <typename T>
-SOCKET UNetwork<T>::acceptSocket()
+SOCKET	UNetwork<T>::acceptSocket()
 {
   SOCKET accept = _socket->acceptClient();
   if (accept == INVALID_SOCKET)
@@ -78,15 +78,15 @@ SOCKET UNetwork<T>::acceptSocket()
 }
 
 template <typename T>
-TransmitStatus UNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
+void	UNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
-  return _socket->rcvData(data, size, sock, addr);
+  _socket->rcvData(data, size, sock, addr);
 }
 
 template <typename T>
-TransmitStatus UNetwork<T>::sendData(void *data, int size, SOCKET sock, ClientDatas *addr)
+void	UNetwork<T>::sendData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
-  return _socket->sendData(data, size, sock, addr);
+  _socket->sendData(data, size, sock, addr);
 }
 
 template <typename T>

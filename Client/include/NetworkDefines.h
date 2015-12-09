@@ -4,6 +4,10 @@
 # include <string>
 # include <iostream>
 # define BUFF_LEN 256
+# define MAGIC 0xa3c89a44
+# define BASE_PORT 4010
+# define MAX_GAME 7
+# define MAX_PLAYERS 4
 
 # ifdef _WIN32
 # include <io.h>
@@ -22,28 +26,46 @@ typedef int SOCKET;
 
 # endif
 typedef addrinfo ConnectionData;
+typedef struct sockaddr_in ClientDatas;
+
+typedef enum
+  {
+    AUTH_TCP = 1,
+    ADD_GAME,
+    JOIN_GAME,
+    QUIT
+  }		ClientTCPCommand;
 
 typedef enum
 {
-	CPACKET
-}		PacketSize;
+  AUTH = 1,
+  GAME_OVER,
+  GAME_INFO,
+  START_GAME_LIST,
+  DES_GAME,
+  END_GAME_LIST,
+  FAIL
+}		ServerTCPResponse;
 
 typedef enum
-{
-	DESCRIBE_GAME = 0,
-	SET_NICK,
-	JOIN_GAME,
-	CREATE_GAME
-}		ClientCommand;
+  {
+    AUTH_UDP = 1,
+    CRE_PLAY,
+    DEL_PLAY,
+    CRE_SHOT,
+    DEL_SHOT,
+    CRE_IA,
+    DEL_IA,
+    MOVE,
+  }		ServerUDPResponse;
+
+typedef enum
+  {
+  }		ClientUDPCommand;
+
 
 /*
 	Packet : client -> server
 */
-
-typedef struct		s_ClientPacket
-{
-	ClientCommand	command;
-	char			name[256];
-}					ClientPacket;
 
 #endif

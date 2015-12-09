@@ -5,20 +5,20 @@
 # include "INetwork.hh"
 # include "Exceptions.hpp"
 
-class				UDPSocket
+class			UDPSocket
 {
 private:
-  SOCKET			_listen;
-  std::string			_port;
+  SOCKET		_listen;
+  std::string		_port;
 
 public:
   UDPSocket();
   ~UDPSocket();
 
-  int				startNetwork(std::string const &ip, std::string const &port, addrinfo);
-  TransmitStatus		sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr);
-  TransmitStatus		rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr);
-  SOCKET			acceptClient();
+  int			startNetwork(std::string const &ip, std::string const &port, ConnectionData*);
+  void			sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr);
+  void			rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr);
+  SOCKET		acceptClient();
 };
 
 #endif

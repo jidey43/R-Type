@@ -14,10 +14,10 @@ template <class T>
 class WNetwork : public INetwork<T>
 {
 private:
-	T*							_socket;
-	SOCKET						_listen;
+	T*					_socket;
+	SOCKET					_listen;
 	struct addrinfo*			_addr;
-	fd_set*						_readSet;
+	fd_set*					_readSet;
 
 public:
 	WNetwork();
@@ -25,8 +25,8 @@ public:
 
 public:
 	bool					initClientSocket(std::string const &ip, std::string const &port);
-	TransmitStatus			recvData(void *data, int size, SOCKET, ConnectionData *addr);
-	TransmitStatus			sendData(void *data, int size, SOCKET, ConnectionData *addr);
+	void					recvData(void *data, int size, SOCKET, ConnectionData *addr);
+	void					sendData(void *data, int size, SOCKET, ConnectionData *addr);
 	SOCKET					getFd() const;
 	void					selectFD(std::vector<SOCKET>& fd, struct timeval *to);
 	bool					closeConnection(SOCKET);
