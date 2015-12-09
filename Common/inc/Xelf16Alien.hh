@@ -6,12 +6,12 @@
 class Xelf16Alien : public Alien
 {
 public:
-  Xelf16Alien(sf::Vector2i pos);
+  Xelf16Alien(sf::Vector2f speed, sf::Vector2i pos, float coeff);
   ~Xelf16Alien();
 
 public:
   void		update();
   IObject	*Basicshoot();
-}
+};
 
 # endif

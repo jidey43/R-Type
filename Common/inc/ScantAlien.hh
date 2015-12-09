@@ -6,12 +6,12 @@
 class ScantAlien : public Alien
 {
 public:
-  ScantAlien(sf::Vector2i pos);
+  ScantAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff);
   ~ScantAlien();
 
 public:
   void		update();
   IObject	*Basicshoot();
-}
+};
 
 # endif

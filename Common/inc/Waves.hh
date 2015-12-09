@@ -9,16 +9,19 @@ class	Waves
 {
 public:
   Waves(int, sf::Time, sf::Time, sf::Vector2i, sf::Vector2f, float, ObjectInfo::WaveType);
+  Waves();
   ~Waves();
+  
 public:
+  Waves			&operator=(const Waves&);
   int		        getCount() const;
   sf::Time		getTime() const;
   sf::Time		getFreq() const;
   sf::Vector2i		getPos() const;
   sf::Vector2f	        getSpeed() const;
   float		        getCoeff() const;
-  void			setCount(int);
-  
+  ObjectInfo::WaveType  getType() const;
+  void			setCount(int);  
   void			pop();
 
 private:

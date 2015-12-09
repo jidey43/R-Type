@@ -19,5 +19,4 @@ IObject		*Player::BasicShoot()
   pos.x = _pos.x + _size.x;
   pos.y = _pos.y;
   return new BasicPlayerProjectile(_speed, pos, 1.0);
-
 }

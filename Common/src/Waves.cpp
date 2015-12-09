@@ -6,6 +6,20 @@ Waves::Waves(int count, sf::Time time, sf::Time freq, sf::Vector2i pos, sf::Vect
 
 Waves::~Waves() {}
 
+Waves::Waves() {}
+
+Waves		&Waves::operator=(const Waves& wave)
+{
+  _count = wave._count;
+  _time = wave._time;
+  _pos = wave._pos;
+  _frequency = wave._frequency;
+  _speed = wave._speed;
+  _coeff = wave._coeff;
+  _type = wave._type;
+  return (*this);
+}
+
 void		Waves::pop()
 {
   _time = _time - _frequency;
@@ -37,3 +51,7 @@ float		Waves::getCoeff() const
   return _coeff;
 }
 
+ObjectInfo::WaveType	Waves::getType() const
+{
+  return _type;
+}

@@ -4,24 +4,28 @@
 # include <fstream>
 # include <sstream>
 # include <deque>
+# include <cstddef>
 # include <vector>
 # include "Waves.hh"
 
 class	LevelLoader
 {
 public:
-  LevelLoader(char *);
+  LevelLoader();
   ~LevelLoader();
 
   void		setLevelFile(char *);
-  void		parseLevel();
-  Waves		*getNextWave();
-
+  void		parseLevel(char *);
+  Waves		getNextWave();
+  int		getWavesCount();
+  
 private:
+  std::string			 _name;
+  std::string			 _oldName;
   std::ifstream			 _levelFile;
   std::deque<std::string>	 _lines;
   std::string			 _compare[8];
-  int				 _wawesCount;
+  unsigned int		        _wavesCount;
 };
 
 #endif

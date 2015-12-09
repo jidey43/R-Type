@@ -3,18 +3,23 @@
 
 # include <vector>
 # include "MapController.hh"
+# include "LevelLoader.hh"
 # include "AlienFactory.hpp"
 
 class FactoryManager
 {
 public:
-  FactoryManager(MapController*);
+  FactoryManager(MapController* , char*);
   ~FactoryManager();
 
   void		update();
-
+  void		initialiseLevel();
+  void		changeLevel(char *);
+  
 private:
+  unsigned int			_nbFactory;
   MapController			*_map;
+  LevelLoader			_levelLoader;
   std::vector<IAlienFactory*>	_factories;
 };
 

@@ -6,12 +6,12 @@
 class GlamAlien : public Alien
 {
 public:
-  GlamAlien(sf::Vector2i pos);
+  GlamAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff);
   ~GlamAlien();
 
 public:
   void		update();
   IObject	*Basicshoot();
-}
+};
 
 # endif

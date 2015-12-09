@@ -8,7 +8,8 @@ namespace ObjectInfo
       PLAYER = 0,
       ALIEN,
       PROJECTILE_PLAYER,
-      PROJECTILE_ALIEN
+      PROJECTILE_ALIEN,
+      WALL
     };
 
   enum WaveType
@@ -22,7 +23,7 @@ namespace ObjectInfo
       SHELL,
       YORK,
       XELF16
-    };  
+    };
 };
 
 #endif

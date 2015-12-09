@@ -6,12 +6,12 @@
 class DokanAlien : public Alien
 {
 public:
-  DokanAlien(sf::Vector2i pos);
+  DokanAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff);
   ~DokanAlien();
 
 public:
   void		update();
   IObject	*Basicshoot();
-}
+};
 
 # endif

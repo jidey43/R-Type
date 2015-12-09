@@ -6,12 +6,12 @@
 class RiosAlien : public Alien
 {
 public:
-  RiosAlien(sf::Vector2i pos);
+  RiosAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff);
   ~RiosAlien();
 
 public:
   void		update();
   IObject	*Basicshoot();
-}
+};
 
 # endif

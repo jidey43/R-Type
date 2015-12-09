@@ -6,12 +6,12 @@
 class KayberosAlien : public Alien
 {
 public:
-  KayberosAlien(sf::Vector2i pos);
+  KayberosAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff);
   ~KayberosAlien();
 
 public:
   void		update();
   IObject	*Basicshoot();
-}
+};
 
 # endif
