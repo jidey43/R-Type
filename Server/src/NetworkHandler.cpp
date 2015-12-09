@@ -122,9 +122,8 @@ TransmitStatus		NetworkHandler::receiveFromClient(ClientInfo* client)
 
   if ((ret = _network->recvData(header, sizeof(ClientTCPHeader), client->getSocket(), NULL)) == PASSED)
     {
-      packet = _factory->build(header->command);
-      if (!packet->setRawHeader(header))
-	return ERR;
+      packet = _factory->build(header);
+      // Need to check Header packet->checkHeader()
     }
   buff = new char[header->size + 1];
   if ((ret = _network->recvData(buff, header->size, client->getSocket(), NULL)) == PASSED)
