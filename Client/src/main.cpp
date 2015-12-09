@@ -1,12 +1,13 @@
-#include <iostream>
-#include "ViewController.hh"
-#include "Manager.hh"
-#include "MenuController.hh"
+# include <iostream>
+# include "ViewController.hh"
+# include "Manager.hh"
+# include "MenuController.hh"
+# include "AssetsController.hh"
 
 ViewController *vc;
 AssetsController *ac;
 
-int main()
+int main(int argc, char **av)
 {
 	ac = new AssetsController("../../assets/");
 	if (ac->loadAssets() == false)

@@ -49,13 +49,15 @@ bool AssetsController::loadShipsAssets()
 
 bool AssetsController::loadBackground()
 {
-	for (int i = 0; i != 2; i++)
+	_rtypeLogo = new sf::Texture;
+	for (int i = 0; i != NUMBEROFBACKGROUND; i++)
 	{
 		_backgroundTexture.emplace_back(new sf::Texture);
 	}
 	if (
-		_backgroundTexture[0]->loadFromFile(_assetsPath + "background/background1.png") &&
-		_backgroundTexture[1]->loadFromFile(_assetsPath + "background/background1.png")
+		_rtypeLogo->loadFromFile(_assetsPath + "rtypelogo.png") && 
+		_backgroundTexture[MENU_BACKGROUND]->loadFromFile(_assetsPath + "background/menu_background.png") &&
+		_backgroundTexture[BACKGROUND_ONE]->loadFromFile(_assetsPath + "background/background1.png")
 		)
 		return true;
 	return false;
@@ -71,10 +73,16 @@ bool AssetsController::loadShots()
 
 bool AssetsController::loadButtons()
 {
-	for (int i = 0; i != 3; i += 1)
+	for (int i = 0; i != NUMBEROFBUTTON; i += 1)
+	{
 		_buttonTexture.emplace_back(new sf::Texture);
+		_buttonTextureHigh.emplace_back(new sf::Texture);
+	}
 	if (
-		_buttonTexture[JOIN]->loadFromFile(_assetsPath + "buttons/join.png")
+		_buttonTexture[JOIN]->loadFromFile(_assetsPath + "buttons/join.png") &&
+		_buttonTextureHigh[JOIN]->loadFromFile(_assetsPath + "buttons/join_high.png") &&
+		_buttonTexture[EXIT]->loadFromFile(_assetsPath + "buttons/exit.png") &&
+		_buttonTextureHigh[EXIT]->loadFromFile(_assetsPath + "buttons/exit_high.png")
 		)
 		return true;
 	return false;
@@ -92,7 +100,7 @@ sf::Texture* AssetsController::getShipTexture(int id)
 
 sf::Texture* AssetsController::getBackground(int id)
 {
-	return _backgroundTexture[id - 1];
+	return _backgroundTexture[id];
 }
 
 sf::Texture* AssetsController::getShot(int)
@@ -100,7 +108,14 @@ sf::Texture* AssetsController::getShot(int)
 	return _shipShot;
 }
 
-sf::Texture * AssetsController::getButton(ButtonType button)
+sf::Texture * AssetsController::getButton(ButtonType button, bool highlight)
 {
+	if (highlight)
+		return _buttonTextureHigh[button];
 	return _buttonTexture[button];
+}
+
+sf::Texture	*AssetsController::getLogo()
+{
+	return _rtypeLogo;
 }

@@ -1,7 +1,11 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 typedef struct s_keyboarStatus
 {
+	sf::Vector2i mousePos;
+	bool		leftClick;
 	bool		up;
 	bool		down;
 	bool		left;

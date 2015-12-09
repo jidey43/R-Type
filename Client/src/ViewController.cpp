@@ -35,14 +35,17 @@ void							ViewController::draw(sf::Drawable* drawable)
 
 keyboardStatus					ViewController::getKeyboardStatus()
 {
-	keyboardStatus		state = {false, false, false, false};
+	keyboardStatus		state = {sf::Vector2i(), false, false, false, false, false};
 
 
 	//debug
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		exit(0);
 
-
+	state.mousePos = sf::Mouse::getPosition(*_mainWindow);
+	
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		state.leftClick = true;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		state.up = true;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))

@@ -1,14 +1,68 @@
+<<<<<<< HEAD
 #include "LevelLoader.hh"
 #include "Waves.hh"
 #include <cstring>
 #include <iostream>
+=======
+# include <iostream>
+# include <signal.h>
+# include "Server.hh"
+# include "NetworkHandler.h"
+# include "ClientInfo.h"
+# include "IThread.h"
+>>>>>>> 1f2988657923b37c0e223475124ca47afddc8c86
 
-int     main()
+void	broadcast(std::string const& data)
 {
+<<<<<<< HEAD
   char *toto = strdup("level/Level1.lvl");
   LevelLoader level;
   level.parseLevel(toto);
   Waves waves = level.getNextWave();
   std::cout << waves.getCount() << std::endl;
+=======
+  std::vector<ClientInfo*>::const_iterator	it;
+  char toSend[BUFF_LEN];
+
+  memset(toSend, 0, BUFF_LEN);
+  memcpy(toSend, std::string(data + "\r\n").c_str(), data.size() + 2);
+  for (it = _clientList.begin(); it != _clientList.end(); ++it)
+    {
+      send((*it)->getSocket(), toSend, BUFF_LEN, 0);
+    }
+>>>>>>> 1f2988657923b37c0e223475124ca47afddc8c86
 }
 
+void		handle_signal(int sig)
+{
+  (void)sig;
+  if (_listen != -1 && _listen)
+    {
+      broadcast("quit");
+      usleep(10000);
+      int t = 1;
+      std::cout <<  setsockopt(_listen,SOL_SOCKET,SO_REUSEADDR,(char *)&t,sizeof(int)) << std::endl;
+      close(_listen);
+    }
+  exit(EXIT_SUCCESS);
+}
+
+int	process_signal()
+{
+  if (signal(SIGINT, handle_signal) != SIG_ERR
+      && signal(SIGQUIT, handle_signal) != SIG_ERR)
+    return (1);
+  return (0);
+}
+
+int	main(int ac, char **av)
+{
+  if (ac != 2)
+    {
+      std::cout << "USAGE : ./server [port]" << std::endl;
+      return (1);
+    }
+  process_signal();
+  Server* server = new Server("127.0.0.1", av[1]);
+  std::cout << "ok" << std::endl;
+}
