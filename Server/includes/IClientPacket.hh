@@ -35,6 +35,7 @@ public:
   virtual ClientCommand		getCommandType() const = 0;
   virtual void			setRawData(std::string const&) = 0;
   virtual bool			setRawHeader(ClientHeader* header) = 0;
+  virtual bool			setRawHeader(HeaderServerUDP* header) = 0;
 };
 
 #endif

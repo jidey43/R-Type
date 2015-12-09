@@ -1,7 +1,5 @@
-#include <algorithm>
 #include "UDPNetworkHandler.hh"
 #include "PacketFactory.hh"
-
 
 UDPNetworkHandler::UDPNetworkHandler(std::string const& ip, std::string const& port)
   : _ip(ip),
@@ -40,7 +38,7 @@ GamerInfo*		UDPNetworkHandler::getClient(ClientDatas* datas)
       if (*((*it)->getClientInfos()) == *datas)
 	{
 	  free(datas);
-	  std::cout << "FIND CLIENT" << std::endl;
+	  std::cout << "CLIENT FOUND" << std::endl;
 	  return *it;
 	}
     }
@@ -60,6 +58,7 @@ bool			UDPNetworkHandler::selectClient()
   ClientDatas*		clientDatas = new ClientDatas();
   HeaderServerUDP*	header = new HeaderServerUDP();
   GamerInfo*		client;
+  char*			buff;
 
   fdList.push_back(_socket);
   _network->selectClients(fdList, NULL);
@@ -68,6 +67,10 @@ bool			UDPNetworkHandler::selectClient()
       _network->recvData(header, sizeof(HeaderServerUDP), _socket, clientDatas);
       if ((client = this->getClient(clientDatas)))
 	{
+	  buff = new char[header->size + 1];
+	  memset(buff, 0, header->size + 1);
+	  _network->recvData(buff, header->size, _socket, clientDatas);
+
 	  std::cout << "TODO" << std::endl;
 	}
     }

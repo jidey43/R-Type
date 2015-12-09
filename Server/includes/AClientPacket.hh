@@ -15,6 +15,7 @@ protected:
 public:
   ClientCommand		getCommandType() const;
   bool			setRawHeader(ClientHeader* header);
+  bool			setRawHeader(HeaderServerUDP* header);
   virtual void		setRawData(std::string const&) = 0;
 };
 
