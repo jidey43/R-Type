@@ -3,16 +3,20 @@
 
 # include <string>
 # include "NetworkDefines.h"
+# include "IClientPacket.hh"
 
 class GamerInfo
 {
 private:
-  ClientDatas*	_clientInfo;
+  ClientDatas*		_clientInfo;
+  ClientUDPHeader*	_header;
 
 public:
   GamerInfo(ClientDatas*);
   virtual ~GamerInfo();
-  ClientDatas*	getClientInfos() const;
+  ClientDatas*		getClientInfos() const;
+  void			setHeader(ClientUDPHeader*);
+  ClientUDPHeader*	getHeader() const;
 
 private:
   GamerInfo(const GamerInfo &);

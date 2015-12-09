@@ -11,7 +11,7 @@ public:
   virtual ~AServerPacket();
 
 protected:
- T				_command;
+  T				_command;
 
 public:
   T				getCommandType() const;
