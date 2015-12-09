@@ -6,7 +6,7 @@ PacketFactory::PacketFactory()
 PacketFactory::~PacketFactory()
 {}
 
-IServerPacket*		PacketFactory::build(ServerUDPHeader *header)
+IServerPacket<ServerUDPResponse>*	PacketFactory::build(ServerUDPHeader *header)
 {
   switch(header->command)
     {
@@ -15,7 +15,7 @@ IServerPacket*		PacketFactory::build(ServerUDPHeader *header)
     }
 }
 
-IServerPacket*		PacketFactory::build(ServerTCPHeader *header)
+IServerPacket<ServerTCPResponse>*	PacketFactory::build(ServerTCPHeader *header)
 {
   switch(header->command)
     {

@@ -1,9 +1,9 @@
 #ifndef FAILPACKET_H_
 # define FAILPACKET_H_
 
-# include "IServerPacket.hh"
+# include "AServerPacket.hh"
 
-class FailPacket : public IServerPacket
+class FailPacket : public AServerPacket<ServerTCPResponse>
 {
  public:
   FailPacket(ServerTCPResponse);

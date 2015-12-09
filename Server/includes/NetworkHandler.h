@@ -32,8 +32,10 @@ class NetworkHandler
   PacketFactory*				_factory;
 
  public:
-  void						broadcast(IServerPacket*);
-  bool						sendToClient(ClientInfo *, IServerPacket *);
+  void						broadcast(IServerPacket<ServerTCPResponse>*);
+  void						broadcast(IServerPacket<ServerUDPResponse>*);
+  bool						sendToClient(ClientInfo *, IServerPacket<ServerTCPResponse> *);
+  bool						sendToClient(ClientInfo *, IServerPacket<ServerUDPResponse> *);
   TransmitStatus				receiveFromClient(ClientInfo *);
   bool						initSocket();
   bool						selectClient();

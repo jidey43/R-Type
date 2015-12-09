@@ -104,7 +104,15 @@ ClientInfo*	NetworkHandler::getActiveClient()
   return NULL;
 }
 
-void	NetworkHandler::broadcast(IServerPacket* packet)
+void	NetworkHandler::broadcast(IServerPacket<ServerTCPResponse>* packet)
+{
+  for (std::vector<ClientInfo*>::iterator it = _clientList.begin(); it != _clientList.end(); ++it)
+    {
+      sendToClient((*it), packet);
+    }
+}
+
+void	NetworkHandler::broadcast(IServerPacket<ServerUDPResponse>* packet)
 {
   for (std::vector<ClientInfo*>::iterator it = _clientList.begin(); it != _clientList.end(); ++it)
     {
@@ -136,7 +144,20 @@ TransmitStatus		NetworkHandler::receiveFromClient(ClientInfo* client)
   return ret;
 }
 
-bool			NetworkHandler::sendToClient(ClientInfo* client, IServerPacket* packet)
+bool			NetworkHandler::sendToClient(ClientInfo* client, IServerPacket<ServerTCPResponse>* packet)
+{
+  TransmitStatus	ret;
+  std::string	toSend = packet->deserialize();
+
+  ret = _network->sendData((void*)toSend.c_str(), toSend.size(), client->getSocket(), NULL);
+  if (ret != PASSED)
+    closeConnection(client);
+  else
+    return true;
+  return false;
+}
+
+bool			NetworkHandler::sendToClient(ClientInfo* client, IServerPacket<ServerUDPResponse>* packet)
 {
   TransmitStatus	ret;
   std::string	toSend = packet->deserialize();

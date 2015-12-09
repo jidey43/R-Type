@@ -1,7 +1,7 @@
 # include <string.h>
 # include "DesGamePacket.h"
 
-DesGamePacket::DesGamePacket(ServerTCPResponse resp, int id, std::string const& gameName, std::string const& players) : _response(resp), _data(new DesGameData)
+DesGamePacket::DesGamePacket(ServerTCPResponse resp, int id, std::string const& gameName, std::string const& players) : AServerPacket<ServerTCPResponse>(resp), _data(new DesGameData)
 {
   _data->id = id;
   bzero(_data->gameName, 256);
@@ -22,7 +22,7 @@ std::string const&		DesGamePacket::deserialize()
   static std::string		ret;
 
   header.magic = MAGIC;
-  header.command = _response;
+  header.command = _command;
   header.size = sizeof(*_data);
   memcpy(buff, &header, sizeof(header));
   memcpy(*(&buff + sizeof(header)), _data, sizeof(*_data));

@@ -1,9 +1,9 @@
 #ifndef GAMEOVERPACKET_H_
 # define GAMEOVERPACKET_H_
 
-# include "IServerPacket.hh"
+# include "AServerPacket.hh"
 
-class GameOverPacket : public IServerPacket
+class GameOverPacket : public AServerPacket<ServerTCPResponse>
 {
  public:
   GameOverPacket(ServerTCPResponse, int);

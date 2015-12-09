@@ -16,10 +16,11 @@ public:
 
   IClientPacket*		build(ClientTCPHeader*);
   IClientPacket*		build(ClientUDPHeader*);
-  IServerPacket*		build(ServerTCPHeader*);
-  IServerPacket*		build(ServerUDPHeader*);
-  std::string const&	disassemble(IClientPacket* packet);
-  std::string const&	disassemble(IServerPacket* packet);
+  IServerPacket<ServerTCPResponse>*		build(ServerTCPHeader*);
+  IServerPacket<ServerUDPResponse>*		build(ServerUDPHeader*);
+  std::string const&				disassemble(IClientPacket* packet);
+  std::string const&				disassemble(IServerPacket<ServerTCPResponse>* packet);
+  std::string const&				disassemble(IServerPacket<ServerUDPResponse>* packet);
 };
 
 #endif
