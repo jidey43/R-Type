@@ -66,7 +66,14 @@ std::string const&	PacketFactory::disassemble(IClientPacket<ClientTCPCommand>* p
   delete(packet);
 }
 
-std::string const&	PacketFactory::disassemble(IServerPacket* packet)
+std::string const&	PacketFactory::disassemble(IServerPacket<ServerTCPResponse>* packet)
+{
+  std::string		ret;
+
+  delete(packet);
+}
+
+std::string const&	PacketFactory::disassemble(IServerPacket<ServerUDPResponse>* packet)
 {
   std::string		ret;
 
