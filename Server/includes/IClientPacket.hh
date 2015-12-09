@@ -6,10 +6,18 @@
 
 typedef struct
 {
-  ClientCommand	command;
-  int		size;
-  int		magic;
-} __attribute__ ((packed)) ClientTCPHeader;
+  uint32_t			magic;
+  ClientCommand			command;
+  int				size;
+} __attribute__ ((packed))	ClientTCPHeader;
+
+typedef struct
+{
+  uint32_t			magic;
+  ClientCommand			id;
+  uint32_t			size;
+  uint32_t			idx;
+} __attribute__ ((packed))	HeaderUDPClient;
 
 typedef struct
 {

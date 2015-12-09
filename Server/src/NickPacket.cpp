@@ -25,5 +25,11 @@ NickData*		NickPacket::getData() const
 
 bool			NickPacket::checkHeader()
 {
-
+  if (_header->magic != MAGIC)
+    return false;
+  else if (_header->command < AUTH_TCP|| _header->command > QUIT)
+    return false;
+  else if (_header->size < 0)
+    return false;
+  return true;
 }

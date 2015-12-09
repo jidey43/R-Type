@@ -52,13 +52,6 @@ typedef enum
     AUTH_UDP = 1
   }		GameServerCommand;
 
-typedef struct
-{
-  uint32_t			magic;
-  GameServerCommand		id;
-  uint32_t			size;
-  uint32_t			idx;
-} __attribute__ ((packed))	HeaderServerUDP;
 
 /*
 	Packet : client -> server

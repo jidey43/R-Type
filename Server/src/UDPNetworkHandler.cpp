@@ -56,7 +56,7 @@ bool			UDPNetworkHandler::selectClient()
 {
   std::vector<int>	fdList;
   ClientDatas*		clientDatas = new ClientDatas();
-  HeaderServerUDP*	header = new HeaderServerUDP();
+  HeaderUDPClient*	header = new HeaderUDPClient();
   GamerInfo*		client;
   char*			buff;
 
@@ -64,7 +64,7 @@ bool			UDPNetworkHandler::selectClient()
   _network->selectClients(fdList, NULL);
   if (!fdList.empty())
     {
-      _network->recvData(header, sizeof(HeaderServerUDP), _socket, clientDatas);
+      _network->recvData(header, sizeof(*header), _socket, clientDatas);
       if ((client = this->getClient(clientDatas)))
 	{
 	  buff = new char[header->size + 1];
