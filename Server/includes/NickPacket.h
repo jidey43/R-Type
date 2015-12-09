@@ -1,5 +1,5 @@
-#ifndef NEWGAMEPACKET_H_
-# define NEWGAMEPACKET_H_
+#ifndef NICKPACKET_H_
+# define NICKPACKET_H_
 
 # include "AClientPacket.hh"
 
