@@ -9,7 +9,6 @@ NetworkHandler::NetworkHandler(std::string const & ip, std::string const & port)
 	: _ip(ip),
 	  _port(port),
 	  _network(getNetworkInstance<TCPSocket>()),
-	  _packet(NULL),
 	  _factory(new PacketFactory())
 {
 }
@@ -30,23 +29,17 @@ bool NetworkHandler::initSocket()
   return false;
 }
 
-SOCKET NetworkHandler::acceptNewClient()
+bool NetworkHandler::acceptNewClient()
 {
   SOCKET			sock = _network->acceptSocket();
   std::string			clientName = "user_" + std::to_string(_clientList.size());
 
   if (sock == INVALID_SOCKET)
-    return INVALID_SOCKET;
+    return false;
   _clientList.push_back(new ClientInfo(sock, clientName));
 
-  ClientInfo*	client = _clientList.back();
-
-  if (receiveFromClient(client) == PASSED && client->getPacket()->getCommandType() == AUTH_TCP)
-    client->setNickname((dynamic_cast<NickData*>(client->getPacket()))->data);
-  else
-    closeConnection(client);
-  std::cout << "new client : " << sock << " " + client->getNickname() << std::endl;
-  return sock;
+  std::cout << "new client : " << sock << " " + _clientList.back()->getNickname() << std::endl;
+  return true;
 }
 
 bool NetworkHandler::selectClient()
@@ -62,13 +55,12 @@ bool NetworkHandler::selectClient()
 
   std::vector<SOCKET>::iterator fit = fdList.begin();
   SOCKET sock = INVALID_SOCKET;
-  if ((*fit) == _listen && (sock = acceptNewClient()) == INVALID_SOCKET)
+  if ((*fit) == _listen && !acceptNewClient())
     return false;
   else
     ++fit;
+
   _activeClients.clear();
-  // if (sock != INVALID_SOCKET)
-  //   _activeClients.push_back(_clientList.back());
   std::vector<ClientInfo*>::iterator it;
   while (fit != fdList.end())
   {
@@ -82,7 +74,6 @@ bool NetworkHandler::selectClient()
 	}
       ++fit;
     }
-  std::cout << "active clients : " << _clientList.size() << std::endl;
   return true;
 }
 
@@ -91,17 +82,26 @@ ClientInfo*	NetworkHandler::getActiveClient()
   if (_activeClients.empty())
     return NULL;
 
-  TransmitStatus ret;
   ClientInfo*	client = _activeClients.back();
 
   _activeClients.pop_back();
-  ret = receiveFromClient(client);
-
-  if (ret == DISCONNECTED || ret == ERR)
-    closeConnection(client);
-  else
-    return client;
-  return NULL;
+  try
+    {
+      receiveFromClient(client);
+    }
+  catch (Exceptions::NetworkExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+      closeConnection(client);
+      return getActiveClient();
+    }
+  catch (Exceptions::ConnectionExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+      closeConnection(client);
+      return getActiveClient();
+    }
+  return client;
 }
 
 void	NetworkHandler::broadcast(IServerPacket* packet)
@@ -112,41 +112,47 @@ void	NetworkHandler::broadcast(IServerPacket* packet)
     }
 }
 
-TransmitStatus		NetworkHandler::receiveFromClient(ClientInfo* client)
+void			NetworkHandler::receiveFromClient(ClientInfo* client)
 {
-  TransmitStatus	ret;
-  ClientTCPHeader*		header = new ClientTCPHeader;
+  ClientTCPHeader*	header = new ClientTCPHeader;
   std::string		tmp;
   char*			buff;
   IClientPacket*	packet;
 
-  if ((ret = _network->recvData(header, sizeof(ClientTCPHeader), client->getSocket(), NULL)) == PASSED)
-    {
-      packet = _factory->build(header);
-      // Need to check Header packet->checkHeader()
-    }
+  client->setPacket(NULL);
+  _network->recvData(header, sizeof(ClientTCPHeader), client->getSocket(), NULL);
+  packet = _factory->build(header);
+  if (!packet->checkHeader())
+    return ;
   buff = new char[header->size + 1];
-  if ((ret = _network->recvData(buff, header->size, client->getSocket(), NULL)) == PASSED)
-    {
-      buff[header->size] = 0;
-      tmp = std::string(buff);
-      packet->setRawData(tmp);
-      client->setPacket(packet);
-    }
-  return ret;
+  _network->recvData(buff, header->size, client->getSocket(), NULL);
+  buff[header->size] = 0;
+  tmp = std::string(buff);
+  packet->setRawData(tmp);
+  client->setPacket(packet);
 }
 
 bool			NetworkHandler::sendToClient(ClientInfo* client, IServerPacket* packet)
 {
-  TransmitStatus	ret;
   std::string	toSend = packet->deserialize();
 
-  ret = _network->sendData((void*)toSend.c_str(), toSend.size(), client->getSocket(), NULL);
-  if (ret != PASSED)
-    closeConnection(client);
-  else
-    return true;
-  return false;
+  try
+    {
+      _network->sendData((void*)toSend.c_str(), toSend.size(), client->getSocket(), NULL);
+    }
+  catch (Exceptions::NetworkExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+      closeConnection(client);
+      return false;
+    }
+  catch (Exceptions::ConnectionExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+      closeConnection(client);
+      return false;
+    }
+  return true;
 }
 
 void	NetworkHandler::closeConnection(ClientInfo* client)

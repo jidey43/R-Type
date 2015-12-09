@@ -12,7 +12,7 @@ public:
 
 private:
 	NetworkHandler*				_network;
-	ClientPacket*				_packet;
+	/* ClientPacket*				_packet; */
 	SOCKET						_listen;
 
 public:

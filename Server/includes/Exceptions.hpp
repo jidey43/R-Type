@@ -29,6 +29,25 @@ private:
   NetworkExcept &operator=(const NetworkExcept &) throw();
 };
 
+class ConnectionExcept : public std::exception
+{
+public:
+  ConnectionExcept(std::string const& msg) throw()
+    : _msg(msg) {}
+  ConnectionExcept(const ConnectionExcept& other) throw()
+    : _msg(other._msg) {}
+  virtual ~ConnectionExcept() throw() {}
+  virtual const char*	what() const throw()
+  {
+    return _msg.c_str();
+  }
+
+private:
+  std::string		_msg;
+
+  ConnectionExcept &operator=(const ConnectionExcept &) throw();
+};
+
 };
 
 

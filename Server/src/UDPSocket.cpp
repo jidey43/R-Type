@@ -8,23 +8,23 @@ UDPSocket::~UDPSocket()
 {
 }
 
-int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, addrinfo hints)
+int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, addrinfo *hints)
 {
-  struct addrinfo *addr = NULL;
+  ConnectionData *addr = NULL;
   int result;
   _port = port;
-  hints.ai_flags = AI_PASSIVE;
-  hints.ai_family = AF_INET;
-  hints.ai_socktype = SOCK_DGRAM;
-  hints.ai_protocol = IPPROTO_UDP;
-  hints.ai_addr = INADDR_ANY;
-  result = getaddrinfo(ip.c_str(), port.c_str(), &hints, &addr);
+  hints->ai_flags = AI_PASSIVE;
+  hints->ai_family = AF_INET;
+  hints->ai_socktype = SOCK_DGRAM;
+  hints->ai_protocol = IPPROTO_UDP;
+  hints->ai_addr = INADDR_ANY;
+  result = getaddrinfo(ip.c_str(), port.c_str(), hints, &addr);
   if (result != 0) {
     throw Exceptions::NetworkExcept("GETADDRINFO ERROR", errno);
   }
 
   if ((_listen = socket(addr->ai_family, addr->ai_socktype,
-			addr->ai_protocol)) == -1)
+			addr->ai_protocol)) == INVALID_SOCKET)
     throw Exceptions::NetworkExcept("SOCKET ERROR", errno);
 
   if (bind(_listen, addr->ai_addr, (int)addr->ai_addrlen) == SOCKET_ERROR)
@@ -36,22 +36,25 @@ int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, ad
   return _listen;
 }
 
-TransmitStatus			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr)
+void			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr)
 {
   int res = sendto(_listen, (void *)buffer, size, 0, (sockaddr *)&addr, sizeof(addr));
-
   if (res == -1)
-    throw Exceptions::NetworkExcept("SEND FAILED", errno);
-  return (res == -1 ? ERR : PASSED);
+    throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
+  if (res == 0)
+    throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
 }
 
-TransmitStatus			UDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)
+void			UDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)
 {
   socklen_t			addr_len = sizeof(addr);
   int				res;
 
   res = recvfrom(_listen, (void *)buffer, size, 0, (sockaddr *)&addr, &addr_len);
-  return (res == -1 ? ERR : (res == 0 ? DISCONNECTED : PASSED));
+  if (res == -1)
+    throw Exceptions::NetworkExcept("RECEIVEFROM ERROR", errno);
+  if (res == 0)
+    throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
 }
 
 SOCKET				UDPSocket::acceptClient()

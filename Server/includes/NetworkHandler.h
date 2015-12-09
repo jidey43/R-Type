@@ -12,6 +12,7 @@
 # include "ClientInfo.h"
 # include "PacketFactory.hh"
 # include "IServerPacket.hh"
+# include "IClientPacket.hh"
 
 extern	SOCKET				_listen;
 extern  std::vector<ClientInfo*>	_clientList;
@@ -34,13 +35,13 @@ class NetworkHandler
  public:
   void						broadcast(IServerPacket*);
   bool						sendToClient(ClientInfo *, IServerPacket *);
-  TransmitStatus				receiveFromClient(ClientInfo *);
+  void						receiveFromClient(ClientInfo *);
   bool						initSocket();
   bool						selectClient();
   ClientInfo*					getActiveClient();
 
  private:
-  SOCKET					acceptNewClient();
+  bool						acceptNewClient();
   void						closeConnection(ClientInfo *);
 };
 

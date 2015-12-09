@@ -4,21 +4,21 @@
 # include "NetworkDefines.h"
 # include "INetwork.hh"
 
-class							TCPSocket
+class					TCPSocket
 {
 private:
-	std::string					_ip;
-	std::string					_port;
-	SOCKET						_listen;
+  std::string				_ip;
+  std::string				_port;
+  SOCKET				_listen;
 
 public:
-	TCPSocket();
-	~TCPSocket();
+  TCPSocket();
+  ~TCPSocket();
 
-	SOCKET						startNetwork(std::string const &ip, std::string const &port, addrinfo);
-	SOCKET						acceptClient();
-	TransmitStatus					sendData(const void *buffer, int size, SOCKET socket, ClientDatas *addr);
-	TransmitStatus					rcvData(void*, int size, SOCKET socket, ClientDatas *addr);
+  SOCKET				startNetwork(std::string const &ip, std::string const &port, ConnectionData*);
+  SOCKET				acceptClient();
+  void					sendData(const void *buffer, int size, SOCKET socket, ClientDatas *addr);
+  void					rcvData(void*, int size, SOCKET socket, ClientDatas *addr);
 };
 
 #endif

@@ -9,9 +9,9 @@ template <class T>
 class UNetwork : public INetwork<T>
 {
 private:
-	T*							_socket;
+	T*						_socket;
 	SOCKET						_listen;
-	struct addrinfo*			_addr;
+	ConnectionData*					_addr;
 	fd_set*						_readSet;
 
 public:
@@ -20,8 +20,8 @@ public:
 
 public:
 	bool					initClientSocket(std::string const &, std::string const &);
-	TransmitStatus			recvData(void *data, int size, SOCKET, ConnectionData *addr);
-	TransmitStatus			sendData(void *data, int size, SOCKET, ConnectionData *addr);
+	void					recvData(void *data, int size, SOCKET, ClientDatas *addr);
+	void					sendData(void *data, int size, SOCKET, ClientDatas *addr);
 	SOCKET					getFd() const;
 	void					selectFD(std::vector<SOCKET>& fd, struct timeval *to);
 	bool					closeConnection(SOCKET);
