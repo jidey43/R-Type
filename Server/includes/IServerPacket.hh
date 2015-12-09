@@ -1,7 +1,7 @@
 #ifndef ISERVERPACKET_H_
 # define ISERVERPACKET_H_
 
-#include "NetworkDefines.h"
+# include "NetworkDefines.h"
 
 typedef struct
 {

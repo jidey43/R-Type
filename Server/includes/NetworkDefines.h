@@ -64,5 +64,4 @@ typedef struct
 	Packet : client -> server
 */
 
-
 #endif
