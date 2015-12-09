@@ -1,6 +1,9 @@
-# include "IServerPacket.hh"
+#ifndef GAMEINFOPACKET_H_
+# define GAMEINFOPACKET_H_
 
-class GameInfoPacket : public IServerPacket
+# include "AServerPacket.hh"
+
+class GameInfoPacket : public AServerPacket<ServerTCPResponse>
 {
  public:
   GameInfoPacket(ServerTCPResponse, int, int);
@@ -9,6 +12,7 @@ class GameInfoPacket : public IServerPacket
   std::string const&		deserialize();
 
  private:
-  ServerTCPResponse		_response;
   GameInfoData*			_data;
 };
+
+#endif /* !GAMEINFOPACKET_H_ */

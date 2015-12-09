@@ -1,9 +1,9 @@
 #ifndef AUTHPACKET_H_
 # define AUTH_PACKET_H_
 
-# include "IServerPacket.hh"
+# include "AServerPacket.hh"
 
-class AuthPacket : public IServerPacket
+class AuthPacket : public AServerPacket<ServerTCPResponse>
 {
  public:
   AuthPacket(ServerTCPResponse, int);
@@ -12,7 +12,6 @@ class AuthPacket : public IServerPacket
   std::string const&		deserialize();
 
  private:
-  ServerTCPResponse		_response;
   AuthData*			_data;
 };
 

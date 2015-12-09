@@ -15,9 +15,8 @@ class		Server
  private:
   NetworkHandler*			_network;
   GameHandler*				_games;
-  IServerPacket*			_packet;
 
- private:
+private:
   void					start();
   void					answerClients();
   void					parser(ClientInfo* client);

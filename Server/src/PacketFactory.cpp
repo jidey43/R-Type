@@ -6,7 +6,7 @@ PacketFactory::PacketFactory()
 PacketFactory::~PacketFactory()
 {}
 
-IServerPacket*		PacketFactory::build(ServerUDPHeader *header)
+IServerPacket<ServerUDPResponse>*	PacketFactory::build(ServerUDPHeader *header)
 {
   switch(header->command)
     {
@@ -15,7 +15,7 @@ IServerPacket*		PacketFactory::build(ServerUDPHeader *header)
     }
 }
 
-IServerPacket*		PacketFactory::build(ServerTCPHeader *header)
+IServerPacket<ServerTCPResponse>*	PacketFactory::build(ServerTCPHeader *header)
 {
   switch(header->command)
     {
@@ -66,7 +66,14 @@ std::string const&	PacketFactory::disassemble(IClientPacket<ClientTCPCommand>* p
   delete(packet);
 }
 
-std::string const&	PacketFactory::disassemble(IServerPacket* packet)
+std::string const&	PacketFactory::disassemble(IServerPacket<ServerTCPResponse>* packet)
+{
+  std::string		ret;
+
+  delete(packet);
+}
+
+std::string const&	PacketFactory::disassemble(IServerPacket<ServerUDPResponse>* packet)
 {
   std::string		ret;
 

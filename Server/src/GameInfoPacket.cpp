@@ -1,7 +1,7 @@
 # include <string.h>
 # include "GameInfoPacket.h"
 
-GameInfoPacket::GameInfoPacket(ServerTCPResponse resp, int id, int port) : _response(resp), _data(new GameInfoData)
+GameInfoPacket::GameInfoPacket(ServerTCPResponse resp, int id, int port) : AServerPacket<ServerTCPResponse>(resp), _data(new GameInfoData)
 {
   _data->id = id;
   _data->port = port;
@@ -19,7 +19,7 @@ std::string const&		GameInfoPacket::deserialize()
   static std::string		ret;
 
   header.magic = MAGIC;
-  header.command = _response;
+  header.command = _command;
   header.size = sizeof(*_data);
   memcpy(buff, &header, sizeof(header));
   memcpy(*(&buff + sizeof(header)), _data, sizeof(*_data));

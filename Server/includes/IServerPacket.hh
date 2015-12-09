@@ -43,6 +43,8 @@ typedef integerData GameOverData;
 typedef integerData AuthData;
 typedef integerData GameListData;
 
+
+template <typename T>
 class IServerPacket
 {
 public:

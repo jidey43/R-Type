@@ -48,30 +48,30 @@ bool	 NetworkHandler::getActiveClient()
 //     }
 // }
 
-IServerPacket<ServerTCPResponse>*	NetworkHandler::receiveFromServer(SOCKET sock)
+IServerPacket<ServerTCPResponse>*	NetworkHandler::receiveFromServer()
 {
-  ServerTCPHeader*	header = new ServerTCPHeader;
-  std::string		tmp;
-  char*			buff;
+  ServerTCPHeader*			header = new ServerTCPHeader;
+  std::string				tmp;
+  char*					buff;
   IServerPacket<ServerTCPResponse>*	packet;
 
-  tryReceive(header, sizeof(ServerTCPHeader), sock);
+  tryReceive((char*)header, sizeof(ServerTCPHeader));
   packet = _factory->build(header);
   if (!packet->checkHeader())
     return NULL;
   buff = new char[header->size + 1];
-  tryReceive(buff, header->size, sock);
+  tryReceive(buff, header->size);
   buff[header->size] = 0;
   tmp = std::string(buff);
   packet->setRawData(tmp);
   return packet;
 }
 
-bool			NetworkHandler::tryReceive(ServerTCPHeader* header, size_t size, SOCKET sock)
+bool			NetworkHandler::tryReceive(char* header, int size)
 {
   try
     {
-        _network->recvData(header, sizeof(ServerTCPHeader), client, NULL);
+        _network->recvData(header, sizeof(ServerTCPHeader), _listen, NULL);
     }
   catch (Exceptions::NetworkExcept e)
     {
@@ -88,24 +88,24 @@ bool			NetworkHandler::tryReceive(ServerTCPHeader* header, size_t size, SOCKET s
   return true;
 }
 
-bool			NetworkHandler::sendToServer(SOCKET client, IServerPacket* packet)
+bool			NetworkHandler::sendToServer(IServerPacket<ServerTCPResponse>* packet)
 {
   std::string	toSend = packet->deserialize();
 
   try
     {
-      _network->sendData((void*)toSend.c_str(), toSend.size(), client, NULL);
+      _network->sendData((void*)toSend.c_str(), toSend.size(), _listen, NULL);
     }
   catch (Exceptions::NetworkExcept e)
     {
       std::cerr << e.what() << std::endl;
-      closeConnection(client);
+      closeConnection();
       return false;
     }
   catch (Exceptions::ConnectionExcept e)
     {
       std::cerr << e.what() << std::endl;
-      closeConnection(client);
+      closeConnection();
       return false;
     }
   return true;

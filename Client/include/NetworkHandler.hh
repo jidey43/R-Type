@@ -33,9 +33,9 @@ public:
   bool						selectSockets();
   bool						getActiveClient();
   // void						broadcast(char* msg);
-  bool						sendToServer(std::string const& data);
-  bool						tryReceive();
-  TransmitStatus				receiveFromServer();
+  bool						sendToServer(IServerPacket<ServerTCPResponse>*);
+  IServerPacket<ServerTCPResponse>*		receiveFromServer();
+  bool						tryReceive(char* header, int size);
   void						closeConnection();
   std::string					getPacket() const;
 };

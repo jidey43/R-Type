@@ -1,7 +1,7 @@
 # include <string.h>
 # include "GameListPacket.h"
 
-GameListPacket::GameListPacket(ServerTCPResponse resp) : _response(resp)
+GameListPacket::GameListPacket(ServerTCPResponse resp) : AServerPacket<ServerTCPResponse>(resp)
 {
 }
 
@@ -16,7 +16,7 @@ std::string const&		GameListPacket::deserialize()
   static std::string		ret;
 
   header.magic = MAGIC;
-  header.command = _response;
+  header.command = _command;
   header.size = 0;
   memcpy(buff, &header, sizeof(header));
   buff[sizeof(header)] = 0;

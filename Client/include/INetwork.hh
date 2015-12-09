@@ -16,8 +16,8 @@ class									INetwork
 {
 public:
 	virtual bool					initClientSocket(std::string const &ip, std::string const &port) = 0;
-	virtual TransmitStatus			recvData(void *data, int size, SOCKET, ConnectionData *addr) = 0;
-	virtual TransmitStatus			sendData(void *data, int size, SOCKET, ConnectionData *addr) = 0;
+	virtual void					recvData(void *data, int size, SOCKET, ClientDatas *addr) = 0;
+	virtual void					sendData(void *data, int size, SOCKET, ClientDatas *addr) = 0;
 	virtual SOCKET					getFd() const = 0;
 	virtual void					selectFD(std::vector<SOCKET>& fd, struct timeval *to) = 0;
 	virtual bool					closeConnection(SOCKET) = 0;
