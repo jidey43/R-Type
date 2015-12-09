@@ -29,12 +29,12 @@ void Client::start()
   while (1)
     {
       std::getline(std::cin, str);
-      switch (str)
-	{
-
-	}
-      _network->sendToServer(str);
-      _network->receiveFromServer();
-      std::cout << "SERVER : " << _network->getPacket() << std::endl;
+      // switch (str)
+      // 	{
+      // 	  case "1":
+      // 	    _network->sendToServer(new AddGame);
+      // 	}
+      // _network->receiveFromServer();
+      // std::cout << "SERVER : " << _network->getPacket() << std::endl;
     }
 }
