@@ -55,7 +55,7 @@ GamerInfo*		UDPNetworkHandler::getClient(ClientDatas* datas)
   return NULL;
 }
 
-IClientPacket<ClientUDPCommand>*	UDPNetworkHandler::receiveFromClient(GamerInfo *client)
+IClientPacket<ClientUDPCommand>*	UDPNetworkHandler::receiveFrom(GamerInfo *client)
 {
   char*					buff;
   IClientPacket<ClientUDPCommand>*	packet;
@@ -70,23 +70,63 @@ IClientPacket<ClientUDPCommand>*	UDPNetworkHandler::receiveFromClient(GamerInfo 
     throw Exceptions::BadHeaderRequest("Error, received bad Header from known client");
   buff = new char[header->size + 1];
   memset(buff, 0, header->size + 1);
-  _network->recvData(buff, header->size, _socket, client->getClientInfos());
+  try
+    {
+      _network->recvData(buff, header->size, _socket, client->getClientInfos());
+    }
+  catch (Exceptions::NetworkExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+      return NULL;
+    }
   packet->setRawData(std::string(buff));
   return packet;
+}
+
+bool					UDPNetworkHandler::sendTo(GamerInfo *client,
+								  IServerPacket<ServerUDPResponse>* response)
+{
+  char*					buff;
+  IClientPacket<ClientUDPCommand>*	packet;
+  ClientUDPHeader*			header;
+  std::string				toSend = response->deserialize();
+
+  try
+    {
+      _network->sendData((void*)(toSend.c_str()),
+			 toSend.size(),
+			 _socket,
+			 client->getClientInfos());
+    }
+  catch (Exceptions::NetworkExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+      return false;
+    }
+  return true;
 }
 
 GamerInfo*				UDPNetworkHandler::selectClient()
 {
   std::vector<int>			fdList;
-  ClientDatas*				clientDatas = new ClientDatas();
-  ClientUDPHeader*			header = new ClientUDPHeader();
   GamerInfo*				client;
 
   fdList.push_back(_socket);
   _network->selectClients(fdList, NULL);
   if (!fdList.empty())
     {
-      _network->recvData(header, sizeof(*header), _socket, clientDatas);
+      ClientDatas*	clientDatas = new ClientDatas();
+      ClientUDPHeader*	header = new ClientUDPHeader();
+
+      try
+	{
+	  _network->recvData(header, sizeof(*header), _socket, clientDatas);
+	}
+      catch (Exceptions::NetworkExcept e)
+	{
+	  std::cerr << e.what() << std::endl;
+	  return NULL;
+	}
       if ((client = this->getClient(clientDatas)))
 	client->setHeader(header);
 	return client;

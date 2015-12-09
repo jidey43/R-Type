@@ -11,11 +11,11 @@ public:
   virtual ~AServerPacket();
 
 protected:
- T			_command;
+  T				_command;
 
 public:
-  T			getCommandType() const;
-  virtual std::string const& deserialize() = 0;
+  T				getCommandType() const;
+  virtual std::string const&	deserialize() = 0;
 };
 
 # include "AServerPacket.tpp"
