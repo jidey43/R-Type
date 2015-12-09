@@ -11,7 +11,7 @@ public:
 
 public:
   void		update();
-  IObject	*Basicshoot();
+  IObject	*BasicShoot();
 };
 
 # endif

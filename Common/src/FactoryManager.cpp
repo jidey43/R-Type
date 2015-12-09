@@ -9,12 +9,12 @@
 #include "BydoAlien.hh"
 #include "DokanAlien.hh"
 
-FactoryManager::FactoryManager(MapController *map, char *levelFileName) : _map(map)
+FactoryManager::FactoryManager(MapController *map, const char *levelFileName) : _map(map)
 {
   _levelLoader.parseLevel(levelFileName);
-  _factories[0] = new AlienFactory<BydoAlien>(ObjectInfo::BYDO);
-  _factories[1] = new AlienFactory<GlamAlien>(ObjectInfo::GLAM);
-  _factories[2] = new AlienFactory<DokanAlien>(ObjectInfo::DOKAN);
+  _factories.push_back(new AlienFactory<BydoAlien>(ObjectInfo::BYDO));
+  _factories.push_back(new AlienFactory<GlamAlien>(ObjectInfo::GLAM));
+  _factories.push_back(new AlienFactory<DokanAlien>(ObjectInfo::DOKAN));
   _nbFactory = 3;
 }
 
@@ -28,31 +28,38 @@ void		FactoryManager::changeLevel(char *level)
 
 void		FactoryManager::initialiseLevel()
 {
-  unsigned int j = 0;
-  unsigned int nb = _levelLoader.getWavesCount();
+  int j = 0;
+  int nb = _levelLoader.getWavesCount();
   Waves waves[nb];
 
   waves[0] = _levelLoader.getNextWave();
-  for (unsigned int i; j != nb; i = i + 1)
+  for (int i = 0; j != nb; i = i + 1)
     {
-      if (i >= _nbFactory)
+      if (i > (int)_nbFactory)
 	{
 	  std::cout << "Error: bad type in the waves" << std::endl;
 	  break;
 	}
+      std::cout << waves[j].getType() << " " << _factories[i]->getType() << std::endl;
       if (waves[j].getType() == _factories[i]->getType())
 	{
+	  std::cout << "put wave" << std::endl;
 	  _factories[i]->setWave(waves[j]);
 	  j = j + 1;
-	  waves[j] = _levelLoader.getNextWave();
+	  if (j < _levelLoader.getWavesCount())
+	    waves[j] = _levelLoader.getNextWave();
 	  i = 0;
 	}
+      std::cout << "nb " << nb << " j  " << j << " i " <<  i << std::endl;
     }
+  std::cout << "---------------------" << std::endl;
 }
 
 void		FactoryManager::update()
 {
   IObject	*obj;
+
+  std::cout << "nb fact " << _nbFactory;
   for (unsigned int i = 0; i != _nbFactory; i = i + 1)
     {
       obj = _factories[i]->getNextEnemy();

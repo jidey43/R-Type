@@ -14,8 +14,7 @@ public:
   LevelLoader();
   ~LevelLoader();
 
-  void		setLevelFile(char *);
-  void		parseLevel(char *);
+  void		parseLevel(const char *);
   Waves		getNextWave();
   int		getWavesCount();
   

@@ -51,6 +51,11 @@ float		Waves::getCoeff() const
   return _coeff;
 }
 
+sf::Vector2f	Waves::getSpeed() const
+{
+  return _speed;
+}
+
 ObjectInfo::WaveType	Waves::getType() const
 {
   return _type;

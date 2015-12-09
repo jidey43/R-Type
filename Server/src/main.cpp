@@ -1,26 +1,13 @@
-<<<<<<< HEAD
-#include "LevelLoader.hh"
-#include "Waves.hh"
-#include <cstring>
-#include <iostream>
-=======
+/*
 # include <iostream>
 # include <signal.h>
 # include "Server.hh"
 # include "NetworkHandler.h"
 # include "ClientInfo.h"
 # include "IThread.h"
->>>>>>> 1f2988657923b37c0e223475124ca47afddc8c86
 
 void	broadcast(std::string const& data)
 {
-<<<<<<< HEAD
-  char *toto = strdup("level/Level1.lvl");
-  LevelLoader level;
-  level.parseLevel(toto);
-  Waves waves = level.getNextWave();
-  std::cout << waves.getCount() << std::endl;
-=======
   std::vector<ClientInfo*>::const_iterator	it;
   char toSend[BUFF_LEN];
 
@@ -30,7 +17,6 @@ void	broadcast(std::string const& data)
     {
       send((*it)->getSocket(), toSend, BUFF_LEN, 0);
     }
->>>>>>> 1f2988657923b37c0e223475124ca47afddc8c86
 }
 
 void		handle_signal(int sig)
@@ -65,4 +51,20 @@ int	main(int ac, char **av)
   process_signal();
   Server* server = new Server("127.0.0.1", av[1]);
   std::cout << "ok" << std::endl;
+}
+*/
+
+#include <cstring>
+#include <iostream>
+#include "LevelLoader.hh"
+#include "Waves.hh"
+
+int     main()
+{
+  char *toto = strdup("level/Level1.lvl");
+  LevelLoader level;
+  level.parseLevel(toto);
+  std::cout << "proutouprout";
+  Waves waves = level.getNextWave();
+  std::cout << waves.getCount() << std::endl;
 }

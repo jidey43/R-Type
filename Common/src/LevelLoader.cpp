@@ -20,12 +20,11 @@ LevelLoader::LevelLoader()
 
 LevelLoader::~LevelLoader() {}
 
-void		LevelLoader::parseLevel(char *name)
+void		LevelLoader::parseLevel(const char *name)
 {
   _levelFile.open(name);
   if (_levelFile.is_open())
     {
-      
       std::string	  line;
       
       while (getline(_levelFile, line, '\n'))
@@ -43,11 +42,11 @@ void		LevelLoader::parseLevel(char *name)
 Waves		LevelLoader::getNextWave()
 {
       std::string				str = _lines.front();
-      sf::Time				time;
-      sf::Time				freq;
+      sf::Time					time;
+      sf::Time					freq;
       sf::Vector2i				pos;
       sf::Vector2f				speed;
-      std::istringstream                    buffer;
+      std::istringstream			buffer;
       std::string				name;
       float					fnb;
       int					inb;
@@ -76,7 +75,6 @@ Waves		LevelLoader::getNextWave()
       ObjectInfo::WaveType			type = (ObjectInfo::WaveType)i;
       _lines.pop_front();
       Waves	wave(nb, time, freq, pos, speed, coeff, type);
-      _wavesCount = _wavesCount - 1;
       return (wave);
 }
 
