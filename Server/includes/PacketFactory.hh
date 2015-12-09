@@ -14,11 +14,12 @@ public:
   PacketFactory();
   virtual ~PacketFactory();
 
-  IClientPacket*		build(ClientTCPHeader*);
-  IClientPacket*		build(ClientUDPHeader*);
+  IClientPacket<ClientTCPCommand>*		build(ClientTCPHeader*);
+  IClientPacket<ClientUDPCommand>*		build(ClientUDPHeader*);
   IServerPacket<ServerTCPResponse>*		build(ServerTCPHeader*);
   IServerPacket<ServerUDPResponse>*		build(ServerUDPHeader*);
-  std::string const&				disassemble(IClientPacket* packet);
+  std::string const&				disassemble(IClientPacket<ClientUDPCommand>* packet);
+  std::string const&				disassemble(IClientPacket<ClientTCPCommand>* packet);
   std::string const&				disassemble(IServerPacket<ServerTCPResponse>* packet);
   std::string const&				disassemble(IServerPacket<ServerUDPResponse>* packet);
 };
