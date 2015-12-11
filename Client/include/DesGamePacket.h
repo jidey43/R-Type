@@ -7,6 +7,7 @@ class DesGamePacket : public AServerPacket<ServerTCPResponse>
 {
  public:
   DesGamePacket(ServerTCPResponse, int, std::string const&, std::string const&);
+  DesGamePacket(ServerTCPHeader*);
   ~DesGamePacket();
 
   std::string const&		deserialize();

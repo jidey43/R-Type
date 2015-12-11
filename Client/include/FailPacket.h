@@ -7,6 +7,7 @@ class FailPacket : public AServerPacket<ServerTCPResponse>
 {
  public:
   FailPacket(ServerTCPResponse);
+  FailPacket(ServerTCPHeader*);
   ~FailPacket();
 
   std::string const&		deserialize();

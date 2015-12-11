@@ -7,6 +7,7 @@ class GameInfoPacket : public AServerPacket<ServerTCPResponse>
 {
  public:
   GameInfoPacket(ServerTCPResponse, int, int);
+  GameInfoPacket(ServerTCPHeader*);
   ~GameInfoPacket();
 
  private:

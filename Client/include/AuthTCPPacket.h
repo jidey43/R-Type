@@ -7,6 +7,7 @@ class AuthTCPPacket : public AServerPacket<ServerTCPResponse>
 {
  public:
   AuthTCPPacket(ServerTCPResponse, int);
+  AuthTCPPacket(ServerTCPHeader*);
   ~AuthTCPPacket();
 
   std::string const&		deserialize();

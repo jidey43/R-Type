@@ -89,7 +89,7 @@ bool			NetworkHandler::tryReceive(char* header, int size)
   return true;
 }
 
-bool			NetworkHandler::sendToServer(IServerPacket<ServerTCPResponse>* packet)
+bool			NetworkHandler::sendToServer(IClientPacket<ClientTCPCommand>* packet)
 {
   std::string	toSend = packet->deserialize();
 

@@ -1,12 +1,17 @@
 # include <string.h>
 # include "FailPacket.h"
 
-FailPacket::FailPacket(ServerTCPResponse resp) : AServerPacket<ServerTCPResponse>(resp), _header(new ServerTCPHeader)
+FailPacket::FailPacket(ServerTCPResponse resp)
+  : AServerPacket<ServerTCPResponse>(resp), _header(new ServerTCPHeader)
 {
   _header->command = resp;
   _header->magic = MAGIC;
   _header->size = 0;
+}
 
+FailPacket::FailPacket(ServerTCPHeader* header)
+  : AServerPacket<ServerTCPResponse>(header->command)
+{
 }
 
 FailPacket::~FailPacket()

@@ -26,9 +26,9 @@ UNetwork<T>::~UNetwork()
 template <typename T>
 bool UNetwork<T>::initServerSocket(std::string const &ip, std::string const &port)
 {
-  addrinfo *hints;
+  ConnectionData *hints = new ConnectionData;
 
-  bzero(&hints, sizeof(hints));
+  bzero(hints, sizeof(*hints));
   try
     {
       _listen = _socket->startNetwork(ip, port, hints);

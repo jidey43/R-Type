@@ -6,6 +6,12 @@
 #include "NewGamePacket.h"
 #include "NickPacket.h"
 #include "JoinPacket.hh"
+#include "AuthTCPPacket.h"
+#include "GameInfoPacket.h"
+#include "GameListPacket.h"
+#include "DesGamePacket.h"
+#include "FailPacket.h"
+#include "GameOverPacket.h"
 #include "NetworkDefines.h"
 
 class PacketFactory

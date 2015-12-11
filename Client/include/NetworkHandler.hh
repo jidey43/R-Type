@@ -33,7 +33,7 @@ public:
   bool						selectSockets();
   bool						getActiveClient();
   // void						broadcast(char* msg);
-  bool						sendToServer(IServerPacket<ServerTCPResponse>*);
+  bool						sendToServer(IClientPacket<ClientTCPCommand>*);
   IServerPacket<ServerTCPResponse>*		receiveFromServer();
   bool						tryReceive(char* header, int size);
   void						closeConnection();

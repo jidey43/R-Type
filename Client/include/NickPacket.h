@@ -6,6 +6,7 @@
 class NickPacket : public AClientPacket<ClientTCPCommand>
 {
 public:
+  NickPacket(ClientTCPCommand, std::string const&);
   NickPacket(ClientTCPHeader*);
   ~NickPacket();
 

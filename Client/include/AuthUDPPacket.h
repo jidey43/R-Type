@@ -7,6 +7,7 @@ class AuthUDPPacket : public AServerPacket<ServerUDPResponse>
 {
  public:
   AuthUDPPacket(ServerUDPResponse, int, std::string const&);
+  AuthUDPPacket(ServerUDPHeader*);
   ~AuthUDPPacket();
 
   std::string const&		deserialize();

@@ -8,6 +8,11 @@ GameListPacket::GameListPacket(ServerTCPResponse resp) : AServerPacket<ServerTCP
   _header->command = resp;
 }
 
+GameListPacket::GameListPacket(ServerTCPHeader* header)
+  : AServerPacket<ServerTCPResponse>(header->command)
+{
+}
+
 GameListPacket::~GameListPacket()
 {
 }

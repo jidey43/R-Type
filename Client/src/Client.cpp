@@ -33,7 +33,9 @@ void Client::start()
       switch (i)
       	{
 	case 1:
-	  _network->sendToServer(new NewGamePacket(new ClientTCPHeader));
+	  _network->sendToServer(new NewGamePacket(ADD_GAME, "lalalalallal"));
+	case 2:
+	  _network->sendToServer(new NickPacket(AUTH_TCP, "lalla"));
 	// case 2:
 	//   _network->sendToServer()
       	}

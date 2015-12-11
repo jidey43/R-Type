@@ -29,7 +29,7 @@ template <typename T>
 bool WNetwork<T>::initServerSocket(std::string const &ip, std::string const &port)
 {
   WSADATA wsaData;
-  addrinfo hints;
+  ConnectionData *hints = new ConnectionData;
 
   int result;
   result = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -38,7 +38,7 @@ bool WNetwork<T>::initServerSocket(std::string const &ip, std::string const &por
       printf("WSAStartup failed: %d\n", result);
       return false;
     }
-  ZeroMemory(&hints, sizeof(hints));
+  ZeroMemory(hints, sizeof(*hints));
   if ((_listen = _socket->startNetwork(ip, port, hints)) == INVALID_SOCKET)
     {
       WSACleanup();

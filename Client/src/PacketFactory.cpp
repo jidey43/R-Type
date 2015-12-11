@@ -19,6 +19,27 @@ IServerPacket<ServerTCPResponse>*	PacketFactory::build(ServerTCPHeader *header)
 {
   switch(header->command)
     {
+    case AUTH:
+      return new AuthTCPPacket(header);
+      break;
+    case GAME_OVER:
+      return new GameOverPacket(header);
+      break;
+    case GAME_INFO:
+      return new GameInfoPacket(header);
+      break;
+    case START_GAME_LIST:
+      return new GameListPacket(header);
+      break;
+    case DES_GAME:
+      return new DesGamePacket(header);
+      break;
+    case END_GAME_LIST:
+      return new GameListPacket(header);
+      break;
+    case FAIL:
+      return new FailPacket(header);
+      break;
     default:
       return NULL;
     }

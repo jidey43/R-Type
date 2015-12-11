@@ -1,8 +1,18 @@
 #include <string.h>
 #include "NewGamePacket.h"
 
-NewGamePacket::NewGamePacket(ClientTCPHeader *header)
-  : AClientPacket<ClientTCPCommand>(header->command), _data(new NewGameData), _header(header)
+NewGamePacket::NewGamePacket(ClientTCPCommand command, std::string const& data)
+  : AClientPacket<ClientTCPCommand>(command), _data(new NewGameData), _header(new ClientTCPHeader)
+{
+  _header->magic = MAGIC;
+  _header->command = command;
+  _header->size = sizeof(*_data);
+  bzero(_data->data, 256);
+  memcpy(&(_data->data), data.c_str(), data.size());
+}
+
+NewGamePacket::NewGamePacket(ClientTCPHeader* header)
+  : AClientPacket<ClientTCPCommand>(header->command), _data(new NewGameData)
 {
 }
 
