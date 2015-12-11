@@ -9,6 +9,11 @@ AuthUDPPacket::AuthUDPPacket(ServerUDPResponse resp, int success, std::string co
   _data->magic = MAGIC;
 }
 
+AuthUDPPacket::AuthUDPPacket(ServerUDPHeader* header)
+  : AServerPacket<ServerUDPResponse>(header->command), _data(new AuthUDPData)
+{
+}
+
 AuthUDPPacket::~AuthUDPPacket()
 {
 }

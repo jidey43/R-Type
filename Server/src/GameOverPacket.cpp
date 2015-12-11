@@ -10,6 +10,16 @@ GameOverPacket::GameOverPacket(ServerTCPResponse resp, int data) : AServerPacket
   _data->magic = MAGIC;
 }
 
+GameOverPacket::GameOverPacket(ServerTCPHeader* header)
+  : AServerPacket<ServerTCPResponse>(resp), _data(new GameOverData)
+{
+  _header->magic = MAGIC;
+  _header->command = resp;
+  _header->size = sizeof(*_data);
+  _data->data = data;
+  _data->magic = MAGIC;
+}
+
 GameOverPacket::~GameOverPacket()
 {
 }
