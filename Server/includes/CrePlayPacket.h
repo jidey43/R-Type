@@ -7,6 +7,7 @@ class CrePlayPacket : public AServerPacket<ServerUDPResponse>
 {
  public:
   CrePlayPacket(ServerUDPResponse, float, float);
+  CrePlayPacket(ServerUDPHeader*);
   ~CrePlayPacket();
 
   std::string const&		deserialize();

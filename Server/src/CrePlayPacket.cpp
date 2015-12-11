@@ -8,7 +8,7 @@ CrePlayPacket::CrePlayPacket(ServerUDPResponse resp, float x, float y) : AServer
   _data->magic = MAGIC;
 }
 
-CrePlayPacket::CrePlayPacket(ServerUDPHeader header)
+CrePlayPacket::CrePlayPacket(ServerUDPHeader *header)
   : AServerPacket<ServerUDPResponse>(header->command), _data(new CrePlayData)
 {
 }
