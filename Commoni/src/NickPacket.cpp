@@ -12,7 +12,7 @@ NickPacket::NickPacket(ClientTCPCommand command, std::string const& name)
 }
 
 NickPacket::NickPacket(ClientTCPHeader* header)
-  : AClientPacket<ClientTCPCommand>(header->command), _data(new NickData)
+  : AClientPacket<ClientTCPCommand>(header->command), _data(new NickData), _header(header)
 {
 }
 
@@ -50,7 +50,7 @@ std::string const&	NickPacket::deserialize()
   static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
-  memcpy(*(&buff + sizeof(*_header)), _data, sizeof(*_data));
+  memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
   ret = buff;
   return ret;

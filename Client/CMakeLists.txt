@@ -11,14 +11,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/client)
 
 file(GLOB CLIENTSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/*.cpp)
+file(GLOB CLIENTCOMMON ${CMAKE_CURRENT_SOURCE_DIR}/Commoni/src/*.cpp)
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Client/include ")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../Server/includes ")
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Commoni ")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Commoni/includes ")
 
-add_executable(RTypeClient ${CLIENTSOURCES})
-
-
+add_executable(RTypeClient ${CLIENTSOURCES} ${CLIENTCOMMON})
 
 
 # SFML CONFIG
