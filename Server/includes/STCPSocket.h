@@ -2,9 +2,9 @@
 # define TCPSOCKET_H_
 
 # include "NetworkDefines.h"
-# include "INetwork.hh"
+# include "SINetwork.hh"
 
-class					TCPSocket
+class					STCPSocket
 {
 private:
   std::string				_ip;
@@ -12,8 +12,8 @@ private:
   SOCKET				_listen;
 
 public:
-  TCPSocket();
-  ~TCPSocket();
+  STCPSocket();
+  ~STCPSocket();
 
   SOCKET				startNetwork(std::string const &ip, std::string const &port, ConnectionData*);
   SOCKET				acceptClient();

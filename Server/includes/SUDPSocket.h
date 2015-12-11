@@ -2,18 +2,17 @@
 # define UDPSOCKET_H_
 
 # include "NetworkDefines.h"
-# include "INetwork.hh"
+# include "SINetwork.hh"
 # include "Exceptions.hpp"
 
-class			UDPSocket
+class			SUDPSocket
 {
 private:
   SOCKET		_listen;
-  // std::string		_port;
 
 public:
-  UDPSocket();
-  ~UDPSocket();
+  SUDPSocket();
+  ~SUDPSocket();
 
   int			startNetwork(std::string const &ip, std::string const &port, ConnectionData*);
   void			sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr);

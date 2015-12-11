@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <errno.h>
 #include <cerrno>
-#include "TCPSocket.hh"
+#include "STCPSocket.h"
 #include "Exceptions.hpp"
 
-TCPSocket::TCPSocket()
+STCPSocket::STCPSocket()
 {
 }
 
-TCPSocket::~TCPSocket()
+STCPSocket::~STCPSocket()
 {
 }
 
-SOCKET			TCPSocket::startNetwork(std::string const &ip, std::string const &port, ConnectionData *hints)
+SOCKET			STCPSocket::startNetwork(std::string const &ip, std::string const &port, ConnectionData *hints)
 {
   ConnectionData *addr = NULL;
   int result;
@@ -43,7 +43,7 @@ SOCKET			TCPSocket::startNetwork(std::string const &ip, std::string const &port,
   return _listen;
 }
 
-SOCKET	TCPSocket::acceptClient()
+SOCKET	STCPSocket::acceptClient()
 {
   SOCKET socket = INVALID_SOCKET;
 
@@ -52,7 +52,7 @@ SOCKET	TCPSocket::acceptClient()
   return socket;
 }
 
-void	TCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientDatas *addr)
+void	STCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientDatas *addr)
 {
   int res = send(socket, (void*)buffer, size, 0);
 
@@ -62,7 +62,7 @@ void	TCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientData
     throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
 }
 
-void			TCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *addr)
+void			STCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *addr)
 {
   int				addr_len = sizeof(addr);
   int				res;

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Server.hh"
 #include "NetworkDefines.h"
-#include "WNetwork.hh"
+#include "SWNetwork.hh"
 #include "NewGamePacket.h"
 #include "JoinPacket.hh"
 #include "GameListPacket.h"

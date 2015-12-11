@@ -1,6 +1,6 @@
 #include <iostream>
 #include <algorithm>
-#include "NetworkHandler.h"
+#include "SNetworkHandler.h"
 
 SOCKET				_listen = -1;
 std::vector<ClientInfo*>	_clientList;
@@ -8,7 +8,7 @@ std::vector<ClientInfo*>	_clientList;
 NetworkHandler::NetworkHandler(std::string const & ip, std::string const & port)
 	: _ip(ip),
 	  _port(port),
-	  _network(getNetworkInstance<TCPSocket>()),
+	  _network(getNetworkInstance<STCPSocket>()),
 	  _factory(new PacketFactory())
 {
 }

@@ -1,18 +1,18 @@
-#include "UDPSocket.hh"
+#include "SUDPSocket.h"
 
-UDPSocket::UDPSocket()
+SUDPSocket::SUDPSocket()
 {
 }
 
-UDPSocket::~UDPSocket()
+SUDPSocket::~SUDPSocket()
 {
 }
 
-int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, addrinfo *hints)
+int			SUDPSocket::startNetwork(std::string const &ip, std::string const &port, addrinfo *hints)
 {
   ConnectionData *addr = NULL;
   int result;
-  _port = port;
+
   hints->ai_flags = AI_PASSIVE;
   hints->ai_family = AF_INET;
   hints->ai_socktype = SOCK_DGRAM;
@@ -32,11 +32,10 @@ int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, ad
       freeaddrinfo(addr);
       throw Exceptions::NetworkExcept("BIND ERROR", errno);
     }
-  std::cout << "Listening on port : " + _port + " with socket : " << _listen << std::endl;
   return _listen;
 }
 
-void			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr)
+void			SUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr)
 {
   int res = sendto(_listen, (void *)buffer, size, 0, (sockaddr *)&addr, sizeof(addr));
   if (res == -1)
@@ -45,7 +44,7 @@ void			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientData
     throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
 }
 
-void			UDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)
+void			SUDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)
 {
   socklen_t			addr_len = sizeof(addr);
   int				res;
@@ -57,7 +56,7 @@ void			UDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr
     throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
 }
 
-SOCKET				UDPSocket::acceptClient()
+SOCKET				SUDPSocket::acceptClient()
 {
   return -1;
 }

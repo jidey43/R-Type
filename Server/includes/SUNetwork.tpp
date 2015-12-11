@@ -6,25 +6,25 @@
 #include <vector>
 #include <string.h>
 #include <unistd.h>
-#include "TCPSocket.hh"
-#include "UDPSocket.hh"
-#include "INetwork.hh"
+#include "STCPSocket.h"
+#include "SUDPSocket.h"
+#include "SINetwork.hh"
 #include "Exceptions.hpp"
 
 template <typename T>
-UNetwork<T>::UNetwork()
+SUNetwork<T>::SUNetwork()
   : _socket(new T()), _readSet(new fd_set)
 {
 }
 
 template <typename T>
-UNetwork<T>::~UNetwork()
+SUNetwork<T>::~SUNetwork()
 {
   delete _socket;
 }
 
 template <typename T>
-bool UNetwork<T>::initServerSocket(std::string const &ip, std::string const &port)
+bool SUNetwork<T>::initServerSocket(std::string const &ip, std::string const &port)
 {
   ConnectionData *hints = new ConnectionData;
 
@@ -42,7 +42,7 @@ bool UNetwork<T>::initServerSocket(std::string const &ip, std::string const &por
 }
 
 template <typename T>
-void		UNetwork<T>::selectClients(std::vector<int>& fd, struct timeval *to)
+void		SUNetwork<T>::selectClients(std::vector<int>& fd, struct timeval *to)
 {
   std::vector<int>	buffer;
   SOCKET			maxFd = 0;
@@ -67,7 +67,7 @@ void		UNetwork<T>::selectClients(std::vector<int>& fd, struct timeval *to)
 }
 
 template <typename T>
-SOCKET	UNetwork<T>::acceptSocket()
+SOCKET	SUNetwork<T>::acceptSocket()
 {
   SOCKET accept = _socket->acceptClient();
   if (accept == INVALID_SOCKET)
@@ -78,34 +78,34 @@ SOCKET	UNetwork<T>::acceptSocket()
 }
 
 template <typename T>
-void	UNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
+void	SUNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
   _socket->rcvData(data, size, sock, addr);
 }
 
 template <typename T>
-void	UNetwork<T>::sendData(void *data, int size, SOCKET sock, ClientDatas *addr)
+void	SUNetwork<T>::sendData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
   _socket->sendData(data, size, sock, addr);
 }
 
 template <typename T>
-bool UNetwork<T>::closeConnection(SOCKET socket)
+bool SUNetwork<T>::closeConnection(SOCKET socket)
 {
   close(socket);
   return true;
 }
 
 template <typename T>
-SOCKET UNetwork<T>::getFd() const
+SOCKET SUNetwork<T>::getFd() const
 {
   return (_listen);
 }
 
 template <typename T>
-INetwork<T>*		getNetworkInstance()
+SINetwork<T>*		getNetworkInstance()
 {
-  return new UNetwork<T>();
+  return new SUNetwork<T>();
 }
 
 #endif

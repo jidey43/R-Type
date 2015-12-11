@@ -3,10 +3,10 @@
 
 # ifndef _WIN32
 
-# include "INetwork.hh"
+# include "SINetwork.hh"
 
 template <class T>
-class UNetwork : public INetwork<T>
+class SUNetwork : public SINetwork<T>
 {
 private:
   T*							_socket;
@@ -15,8 +15,8 @@ private:
   fd_set*						_readSet;
 
 public:
-  UNetwork();
-  ~UNetwork();
+  SUNetwork();
+  ~SUNetwork();
 
 public:
   bool					initServerSocket(std::string const &, std::string const &);
@@ -28,7 +28,7 @@ public:
   bool					closeConnection(SOCKET);
 };
 
-# include "UNetwork.tpp"
+# include "SUNetwork.tpp"
 
 # endif
 
