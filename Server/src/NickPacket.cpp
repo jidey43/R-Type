@@ -11,6 +11,11 @@ NickPacket::NickPacket(ClientTCPCommand command, std::string const& name)
   memcpy(&(_data->data), name.c_str(), name.size());
 }
 
+NickPacket::NickPacket(ClientTCPHeader* header)
+  : AClientPacket<ClientTCPCommand>(header->command), _data(new NickData)
+{
+}
+
 NickPacket::~NickPacket()
 {
 }

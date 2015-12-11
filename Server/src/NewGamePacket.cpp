@@ -11,6 +11,11 @@ NewGamePacket::NewGamePacket(ClientTCPCommand command, std::string const& data)
   memcpy(&(_data->data), data.c_str(), data.size());
 }
 
+NewGamePacket::NewGamePacket(ClientTCPHeader* header)
+  : AClientPacket<ClientTCPCommand>(header->command), _data(new NewGameData)
+{
+}
+
 NewGamePacket::~NewGamePacket()
 {
 }

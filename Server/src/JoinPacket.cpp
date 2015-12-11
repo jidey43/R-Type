@@ -9,6 +9,11 @@ JoinPacket::JoinPacket(ClientTCPCommand command, int id)
   _data->id = id;
 }
 
+JoinPacket::JoinPacket(ClientTCPHeader* header)
+  : AClientPacket(header->command), _data(new JoinData), _header(header)
+{
+}
+
 JoinPacket::~JoinPacket()
 {
 }
