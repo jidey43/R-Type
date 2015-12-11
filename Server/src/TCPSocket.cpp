@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <cerrno>
-#include "TCPSocket.hh"
+#include "TCPSocket.h"
 #include "Exceptions.hpp"
 
 TCPSocket::TCPSocket()

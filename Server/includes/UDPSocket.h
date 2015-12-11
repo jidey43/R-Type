@@ -9,7 +9,7 @@ class			UDPSocket
 {
 private:
   SOCKET		_listen;
-  std::string		_port;
+  // std::string		_port;
 
 public:
   UDPSocket();

@@ -1,4 +1,4 @@
-#include "UDPSocket.hh"
+#include "UDPSocket.h"
 
 UDPSocket::UDPSocket()
 {
@@ -12,7 +12,8 @@ int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, ad
 {
   ConnectionData *addr = NULL;
   int result;
-  _port = port;
+
+  // _port = port;
   hints->ai_flags = AI_PASSIVE;
   hints->ai_family = AF_INET;
   hints->ai_socktype = SOCK_DGRAM;
@@ -32,7 +33,7 @@ int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, ad
       freeaddrinfo(addr);
       throw Exceptions::NetworkExcept("BIND ERROR", errno);
     }
-  std::cout << "Listening on port : " + _port + " with socket : " << _listen << std::endl;
+  // std::cout << "Listening on port : " + _port + " with socket : " << _listen << std::endl;
   return _listen;
 }
 
