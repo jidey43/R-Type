@@ -11,19 +11,19 @@
 #include "CINetwork.hh"
 
 template <typename T>
-UNetwork<T>::UNetwork()
+CUNetwork<T>::CUNetwork()
 	: _socket(new T()), _readSet(new fd_set)
 {
 }
 
 template <typename T>
-UNetwork<T>::~UNetwork()
+CUNetwork<T>::~CUNetwork()
 {
 	delete _socket;
 }
 
 template <typename T>
-bool UNetwork<T>::initClientSocket(std::string const &ip, std::string const &port)
+bool CUNetwork<T>::initClientSocket(std::string const &ip, std::string const &port)
 {
 	addrinfo *hints = new addrinfo;
 
@@ -41,7 +41,7 @@ bool UNetwork<T>::initClientSocket(std::string const &ip, std::string const &por
 }
 
 template <typename T>
-void		UNetwork<T>::selectFD(std::vector<int>& fd, struct timeval *to)
+void		CUNetwork<T>::selectFD(std::vector<int>& fd, struct timeval *to)
 {
   std::vector<int>	buffer;
   SOCKET			maxFd = 0;
@@ -66,26 +66,26 @@ void		UNetwork<T>::selectFD(std::vector<int>& fd, struct timeval *to)
 }
 
 template <typename T>
-void UNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
+void CUNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
   _socket->rcvData(data, size, sock, addr);
 }
 
 template <typename T>
-void UNetwork<T>::sendData(void *data, int size, SOCKET sock, ClientDatas *addr)
+void CUNetwork<T>::sendData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
   _socket->sendData(data, size, sock, addr);
 }
 
 template <typename T>
-bool UNetwork<T>::closeConnection(SOCKET socket)
+bool CUNetwork<T>::closeConnection(SOCKET socket)
 {
 	close(socket);
 	return true;
 }
 
 template <typename T>
-SOCKET UNetwork<T>::getFd() const
+SOCKET CUNetwork<T>::getFd() const
 {
 	return (_listen);
 }
@@ -93,7 +93,7 @@ SOCKET UNetwork<T>::getFd() const
 template <typename T>
 INetwork<T>*		getNetworkInstance()
 {
-	return new UNetwork<T>();
+	return new CUNetwork<T>();
 }
 
 #endif

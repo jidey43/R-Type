@@ -6,7 +6,7 @@
 # include "CINetwork.hh"
 
 template <class T>
-class UNetwork : public INetwork<T>
+class CUNetwork : public INetwork<T>
 {
 private:
 	T*						_socket;
@@ -15,8 +15,8 @@ private:
 	fd_set*						_readSet;
 
 public:
-	UNetwork();
-	~UNetwork();
+	CUNetwork();
+	~CUNetwork();
 
 public:
 	bool					initClientSocket(std::string const &, std::string const &);
