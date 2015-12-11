@@ -6,12 +6,12 @@
 # include <winsock2.h>
 # include <ws2tcpip.h>
 
-# include "INetwork.hh"
+# include "SINetwork.hh"
 
 # pragma comment(lib, "Ws2_32.lib")
 
 template <class T>
-class WNetwork : public INetwork<T>
+class SWNetwork : public SINetwork<T>
 {
 private:
   T*					_socket;
@@ -20,8 +20,8 @@ private:
   fd_set*				_readSet;
 
 public:
-  WNetwork();
-  ~WNetwork();
+  SWNetwork();
+  ~SWNetwork();
 
 public:
   bool					initServerSocket(std::string const &ip, std::string const &port);
@@ -33,7 +33,7 @@ public:
   bool					closeConnection(SOCKET);
 };
 
-# include "WNetwork.tpp"
+# include "SWNetwork.tpp"
 
 #endif
 

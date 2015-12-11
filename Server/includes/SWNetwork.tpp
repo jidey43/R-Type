@@ -8,25 +8,25 @@
 #include <vector>
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include "TCPSocket.h"
-#include "UDPSocket.h"
-#include "INetwork.hh"
+#include "STCPSocket.h"
+#include "SUDPSocket.h"
+#include "SINetwork.hh"
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 
 template <typename T>
-WNetwork<T>::WNetwork()
+SWNetwork<T>::SWNetwork()
   : _socket(new T()), _readSet(new fd_set)
 {
 }
 
 template <typename T>
-WNetwork<T>::~WNetwork()
+SWNetwork<T>::~SWNetwork()
 {
   delete _socket;
 }
 
 template <typename T>
-bool WNetwork<T>::initServerSocket(std::string const &ip, std::string const &port)
+bool SWNetwork<T>::initServerSocket(std::string const &ip, std::string const &port)
 {
   WSADATA wsaData;
   ConnectionData *hints = new ConnectionData;
@@ -48,7 +48,7 @@ bool WNetwork<T>::initServerSocket(std::string const &ip, std::string const &por
 }
 
 template <typename T>
-void		WNetwork<T>::selectClients(std::vector<SOCKET>& fd, struct timeval *to)
+void		SWNetwork<T>::selectClients(std::vector<SOCKET>& fd, struct timeval *to)
 {
   std::vector<SOCKET> buffer;
   FD_ZERO(_readSet);
@@ -70,7 +70,7 @@ void		WNetwork<T>::selectClients(std::vector<SOCKET>& fd, struct timeval *to)
 }
 
 template <typename T>
-SOCKET WNetwork<T>::acceptSocket()
+SOCKET SWNetwork<T>::acceptSocket()
 {
   SOCKET accept = _socket->acceptClient();
   if (accept == INVALID_SOCKET)
@@ -82,34 +82,34 @@ SOCKET WNetwork<T>::acceptSocket()
 }
 
 template <typename T>
-void	WNetwork<T>::sendData(void *data, int size, SOCKET sock, ClientDatas *addr)
+void	SWNetwork<T>::sendData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
   _socket->sendData(data, size, sock, addr);
 }
 
 template <typename T>
-void	WNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
+void	SWNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
   _socket->rcvData(data, size, sock, addr);
 }
 
 template <typename T>
-bool WNetwork<T>::closeConnection(SOCKET socket)
+bool SWNetwork<T>::closeConnection(SOCKET socket)
 {
   closesocket(socket);
   return false;
 }
 
 template <typename T>
-SOCKET WNetwork<T>::getFd() const
+SOCKET SWNetwork<T>::getFd() const
 {
   return (_listen);
 }
 
 template <typename T>
-INetwork<T>*		getNetworkInstance()
+SINetwork<T>*		getNetworkInstance()
 {
-  return new WNetwork<T>();
+  return new SWNetwork<T>();
 }
 
 #endif

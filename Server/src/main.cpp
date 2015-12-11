@@ -1,7 +1,7 @@
 # include <iostream>
 # include <signal.h>
 # include "Server.hh"
-# include "NetworkHandler.h"
+# include "SNetworkHandler.h"
 # include "ClientInfo.h"
 # include "IThread.h"
 

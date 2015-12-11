@@ -1,12 +1,12 @@
 #include "UDPNetworkHandler.hh"
-#include "../includes/PacketFactory.hh"
+#include "PacketFactory.hh"
 
 UDPNetworkHandler::UDPNetworkHandler(std::string const& ip,
 				     std::string const& port,
 				     std::vector<GamerInfo*>* clients)
   : _ip(ip),
     _port(port),
-    _network(getNetworkInstance<UDPSocket>()),
+    _network(getNetworkInstance<SUDPSocket>()),
     _clients(clients),
     _factory(new PacketFactory())
 {

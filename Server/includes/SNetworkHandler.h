@@ -3,12 +3,12 @@
 
 # include <string>
 # include <vector>
-# include "TCPSocket.h"
-# include "UDPSocket.hh"
+# include "STCPSocket.h"
+# include "SUDPSocket.h"
 # include "NetworkDefines.h"
-# include "INetwork.hh"
-# include "UNetwork.hh"
-# include "WNetwork.hh"
+# include "SINetwork.hh"
+# include "SUNetwork.hh"
+# include "SWNetwork.hh"
 # include "ClientInfo.h"
 # include "PacketFactory.hh"
 # include "IServerPacket.hh"
@@ -16,7 +16,7 @@
 
 extern	SOCKET				_listen;
 extern  std::vector<ClientInfo*>	_clientList;
-template class				INetwork<TCPSocket>;
+template class				SINetwork<STCPSocket>;
 
 class NetworkHandler
 {
@@ -27,7 +27,7 @@ class NetworkHandler
  private:
   std::string					_ip;
   std::string					_port;
-  INetwork<TCPSocket>*				_network;
+  SINetwork<STCPSocket>*				_network;
   std::vector<ClientInfo*>			_activeClients;
   PacketFactory*				_factory;
 

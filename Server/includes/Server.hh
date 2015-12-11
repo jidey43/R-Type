@@ -3,7 +3,7 @@
 
 # include <vector>
 # include "GameInfo.h"
-# include "NetworkHandler.h"
+# include "SNetworkHandler.h"
 # include "GameHandler.h"
 
 class		Server
