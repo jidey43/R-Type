@@ -46,7 +46,7 @@ bool			NewGamePacket::checkHeader()
 
 std::string const&	NewGamePacket::deserialize()
 {
-  char*				buff = new char[sizeof(*_header) + 1];
+  char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
   static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
