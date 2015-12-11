@@ -14,6 +14,11 @@ DesGamePacket::DesGamePacket(ServerTCPResponse resp, int id, std::string const& 
   _data->magic = MAGIC;
 }
 
+DesGamePacket::DesGamePacket(ServerTCPHeader* header) :
+  AServerPacket<ServerTCPResponse>(header->command), _data(new DesGameData)
+{
+}
+
 DesGamePacket::~DesGamePacket()
 {
 }

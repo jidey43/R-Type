@@ -38,6 +38,10 @@ bool				GameOverPacket::checkHeader()
 
 void				GameOverPacket::setRawData(std::string const& data)
 {
+  void*			buff;
+
+  buff = (void*)data.c_str();
+  memcpy(_data, buff, sizeof(*_data));
 }
 
 GameOverData*			GameOverPacket::getData() const
