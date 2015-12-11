@@ -4,15 +4,15 @@
 # include "NetworkDefines.h"
 # include "CINetwork.hh"
 
-class					TCPSocket
+class					CTCPSocket
 {
 private:
   std::string				_ip;
   std::string				_port;
 
 public:
-  TCPSocket();
-  ~TCPSocket();
+  CTCPSocket();
+  ~CTCPSocket();
 
   SOCKET				startNetwork(std::string const &ip, std::string const &port, ConnectionData*);
   void					sendData(const void *buffer, int size, SOCKET socket, ClientDatas *addr);

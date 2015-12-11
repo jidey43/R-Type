@@ -12,7 +12,7 @@ typedef enum	e_TransmitStatus
 }				TransmitStatus;
 
 template <class T>
-class									INetwork
+class									CINetwork
 {
 public:
 	virtual bool					initClientSocket(std::string const &ip, std::string const &port) = 0;
@@ -24,6 +24,6 @@ public:
 };
 
 template <typename T>
-INetwork<T>*								getNetworkInstance();
+CINetwork<T>*								getNetworkInstance();
 
 #endif

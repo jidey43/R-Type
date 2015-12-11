@@ -91,7 +91,7 @@ SOCKET CUNetwork<T>::getFd() const
 }
 
 template <typename T>
-INetwork<T>*		getNetworkInstance()
+CINetwork<T>*		getNetworkInstance()
 {
 	return new CUNetwork<T>();
 }

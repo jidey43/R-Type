@@ -11,18 +11,18 @@
 # include "CWNetwork.hh"
 # include "PacketFactory.hh"
 
-template class				INetwork<TCPSocket>;
+template class				CINetwork<CTCPSocket>;
 
-class NetworkHandler
+class CNetworkHandler
 {
 public:
-  NetworkHandler(std::string const& ip, std::string const& port);
-  ~NetworkHandler();
+  CNetworkHandler(std::string const& ip, std::string const& port);
+  ~CNetworkHandler();
 
 private:
   std::string				_ip;
   std::string				_port;
-  INetwork<TCPSocket>*			_network;
+  CINetwork<CTCPSocket>*			_network;
   std::vector<SOCKET>			_activeFD;
   PacketFactory*			_factory;
   std::string				_packet;

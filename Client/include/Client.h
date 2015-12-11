@@ -11,7 +11,7 @@ public:
   ~Client();
 
  private:
-  NetworkHandler*				_network;
+  CNetworkHandler*				_network;
   /* ClientPacket*				_packet; */
   SOCKET						_listen;
 

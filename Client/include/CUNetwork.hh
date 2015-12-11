@@ -6,7 +6,7 @@
 # include "CINetwork.hh"
 
 template <class T>
-class CUNetwork : public INetwork<T>
+class CUNetwork : public CINetwork<T>
 {
 private:
 	T*						_socket;

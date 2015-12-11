@@ -5,14 +5,14 @@
 # include "CINetwork.hh"
 # include "Exceptions.hpp"
 
-class			UDPSocket
+class			CUDPSocket
 {
 private:
   int			_listen;
 
 public:
-  UDPSocket();
-  ~UDPSocket();
+  CUDPSocket();
+  ~CUDPSocket();
 
   int			startNetwork(std::string const &ip, std::string const &port, ConnectionData*);
   void			sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr);

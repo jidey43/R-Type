@@ -1,21 +1,21 @@
 #include <iostream>
 #include "CNetworkHandler.hh"
 
-NetworkHandler::NetworkHandler(std::string const & ip, std::string const & port)
+CNetworkHandler::CNetworkHandler(std::string const & ip, std::string const & port)
 	: _ip(ip),
 	  _port(port),
-	  _network(getNetworkInstance<TCPSocket>()),
+	  _network(getNetworkInstance<CTCPSocket>()),
 	  _factory(new PacketFactory())
 {
 }
 
-NetworkHandler::~NetworkHandler()
+CNetworkHandler::~CNetworkHandler()
 {
   delete _network;
   delete _network;
 }
 
-bool NetworkHandler::initSocket()
+bool CNetworkHandler::initSocket()
 {
   if (_network->initClientSocket(_ip, _port))
     {
@@ -25,7 +25,7 @@ bool NetworkHandler::initSocket()
   return false;
 }
 
-bool NetworkHandler::selectSockets()
+bool CNetworkHandler::selectSockets()
 {
   _activeFD.clear();
   _activeFD.push_back(_listen);
@@ -33,14 +33,14 @@ bool NetworkHandler::selectSockets()
   return true;
 }
 
-bool	 NetworkHandler::getActiveClient()
+bool	 CNetworkHandler::getActiveClient()
 {
   if (_activeFD.size() < 1)
     return false;
   return true;
 }
 
-// void	NetworkHandler::broadcast(IClientPacket* packet)
+// void	CNetworkHandler::broadcast(IClientPacket* packet)
 // {
 //   for (std::vector<ClientInfo*>::iterator it = _clientList.begin(); it != _clientList.end(); ++it)
 //     {
@@ -48,7 +48,7 @@ bool	 NetworkHandler::getActiveClient()
 //     }
 // }
 
-IServerPacket<ServerTCPResponse>*	NetworkHandler::receiveFromServer()
+IServerPacket<ServerTCPResponse>*	CNetworkHandler::receiveFromServer()
 {
   ServerTCPHeader*			header = new ServerTCPHeader;
   std::string				tmp;
@@ -68,7 +68,7 @@ IServerPacket<ServerTCPResponse>*	NetworkHandler::receiveFromServer()
   return packet;
 }
 
-bool			NetworkHandler::tryReceive(char* header, int size)
+bool			CNetworkHandler::tryReceive(char* header, int size)
 {
   try
     {
@@ -89,7 +89,7 @@ bool			NetworkHandler::tryReceive(char* header, int size)
   return true;
 }
 
-bool			NetworkHandler::sendToServer(IClientPacket<ClientTCPCommand>* packet)
+bool			CNetworkHandler::sendToServer(IClientPacket<ClientTCPCommand>* packet)
 {
   std::string	toSend = packet->deserialize();
 
@@ -112,12 +112,12 @@ bool			NetworkHandler::sendToServer(IClientPacket<ClientTCPCommand>* packet)
   return true;
 }
 
-void NetworkHandler::closeConnection()
+void CNetworkHandler::closeConnection()
 {
 	_network->closeConnection(_listen);
 }
 
-std::string NetworkHandler::getPacket() const
+std::string CNetworkHandler::getPacket() const
 {
 	return _packet;
 }

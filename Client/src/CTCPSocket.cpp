@@ -3,15 +3,15 @@
 #include "CTCPSocket.hh"
 #include "Exceptions.hpp"
 
-TCPSocket::TCPSocket()
+CTCPSocket::CTCPSocket()
 {
 }
 
-TCPSocket::~TCPSocket()
+CTCPSocket::~CTCPSocket()
 {
 }
 
-SOCKET			TCPSocket::startNetwork(std::string const &ip, std::string const &port, addrinfo *hint)
+SOCKET			CTCPSocket::startNetwork(std::string const &ip, std::string const &port, addrinfo *hint)
 {
   ConnectionData *addr = NULL, hints;
   memset(&hints, 0, sizeof(hints));
@@ -37,7 +37,7 @@ SOCKET			TCPSocket::startNetwork(std::string const &ip, std::string const &port,
   return listen;
 }
 
-void	TCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientDatas *addr)
+void	CTCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientDatas *addr)
 {
   int res = send(socket, (void*)buffer, size, 0);
 
@@ -47,7 +47,7 @@ void	TCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientData
     throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
 }
 
-void			TCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *addr)
+void			CTCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *addr)
 {
   int				addr_len = sizeof(addr);
   int				res;

@@ -11,7 +11,7 @@
 # pragma comment(lib, "Ws2_32.lib")
 
 template <class T>
-class WNetwork : public INetwork<T>
+class WNetwork : public CINetwork<T>
 {
 private:
 	T*					_socket;

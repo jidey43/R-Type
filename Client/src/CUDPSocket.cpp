@@ -1,16 +1,16 @@
 #ifdef _WIN32
 
-#include "UDPSocket.h"
+#include "CUDPSocket.h"
 
-UDPSocket::UDPSocket()
+CUDPSocket::CUDPSocket()
 {
 }
 
-UDPSocket::~UDPSocket()
+CUDPSocket::~CUDPSocket()
 {
 }
 
-int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, addrinfo *hints)
+int			CUDPSocket::startNetwork(std::string const &ip, std::string const &port, addrinfo *hints)
 {
   ConnectionData *addr = NULL;
   int result;
@@ -30,7 +30,7 @@ int			UDPSocket::startNetwork(std::string const &ip, std::string const &port, ad
   return _listen;
 }
 
-void			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr)
+void			CUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr)
 {
   int res = sendto(_listen, (void *)buffer, size, 0, (sockaddr *)&addr, sizeof(addr));
   if (res == -1)
@@ -39,7 +39,7 @@ void			UDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientData
     throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
 }
 
-void			UDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)
+void			CUDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)
 {
   socklen_t			addr_len = sizeof(addr);
   int				res;

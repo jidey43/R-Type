@@ -8,8 +8,8 @@
 #include <vector>
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include "TCPSocket.h"
-#include "UDPSocket.h"
+#include "CTCPSocket.h"
+#include "CUDPSocket.h"
 #include "CINetwork.hh"
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 
@@ -98,7 +98,7 @@ SOCKET WNetwork<T>::getFd() const
 }
 
 template <typename T>
-INetwork<T>*		getNetworkInstance()
+CINetwork<T>*		getNetworkInstance()
 {
 	return new WNetwork<T>();
 }
