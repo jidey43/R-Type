@@ -17,6 +17,7 @@ public:
   void			setRawData(std::string const&);
   NickData*		getData() const;
   bool			checkHeader();
+  std::string const&	deserialize();
 };
 
 #endif

@@ -29,12 +29,15 @@ void Client::start()
   while (1)
     {
       std::getline(std::cin, str);
-      // switch (str)
-      // 	{
-      // 	  case "1":
-      // 	    _network->sendToServer(new AddGame);
-      // 	}
-      // _network->receiveFromServer();
+      int i = std::atoi(str.c_str());
+      switch (i)
+      	{
+	case 1:
+	  _network->sendToServer(new NewGamePacket(new ClientTCPHeader));
+	// case 2:
+	//   _network->sendToServer()
+      	}
+      _network->receiveFromServer();
       // std::cout << "SERVER : " << _network->getPacket() << std::endl;
     }
 }
