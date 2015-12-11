@@ -1,9 +1,14 @@
 #include <string.h>
 #include "NickPacket.h"
 
-NickPacket::NickPacket(ClientTCPHeader *header)
-  : AClientPacket<ClientTCPCommand>(header->command),  _data(new NickData), _header(header)
+NickPacket::NickPacket(ClientTCPCommand command, std::string const& name)
+  : AClientPacket<ClientTCPCommand>(command), _data(new NickData), _header(new ClientTCPHeader)
 {
+  _header->magic = MAGIC;
+  _header->command = command;
+  _header->size = sizeof(*_data);
+  bzero(_data->data, 256);
+  memcpy(&(_data->data), name.c_str(), name.size());
 }
 
 NickPacket::~NickPacket()

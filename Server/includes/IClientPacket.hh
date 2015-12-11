@@ -7,14 +7,14 @@
 typedef struct
 {
   uint32_t			magic;
-  ClientTCPCommand			command;
+  ClientTCPCommand		command;
   int				size;
 } __attribute__ ((packed))	ClientTCPHeader;
 
 typedef struct
 {
   uint32_t			magic;
-  ClientTCPCommand			command;
+  ClientTCPCommand		command;
   uint32_t			size;
   uint32_t			idx;
 } __attribute__ ((packed))	ClientUDPHeader;
