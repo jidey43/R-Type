@@ -37,5 +37,4 @@ bool				FailPacket::checkHeader()
 
 void				FailPacket::setRawData(std::string const& data)
 {
-
 }

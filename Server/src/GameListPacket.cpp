@@ -36,5 +36,4 @@ bool				GameListPacket::checkHeader()
 
 void				GameListPacket::setRawData(std::string const& data)
 {
-
 }
