@@ -7,6 +7,7 @@ class GameOverPacket : public AServerPacket<ServerTCPResponse>
 {
  public:
   GameOverPacket(ServerTCPResponse, int);
+  GameOverPacket(ServerTCPHeader*);
   ~GameOverPacket();
 
   std::string const&		deserialize();

@@ -7,6 +7,7 @@ class NewGamePacket : public AClientPacket<ClientTCPCommand>
 {
 public:
   NewGamePacket(ClientTCPCommand, std::string const&);
+  NewGamePacket(ClientTCPHeader*);
   ~NewGamePacket();
 
 private:

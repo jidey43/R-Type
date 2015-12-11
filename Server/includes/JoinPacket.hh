@@ -7,6 +7,7 @@ class JoinPacket : public AClientPacket<ClientTCPCommand>
 {
 public:
   JoinPacket(ClientTCPCommand command, int id);
+  JoinPacket(ClientTCPHeader*);
   ~JoinPacket();
 
 private:
