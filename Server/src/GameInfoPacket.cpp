@@ -8,6 +8,11 @@ GameInfoPacket::GameInfoPacket(ServerTCPResponse resp, int id, int port) : AServ
   _data->magic = MAGIC;
 }
 
+GameInfoPacket::GameInfoPacket(ServerTCPHeader* header)
+  : AServerPacket<ServerTCPResponse>(header->command), _data(new GameInfoData)
+{
+}
+
 GameInfoPacket::~GameInfoPacket()
 {
 }

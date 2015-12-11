@@ -10,6 +10,11 @@ AuthTCPPacket::AuthTCPPacket(ServerTCPResponse resp, int data) : AServerPacket<S
   _data->magic = MAGIC;
 }
 
+AuthTCPPacket::AuthTCPPacket(ServerTCPHeader* header)
+  : AServerPacket<ServerTCPResponse>(header->command), _data(new AuthTCPData)
+{
+}
+
 AuthTCPPacket::~AuthTCPPacket()
 {
 }
