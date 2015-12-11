@@ -1,6 +1,6 @@
 # include <iostream>
 # include "Client.h"
-# include "NetworkHandler.hh"
+# include "CNetworkHandler.hh"
 # include "ViewController.h"
 # include "AssetsController.h"
 

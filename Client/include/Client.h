@@ -2,7 +2,7 @@
 # define CLIENT_H_
 
 # include <vector>
-# include "NetworkHandler.hh"
+# include "CNetworkHandler.hh"
 
 class Client
 {
