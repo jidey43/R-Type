@@ -129,6 +129,6 @@ bool	Server::joinGame(ClientInfo* client, int id)
 bool	Server::setNick(ClientInfo* client)
 {
   client->setNickname(dynamic_cast<NickPacket*>(client->getPacket())->getData()->data);
-  _network->sendToClient(client, new AuthTCPData(AUTH, SUCCESS));
+  _network->sendToClient(client, new AuthTCPPacket(AUTH, SUCCESS));
   return true;
 }

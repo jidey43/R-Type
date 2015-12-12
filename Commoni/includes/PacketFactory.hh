@@ -12,6 +12,13 @@
 #include "DesGamePacket.h"
 #include "FailPacket.h"
 #include "GameOverPacket.h"
+#include "AuthUDPPacket.h"
+#include "CrePlayPacket.h"
+#include "DelPlayPacket.h"
+#include "CreShotPacket.h"
+#include "DelShotPacket.h"
+#include "CreIAPacket.h"
+#include "DelIAPacket.h"
 #include "NetworkDefines.h"
 
 class PacketFactory

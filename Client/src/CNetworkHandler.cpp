@@ -56,13 +56,15 @@ IServerPacket<ServerTCPResponse>*	CNetworkHandler::receiveFromServer()
   IServerPacket<ServerTCPResponse>*	packet;
 
   memset(header, 0, sizeof(ServerTCPHeader));
-  tryReceive((char*)header, sizeof(ServerTCPHeader));
+  if (!tryReceive((char*)header, sizeof(ServerTCPHeader)))
+    return NULL;
   packet = _factory->build(header);
   if (!packet->checkHeader())
     return NULL;
   buff = new char[header->size + 1];
   memset(buff, 0, header->size + 1);
-  tryReceive(buff, header->size);
+  if (!tryReceive(buff, header->size))
+    return NULL;;
   tmp = std::string(buff);
   packet->setRawData(tmp);
   return packet;

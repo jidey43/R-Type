@@ -21,8 +21,22 @@ typedef struct
 
 typedef struct
 {
-  char		data[BUFF_LEN];
-} __attribute__ ((packed)) stringData;
+  char				data[BUFF_LEN];
+  uint32_t			magic;
+} __attribute__ ((packed))	stringData;
+
+typedef struct
+{
+  Direction			dir;
+  uint32_t			magic;
+}				SendMoveData;
+
+typedef struct
+{
+  float				x;
+  float				y;
+  uint32_t			magic;
+}				FireData;
 
 typedef stringData NickData;
 typedef stringData NewGameData;
@@ -45,6 +59,7 @@ public:
   virtual std::string const&	deserialize() = 0;
   virtual void			setRawData(std::string const&) = 0;
   virtual bool			checkHeader() = 0;
+  //virtual std::string&		deserialize() = 0;
 };
 
 #endif

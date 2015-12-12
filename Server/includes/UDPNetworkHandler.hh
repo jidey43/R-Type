@@ -33,11 +33,12 @@ public:
   GamerInfo*					selectClient();
   IClientPacket<ClientUDPCommand>*		receiveFrom(GamerInfo*);
   bool						sendTo(GamerInfo*, IServerPacket<ServerUDPResponse>*);
+  void						broadcast(IServerPacket<ServerUDPResponse>*);
 
 private:
   std::string					_ip;
   std::string					_port;
-  SINetwork<SUDPSocket>*				_network;
+  SINetwork<SUDPSocket>*			_network;
   std::vector<GamerInfo*>*			_clients;
   PacketFactory*				_factory;
   SOCKET					_socket;

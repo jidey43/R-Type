@@ -6,7 +6,7 @@
 class CrePlayPacket : public AServerPacket<ServerUDPResponse>
 {
  public:
-  CrePlayPacket(ServerUDPResponse, float, float);
+  CrePlayPacket(ServerUDPResponse, int, float, float);
   CrePlayPacket(ServerUDPHeader*);
   ~CrePlayPacket();
 
@@ -16,8 +16,8 @@ class CrePlayPacket : public AServerPacket<ServerUDPResponse>
   CrePlayData*			getData() const;
 
  private:
-  ServerUDPHeader*		_header;
   CrePlayData*			_data;
+  ServerUDPHeader*		_header;
 };
 
 

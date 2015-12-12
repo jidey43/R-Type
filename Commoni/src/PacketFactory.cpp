@@ -10,6 +10,27 @@ IServerPacket<ServerUDPResponse>*	PacketFactory::build(ServerUDPHeader *header)
 {
   switch(header->command)
     {
+    case AUTH:
+      return new AuthUDPPacket(header);
+      break;
+    case GAME_OVER:
+      return new CrePlayPacket(header);
+      break;
+    case GAME_INFO:
+      return new DelPlayPacket(header);
+      break;
+    case START_GAME_LIST:
+      return new CreShotPacket(header);
+      break;
+    case DES_GAME:
+      return new DelShotPacket(header);
+      break;
+    case END_GAME_LIST:
+      return new CreIAPacket(header);
+      break;
+    case FAIL:
+      return new DelIAPacket(header);
+      break;
     default:
       return NULL;
     }
