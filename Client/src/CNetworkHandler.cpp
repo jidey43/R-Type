@@ -72,11 +72,7 @@ bool			CNetworkHandler::tryReceive(char* header, int size)
   memset(header, 0, size);
   try
     {
-<<<<<<< HEAD
       _network->recvData(header, size, _listen, NULL);
-=======
-      _network->recvData(header, sizeof(ServerTCPHeader), _listen, NULL);
->>>>>>> 02d7998f3b5ae1e581af53caa92ad3a35d2f8e71
     }
   catch (Exceptions::NetworkExcept e)
     {
@@ -99,7 +95,7 @@ bool			CNetworkHandler::sendToServer(IClientPacket<ClientTCPCommand>* packet)
 
   try
     {
-      _network->sendData(toSend, packet->getDataSize(), _listen, NULL);
+      _network->sendData(toSend, packet->getPacketSize(), _listen, NULL);
     }
   catch (Exceptions::NetworkExcept e)
     {

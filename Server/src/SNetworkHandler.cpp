@@ -103,7 +103,6 @@ void	NetworkHandler::broadcast(IServerPacket<ServerTCPResponse>* packet)
 bool			NetworkHandler::receiveFromClient(ClientInfo* client)
 {
   ClientTCPHeader*			header = new ClientTCPHeader;
-  std::string				tmp;
   char*					buff;
   IClientPacket<ClientTCPCommand>*	packet;
 
@@ -114,16 +113,16 @@ bool			NetworkHandler::receiveFromClient(ClientInfo* client)
   std::cout << "enum : " << header->command << std::endl;
   packet = _factory->build(header);
   if (!packet || !packet->checkHeader())
-    return ;
+    return false;
   buff = new char[header->size + 1];
   if (!tryReceive(client, (char*)buff, header->size))
     return false;
-  packet->setRawData(tmp);
+  packet->setRawData(buff);
   client->setPacket(packet);
   return true;
 }
 
-bool			CNetworkHandler::tryReceive(Client* client, char* header, int size)
+bool			NetworkHandler::tryReceive(ClientInfo* client, char* header, int size)
 {
   memset(header, 0, size);
   try
@@ -147,11 +146,11 @@ bool			CNetworkHandler::tryReceive(Client* client, char* header, int size)
 
 bool			NetworkHandler::sendToClient(ClientInfo* client, IServerPacket<ServerTCPResponse>* packet)
 {
-  std::string	toSend = packet->deserialize();
+  char*			toSend = packet->deserialize();
 
   try
     {
-      _network->sendData((void*)toSend.c_str(), toSend.size(), client->getSocket(), NULL);
+      _network->sendData(toSend, packet->getPacketSize(), client->getSocket(), NULL);
     }
   catch (Exceptions::NetworkExcept e)
     {
