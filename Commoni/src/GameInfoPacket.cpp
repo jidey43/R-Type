@@ -3,13 +3,16 @@
 
 GameInfoPacket::GameInfoPacket(ServerTCPResponse resp, int id, int port) : AServerPacket<ServerTCPResponse>(resp), _header(new ServerTCPHeader), _data(new GameInfoData)
 {
+  _header->magic = MAGIC;
+  _header->command = resp;
+  _header->size = sizeof(*_data);
   _data->id = id;
   _data->port = port;
   _data->magic = MAGIC;
 }
 
 GameInfoPacket::GameInfoPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command), _data(new GameInfoData)
+  : AServerPacket<ServerTCPResponse>(header->command), _data(new GameInfoData), _header(header)
 {
 }
 
@@ -23,7 +26,7 @@ std::string const&		GameInfoPacket::deserialize()
   static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
-  memcpy(*(&buff + sizeof(*_header)), _data, sizeof(*_data));
+  memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
   ret = buff;
   return ret;

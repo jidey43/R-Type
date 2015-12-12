@@ -9,7 +9,7 @@ GameListPacket::GameListPacket(ServerTCPResponse resp) : AServerPacket<ServerTCP
 }
 
 GameListPacket::GameListPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command)
+  : AServerPacket<ServerTCPResponse>(header->command), _header(header)
 {
 }
 

@@ -25,7 +25,7 @@ Server::Server(std::string const & ip, std::string const & port)
 
 Server::~Server()
 {
-  
+
   delete _network;
 }
 
@@ -61,6 +61,11 @@ void Server::parser(ClientInfo * client)
     case ADD_GAME:
       {
 	createGame(client);
+	break;
+      }
+    case AUTH_TCP:
+      {
+	setNick(client);
 	break;
       }
     default:
@@ -118,5 +123,12 @@ bool	Server::joinGame(ClientInfo* client, int id)
     _network->sendToClient(client, new GameInfoPacket(GAME_INFO, game->getID(), game->getPort()));
   else
     _network->sendToClient(client, new FailPacket(FAIL));
+  return true;
+}
+
+bool	Server::setNick(ClientInfo* client)
+{
+  client->setNickname(dynamic_cast<NickPacket*>(client->getPacket())->getData()->data);
+  _network->sendToClient(client, new AuthTCPData(AUTH, SUCCESS));
   return true;
 }

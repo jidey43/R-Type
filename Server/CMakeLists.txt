@@ -18,9 +18,12 @@ endif()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/server)
 
 file(GLOB SERVERSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Server/src/*.cpp)
+file(GLOB SERVERCOMMON ${CMAKE_CURRENT_SOURCE_DIR}/Commoni/src/*.cpp)
 
 MESSAGE("${SERVERSOURCES}")
+MESSAGE("${SERVERCOMMON}")
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Server/includes")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Commoni/includes")
 
-add_executable(RTypeServer ${SERVERSOURCES})
+add_executable(RTypeServer ${SERVERSOURCES} ${SERVERCOMMON})

@@ -15,7 +15,7 @@ DesGamePacket::DesGamePacket(ServerTCPResponse resp, int id, std::string const& 
 }
 
 DesGamePacket::DesGamePacket(ServerTCPHeader* header) :
-  AServerPacket<ServerTCPResponse>(header->command), _data(new DesGameData)
+  AServerPacket<ServerTCPResponse>(header->command), _data(new DesGameData), _header(header)
 {
 }
 
@@ -29,7 +29,7 @@ std::string const&		DesGamePacket::deserialize()
   static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
-  memcpy(*(&buff + sizeof(*_header)), _data, sizeof(*_data));
+  memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
   ret = buff;
   return ret;

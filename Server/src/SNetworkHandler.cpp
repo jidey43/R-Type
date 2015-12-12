@@ -57,8 +57,8 @@ bool NetworkHandler::selectClient()
   SOCKET sock = INVALID_SOCKET;
   if ((*fit) == _listen && !acceptNewClient())
     return false;
-  else
-    ++fit;
+  // else
+  //   ++fit;
 
   _activeClients.clear();
   std::vector<ClientInfo*>::iterator it;

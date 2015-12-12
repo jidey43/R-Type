@@ -11,7 +11,7 @@ GameOverPacket::GameOverPacket(ServerTCPResponse resp, int data) : AServerPacket
 }
 
 GameOverPacket::GameOverPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command), _data(new GameOverData)
+  : AServerPacket<ServerTCPResponse>(header->command), _data(new GameOverData), _header(header)
 {
 }
 
@@ -25,7 +25,7 @@ std::string const&		GameOverPacket::deserialize()
   static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
-  memcpy(*(&buff + sizeof(*_header)), _data, sizeof(*_data));
+  memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
   ret = buff;
   return ret;

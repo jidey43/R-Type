@@ -13,6 +13,7 @@ class AuthUDPPacket : public AServerPacket<ServerUDPResponse>
   std::string const&		deserialize();
 
  private:
+  ServerUDPHeader*		_header;
   AuthUDPData*			_data;
 };
 

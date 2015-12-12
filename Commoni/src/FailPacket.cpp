@@ -10,7 +10,7 @@ FailPacket::FailPacket(ServerTCPResponse resp)
 }
 
 FailPacket::FailPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command)
+  : AServerPacket<ServerTCPResponse>(header->command), _header(header)
 {
 }
 

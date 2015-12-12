@@ -11,8 +11,12 @@ class CrePlayPacket : public AServerPacket<ServerUDPResponse>
   ~CrePlayPacket();
 
   std::string const&		deserialize();
+  bool				checkHeader();
+  void				setRawData(std::string const&);
+  CrePlayData*			getData() const;
 
  private:
+  ServerUDPHeader*		_header;
   CrePlayData*			_data;
 };
 

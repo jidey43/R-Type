@@ -3,6 +3,9 @@
 
 AuthUDPPacket::AuthUDPPacket(ServerUDPResponse resp, int success, std::string const& name) : AServerPacket<ServerUDPResponse>(resp), _data(new AuthUDPData)
 {
+  _header->magic = MAGIC;
+  _header->command = resp;
+  _header->size = sizeof(*_data);
   _data->success = success;
   bzero(_data->name, 256);
   memcpy(&(_data->name), name.c_str(), name.size());
