@@ -14,13 +14,8 @@ file(GLOB CLIENTSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/*.cpp)
 file(GLOB CLIENTCOMMON ${CMAKE_CURRENT_SOURCE_DIR}/Commoni/src/*.cpp)
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Client/include ")
-<<<<<<< HEAD
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Commoni/includes ")
 
-=======
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Common/includes ")
-
->>>>>>> 70ef1da3f56b724b90a19fcbaff7a303b903b6ee
 add_executable(RTypeClient ${CLIENTSOURCES} ${CLIENTCOMMON})
 
 # SFML CONFIG
@@ -57,10 +52,10 @@ endif(WIN32)
 
 if (UNIX)
 
-set(SFMLDIR "${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-uni")
+set(SFML_DIR "${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-uni")
 set(SFML_ROOT "${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-uni")
 MESSAGE(STATUS "SFML_ROOT : " ${SFML_ROOT})
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/Client/SFML-2.3.2-uni/share/SFML/cmake/Modules/" ${CMAKE_MODULE_PATH})
 find_package(SFML 2.3.2 REQUIRED system window graphics network audio)
 if (SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})

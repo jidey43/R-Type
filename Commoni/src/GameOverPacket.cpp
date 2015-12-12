@@ -1,7 +1,7 @@
 # include <string.h>
 # include "GameOverPacket.h"
 
-GameOverPacket::GameOverPacket(ServerTCPResponse resp, int data) : AServerPacket<ServerTCPResponse>(resp), _header(new ServerTCPHeader), _data(new GameOverData)
+GameOverPacket::GameOverPacket(ServerTCPResponse resp, int data) : AServerPacket<ServerTCPResponse>(resp, sizeof(*_data)), _header(new ServerTCPHeader), _data(new GameOverData)
 {
   _header->magic = MAGIC;
   _header->command = resp;
@@ -11,7 +11,7 @@ GameOverPacket::GameOverPacket(ServerTCPResponse resp, int data) : AServerPacket
 }
 
 GameOverPacket::GameOverPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command), _data(new GameOverData), _header(header)
+  : AServerPacket<ServerTCPResponse>(header->command, header->size), _data(new GameOverData), _header(header)
 {
 }
 

@@ -14,7 +14,7 @@ typedef struct
 typedef struct
 {
   uint32_t			magic;
-  ClientTCPCommand		command;
+  ClientUDPCommand		command;
   uint32_t			size;
   uint32_t			idx;
 } __attribute__ ((packed))	ClientUDPHeader;
@@ -40,6 +40,7 @@ typedef struct
 
 typedef stringData NickData;
 typedef stringData NewGameData;
+typedef stringData CAuthUDPData;
 
 typedef struct
 {
@@ -59,6 +60,7 @@ public:
   virtual std::string const&	deserialize() = 0;
   virtual void			setRawData(std::string const&) = 0;
   virtual bool			checkHeader() = 0;
+  virtual uint32_t		getDataSize() const = 0;
   //virtual std::string&		deserialize() = 0;
 };
 

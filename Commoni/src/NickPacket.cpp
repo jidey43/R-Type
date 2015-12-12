@@ -2,18 +2,19 @@
 #include "NickPacket.h"
 
 NickPacket::NickPacket(ClientTCPCommand command, std::string const& name)
-  : AClientPacket<ClientTCPCommand>(command), _data(new NickData), _header(new ClientTCPHeader)
+  : AClientPacket<ClientTCPCommand>(command, sizeof(NickData)), _data(new NickData), _header(new ClientTCPHeader)
 {
   _header->magic = MAGIC;
   _header->command = command;
   _header->size = sizeof(*_data);
-  bzero(_data->data, 256);
+  bzero(_data->data, BUFF_LEN);
   memcpy(&(_data->data), name.c_str(), name.size());
 }
 
 NickPacket::NickPacket(ClientTCPHeader* header)
-  : AClientPacket<ClientTCPCommand>(header->command), _data(new NickData), _header(header)
+  : AClientPacket<ClientTCPCommand>(header->command, header->size), _data(new NickData), _header(header)
 {
+  std::cout << "there" << std::endl;
 }
 
 NickPacket::~NickPacket()
@@ -46,7 +47,7 @@ bool			NickPacket::checkHeader()
 
 std::string const&	NickPacket::deserialize()
 {
- char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
+  char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
   static std::string		ret;
 
   std::cout << sizeof(*_header) << " " << sizeof(*_data) << std::endl;

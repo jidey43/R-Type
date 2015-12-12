@@ -58,6 +58,7 @@ IServerPacket<ServerTCPResponse>*	CNetworkHandler::receiveFromServer()
   memset(header, 0, sizeof(ServerTCPHeader));
   if (!tryReceive((char*)header, sizeof(ServerTCPHeader)))
     return NULL;
+  std::cout << header->size << std::endl;
   packet = _factory->build(header);
   if (!packet || !packet->checkHeader())
     return NULL;
@@ -97,7 +98,8 @@ bool			CNetworkHandler::sendToServer(IClientPacket<ClientTCPCommand>* packet)
 
   try
     {
-      _network->sendData((void*)toSend.c_str(), toSend.size(), _listen, NULL);
+      std::cout << "toSend = " << toSend.size() << std::endl;
+      _network->sendData((void*)toSend.c_str(), packet->getDataSize(), _listen, NULL);
     }
   catch (Exceptions::NetworkExcept e)
     {

@@ -1,7 +1,7 @@
 # include <string.h>
 # include "DelShotPacket.h"
 
-DelShotPacket::DelShotPacket(ServerUDPResponse resp, int idx, float x, float y) : AServerPacket<ServerUDPResponse>(resp), _data(new DelShotData), _header(new ServerUDPHeader)
+DelShotPacket::DelShotPacket(ServerUDPResponse resp, int idx, float x, float y) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data)), _data(new DelShotData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;
@@ -13,7 +13,7 @@ DelShotPacket::DelShotPacket(ServerUDPResponse resp, int idx, float x, float y) 
 }
 
 DelShotPacket::DelShotPacket(ServerUDPHeader *header)
-  : AServerPacket<ServerUDPResponse>(header->command), _data(new DelShotData), _header(header)
+  : AServerPacket<ServerUDPResponse>(header->command, header->size), _data(new DelShotData), _header(header)
 {
 }
 
