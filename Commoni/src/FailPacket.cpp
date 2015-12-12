@@ -18,15 +18,13 @@ FailPacket::~FailPacket()
 {
 }
 
-std::string const&		FailPacket::deserialize()
+char*				FailPacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + 1];
-  static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
   buff[sizeof(*_header)] = 0;
-  ret = buff;
-  return ret;
+  return buff;
 }
 
 bool				FailPacket::checkHeader()
@@ -40,6 +38,6 @@ bool				FailPacket::checkHeader()
   return true;
 }
 
-void				FailPacket::setRawData(std::string const& data)
+void				FailPacket::setRawData(char *data)
 {
 }

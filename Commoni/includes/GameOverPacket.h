@@ -10,9 +10,9 @@ class GameOverPacket : public AServerPacket<ServerTCPResponse>
   GameOverPacket(ServerTCPHeader*);
   ~GameOverPacket();
 
-  std::string const&		deserialize();
+  char*				deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
   GameOverData*			getData() const;
 
  private:

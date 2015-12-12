@@ -1,5 +1,5 @@
 template <typename T>
-AServerPacket<T>::AServerPacket(T cmd, int size) : _command(cmd), _size(size)
+AServerPacket<T>::AServerPacket(T cmd, size_t size) : _command(cmd), _size(size)
 {
 
 }
@@ -17,7 +17,7 @@ T		AServerPacket<T>::getCommandType() const
 }
 
 template <typename T>
-uint32_t	AServerPacket<T>::getDataSize() const
+size_t		AServerPacket<T>::getPacketSize() const
 {
   return _size;
 }

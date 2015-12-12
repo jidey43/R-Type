@@ -12,7 +12,7 @@ DelIAPacket::DelIAPacket(ServerUDPResponse resp, int idx, int data) : AServerPac
 }
 
 DelIAPacket::DelIAPacket(ServerUDPHeader *header)
-  : AServerPacket<ServerUDPResponse>(header->command, header->size), _data(new DelIAData), _header(header)
+  : AServerPacket<ServerUDPResponse>(header->command, header->size + sizeof(*_header)), _data(new DelIAData), _header(header)
 {
 }
 
@@ -20,12 +20,9 @@ DelIAPacket::~DelIAPacket()
 {
 }
 
-void			DelIAPacket::setRawData(std::string const& data)
+void			DelIAPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 DelIAData*		DelIAPacket::getData() const
@@ -44,14 +41,12 @@ bool			DelIAPacket::checkHeader()
   return true;
 }
 
-std::string const&		DelIAPacket::deserialize()
+char*				DelIAPacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
-  static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
-  ret = buff;
-  return ret;
+  return buff;
 }

@@ -11,7 +11,7 @@ AuthTCPPacket::AuthTCPPacket(ServerTCPResponse resp, Bool success) : AServerPack
 }
 
 AuthTCPPacket::AuthTCPPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command, header->size), _data(new AuthTCPData), _header(header)
+  : AServerPacket<ServerTCPResponse>(header->command, header->size + sizeof(*_header)), _data(new AuthTCPData), _header(header)
 {
 }
 
@@ -19,17 +19,16 @@ AuthTCPPacket::~AuthTCPPacket()
 {
 }
 
-std::string const&		AuthTCPPacket::deserialize()
+char*				AuthTCPPacket::deserialize()
 {
-  char*				buff = new char[sizeof(_header) + sizeof(*_data) + 1];
-  static std::string		ret;
+  char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
-  ret = buff;
-  return ret;
+  return buff;
 }
+
 bool				AuthTCPPacket::checkHeader()
 {
   if (_header->magic != MAGIC)
@@ -41,12 +40,9 @@ bool				AuthTCPPacket::checkHeader()
   return true;
 }
 
-void				AuthTCPPacket::setRawData(std::string const& data)
+void				AuthTCPPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 AuthTCPData*			AuthTCPPacket::getData() const

@@ -10,9 +10,9 @@ class CreIAPacket : public AServerPacket<ServerUDPResponse>
   CreIAPacket(ServerUDPHeader*);
   ~CreIAPacket();
 
-  std::string const&		deserialize();
+  char*				deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
   CreIAData*			getData() const;
 
  private:

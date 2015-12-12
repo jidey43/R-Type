@@ -13,7 +13,7 @@ DelShotPacket::DelShotPacket(ServerUDPResponse resp, int idx, float x, float y) 
 }
 
 DelShotPacket::DelShotPacket(ServerUDPHeader *header)
-  : AServerPacket<ServerUDPResponse>(header->command, header->size), _data(new DelShotData), _header(header)
+  : AServerPacket<ServerUDPResponse>(header->command, header->size + sizeof(*_header)), _data(new DelShotData), _header(header)
 {
 }
 
@@ -21,12 +21,9 @@ DelShotPacket::~DelShotPacket()
 {
 }
 
-void			DelShotPacket::setRawData(std::string const& data)
+void			DelShotPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 DelShotData*		DelShotPacket::getData() const
@@ -45,14 +42,12 @@ bool			DelShotPacket::checkHeader()
   return true;
 }
 
-std::string const&		DelShotPacket::deserialize()
+char*				DelShotPacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
-  static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
-  ret = buff;
-  return ret;
+  return buff;
 }

@@ -15,10 +15,10 @@ private:
   JoinData*		_data;
 
 public:
-  void			setRawData(std::string const&);
+  void			setRawData(char *);
   JoinData*		getData() const;
   bool			checkHeader();
-  std::string const&	deserialize();
+  virtual char*		deserialize();
 };
 
 #endif

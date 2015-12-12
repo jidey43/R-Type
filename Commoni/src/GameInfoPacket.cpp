@@ -12,7 +12,7 @@ GameInfoPacket::GameInfoPacket(ServerTCPResponse resp, int id, int port) : AServ
 }
 
 GameInfoPacket::GameInfoPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command, header->size), _data(new GameInfoData), _header(header)
+  : AServerPacket<ServerTCPResponse>(header->command, header->size + sizeof(*_header)), _data(new GameInfoData), _header(header)
 {
 }
 
@@ -20,16 +20,14 @@ GameInfoPacket::~GameInfoPacket()
 {
 }
 
-std::string const&		GameInfoPacket::deserialize()
+char*				GameInfoPacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
-  static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
-  ret = buff;
-  return ret;
+  return buff;
 }
 
 bool				GameInfoPacket::checkHeader()
@@ -43,12 +41,9 @@ bool				GameInfoPacket::checkHeader()
   return true;
 }
 
-void				GameInfoPacket::setRawData(std::string const& data)
+void				GameInfoPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 GameInfoData*			GameInfoPacket::getData() const

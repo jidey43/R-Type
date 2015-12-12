@@ -10,9 +10,9 @@ class AuthUDPPacket : public AServerPacket<ServerUDPResponse>
   AuthUDPPacket(ServerUDPHeader*);
   ~AuthUDPPacket();
 
-  std::string const&		deserialize();
+  char*				deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
   AuthUDPData*		getData() const;
 
  private:

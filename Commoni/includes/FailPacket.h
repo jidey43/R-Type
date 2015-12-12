@@ -10,9 +10,9 @@ class FailPacket : public AServerPacket<ServerTCPResponse>
   FailPacket(ServerTCPHeader*);
   ~FailPacket();
 
-  std::string const&		deserialize();
+  char*				deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
 
 private:
   ServerTCPHeader*		_header;

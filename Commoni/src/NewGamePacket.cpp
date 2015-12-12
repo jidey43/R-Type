@@ -2,7 +2,7 @@
 #include "NewGamePacket.h"
 
 NewGamePacket::NewGamePacket(ClientTCPCommand command, std::string const& data)
-  : AClientPacket<ClientTCPCommand>(command, sizeof(NewGameData)), _data(new NewGameData), _header(new ClientTCPHeader)
+  : AClientPacket<ClientTCPCommand>(command, sizeof(*_data) + sizeof(*_header)), _data(new NewGameData), _header(new ClientTCPHeader)
 {
   _header->magic = MAGIC;
   _header->command = command;
@@ -12,7 +12,7 @@ NewGamePacket::NewGamePacket(ClientTCPCommand command, std::string const& data)
 }
 
 NewGamePacket::NewGamePacket(ClientTCPHeader* header)
-  : AClientPacket<ClientTCPCommand>(header->command, header->size), _data(new NewGameData), _header(header)
+  : AClientPacket<ClientTCPCommand>(header->command, header->size + sizeof(*_header)), _data(new NewGameData), _header(header)
 {
 }
 
@@ -20,12 +20,11 @@ NewGamePacket::~NewGamePacket()
 {
 }
 
-void			NewGamePacket::setRawData(std::string const& data)
+void			NewGamePacket::setRawData(char *data)
 {
   void*			buff;
 
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 NewGameData*		NewGamePacket::getData() const
@@ -44,14 +43,12 @@ bool			NewGamePacket::checkHeader()
   return true;
 }
 
-std::string const&	NewGamePacket::deserialize()
+char*				NewGamePacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
-  static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
-  ret = buff;
-  return ret;
+  return buff;
 }

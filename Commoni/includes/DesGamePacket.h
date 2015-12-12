@@ -1,6 +1,7 @@
 #ifndef DESGAMEPACKET_H_
 # define DESGAMEPACKET_H_
 
+# include <string.h>
 # include "AServerPacket.hh"
 
 class DesGamePacket : public AServerPacket<ServerTCPResponse>
@@ -10,9 +11,9 @@ class DesGamePacket : public AServerPacket<ServerTCPResponse>
   DesGamePacket(ServerTCPHeader*);
   ~DesGamePacket();
 
-  std::string const&		deserialize();
+  char*				deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
   DesGameData*			getData() const;
 
  private:

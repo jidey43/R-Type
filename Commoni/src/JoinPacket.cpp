@@ -1,7 +1,7 @@
 #include "JoinPacket.hh"
 
 JoinPacket::JoinPacket(ClientTCPCommand command, int id)
-  : AClientPacket(command, sizeof(JoinData)), _data(new JoinData), _header(new ClientTCPHeader)
+  : AClientPacket(command, sizeof(*_data) + sizeof(*_header)), _data(new JoinData), _header(new ClientTCPHeader)
 {
   _header->magic = MAGIC;
   _header->command = command;
@@ -10,7 +10,7 @@ JoinPacket::JoinPacket(ClientTCPCommand command, int id)
 }
 
 JoinPacket::JoinPacket(ClientTCPHeader* header)
-  : AClientPacket(header->command, header->size), _data(new JoinData), _header(header)
+  : AClientPacket(header->command, header->size + sizeof(*_header)), _data(new JoinData), _header(header)
 {
 }
 
@@ -18,12 +18,9 @@ JoinPacket::~JoinPacket()
 {
 }
 
-void			JoinPacket::setRawData(std::string const& data)
+void			JoinPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 JoinData*		JoinPacket::getData() const
@@ -42,14 +39,12 @@ bool			JoinPacket::checkHeader()
   return true;
 }
 
-std::string const&	JoinPacket::deserialize()
+char*				JoinPacket::deserialize()
 {
-  char*				buff = new char[sizeof(*_header) + 1];
-  static std::string		ret;
+  char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
-  ret = buff;
-  return ret;
+  return buff;
 }

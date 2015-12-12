@@ -10,11 +10,10 @@ class DelShotPacket : public AServerPacket<ServerUDPResponse>
   DelShotPacket(ServerUDPHeader*);
   ~DelShotPacket();
 
-  std::string const&		deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
   DelShotData*			getData() const;
-
+  char*				deserialize();
  private:
   DelShotData*			_data;
   ServerUDPHeader*		_header;

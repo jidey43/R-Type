@@ -13,7 +13,7 @@ CAuthUDPPacket::CAuthUDPPacket(ClientUDPCommand resp, int idx, int success, std:
 }
 
 CAuthUDPPacket::CAuthUDPPacket(ClientUDPHeader* header)
-  : AClientPacket<ClientUDPCommand>(header->command, header->size), _data(new CAuthUDPData), _header(header)
+  : AClientPacket<ClientUDPCommand>(header->command, header->size + sizeof(*_header)), _data(new CAuthUDPData), _header(header)
 {
 }
 
@@ -21,12 +21,9 @@ CAuthUDPPacket::~CAuthUDPPacket()
 {
 }
 
-void			CAuthUDPPacket::setRawData(std::string const& data)
+void			CAuthUDPPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 CAuthUDPData*		CAuthUDPPacket::getData() const
@@ -45,14 +42,12 @@ bool			CAuthUDPPacket::checkHeader()
   return true;
 }
 
-std::string const&		CAuthUDPPacket::deserialize()
+char*				CAuthUDPPacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
-  static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
-  ret = buff;
-  return ret;
+  return buff;
 }

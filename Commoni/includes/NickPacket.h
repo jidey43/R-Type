@@ -15,10 +15,10 @@ private:
   NickData*		_data;
 
 public:
-  void			setRawData(std::string const&);
+  void			setRawData(char *);
   NickData*		getData() const;
   bool			checkHeader();
-  std::string const&	deserialize();
+  char*			deserialize();
 };
 
 #endif

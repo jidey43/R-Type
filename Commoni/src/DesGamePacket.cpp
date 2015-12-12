@@ -15,7 +15,7 @@ DesGamePacket::DesGamePacket(ServerTCPResponse resp, int id, std::string const& 
 }
 
 DesGamePacket::DesGamePacket(ServerTCPHeader* header) :
-  AServerPacket<ServerTCPResponse>(header->command, header->size), _data(new DesGameData), _header(header)
+  AServerPacket<ServerTCPResponse>(header->command, header->size + sizeof(*_header)), _data(new DesGameData), _header(header)
 {
 }
 
@@ -23,16 +23,14 @@ DesGamePacket::~DesGamePacket()
 {
 }
 
-std::string const&		DesGamePacket::deserialize()
+char*				DesGamePacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
-  static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
-  ret = buff;
-  return ret;
+  return buff;
 }
 
 bool				DesGamePacket::checkHeader()
@@ -46,12 +44,9 @@ bool				DesGamePacket::checkHeader()
   return true;
 }
 
-void				DesGamePacket::setRawData(std::string const& data)
+void				DesGamePacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void*)data, sizeof(*_data));
 }
 
 DesGameData*			DesGamePacket::getData() const

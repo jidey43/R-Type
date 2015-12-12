@@ -11,7 +11,7 @@ GameOverPacket::GameOverPacket(ServerTCPResponse resp, int data) : AServerPacket
 }
 
 GameOverPacket::GameOverPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command, header->size), _data(new GameOverData), _header(header)
+  : AServerPacket<ServerTCPResponse>(header->command, header->size + sizeof(*_header)), _data(new GameOverData), _header(header)
 {
 }
 
@@ -19,17 +19,16 @@ GameOverPacket::~GameOverPacket()
 {
 }
 
-std::string const&		GameOverPacket::deserialize()
+char*				GameOverPacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
-  static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
-  ret = buff;
-  return ret;
+  return buff;
 }
+
 bool				GameOverPacket::checkHeader()
 {
   if (_header->magic != MAGIC)
@@ -41,12 +40,9 @@ bool				GameOverPacket::checkHeader()
   return true;
 }
 
-void				GameOverPacket::setRawData(std::string const& data)
+void				GameOverPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 GameOverData*			GameOverPacket::getData() const

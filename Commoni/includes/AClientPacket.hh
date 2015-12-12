@@ -7,19 +7,19 @@ template <typename T>
 class AClientPacket : public IClientPacket<T>
 {
 public:
-  AClientPacket(T, uint32_t);
+  AClientPacket(T, size_t);
   virtual ~AClientPacket();
 
 protected:
   T				_command;
-  uint32_t			_size;
+  size_t			_size;
 
 public:
   T				getCommandType() const;
-  uint32_t			getDataSize() const;
-  virtual std::string const&	deserialize() = 0;
+  size_t			getPacketSize() const;
+  virtual char*			deserialize() = 0;
   virtual bool			checkHeader() = 0;
-  virtual void			setRawData(std::string const&) = 0;
+  virtual void			setRawData(char *) = 0;
 };
 
 # include "AClientPacket.tpp"
