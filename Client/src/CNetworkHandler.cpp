@@ -75,7 +75,7 @@ bool			CNetworkHandler::tryReceive(char* header, int size)
 {
   try
     {
-        _network->recvData(header, sizeof(ServerTCPHeader), _listen, NULL);
+      _network->recvData(header, sizeof(ServerTCPHeader), _listen, NULL);
     }
   catch (Exceptions::NetworkExcept e)
     {
@@ -98,7 +98,6 @@ bool			CNetworkHandler::sendToServer(IClientPacket<ClientTCPCommand>* packet)
 
   try
     {
-      std::cout << "toSend = " << toSend.size() << std::endl;
       _network->sendData((void*)toSend.c_str(), packet->getDataSize(), _listen, NULL);
     }
   catch (Exceptions::NetworkExcept e)
