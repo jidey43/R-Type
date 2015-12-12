@@ -14,13 +14,8 @@ file(GLOB CLIENTSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Client/src/*.cpp)
 file(GLOB CLIENTCOMMON ${CMAKE_CURRENT_SOURCE_DIR}/Commoni/src/*.cpp)
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Client/include ")
-<<<<<<< HEAD
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Commoni/includes ")
 
-=======
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Common/includes ")
-
->>>>>>> 70ef1da3f56b724b90a19fcbaff7a303b903b6ee
 add_executable(RTypeClient ${CLIENTSOURCES} ${CLIENTCOMMON})
 
 # SFML CONFIG
