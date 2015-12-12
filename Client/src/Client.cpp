@@ -45,7 +45,6 @@ void Client::start()
 	// case 2:
 	//   _network->sendToServer()
       	}
-      _network->receiveFromServer();
       // std::cout << "SERVER : " << _network->getPacket() << std::endl;
     }
 }
