@@ -12,7 +12,7 @@ class DelIAPacket : public AServerPacket<ServerUDPResponse>
 
   char*				deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
   DelIAData*			getData() const;
 
  private:

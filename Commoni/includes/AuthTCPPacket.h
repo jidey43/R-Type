@@ -12,7 +12,7 @@ class AuthTCPPacket : public AServerPacket<ServerTCPResponse>
 
   char*				deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
   AuthTCPData*			getData() const;
 
  private:

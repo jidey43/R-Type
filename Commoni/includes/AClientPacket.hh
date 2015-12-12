@@ -19,7 +19,7 @@ public:
   size_t			getPacketSize() const;
   virtual char*			deserialize() = 0;
   virtual bool			checkHeader() = 0;
-  virtual void			setRawData(std::string const&) = 0;
+  virtual void			setRawData(char *) = 0;
 };
 
 # include "AClientPacket.tpp"

@@ -17,7 +17,7 @@ class GameInfoPacket : public AServerPacket<ServerTCPResponse>
  public:
   char*				deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
   GameInfoData*			getData() const;
 };
 

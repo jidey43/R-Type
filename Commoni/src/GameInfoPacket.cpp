@@ -41,12 +41,9 @@ bool				GameInfoPacket::checkHeader()
   return true;
 }
 
-void				GameInfoPacket::setRawData(std::string const& data)
+void				GameInfoPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 GameInfoData*			GameInfoPacket::getData() const

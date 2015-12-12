@@ -21,12 +21,9 @@ DelShotPacket::~DelShotPacket()
 {
 }
 
-void			DelShotPacket::setRawData(std::string const& data)
+void			DelShotPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 DelShotData*		DelShotPacket::getData() const

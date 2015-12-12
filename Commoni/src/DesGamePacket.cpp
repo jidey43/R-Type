@@ -44,12 +44,9 @@ bool				DesGamePacket::checkHeader()
   return true;
 }
 
-void				DesGamePacket::setRawData(std::string const& data)
+void				DesGamePacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void*)data, sizeof(*_data));
 }
 
 DesGameData*			DesGamePacket::getData() const

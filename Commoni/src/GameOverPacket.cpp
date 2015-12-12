@@ -40,12 +40,9 @@ bool				GameOverPacket::checkHeader()
   return true;
 }
 
-void				GameOverPacket::setRawData(std::string const& data)
+void				GameOverPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 GameOverData*			GameOverPacket::getData() const

@@ -15,7 +15,7 @@ private:
   ClientTCPHeader*	_header;
 
 public:
-  void			setRawData(std::string const&);
+  void			setRawData(char *);
   NewGameData*		getData() const;
   bool			checkHeader();
   char*			deserialize();

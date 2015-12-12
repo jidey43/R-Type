@@ -12,7 +12,7 @@ class FailPacket : public AServerPacket<ServerTCPResponse>
 
   char*				deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
 
 private:
   ServerTCPHeader*		_header;

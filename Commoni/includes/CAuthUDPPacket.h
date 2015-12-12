@@ -12,7 +12,7 @@ class CAuthUDPPacket : public AClientPacket<ClientUDPCommand>
 
   char*				deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
   CAuthUDPData*			getData() const;
 
  private:

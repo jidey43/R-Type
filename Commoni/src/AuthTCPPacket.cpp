@@ -40,12 +40,9 @@ bool				AuthTCPPacket::checkHeader()
   return true;
 }
 
-void				AuthTCPPacket::setRawData(std::string const& data)
+void				AuthTCPPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 AuthTCPData*			AuthTCPPacket::getData() const

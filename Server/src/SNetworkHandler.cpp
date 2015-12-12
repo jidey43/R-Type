@@ -123,21 +123,14 @@ void			NetworkHandler::receiveFromClient(ClientInfo* client)
 
   client->setPacket(NULL);
   memset(header, 0, sizeof(ClientTCPHeader) + 1);
-  std::cout << "send from server length" << sizeof(ClientTCPHeader) << std::endl;
   _network->recvData(header, sizeof(ClientTCPHeader), client->getSocket(), NULL);
-  std::cout << "enum : " << header->command << std::endl;
   packet = _factory->build(header);
   if (!packet->checkHeader())
     return ;
-  std::cout << "receive length" << header->size << std::endl;
   buff = new char[header->size + 1];
   memset(buff, 0, header->size + 1);
-  std::cout << "passed" << std::endl;
   _network->recvData(buff, header->size, client->getSocket(), NULL);
-  std::cout << "passed" << std::endl;
-  tmp = std::string(buff);
-  std::cout << "passed" << std::endl;
-  packet->setRawData(tmp);
+  packet->setRawData(buff);
   std::cout << "passed" << std::endl;
   client->setPacket(packet);
 }

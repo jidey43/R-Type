@@ -22,12 +22,9 @@ CreShotPacket::~CreShotPacket()
 {
 }
 
-void			CreShotPacket::setRawData(std::string const& data)
+void			CreShotPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 CreShotData*		CreShotPacket::getData() const

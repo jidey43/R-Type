@@ -18,7 +18,7 @@ DelPlayPacket::~DelPlayPacket()
 {
 }
 
-void			DelPlayPacket::setRawData(std::string const& data)
+void			DelPlayPacket::setRawData(char *data)
 {
 }
 

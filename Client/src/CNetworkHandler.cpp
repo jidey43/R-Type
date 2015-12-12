@@ -51,7 +51,6 @@ bool	 CNetworkHandler::getActiveClient()
 IServerPacket<ServerTCPResponse>*	CNetworkHandler::receiveFromServer()
 {
   ServerTCPHeader*			header = new ServerTCPHeader;
-  std::string				tmp;
   char*					buff;
   IServerPacket<ServerTCPResponse>*	packet;
 
@@ -65,9 +64,8 @@ IServerPacket<ServerTCPResponse>*	CNetworkHandler::receiveFromServer()
   buff = new char[header->size + 1];
   memset(buff, 0, header->size + 1);
   if (!tryReceive(buff, header->size))
-    return NULL;;
-  tmp = std::string(buff);
-  packet->setRawData(tmp);
+    return NULL;
+  packet->setRawData(buff);
   return packet;
 }
 

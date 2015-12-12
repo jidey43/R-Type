@@ -58,7 +58,7 @@ public:
 public:
   virtual T			getCommandType() const = 0;
   virtual char*			deserialize() = 0;
-  virtual void			setRawData(std::string const&) = 0;
+  virtual void			setRawData(char *) = 0;
   virtual bool			checkHeader() = 0;
   virtual size_t		getPacketSize() const = 0;
 };
