@@ -12,7 +12,7 @@ class AuthUDPPacket : public AServerPacket<ServerUDPResponse>
 
   std::string const&		deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
   AuthUDPData*		getData() const;
 
  private:

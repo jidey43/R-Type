@@ -21,12 +21,9 @@ CAuthUDPPacket::~CAuthUDPPacket()
 {
 }
 
-void			CAuthUDPPacket::setRawData(std::string const& data)
+void			CAuthUDPPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 CAuthUDPData*		CAuthUDPPacket::getData() const

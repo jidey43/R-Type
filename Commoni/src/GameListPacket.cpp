@@ -39,6 +39,6 @@ bool				GameListPacket::checkHeader()
   return true;
 }
 
-void				GameListPacket::setRawData(std::string const& data)
+void				GameListPacket::setRawData(char *data)
 {
 }

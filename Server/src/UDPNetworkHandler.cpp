@@ -79,7 +79,7 @@ IClientPacket<ClientUDPCommand>*	UDPNetworkHandler::receiveFrom(GamerInfo *clien
       std::cerr << e.what() << std::endl;
       return NULL;
     }
-  packet->setRawData(std::string(buff));
+  packet->setRawData(buff);
   return packet;
 }
 

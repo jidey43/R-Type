@@ -12,7 +12,7 @@ class CreIAPacket : public AServerPacket<ServerUDPResponse>
 
   std::string const&		deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
   CreIAData*			getData() const;
 
  private:

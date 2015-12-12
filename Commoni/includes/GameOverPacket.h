@@ -12,7 +12,7 @@ class GameOverPacket : public AServerPacket<ServerTCPResponse>
 
   std::string const&		deserialize();
   bool				checkHeader();
-  void				setRawData(std::string const&);
+  void				setRawData(char *);
   GameOverData*			getData() const;
 
  private:

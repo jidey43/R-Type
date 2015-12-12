@@ -21,12 +21,9 @@ CrePlayPacket::~CrePlayPacket()
 {
 }
 
-void			CrePlayPacket::setRawData(std::string const& data)
+void			CrePlayPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 CrePlayData*		CrePlayPacket::getData() const

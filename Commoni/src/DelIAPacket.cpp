@@ -20,12 +20,9 @@ DelIAPacket::~DelIAPacket()
 {
 }
 
-void			DelIAPacket::setRawData(std::string const& data)
+void			DelIAPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 DelIAData*		DelIAPacket::getData() const

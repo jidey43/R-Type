@@ -40,6 +40,6 @@ bool				FailPacket::checkHeader()
   return true;
 }
 
-void				FailPacket::setRawData(std::string const& data)
+void				FailPacket::setRawData(char *data)
 {
 }

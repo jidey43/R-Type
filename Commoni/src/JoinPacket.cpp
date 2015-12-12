@@ -18,12 +18,9 @@ JoinPacket::~JoinPacket()
 {
 }
 
-void			JoinPacket::setRawData(std::string const& data)
+void			JoinPacket::setRawData(char *data)
 {
-  void*			buff;
-
-  buff = (void*)data.c_str();
-  memcpy(_data, buff, sizeof(*_data));
+  memcpy(_data, (void *)data, sizeof(*_data));
 }
 
 JoinData*		JoinPacket::getData() const
