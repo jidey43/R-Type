@@ -46,14 +46,12 @@ bool			CreShotPacket::checkHeader()
   return true;
 }
 
-std::string const&		CreShotPacket::deserialize()
+char*				CreShotPacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
-  static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
-  ret = buff;
-  return ret;
+  return buff;
 }

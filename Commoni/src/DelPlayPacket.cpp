@@ -33,13 +33,11 @@ bool			DelPlayPacket::checkHeader()
   return true;
 }
 
-std::string const&		DelPlayPacket::deserialize()
+char*				DelPlayPacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + 1];
-  static std::string		ret;
 
   memcpy(buff, _header, sizeof(*_header));
   buff[sizeof(*_header)] = 0;
-  ret = buff;
-  return ret;
+  return buff;
 }

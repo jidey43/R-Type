@@ -10,7 +10,7 @@ class DelPlayPacket : public AServerPacket<ServerUDPResponse>
   DelPlayPacket(ServerUDPHeader*);
   ~DelPlayPacket();
 
-  std::string const&		deserialize();
+  char*				deserialize();
   bool				checkHeader();
   void				setRawData(std::string const&);
 

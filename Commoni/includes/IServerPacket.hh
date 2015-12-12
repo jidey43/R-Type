@@ -88,7 +88,7 @@ public:
   virtual ~IServerPacket() {};
 
 public:
-  virtual std::string const&	deserialize() = 0;
+  virtual char*			deserialize() = 0;
   virtual bool			checkHeader() = 0;
   virtual void			setRawData(std::string const&) = 0;
   virtual T			getCommandType() const = 0;

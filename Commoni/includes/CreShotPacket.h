@@ -10,7 +10,7 @@ class CreShotPacket : public AServerPacket<ServerUDPResponse>
   CreShotPacket(ServerUDPHeader*);
   ~CreShotPacket();
 
-  std::string const&		deserialize();
+  char*				deserialize();
   bool				checkHeader();
   void				setRawData(std::string const&);
   CreShotData*			getData() const;

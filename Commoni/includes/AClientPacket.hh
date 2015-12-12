@@ -17,7 +17,7 @@ protected:
 public:
   T				getCommandType() const;
   size_t			getPacketSize() const;
-  virtual std::string const&	deserialize() = 0;
+  virtual char*			deserialize() = 0;
   virtual bool			checkHeader() = 0;
   virtual void			setRawData(std::string const&) = 0;
 };

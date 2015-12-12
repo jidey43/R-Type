@@ -18,7 +18,7 @@ public:
   void			setRawData(std::string const&);
   NewGameData*		getData() const;
   bool			checkHeader();
-  std::string const&	deserialize();
+  char*			deserialize();
 };
 
 #endif

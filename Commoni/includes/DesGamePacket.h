@@ -10,7 +10,7 @@ class DesGamePacket : public AServerPacket<ServerTCPResponse>
   DesGamePacket(ServerTCPHeader*);
   ~DesGamePacket();
 
-  std::string const&		deserialize();
+  char*				deserialize();
   bool				checkHeader();
   void				setRawData(std::string const&);
   DesGameData*			getData() const;

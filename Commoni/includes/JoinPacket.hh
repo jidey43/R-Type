@@ -18,7 +18,7 @@ public:
   void			setRawData(std::string const&);
   JoinData*		getData() const;
   bool			checkHeader();
-  std::string const&	deserialize();
+  virtual char*		deserialize();
 };
 
 #endif

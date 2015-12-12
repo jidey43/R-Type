@@ -10,7 +10,7 @@ class CrePlayPacket : public AServerPacket<ServerUDPResponse>
   CrePlayPacket(ServerUDPHeader*);
   ~CrePlayPacket();
 
-  std::string const&		deserialize();
+  char*				deserialize();
   bool				checkHeader();
   void				setRawData(std::string const&);
   CrePlayData*			getData() const;

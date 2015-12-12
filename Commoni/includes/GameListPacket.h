@@ -10,7 +10,7 @@ class GameListPacket : public AServerPacket<ServerTCPResponse>
   GameListPacket(ServerTCPHeader*);
   ~GameListPacket();
 
-  std::string const&		deserialize();
+  char*				deserialize();
   bool				checkHeader();
   void				setRawData(std::string const&);
 

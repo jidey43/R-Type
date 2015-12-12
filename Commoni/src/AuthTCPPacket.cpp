@@ -19,17 +19,16 @@ AuthTCPPacket::~AuthTCPPacket()
 {
 }
 
-std::string const&		AuthTCPPacket::deserialize()
+char*				AuthTCPPacket::deserialize()
 {
-  char*				buff = new char[sizeof(_header) + sizeof(*_data) + 1];
-  static std::string		ret;
+  char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
-  ret = buff;
-  return ret;
+  return buff;
 }
+
 bool				AuthTCPPacket::checkHeader()
 {
   if (_header->magic != MAGIC)

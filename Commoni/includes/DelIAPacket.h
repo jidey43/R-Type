@@ -10,7 +10,7 @@ class DelIAPacket : public AServerPacket<ServerUDPResponse>
   DelIAPacket(ServerUDPHeader*);
   ~DelIAPacket();
 
-  std::string const&		deserialize();
+  char*				deserialize();
   bool				checkHeader();
   void				setRawData(std::string const&);
   DelIAData*			getData() const;
