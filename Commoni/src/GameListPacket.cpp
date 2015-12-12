@@ -1,7 +1,7 @@
 # include <string.h>
 # include "GameListPacket.h"
 
-GameListPacket::GameListPacket(ServerTCPResponse resp) : AServerPacket<ServerTCPResponse>(resp), _header(new ServerTCPHeader)
+GameListPacket::GameListPacket(ServerTCPResponse resp) : AServerPacket<ServerTCPResponse>(resp, 0), _header(new ServerTCPHeader)
 {
   _header->magic = MAGIC;
   _header->size = 0;
@@ -9,7 +9,7 @@ GameListPacket::GameListPacket(ServerTCPResponse resp) : AServerPacket<ServerTCP
 }
 
 GameListPacket::GameListPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command), _header(header)
+  : AServerPacket<ServerTCPResponse>(header->command, header->size), _header(header)
 {
 }
 

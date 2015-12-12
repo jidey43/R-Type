@@ -1,7 +1,7 @@
 # include <string.h>
 # include "DesGamePacket.h"
 
-DesGamePacket::DesGamePacket(ServerTCPResponse resp, int id, std::string const& gameName, std::string const& players) : AServerPacket<ServerTCPResponse>(resp), _header(new ServerTCPHeader), _data(new DesGameData)
+DesGamePacket::DesGamePacket(ServerTCPResponse resp, int id, std::string const& gameName, std::string const& players) : AServerPacket<ServerTCPResponse>(resp, sizeof(*_data)), _header(new ServerTCPHeader), _data(new DesGameData)
 {
   _header->magic = MAGIC;
   _header->command = resp;
@@ -15,7 +15,7 @@ DesGamePacket::DesGamePacket(ServerTCPResponse resp, int id, std::string const& 
 }
 
 DesGamePacket::DesGamePacket(ServerTCPHeader* header) :
-  AServerPacket<ServerTCPResponse>(header->command), _data(new DesGameData), _header(header)
+  AServerPacket<ServerTCPResponse>(header->command, header->size), _data(new DesGameData), _header(header)
 {
 }
 

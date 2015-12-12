@@ -8,7 +8,7 @@ PacketFactory::~PacketFactory()
 
 IServerPacket<ServerUDPResponse>*	PacketFactory::build(ServerUDPHeader *header)
 {
-  switch(header->command)
+  switch(header->command, header->size)
     {
     case AUTH:
       return new AuthUDPPacket(header);
@@ -38,7 +38,7 @@ IServerPacket<ServerUDPResponse>*	PacketFactory::build(ServerUDPHeader *header)
 
 IServerPacket<ServerTCPResponse>*	PacketFactory::build(ServerTCPHeader *header)
 {
-  switch(header->command)
+  switch(header->command, header->size)
     {
     case AUTH:
       return new AuthTCPPacket(header);
@@ -68,7 +68,7 @@ IServerPacket<ServerTCPResponse>*	PacketFactory::build(ServerTCPHeader *header)
 
 IClientPacket<ClientUDPCommand>*		PacketFactory::build(ClientUDPHeader *header)
 {
-  switch(header->command)
+  switch(header->command, header->size)
     {
     default:
       return NULL;
@@ -77,7 +77,7 @@ IClientPacket<ClientUDPCommand>*		PacketFactory::build(ClientUDPHeader *header)
 
 IClientPacket<ClientTCPCommand>*		PacketFactory::build(ClientTCPHeader* header)
 {
-  switch(header->command)
+  switch(header->command, header->size)
     {
     case AUTH_TCP:
       return new NickPacket(header);

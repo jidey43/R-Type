@@ -1,7 +1,7 @@
 # include <string.h>
 # include "GameInfoPacket.h"
 
-GameInfoPacket::GameInfoPacket(ServerTCPResponse resp, int id, int port) : AServerPacket<ServerTCPResponse>(resp), _header(new ServerTCPHeader), _data(new GameInfoData)
+GameInfoPacket::GameInfoPacket(ServerTCPResponse resp, int id, int port) : AServerPacket<ServerTCPResponse>(resp, sizeof(*_data)), _header(new ServerTCPHeader), _data(new GameInfoData)
 {
   _header->magic = MAGIC;
   _header->command = resp;
@@ -12,7 +12,7 @@ GameInfoPacket::GameInfoPacket(ServerTCPResponse resp, int id, int port) : AServ
 }
 
 GameInfoPacket::GameInfoPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command), _data(new GameInfoData), _header(header)
+  : AServerPacket<ServerTCPResponse>(header->command, header->size), _data(new GameInfoData), _header(header)
 {
 }
 

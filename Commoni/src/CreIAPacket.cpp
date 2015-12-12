@@ -1,7 +1,7 @@
 # include <string.h>
 # include "CreIAPacket.h"
 
-CreIAPacket::CreIAPacket(ServerUDPResponse resp, int idx, int id, float x, float y) : AServerPacket<ServerUDPResponse>(resp), _data(new CreIAData), _header(new ServerUDPHeader)
+CreIAPacket::CreIAPacket(ServerUDPResponse resp, int idx, int id, float x, float y) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data)), _data(new CreIAData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;
@@ -14,7 +14,7 @@ CreIAPacket::CreIAPacket(ServerUDPResponse resp, int idx, int id, float x, float
 }
 
 CreIAPacket::CreIAPacket(ServerUDPHeader *header)
-  : AServerPacket<ServerUDPResponse>(header->command), _data(new CreIAData), _header(header)
+  : AServerPacket<ServerUDPResponse>(header->command, header->size), _data(new CreIAData), _header(header)
 {
 }
 

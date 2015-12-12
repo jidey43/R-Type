@@ -1,7 +1,7 @@
 # include <string.h>
 # include "CreShotPacket.h"
 
-CreShotPacket::CreShotPacket(ServerUDPResponse resp, int idx, float x, float y, int speed) : AServerPacket<ServerUDPResponse>(resp), _data(new CreShotData), _header(new ServerUDPHeader)
+CreShotPacket::CreShotPacket(ServerUDPResponse resp, int idx, float x, float y, int speed) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data)), _data(new CreShotData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;
@@ -14,7 +14,7 @@ CreShotPacket::CreShotPacket(ServerUDPResponse resp, int idx, float x, float y, 
 }
 
 CreShotPacket::CreShotPacket(ServerUDPHeader *header)
-  : AServerPacket<ServerUDPResponse>(header->command), _data(new CreShotData), _header(header)
+  : AServerPacket<ServerUDPResponse>(header->command, header->size), _data(new CreShotData), _header(header)
 {
 }
 

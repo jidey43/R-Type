@@ -7,6 +7,7 @@ NickPacket::NickPacket(ClientTCPCommand command, std::string const& name)
   _header->magic = MAGIC;
   _header->command = command;
   _header->size = sizeof(*_data);
+  std::cout << "here" << std::endl;
   bzero(_data->data, 256);
   memcpy(&(_data->data), name.c_str(), name.size());
 }
@@ -14,6 +15,7 @@ NickPacket::NickPacket(ClientTCPCommand command, std::string const& name)
 NickPacket::NickPacket(ClientTCPHeader* header)
   : AClientPacket<ClientTCPCommand>(header->command), _data(new NickData), _header(header)
 {
+  std::cout << "there" << std::endl;
 }
 
 NickPacket::~NickPacket()

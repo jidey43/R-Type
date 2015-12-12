@@ -2,7 +2,7 @@
 # include "FailPacket.h"
 
 FailPacket::FailPacket(ServerTCPResponse resp)
-  : AServerPacket<ServerTCPResponse>(resp), _header(new ServerTCPHeader)
+  : AServerPacket<ServerTCPResponse>(resp, 0), _header(new ServerTCPHeader)
 {
   _header->command = resp;
   _header->magic = MAGIC;
@@ -10,7 +10,7 @@ FailPacket::FailPacket(ServerTCPResponse resp)
 }
 
 FailPacket::FailPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command), _header(header)
+  : AServerPacket<ServerTCPResponse>(header->command, 0), _header(header)
 {
 }
 

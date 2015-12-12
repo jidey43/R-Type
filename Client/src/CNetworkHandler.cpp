@@ -97,6 +97,7 @@ bool			CNetworkHandler::sendToServer(IClientPacket<ClientTCPCommand>* packet)
 
   try
     {
+      std::cout << "toSend = " << toSend.size() << std::endl;
       _network->sendData((void*)toSend.c_str(), toSend.size(), _listen, NULL);
     }
   catch (Exceptions::NetworkExcept e)
