@@ -122,7 +122,7 @@ void			NetworkHandler::receiveFromClient(ClientInfo* client)
   IClientPacket<ClientTCPCommand>*	packet;
 
   client->setPacket(NULL);
-  memset(header, 0, sizeof(ClientTCPHeader) + 1);
+  memset(header, 0, sizeof(ClientTCPHeader));
   _network->recvData(header, sizeof(ClientTCPHeader), client->getSocket(), NULL);
   packet = _factory->build(header);
   if (!packet->checkHeader())
