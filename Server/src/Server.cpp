@@ -44,7 +44,7 @@ void Server::answerClients()
 
   while ((client = _network->getActiveClient()))
     {
-      std::cout << "--> client [" << client->getNickname() << "]" << std::endl;
+      // std::cout << "--> client [" << client->getNickname() << "]" << std::endl;
       parser(client);
     }
 }

@@ -56,6 +56,7 @@ void	STCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientDat
 {
   int res = send(socket, (void*)buffer, size, 0);
 
+  std::cout << "sent " << res << " bytes"<< std::endl;
   if (res == -1)
     throw Exceptions::NetworkExcept("SEND FAILED", errno);
   if (res == 0)
@@ -69,7 +70,7 @@ void			STCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *a
 
   res = recv(socket, (void*)buffer, size, 0);
 
-  std::cout << "res : " << res << std::endl;
+  std::cout << "received " << res << " bytes"<< std::endl;
   if (res == -1)
     throw Exceptions::NetworkExcept("RECEIVE FAILED", errno);
   if (res == 0)

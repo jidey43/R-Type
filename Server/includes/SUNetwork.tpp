@@ -82,7 +82,6 @@ template <typename T>
 void	SUNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
   _socket->rcvData(data, size, sock, addr);
-  std::cout << "yeah" << std::endl;
 }
 
 template <typename T>

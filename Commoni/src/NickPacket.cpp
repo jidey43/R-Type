@@ -15,7 +15,6 @@ NickPacket::NickPacket(ClientTCPCommand command, std::string const& name)
 NickPacket::NickPacket(ClientTCPHeader* header)
   : AClientPacket<ClientTCPCommand>(header->command, header->size + sizeof(*_header)), _data(new NickData), _header(header)
 {
-  std::cout << "there" << std::endl;
 }
 
 NickPacket::~NickPacket()
