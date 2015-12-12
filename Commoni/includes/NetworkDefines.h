@@ -56,13 +56,30 @@ typedef enum
     DEL_SHOT,
     CRE_IA,
     DEL_IA,
-    MOVE,
+    MOVE
   }		ServerUDPResponse;
 
 typedef enum
   {
+    CAUTH_UDP = 1,
+    FIRE,
+    SEND_MOVE,
+    DISCONNECT
   }		ClientUDPCommand;
 
+typedef enum
+  {
+    UP = 1,
+    DOWN,
+    LEFT,
+    RIGHT
+  }		Direction;
+
+typedef enum
+  {
+    FAILURE = 0,
+    SUCCESS
+  }		Bool;
 
 /*
 	Packet : client -> server

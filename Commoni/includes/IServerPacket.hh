@@ -23,6 +23,12 @@ typedef struct
   uint32_t			data;
   uint32_t			magic;
 } __attribute__ ((packed))	integerData;
+typedef struct
+
+{
+  Bool				success;
+  uint32_t			magic;
+} __attribute__ ((packed))	AuthTCPData;
 
 typedef struct
 {
@@ -70,7 +76,6 @@ typedef struct
 }				CreIAData;
 
 typedef integerData GameOverData;
-typedef integerData AuthTCPData;
 typedef integerData GameListData;
 typedef PosData CrePlayData;
 typedef PosData DelShotData;
