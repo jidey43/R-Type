@@ -88,7 +88,6 @@ ClientInfo*	NetworkHandler::getActiveClient()
   try
     {
       receiveFromClient(client);
-      std::cout << "passed try receive" << std::endl;
     }
   catch (Exceptions::NetworkExcept e)
     {
@@ -102,7 +101,6 @@ ClientInfo*	NetworkHandler::getActiveClient()
       closeConnection(client);
       return getActiveClient();
     }
-  std::cout << "suceess n getactive" << std::endl;
   return client;
 }
 
@@ -131,7 +129,6 @@ void			NetworkHandler::receiveFromClient(ClientInfo* client)
   memset(buff, 0, header->size + 1);
   _network->recvData(buff, header->size, client->getSocket(), NULL);
   packet->setRawData(buff);
-  std::cout << "passed" << std::endl;
   client->setPacket(packet);
 }
 
