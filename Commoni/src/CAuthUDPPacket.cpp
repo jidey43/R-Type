@@ -1,20 +1,19 @@
 # include <string.h>
 # include "CAuthUDPPacket.h"
 
-CAuthUDPPacket::CAuthUDPPacket(ServerUDPResponse resp, int idx, int success, std::string const& name) : AServerPacket<ServerUDPResponse>(resp), _data(new CAuthUDPData)
+CAuthUDPPacket::CAuthUDPPacket(ClientUDPCommand resp, int idx, int success, std::string const& name) : AClientPacket<ClientUDPCommand>(resp), _data(new CAuthUDPData)
 {
   _header->magic = MAGIC;
   _header->command = resp;
   _header->size = sizeof(*_data);
   _header->idx = idx;
-  _data->success = success;
-  bzero(_data->name, 256);
-  memcpy(&(_data->name), name.c_str(), name.size());
+  bzero(_data->data, 256);
+  memcpy(&(_data->data), name.c_str(), name.size());
   _data->magic = MAGIC;
 }
 
-CAuthUDPPacket::CAuthUDPPacket(ServerUDPHeader* header)
-  : AServerPacket<ServerUDPResponse>(header->command), _data(new CAuthUDPData), _header(header)
+CAuthUDPPacket::CAuthUDPPacket(ClientUDPHeader* header)
+  : AClientPacket<ClientUDPCommand>(header->command), _data(new CAuthUDPData), _header(header)
 {
 }
 
@@ -39,7 +38,7 @@ bool			CAuthUDPPacket::checkHeader()
 {
   if (_header->magic != MAGIC)
     return false;
-  else if (_header->command < AUTH_UDP || _header->command > MOVE)
+  else if (_header->command < CAUTH_UDP || _header->command > DISCONNECT)
     return false;
   else if (_header->size < 0)
     return false;
