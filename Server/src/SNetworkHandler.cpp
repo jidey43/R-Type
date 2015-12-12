@@ -87,7 +87,6 @@ ClientInfo*	NetworkHandler::getActiveClient()
   _activeClients.pop_back();
   if (!receiveFromClient(client))
     return NULL;
-  std::cout << "suceess n getactive" << std::endl;
   if (client->getPacket() != NULL)
     return client;
 }
@@ -109,7 +108,6 @@ bool			NetworkHandler::receiveFromClient(ClientInfo* client)
   client->setPacket(NULL);
   if (!tryReceive(client, (char*)header, sizeof(ClientTCPHeader)))
     return false;
-  std::cout << "enum : " << header->command << std::endl;
   packet = _factory->build(header);
   if (!packet || !packet->checkHeader())
     return false;
@@ -163,7 +161,6 @@ bool			NetworkHandler::sendToClient(ClientInfo* client, IServerPacket<ServerTCPR
       closeConnection(client);
       return false;
     }
-  std::cout << "success send" << std::endl;
   return true;
 }
 

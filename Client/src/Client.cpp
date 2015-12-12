@@ -33,12 +33,10 @@ void Client::start()
       switch (i)
       	{
 	case 1:
-	  std::cout << "sending newGamePacket" << std::endl;
 	  _network->sendToServer(new NewGamePacket(ADD_GAME, "lalalalallal"));
 	  _network->receiveFromServer();
 	  break;
 	case 2:
-	  std::cout << i << std::endl;
 	  _network->sendToServer(new NickPacket(AUTH_TCP, "lalla"));
 	  _network->receiveFromServer();
 	  break;
