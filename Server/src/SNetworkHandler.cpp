@@ -85,25 +85,11 @@ ClientInfo*	NetworkHandler::getActiveClient()
   ClientInfo*	client = _activeClients.back();
 
   _activeClients.pop_back();
-  try
-    {
-      receiveFromClient(client);
-      std::cout << "passed try receive" << std::endl;
-    }
-  catch (Exceptions::NetworkExcept e)
-    {
-      std::cerr << e.what() << std::endl;
-      closeConnection(client);
-      return getActiveClient();
-    }
-  catch (Exceptions::ConnectionExcept e)
-    {
-      std::cerr << e.what() << std::endl;
-      closeConnection(client);
-      return getActiveClient();
-    }
+  if (receiveFromClient(client))
+    return NULL;
   std::cout << "suceess n getactive" << std::endl;
-  return client;
+  if (client->getPacket() != NULL)
+    return client;
 }
 
 void	NetworkHandler::broadcast(IServerPacket<ServerTCPResponse>* packet)
@@ -114,7 +100,7 @@ void	NetworkHandler::broadcast(IServerPacket<ServerTCPResponse>* packet)
     }
 }
 
-void			NetworkHandler::receiveFromClient(ClientInfo* client)
+bool			NetworkHandler::receiveFromClient(ClientInfo* client)
 {
   ClientTCPHeader*			header = new ClientTCPHeader;
   std::string				tmp;
@@ -122,24 +108,40 @@ void			NetworkHandler::receiveFromClient(ClientInfo* client)
   IClientPacket<ClientTCPCommand>*	packet;
 
   client->setPacket(NULL);
-  memset(header, 0, sizeof(ClientTCPHeader) + 1);
   std::cout << "send from server length" << sizeof(ClientTCPHeader) << std::endl;
-  _network->recvData(header, sizeof(ClientTCPHeader), client->getSocket(), NULL);
+  if (!tryReceive(client, (char*)header, sizeof(ClientTCPHeader)))
+    return false;
   std::cout << "enum : " << header->command << std::endl;
   packet = _factory->build(header);
-  if (!packet->checkHeader())
+  if (!packet || !packet->checkHeader())
     return ;
-  std::cout << "receive length" << header->size << std::endl;
   buff = new char[header->size + 1];
-  memset(buff, 0, header->size + 1);
-  std::cout << "passed" << std::endl;
-  _network->recvData(buff, header->size, client->getSocket(), NULL);
-  std::cout << "passed" << std::endl;
-  tmp = std::string(buff);
-  std::cout << "passed" << std::endl;
-  packet->setRawData(tmp);
-  std::cout << "passed" << std::endl;
+  if (!tryReceive(client, (char*)buff, header->size) || packet->setRawData(tmp))
+    return false;
   client->setPacket(packet);
+  return true;
+}
+
+bool			CNetworkHandler::tryReceive(Client* client, char* header, int size)
+{
+  memset(header, 0, size);
+  try
+    {
+      _network->recvData(header, size, client->getSocket(), NULL);
+    }
+  catch (Exceptions::NetworkExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+      closeConnection(client);
+      return false;
+    }
+  catch (Exceptions::ConnectionExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+      closeConnection(client);
+      return false;
+    }
+  return true;
 }
 
 bool			NetworkHandler::sendToClient(ClientInfo* client, IServerPacket<ServerTCPResponse>* packet)

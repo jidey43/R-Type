@@ -51,31 +51,28 @@ bool	 CNetworkHandler::getActiveClient()
 IServerPacket<ServerTCPResponse>*	CNetworkHandler::receiveFromServer()
 {
   ServerTCPHeader*			header = new ServerTCPHeader;
-  std::string				tmp;
   char*					buff;
   IServerPacket<ServerTCPResponse>*	packet;
 
-  memset(header, 0, sizeof(ServerTCPHeader));
   if (!tryReceive((char*)header, sizeof(ServerTCPHeader)))
     return NULL;
   std::cout << header->size << std::endl;
   packet = _factory->build(header);
   if (!packet || !packet->checkHeader())
     return NULL;
-  buff = new char[header->size + 1];
-  memset(buff, 0, header->size + 1);
+  buff = new char[header->size];
   if (!tryReceive(buff, header->size))
-    return NULL;;
-  tmp = std::string(buff);
-  packet->setRawData(tmp);
+    return NULL;
+  packet->setRawData(buff);
   return packet;
 }
 
 bool			CNetworkHandler::tryReceive(char* header, int size)
 {
+  memset(header, 0, size);
   try
     {
-        _network->recvData(header, sizeof(ServerTCPHeader), _listen, NULL);
+      _network->recvData(header, size, _listen, NULL);
     }
   catch (Exceptions::NetworkExcept e)
     {
@@ -94,12 +91,12 @@ bool			CNetworkHandler::tryReceive(char* header, int size)
 
 bool			CNetworkHandler::sendToServer(IClientPacket<ClientTCPCommand>* packet)
 {
-  std::string	toSend = packet->deserialize();
+  char*			toSend = packet->deserialize();
 
   try
     {
       std::cout << "toSend = " << toSend.size() << std::endl;
-      _network->sendData((void*)toSend.c_str(), packet->getDataSize(), _listen, NULL);
+      _network->sendData(toSend, packet->getDataSize(), _listen, NULL);
     }
   catch (Exceptions::NetworkExcept e)
     {
@@ -118,10 +115,10 @@ bool			CNetworkHandler::sendToServer(IClientPacket<ClientTCPCommand>* packet)
 
 void CNetworkHandler::closeConnection()
 {
-	_network->closeConnection(_listen);
+  _network->closeConnection(_listen);
 }
 
 std::string CNetworkHandler::getPacket() const
 {
-	return _packet;
+  return _packet;
 }
