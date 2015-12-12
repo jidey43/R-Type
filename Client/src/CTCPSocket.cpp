@@ -50,10 +50,11 @@ void	CTCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientDat
 
 void			CTCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *addr)
 {
-  int				addr_len = sizeof(addr);
-  int				res;
+  int			addr_len = sizeof(addr);
+  int			res;
 
   res = recv(socket, (void*)buffer, size, 0);
+  std::cout << "recv size: " << size << std::endl;
 
   std::cout << "received " << res << std::endl;
   if (res == -1)

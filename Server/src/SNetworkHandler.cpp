@@ -85,23 +85,11 @@ ClientInfo*	NetworkHandler::getActiveClient()
   ClientInfo*	client = _activeClients.back();
 
   _activeClients.pop_back();
-  try
-    {
-      receiveFromClient(client);
-    }
-  catch (Exceptions::NetworkExcept e)
-    {
-      std::cerr << e.what() << std::endl;
-      closeConnection(client);
-      return getActiveClient();
-    }
-  catch (Exceptions::ConnectionExcept e)
-    {
-      std::cerr << e.what() << std::endl;
-      closeConnection(client);
-      return getActiveClient();
-    }
-  return client;
+  if (!receiveFromClient(client))
+    return NULL;
+  std::cout << "suceess n getactive" << std::endl;
+  if (client->getPacket() != NULL)
+    return client;
 }
 
 void	NetworkHandler::broadcast(IServerPacket<ServerTCPResponse>* packet)
@@ -112,24 +100,47 @@ void	NetworkHandler::broadcast(IServerPacket<ServerTCPResponse>* packet)
     }
 }
 
-void			NetworkHandler::receiveFromClient(ClientInfo* client)
+bool			NetworkHandler::receiveFromClient(ClientInfo* client)
 {
   ClientTCPHeader*			header = new ClientTCPHeader;
-  std::string				tmp;
   char*					buff;
   IClientPacket<ClientTCPCommand>*	packet;
 
   client->setPacket(NULL);
-  memset(header, 0, sizeof(ClientTCPHeader));
-  _network->recvData(header, sizeof(ClientTCPHeader), client->getSocket(), NULL);
+  if (!tryReceive(client, (char*)header, sizeof(ClientTCPHeader)))
+    return false;
+  std::cout << "enum : " << header->command << std::endl;
   packet = _factory->build(header);
-  if (!packet->checkHeader())
-    return ;
+  if (!packet || !packet->checkHeader())
+    return false;
   buff = new char[header->size + 1];
-  memset(buff, 0, header->size + 1);
-  _network->recvData(buff, header->size, client->getSocket(), NULL);
+  if (!tryReceive(client, (char*)buff, header->size))
+    return false;
   packet->setRawData(buff);
   client->setPacket(packet);
+  return true;
+}
+
+bool			NetworkHandler::tryReceive(ClientInfo* client, char* header, int size)
+{
+  memset(header, 0, size);
+  try
+    {
+      _network->recvData(header, size, client->getSocket(), NULL);
+    }
+  catch (Exceptions::NetworkExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+      closeConnection(client);
+      return false;
+    }
+  catch (Exceptions::ConnectionExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+      closeConnection(client);
+      return false;
+    }
+  return true;
 }
 
 bool			NetworkHandler::sendToClient(ClientInfo* client, IServerPacket<ServerTCPResponse>* packet)
