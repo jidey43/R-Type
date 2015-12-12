@@ -12,11 +12,11 @@ public:
 
 protected:
   T				_command;
-  int				_size;
+  uint32_t			_size;
 
 public:
   T				getCommandType() const;
-  int				getDataSize() const;
+  uint32_t			getDataSize() const;
   virtual std::string const&	deserialize() = 0;
   virtual bool			checkHeader() = 0;
   virtual void			setRawData(std::string const&) = 0;

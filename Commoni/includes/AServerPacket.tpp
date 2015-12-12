@@ -17,7 +17,7 @@ T		AServerPacket<T>::getCommandType() const
 }
 
 template <typename T>
-int		AServerPacket<T>::getDataSize() const
+uint32_t	AServerPacket<T>::getDataSize() const
 {
   return _size;
 }

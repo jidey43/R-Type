@@ -94,7 +94,7 @@ bool					UDPNetworkHandler::sendTo(GamerInfo *client,
   try
     {
       _network->sendData((void*)(toSend.c_str()),
-			 toSend.size(),
+			 response->getDataSize(),
 			 _socket,
 			 client->getClientInfos());
     }
