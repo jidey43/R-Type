@@ -9,7 +9,7 @@ ClientInfo::ClientInfo(SOCKET socket)
 }
 
 ClientInfo::ClientInfo(SOCKET socket, std::string const & nick)
-  : _isInGame(false), _disconnected(false), _socket(socket), _nickname(nick)
+  : _isInGame(false), _disconnected(false), _socket(socket), _nickname(nick), _packet(NULL)
 {
 }
 

@@ -107,7 +107,6 @@ bool			NetworkHandler::receiveFromClient(ClientInfo* client)
   IClientPacket<ClientTCPCommand>*	packet;
 
   client->setPacket(NULL);
-  std::cout << "send from server length" << sizeof(ClientTCPHeader) << std::endl;
   if (!tryReceive(client, (char*)header, sizeof(ClientTCPHeader)))
     return false;
   std::cout << "enum : " << header->command << std::endl;
