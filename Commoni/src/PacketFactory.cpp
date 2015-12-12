@@ -70,8 +70,21 @@ IClientPacket<ClientUDPCommand>*		PacketFactory::build(ClientUDPHeader *header)
 {
   switch(header->command)
     {
+    case CAUTH_UDP:
+      return new CauthUDPPacket(header);
+      break;
+    case FIRE:
+      return new JoinPacket(header);
+      break;
+    case SEND_MOVE:
+      return new NewGamePacket(header);
+      break;
+    case DISCONNECT:
+      return new NewGamePacket(header);
+      break;
     default:
       return NULL;
+      break;
     }
 }
 
@@ -92,32 +105,4 @@ IClientPacket<ClientTCPCommand>*		PacketFactory::build(ClientTCPHeader* header)
       return NULL;
       break;
     }
-}
-
-std::string const&	PacketFactory::disassemble(IClientPacket<ClientUDPCommand>* packet)
-{
-  std::string		ret;
-
-  delete(packet);
-}
-
-std::string const&	PacketFactory::disassemble(IClientPacket<ClientTCPCommand>* packet)
-{
-  std::string		ret;
-
-  delete(packet);
-}
-
-std::string const&	PacketFactory::disassemble(IServerPacket<ServerTCPResponse>* packet)
-{
-  std::string		ret;
-
-  delete(packet);
-}
-
-std::string const&	PacketFactory::disassemble(IServerPacket<ServerUDPResponse>* packet)
-{
-  std::string		ret;
-
-  delete(packet);
 }
