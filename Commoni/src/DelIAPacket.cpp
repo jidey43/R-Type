@@ -1,7 +1,7 @@
 # include <string.h>
 # include "DelIAPacket.h"
 
-DelIAPacket::DelIAPacket(ServerUDPResponse resp, int idx, int data) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data)), _data(new DelIAData), _header(new ServerUDPHeader)
+DelIAPacket::DelIAPacket(ServerUDPResponse resp, int idx, int data) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new DelIAData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;
