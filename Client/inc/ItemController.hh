@@ -5,6 +5,9 @@
 #include "GraphicalItem.h"
 #include "ObjectInfo.hpp"
 #include "BydoAlienGraphical.hh"
+#include "BasicPlayerProjectileGraphical.h"
+#include "BasicAlienProjectileGraphical.h"
+#include "PlayerGraphical.h"
 
 extern ViewController *vc;
 
@@ -19,7 +22,7 @@ public:
 	void						update();
 
 public:
-	void						addShip(int id);
+	void						addShip(sf::Vector2f speed, sf::Vector2i pos, float coeff);
 	void						moveShip(int id, sf::Vector2f);
 
 public:
@@ -27,7 +30,7 @@ public:
 							sf::Vector2i pos, float coeff);
 
 public:
-	void						addShot(sf::Vector2f, int, int, int);
+	void						addShot(Shot, sf::Vector2f speed, sf::Vector2i pos, float );
 
 public:
 	void						setBackgroud(int id);

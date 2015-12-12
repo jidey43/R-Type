@@ -19,7 +19,8 @@ bool AssetsController::loadAssets()
 		loadBackground() &&
 		loadShots() &&
 		loadButtons() &&
-		loadFonts()
+		loadFonts() &&
+		loadAliens()
 		)
 		return (true);
 	return (false);
@@ -36,13 +37,13 @@ bool AssetsController::loadShipsAssets()
 {
 	for (int i = 0; i != 4; i++)
 	{
-		_shipTexture.emplace_back(new sf::Texture);
+		_ships.emplace_back(new sf::Texture);
 	}
 	if (
-		_shipTexture[0]->loadFromFile(_assetsPath + "ships/ship1.png") &&
-		_shipTexture[1]->loadFromFile(_assetsPath + "ships/ship2.png") &&
-		_shipTexture[2]->loadFromFile(_assetsPath + "ships/ship3.png") &&
-		_shipTexture[3]->loadFromFile(_assetsPath + "ships/ship4.png")
+		_ships[0]->loadFromFile(_assetsPath + "ships/ship1.png") &&
+		_ships[1]->loadFromFile(_assetsPath + "ships/ship2.png") &&
+		_ships[2]->loadFromFile(_assetsPath + "ships/ship3.png") &&
+		_ships[3]->loadFromFile(_assetsPath + "ships/ship4.png")
 		)
 		return true;
 	return false;
@@ -53,12 +54,12 @@ bool AssetsController::loadBackground()
 	_rtypeLogo = new sf::Texture;
 	for (int i = 0; i != NUMBEROFBACKGROUND; i++)
 	{
-		_backgroundTexture.emplace_back(new sf::Texture);
+		_backgrounds.emplace_back(new sf::Texture);
 	}
 	if (
 		_rtypeLogo->loadFromFile(_assetsPath + "rtypelogo.png") && 
-		_backgroundTexture[MENU_BACKGROUND]->loadFromFile(_assetsPath + "background/menu_background.png") &&
-		_backgroundTexture[BACKGROUND_ONE]->loadFromFile(_assetsPath + "background/background1.png")
+		_backgrounds[MENU_BACKGROUND]->loadFromFile(_assetsPath + "background/menu_background.png") &&
+		_backgrounds[BACKGROUND_ONE]->loadFromFile(_assetsPath + "background/background1.png")
 		)
 		return true;
 	return false;
@@ -66,8 +67,11 @@ bool AssetsController::loadBackground()
 
 bool AssetsController::loadShots()
 {
-	_shipShot = new sf::Texture;
-	if (_shipShot->loadFromFile(_assetsPath + "shipShot.png"))
+	for (int i = 0; i != NUMBEROFSHOT; i++)
+		_shots.emplace_back(new sf::Texture);
+	if (_shots[BASICALIENSHOT]->loadFromFile(_assetsPath + "shots/alienShot.png") &&
+		_shots[BASICPLAYERSHOT]->loadFromFile(_assetsPath + "shots/playerShot.png")
+		)
 		return true;
 	return false;
 }
@@ -76,14 +80,14 @@ bool AssetsController::loadButtons()
 {
 	for (int i = 0; i != NUMBEROFBUTTON; i += 1)
 	{
-		_buttonTexture.emplace_back(new sf::Texture);
-		_buttonTextureHigh.emplace_back(new sf::Texture);
+		_buttons.emplace_back(new sf::Texture);
+		_buttonsHigh.emplace_back(new sf::Texture);
 	}
 	if (
-		_buttonTexture[JOIN]->loadFromFile(_assetsPath + "buttons/join.png") &&
-		_buttonTextureHigh[JOIN]->loadFromFile(_assetsPath + "buttons/join_high.png") &&
-		_buttonTexture[EXIT]->loadFromFile(_assetsPath + "buttons/exit.png") &&
-		_buttonTextureHigh[EXIT]->loadFromFile(_assetsPath + "buttons/exit_high.png")
+		_buttons[JOIN]->loadFromFile(_assetsPath + "buttons/join.png") &&
+		_buttonsHigh[JOIN]->loadFromFile(_assetsPath + "buttons/join_high.png") &&
+		_buttons[EXIT]->loadFromFile(_assetsPath + "buttons/exit.png") &&
+		_buttonsHigh[EXIT]->loadFromFile(_assetsPath + "buttons/exit_high.png")
 		)
 		return true;
 	return false;
@@ -100,6 +104,17 @@ bool AssetsController::loadFonts()
 	return false;
 }
 
+bool AssetsController::loadAliens()
+{
+	for (int i = 0; i != NUMBEROFALIEN; i++)
+		_aliens.emplace_back(new sf::Texture);
+	if (
+		_aliens[BYDO]->loadFromFile(_assetsPath + "aliens/bydo.png")
+		)
+		return true;
+	return false;
+}
+
 sf::Music * AssetsController::getSoundTrack()
 {
 	return _soundTrack;
@@ -107,24 +122,24 @@ sf::Music * AssetsController::getSoundTrack()
 
 sf::Texture* AssetsController::getShipTexture(int id)
 {
-	return _shipTexture[id - 1];
+	return _ships[id - 1];
 }
 
 sf::Texture* AssetsController::getBackground(int id)
 {
-	return _backgroundTexture[id];
+	return _backgrounds[id];
 }
 
-sf::Texture* AssetsController::getShot(int)
+sf::Texture* AssetsController::getShot(Shot type)
 {
-	return _shipShot;
+	return _shots[type];
 }
 
 sf::Texture * AssetsController::getButton(ButtonType button, bool highlight)
 {
 	if (highlight)
-		return _buttonTextureHigh[button];
-	return _buttonTexture[button];
+		return _buttonsHigh[button];
+	return _buttons[button];
 }
 
 sf::Texture	*AssetsController::getLogo()
@@ -135,4 +150,9 @@ sf::Texture	*AssetsController::getLogo()
 sf::Font* AssetsController::getFont(Font font)
 {
 	return _fonts[font];
+}
+
+sf::Texture * AssetsController::getAlien(AlienType type)
+{
+	return _aliens[type];
 }

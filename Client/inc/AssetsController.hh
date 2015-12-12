@@ -25,6 +25,27 @@ typedef enum e_Fonts
 	NUMBEROFFONTS
 }			Font;
 
+typedef enum e_Shot
+{
+	BASICALIENSHOT = 0,
+	BASICPLAYERSHOT,
+	NUMBEROFSHOT
+}			 Shot;
+
+typedef enum e_AlienType
+{
+	BYDO = 0,
+	GLAM,
+	DOKAN,
+	KAYBEROS,
+	RIOS,
+	SCANT,
+	SHELL,
+	YORK,
+	XELF16,
+	NUMBEROFALIEN
+}			AlienType;
+
 class							AssetsController
 {
 public:
@@ -39,15 +60,17 @@ public:
 	bool						loadShots();
 	bool						loadButtons();
 	bool						loadFonts();
+	bool						loadAliens();
 
 public:
 	sf::Music					*getSoundTrack();
 	sf::Texture					*getShipTexture(int id);
 	sf::Texture					*getBackground(int id);
-	sf::Texture					*getShot(int id);
+	sf::Texture					*getShot(Shot type);
 	sf::Texture					*getButton(ButtonType, bool);
 	sf::Texture					*getLogo();
 	sf::Font					*getFont(Font);
+	sf::Texture					*getAlien(AlienType);
 
 private:
 	std::string					_assetsPath;
@@ -56,11 +79,12 @@ private:
 	sf::Music					*_soundTrack;
 
 private:
-	std::vector<sf::Texture*>	_shipTexture;
-	std::vector<sf::Texture*>	_backgroundTexture;
-	std::vector<sf::Texture*>	_buttonTexture;
-	std::vector<sf::Texture*>	_buttonTextureHigh;
+	std::vector<sf::Texture*>	_ships;
+	std::vector<sf::Texture*>	_aliens;
+	std::vector<sf::Texture*>	_backgrounds;
+	std::vector<sf::Texture*>	_buttons;
+	std::vector<sf::Texture*>	_buttonsHigh;
+	std::vector<sf::Texture*>	_shots;
 	std::vector<sf::Font*>		_fonts;
-	sf::Texture*				_shipShot;
 	sf::Texture*				_rtypeLogo;
 };

@@ -28,16 +28,29 @@ void ItemController::setBackgroud(int id)
 	_background->setTexture(*(ac->getBackground(id)));
 }
 
-void ItemController::addShip(int id)
+void ItemController::addShip(sf::Vector2f speed, sf::Vector2i pos, float coeff)
 {
+	_items.emplace_back(new PlayerGraphical(speed, pos, coeff));
 }
 
 void ItemController::moveShip(int id, sf::Vector2f pos)
 {
 }
 
-void ItemController::addShot(sf::Vector2f startpos, int distance, int time, int skin)
+void ItemController::addShot(Shot type, sf::Vector2f speed, sf::Vector2i pos, float coeff)
 {
+	switch (type)
+	{
+	case BASICPLAYERSHOT:
+		_items.emplace_back(new BasicPlayerProjectileGrapical(speed, pos, coeff));
+		break;
+	case BASICALIENSHOT:
+		_items.emplace_back(new BasicAlienProjectileGrapical(speed, pos, coeff));
+		break;
+
+	default:
+		break;
+	}
 }
 
 void ItemController::addAlien(ObjectInfo::WaveType type, sf::Vector2f speed,
@@ -47,6 +60,8 @@ void ItemController::addAlien(ObjectInfo::WaveType type, sf::Vector2f speed,
 	{
 	case ObjectInfo::WaveType::BYDO :
 		_items.emplace_back(new BydoAlienGraphical(speed, pos, coeff));
+		break;
+	default:
 		break;
 	}
 }
