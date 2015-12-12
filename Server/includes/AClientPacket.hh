@@ -15,7 +15,7 @@ protected:
 
 public:
   T				getCommandType() const;
-  // virtual std::string const&	deserialize() = 0;
+  //virtual std::string&		deserialize() = 0;
   virtual bool			checkHeader() = 0;
   virtual void			setRawData(std::string const&) = 0;
 };

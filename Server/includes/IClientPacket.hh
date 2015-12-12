@@ -44,6 +44,7 @@ public:
   virtual T			getCommandType() const = 0;
   virtual void			setRawData(std::string const&) = 0;
   virtual bool			checkHeader() = 0;
+  //virtual std::string&		deserialize() = 0;
 };
 
 #endif
