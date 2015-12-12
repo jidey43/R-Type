@@ -1,5 +1,5 @@
 #ifndef CAUTCHUDPPACKET_H_
-# define CAUTCHUDP PACKET_H_
+# define CAUTCHUDPPACKET_H_
 
 # include "AClientPacket.hh"
 

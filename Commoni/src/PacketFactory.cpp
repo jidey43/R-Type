@@ -70,17 +70,17 @@ IClientPacket<ClientUDPCommand>*		PacketFactory::build(ClientUDPHeader *header)
 {
   switch(header->command)
     {
-    // case CAUTH_UDP:
-    //   return new CauthUDPPacket(header);
-    //   break;
+    case CAUTH_UDP:
+      return new CAuthUDPPacket(header);
+      break;
     // case FIRE:
-    //   return new JoinPacket(header);
+    //   return new FirePacket(header);
     //   break;
     // case SEND_MOVE:
-    //   return new NewGamePacket(header);
+    //   return new SendMovePacket(header);
     //   break;
     // case DISCONNECT:
-    //   return new NewGamePacket(header);
+    //   return new DisconnectPacket(header);
     //   break;
     default:
       return NULL;
