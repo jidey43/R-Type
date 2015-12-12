@@ -13,7 +13,7 @@ CAuthUDPPacket::CAuthUDPPacket(ClientUDPCommand resp, int idx, int success, std:
 }
 
 CAuthUDPPacket::CAuthUDPPacket(ClientUDPHeader* header)
-  : AClientPacket<ClientUDPCommand>(header->command, header->size), _data(new CAuthUDPData), _header(header)
+  : AClientPacket<ClientUDPCommand>(header->command, header->size + sizeof(*_header)), _data(new CAuthUDPData), _header(header)
 {
 }
 

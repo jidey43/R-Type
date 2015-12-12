@@ -14,7 +14,7 @@ CreIAPacket::CreIAPacket(ServerUDPResponse resp, int idx, int id, float x, float
 }
 
 CreIAPacket::CreIAPacket(ServerUDPHeader *header)
-  : AServerPacket<ServerUDPResponse>(header->command, header->size), _data(new CreIAData), _header(header)
+  : AServerPacket<ServerUDPResponse>(header->command, header->size + sizeof(*_header)), _data(new CreIAData), _header(header)
 {
 }
 

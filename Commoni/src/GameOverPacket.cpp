@@ -11,7 +11,7 @@ GameOverPacket::GameOverPacket(ServerTCPResponse resp, int data) : AServerPacket
 }
 
 GameOverPacket::GameOverPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command, header->size), _data(new GameOverData), _header(header)
+  : AServerPacket<ServerTCPResponse>(header->command, header->size + sizeof(*_header)), _data(new GameOverData), _header(header)
 {
 }
 
