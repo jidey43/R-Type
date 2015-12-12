@@ -39,7 +39,7 @@ SOCKET			CTCPSocket::startNetwork(std::string const &ip, std::string const &port
 
 void	CTCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientDatas *addr)
 {
-  std::cout << "size: " << size << std::endl;
+  std::cout << "send size: " << size << std::endl;
   int res = send(socket, (void*)buffer, size, 0);
 
   if (res == -1)
@@ -54,7 +54,6 @@ void			CTCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *a
   int			res;
 
   res = recv(socket, (void*)buffer, size, 0);
-  std::cout << "recv size: " << size << std::endl;
 
   std::cout << "received " << res << std::endl;
   if (res == -1)
