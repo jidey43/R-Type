@@ -12,7 +12,7 @@ GameInfoPacket::GameInfoPacket(ServerTCPResponse resp, int id, int port) : AServ
 }
 
 GameInfoPacket::GameInfoPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command, header->size), _data(new GameInfoData), _header(header)
+  : AServerPacket<ServerTCPResponse>(header->command, header->size + sizeof(*_header)), _data(new GameInfoData), _header(header)
 {
 }
 

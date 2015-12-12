@@ -12,7 +12,7 @@ DelIAPacket::DelIAPacket(ServerUDPResponse resp, int idx, int data) : AServerPac
 }
 
 DelIAPacket::DelIAPacket(ServerUDPHeader *header)
-  : AServerPacket<ServerUDPResponse>(header->command, header->size), _data(new DelIAData), _header(header)
+  : AServerPacket<ServerUDPResponse>(header->command, header->size + sizeof(*_header)), _data(new DelIAData), _header(header)
 {
 }
 

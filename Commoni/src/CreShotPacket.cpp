@@ -14,7 +14,7 @@ CreShotPacket::CreShotPacket(ServerUDPResponse resp, int idx, float x, float y, 
 }
 
 CreShotPacket::CreShotPacket(ServerUDPHeader *header)
-  : AServerPacket<ServerUDPResponse>(header->command, header->size), _data(new CreShotData), _header(header)
+  : AServerPacket<ServerUDPResponse>(header->command, header->size + sizeof(*_header)), _data(new CreShotData), _header(header)
 {
 }
 

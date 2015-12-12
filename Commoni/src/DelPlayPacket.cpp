@@ -10,7 +10,7 @@ DelPlayPacket::DelPlayPacket(ServerUDPResponse resp, int idx) : AServerPacket<Se
 }
 
 DelPlayPacket::DelPlayPacket(ServerUDPHeader *header)
-  : AServerPacket<ServerUDPResponse>(header->command, header->size), _header(header)
+  : AServerPacket<ServerUDPResponse>(header->command, header->size + sizeof(*_header)), _header(header)
 {
 }
 

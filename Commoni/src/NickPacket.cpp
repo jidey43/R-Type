@@ -2,7 +2,7 @@
 #include "NickPacket.h"
 
 NickPacket::NickPacket(ClientTCPCommand command, std::string const& name)
-  : AClientPacket<ClientTCPCommand>(command, sizeof(NickData)), _data(new NickData), _header(new ClientTCPHeader)
+  : AClientPacket<ClientTCPCommand>(command, sizeof(*_data) + sizeof(*_header)), _data(new NickData), _header(new ClientTCPHeader)
 {
   _header->magic = MAGIC;
   _header->command = command;
@@ -12,7 +12,7 @@ NickPacket::NickPacket(ClientTCPCommand command, std::string const& name)
 }
 
 NickPacket::NickPacket(ClientTCPHeader* header)
-  : AClientPacket<ClientTCPCommand>(header->command, header->size), _data(new NickData), _header(header)
+  : AClientPacket<ClientTCPCommand>(header->command, header->size + sizeof(*_header)), _data(new NickData), _header(header)
 {
   std::cout << "there" << std::endl;
 }

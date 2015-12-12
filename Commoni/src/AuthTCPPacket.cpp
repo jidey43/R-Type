@@ -11,7 +11,7 @@ AuthTCPPacket::AuthTCPPacket(ServerTCPResponse resp, Bool success) : AServerPack
 }
 
 AuthTCPPacket::AuthTCPPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command, header->size), _data(new AuthTCPData), _header(header)
+  : AServerPacket<ServerTCPResponse>(header->command, header->size + sizeof(*_header)), _data(new AuthTCPData), _header(header)
 {
 }
 

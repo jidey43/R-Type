@@ -15,7 +15,7 @@ DesGamePacket::DesGamePacket(ServerTCPResponse resp, int id, std::string const& 
 }
 
 DesGamePacket::DesGamePacket(ServerTCPHeader* header) :
-  AServerPacket<ServerTCPResponse>(header->command, header->size), _data(new DesGameData), _header(header)
+  AServerPacket<ServerTCPResponse>(header->command, header->size + sizeof(*_header)), _data(new DesGameData), _header(header)
 {
 }
 
