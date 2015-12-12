@@ -35,7 +35,8 @@ class NetworkHandler
   void						broadcast(IServerPacket<ServerTCPResponse>*);
   void						broadcast(IServerPacket<ServerUDPResponse>*);
   bool						sendToClient(ClientInfo *, IServerPacket<ServerTCPResponse> *);
-  void						receiveFromClient(ClientInfo *);
+  bool						receiveFromClient(ClientInfo *);
+  bool						tryReceive(ClientInfo *, char*, int size);
   bool						initSocket();
   bool						selectClient();
   ClientInfo*					getActiveClient();
