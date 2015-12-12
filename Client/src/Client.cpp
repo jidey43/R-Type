@@ -5,11 +5,11 @@
 
 
 Client::Client(std::string const & ip, std::string const & port)
-	: _network(new NetworkHandler(ip, port))
+	: _network(new CNetworkHandler(ip, port))
 {
   if (_network->initSocket())
     {
-      // std::string		str;
+      std::string		str;
       // std::cout << "Client started" << std::endl;
       // std::getline(std::cin, str);
       // _network->sendToServer(str);
@@ -29,12 +29,21 @@ void Client::start()
   while (1)
     {
       std::getline(std::cin, str);
-      // switch (str)
-      // 	{
-      // 	  case "1":
-      // 	    _network->sendToServer(new AddGame);
-      // 	}
-      // _network->receiveFromServer();
+      int i = std::atoi(str.c_str());
+      switch (i)
+      	{
+	case 1:
+	  std::cout << "sending newGamePacket" << std::endl;
+	  _network->sendToServer(new NewGamePacket(ADD_GAME, "lalalalallal"));
+	  break;
+	case 2:
+	  std::cout << i << std::endl;
+	  _network->sendToServer(new NickPacket(AUTH_TCP, "lalla"));
+	  break;
+	// case 2:
+	//   _network->sendToServer()
+      	}
+      _network->receiveFromServer();
       // std::cout << "SERVER : " << _network->getPacket() << std::endl;
     }
 }

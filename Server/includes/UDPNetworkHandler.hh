@@ -3,19 +3,19 @@
 
 # include <string>
 # include <vector>
-# include "TCPSocket.hh"
-# include "UDPSocket.hh"
+// # include "STCPSocket.hh"
+# include "SUDPSocket.h"
 # include "NetworkDefines.h"
-# include "INetwork.hh"
-# include "UNetwork.hh"
-# include "WNetwork.hh"
+# include "SINetwork.hh"
+# include "SUNetwork.hh"
+# include "SWNetwork.hh"
 # include "GamerInfo.hh"
 # include "PacketFactory.hh"
 # include "IServerPacket.hh"
 # include "IClientPacket.hh"
 # include "Exceptions.hpp"
 
-template class					INetwork<UDPSocket>;
+template class					SINetwork<SUDPSocket>;
 
 class UDPNetworkHandler
 {
@@ -37,7 +37,7 @@ public:
 private:
   std::string					_ip;
   std::string					_port;
-  INetwork<UDPSocket>*				_network;
+  SINetwork<SUDPSocket>*				_network;
   std::vector<GamerInfo*>*			_clients;
   PacketFactory*				_factory;
   SOCKET					_socket;

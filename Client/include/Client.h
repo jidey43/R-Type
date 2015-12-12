@@ -2,7 +2,7 @@
 # define CLIENT_H_
 
 # include <vector>
-# include "NetworkHandler.hh"
+# include "CNetworkHandler.hh"
 
 class Client
 {
@@ -11,7 +11,7 @@ public:
   ~Client();
 
  private:
-  NetworkHandler*				_network;
+  CNetworkHandler*				_network;
   /* ClientPacket*				_packet; */
   SOCKET						_listen;
 
