@@ -2,7 +2,7 @@
 # include "FailPacket.h"
 
 FailPacket::FailPacket(ServerTCPResponse resp)
-  : AServerPacket<ServerTCPResponse>(resp, 0), _header(new ServerTCPHeader)
+  : AServerPacket<ServerTCPResponse>(resp, sizeof(*_header)), _header(new ServerTCPHeader)
 {
   _header->command = resp;
   _header->magic = MAGIC;
@@ -20,10 +20,9 @@ FailPacket::~FailPacket()
 
 char*				FailPacket::deserialize()
 {
-  char*				buff = new char[sizeof(*_header) + 1];
+  char*				buff = new char[sizeof(*_header)];
 
   memcpy(buff, _header, sizeof(*_header));
-  buff[sizeof(*_header)] = 0;
   return buff;
 }
 

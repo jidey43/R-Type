@@ -31,8 +31,6 @@ private:
 public:
   bool						initSocket();
   bool						selectSockets();
-  bool						getActiveClient();
-  // void						broadcast(char* msg);
   bool						sendToServer(IClientPacket<ClientTCPCommand>*);
   IServerPacket<ServerTCPResponse>*		receiveFromServer();
   bool						tryReceive(char* header, int size);

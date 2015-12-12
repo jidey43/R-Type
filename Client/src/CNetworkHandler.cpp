@@ -30,11 +30,6 @@ bool CNetworkHandler::selectSockets()
   _activeFD.clear();
   _activeFD.push_back(_listen);
   _network->selectFD(_activeFD, NULL);
-  return true;
-}
-
-bool	 CNetworkHandler::getActiveClient()
-{
   if (_activeFD.size() < 1)
     return false;
   return true;
@@ -59,6 +54,8 @@ IServerPacket<ServerTCPResponse>*	CNetworkHandler::receiveFromServer()
   packet = _factory->build(header);
   if (!packet || !packet->checkHeader())
     return NULL;
+  if (header->size == 0)
+    return packet;
   buff = new char[header->size];
   if (!tryReceive(buff, header->size))
     return NULL;

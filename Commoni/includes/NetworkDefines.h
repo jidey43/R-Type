@@ -33,6 +33,7 @@ typedef enum
     AUTH_TCP = 1,
     ADD_GAME,
     JOIN_GAME,
+    REQ_GAME,
     QUIT
   }		ClientTCPCommand;
 

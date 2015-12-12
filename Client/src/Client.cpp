@@ -25,15 +25,19 @@ Client::~Client()
 void Client::start()
 {
   std::string		str;
+  std::string		str2;
 
   while (1)
     {
       std::getline(std::cin, str);
+
+      std::cout << str << std::endl;
+      str2 = str.substr(str.find(" "), std::string::npos);
       int i = std::atoi(str.c_str());
       switch (i)
       	{
 	case 1:
-	  _network->sendToServer(new NewGamePacket(ADD_GAME, "lalalalallal"));
+	  _network->sendToServer(new NewGamePacket(ADD_GAME, str2));
 	  _network->receiveFromServer();
 	  break;
 	case 2:

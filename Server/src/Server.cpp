@@ -25,7 +25,7 @@ Server::Server(std::string const & ip, std::string const & port)
 
 Server::~Server()
 {
-
+  delete _games;
   delete _network;
 }
 
@@ -66,6 +66,11 @@ void Server::parser(ClientInfo * client)
     case AUTH_TCP:
       {
 	setNick(client);
+	break;
+      }
+    case REQ_GAME:
+      {
+	describeGame(client);
 	break;
       }
     default:
