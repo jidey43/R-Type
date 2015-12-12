@@ -40,6 +40,7 @@ typedef struct
 
 typedef stringData NickData;
 typedef stringData NewGameData;
+typedef stringData CAuthUDPData;
 
 typedef struct
 {
