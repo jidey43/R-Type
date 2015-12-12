@@ -116,8 +116,9 @@ bool			NetworkHandler::receiveFromClient(ClientInfo* client)
   if (!packet || !packet->checkHeader())
     return ;
   buff = new char[header->size + 1];
-  if (!tryReceive(client, (char*)buff, header->size) || packet->setRawData(tmp))
+  if (!tryReceive(client, (char*)buff, header->size))
     return false;
+  packet->setRawData(tmp);
   client->setPacket(packet);
   return true;
 }
