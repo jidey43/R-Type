@@ -61,8 +61,8 @@ IServerPacket<ServerTCPResponse>*	CNetworkHandler::receiveFromServer()
   packet = _factory->build(header);
   if (!packet->checkHeader())
     return NULL;
-  buff = new char[header->size + 1];
-  memset(buff, 0, header->size + 1);
+  buff = new char[header->size];
+  memset(buff, 0, header->size);
   if (!tryReceive(buff, header->size))
     return NULL;
   packet->setRawData(buff);
@@ -73,7 +73,7 @@ bool			CNetworkHandler::tryReceive(char* header, int size)
 {
   try
     {
-      _network->recvData(header, sizeof(ServerTCPHeader), _listen, NULL);
+      _network->recvData(header, sizeof(size), _listen, NULL);
     }
   catch (Exceptions::NetworkExcept e)
     {
