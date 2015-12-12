@@ -59,7 +59,7 @@ IServerPacket<ServerTCPResponse>*	CNetworkHandler::receiveFromServer()
   if (!tryReceive((char*)header, sizeof(ServerTCPHeader)))
     return NULL;
   packet = _factory->build(header);
-  if (!packet->checkHeader())
+  if (!packet || !packet->checkHeader())
     return NULL;
   buff = new char[header->size + 1];
   memset(buff, 0, header->size + 1);

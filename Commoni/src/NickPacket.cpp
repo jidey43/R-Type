@@ -49,6 +49,7 @@ std::string const&	NickPacket::deserialize()
  char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
   static std::string		ret;
 
+  std::cout << sizeof(*_header) << " " << sizeof(*_data) << std::endl;
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
   buff[sizeof(*_header) + sizeof(*_data)] = 0;
