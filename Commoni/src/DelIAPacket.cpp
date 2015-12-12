@@ -1,28 +1,26 @@
 # include <string.h>
-# include "AuthUDPPacket.h"
+# include "DelIAPacket.h"
 
-AuthUDPPacket::AuthUDPPacket(ServerUDPResponse resp, int idx, int success, std::string const& name) : AServerPacket<ServerUDPResponse>(resp), _data(new AuthUDPData)
+DelIAPacket::DelIAPacket(ServerUDPResponse resp, int idx, int data) : AServerPacket<ServerUDPResponse>(resp), _data(new DelIAData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;
   _header->size = sizeof(*_data);
   _header->idx = idx;
-  _data->success = success;
-  bzero(_data->name, 256);
-  memcpy(&(_data->name), name.c_str(), name.size());
+  _data->data = data;
   _data->magic = MAGIC;
 }
 
-AuthUDPPacket::AuthUDPPacket(ServerUDPHeader* header)
-  : AServerPacket<ServerUDPResponse>(header->command), _data(new AuthUDPData), _header(header)
+DelIAPacket::DelIAPacket(ServerUDPHeader *header)
+  : AServerPacket<ServerUDPResponse>(header->command), _data(new DelIAData), _header(header)
 {
 }
 
-AuthUDPPacket::~AuthUDPPacket()
+DelIAPacket::~DelIAPacket()
 {
 }
 
-void			AuthUDPPacket::setRawData(std::string const& data)
+void			DelIAPacket::setRawData(std::string const& data)
 {
   void*			buff;
 
@@ -30,12 +28,12 @@ void			AuthUDPPacket::setRawData(std::string const& data)
   memcpy(_data, buff, sizeof(*_data));
 }
 
-AuthUDPData*		AuthUDPPacket::getData() const
+DelIAData*		DelIAPacket::getData() const
 {
   return _data;
 }
 
-bool			AuthUDPPacket::checkHeader()
+bool			DelIAPacket::checkHeader()
 {
   if (_header->magic != MAGIC)
     return false;
@@ -46,7 +44,7 @@ bool			AuthUDPPacket::checkHeader()
   return true;
 }
 
-std::string const&		AuthUDPPacket::deserialize()
+std::string const&		DelIAPacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
   static std::string		ret;

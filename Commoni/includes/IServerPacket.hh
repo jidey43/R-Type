@@ -51,12 +51,30 @@ typedef struct
   float				x;
   float				y;
   uint32_t			magic;
-}				CrePlayData;
+}				PosData;
+
+typedef struct
+{
+  float				x;
+  float				y;
+  int				speed;
+  uint32_t			magic;
+}				CreShotData;
+
+typedef struct
+{
+  int				id;
+  float				x;
+  float				y;
+  uint32_t			magic;
+}				CreIAData;
 
 typedef integerData GameOverData;
 typedef integerData AuthTCPData;
 typedef integerData GameListData;
-
+typedef PosData CrePlayData;
+typedef PosData DelShotData;
+typedef integerData DelIAData;
 
 template <typename T>
 class IServerPacket

@@ -1,28 +1,28 @@
 # include <string.h>
-# include "AuthUDPPacket.h"
+# include "CreShotPacket.h"
 
-AuthUDPPacket::AuthUDPPacket(ServerUDPResponse resp, int idx, int success, std::string const& name) : AServerPacket<ServerUDPResponse>(resp), _data(new AuthUDPData)
+CreShotPacket::CreShotPacket(ServerUDPResponse resp, int idx, float x, float y, int speed) : AServerPacket<ServerUDPResponse>(resp), _data(new CreShotData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;
   _header->size = sizeof(*_data);
   _header->idx = idx;
-  _data->success = success;
-  bzero(_data->name, 256);
-  memcpy(&(_data->name), name.c_str(), name.size());
+  _data->x = x;
+  _data->x = y;
+  _data->speed = speed;
   _data->magic = MAGIC;
 }
 
-AuthUDPPacket::AuthUDPPacket(ServerUDPHeader* header)
-  : AServerPacket<ServerUDPResponse>(header->command), _data(new AuthUDPData), _header(header)
+CreShotPacket::CreShotPacket(ServerUDPHeader *header)
+  : AServerPacket<ServerUDPResponse>(header->command), _data(new CreShotData), _header(header)
 {
 }
 
-AuthUDPPacket::~AuthUDPPacket()
+CreShotPacket::~CreShotPacket()
 {
 }
 
-void			AuthUDPPacket::setRawData(std::string const& data)
+void			CreShotPacket::setRawData(std::string const& data)
 {
   void*			buff;
 
@@ -30,12 +30,12 @@ void			AuthUDPPacket::setRawData(std::string const& data)
   memcpy(_data, buff, sizeof(*_data));
 }
 
-AuthUDPData*		AuthUDPPacket::getData() const
+CreShotData*		CreShotPacket::getData() const
 {
   return _data;
 }
 
-bool			AuthUDPPacket::checkHeader()
+bool			CreShotPacket::checkHeader()
 {
   if (_header->magic != MAGIC)
     return false;
@@ -46,7 +46,7 @@ bool			AuthUDPPacket::checkHeader()
   return true;
 }
 
-std::string const&		AuthUDPPacket::deserialize()
+std::string const&		CreShotPacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
   static std::string		ret;

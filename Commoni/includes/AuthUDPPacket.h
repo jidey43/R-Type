@@ -6,15 +6,18 @@
 class AuthUDPPacket : public AServerPacket<ServerUDPResponse>
 {
  public:
-  AuthUDPPacket(ServerUDPResponse, int, std::string const&);
+  AuthUDPPacket(ServerUDPResponse, int, int, std::string const&);
   AuthUDPPacket(ServerUDPHeader*);
   ~AuthUDPPacket();
 
   std::string const&		deserialize();
+  bool				checkHeader();
+  void				setRawData(std::string const&);
+  AuthUDPData*		getData() const;
 
  private:
-  ServerUDPHeader*		_header;
   AuthUDPData*			_data;
+  ServerUDPHeader*		_header;
 };
 
 #endif
