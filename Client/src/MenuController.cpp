@@ -16,8 +16,7 @@ MenuController::MenuController()
 	_buttons[EXIT] = new ExitButton;
 	_buttons[JOIN] = new JoinButton;
 
-	_background.setTexture(*(ac->getBackground(MENU_BACKGROUND)));
-	_background.setPosition(sf::Vector2f(0, 0));
+	_background = new Backgroud();
 	_logo.setTexture(*(ac->getLogo()));
 	_logo.setPosition(sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.05));
 }
@@ -67,11 +66,12 @@ void MenuController::update()
 	_ipArea->update(_keyboardStatus);
 	_portArea->update(_keyboardStatus);
 	_nicknameArea->update(_keyboardStatus);
+	_background->update();
 }
 
 void MenuController::drawMenuItems()
 {
-	vc->draw(&_background);
+	vc->draw(_background->getDrawable());
 	vc->draw(&_logo);
 	vc->draw(_ipArea->getTextArea());
 	vc->draw(_ipArea->getDrawableText());
