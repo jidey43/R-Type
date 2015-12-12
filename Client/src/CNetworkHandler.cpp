@@ -92,12 +92,12 @@ bool			CNetworkHandler::tryReceive(char* header, int size)
 
 bool			CNetworkHandler::sendToServer(IClientPacket<ClientTCPCommand>* packet)
 {
-  std::string	toSend = packet->deserialize();
+  char			*toSend = packet->deserialize();
 
   try
     {
       std::cout << "toSend = " << packet->getPacketSize() << std::endl;
-      _network->sendData((void*)(toSend.c_str()), packet->getPacketSize(), _listen, NULL);
+      _network->sendData(toSend, packet->getPacketSize(), _listen, NULL);
     }
   catch (Exceptions::NetworkExcept e)
     {

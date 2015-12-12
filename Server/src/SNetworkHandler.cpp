@@ -137,11 +137,11 @@ void			NetworkHandler::receiveFromClient(ClientInfo* client)
 
 bool			NetworkHandler::sendToClient(ClientInfo* client, IServerPacket<ServerTCPResponse>* packet)
 {
-  std::string	toSend = packet->deserialize();
+  char*			toSend = packet->deserialize();
 
   try
     {
-      _network->sendData((void*)toSend.c_str(), toSend.size(), client->getSocket(), NULL);
+      _network->sendData(toSend, packet->getPacketSize(), client->getSocket(), NULL);
     }
   catch (Exceptions::NetworkExcept e)
     {
