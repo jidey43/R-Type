@@ -69,6 +69,7 @@ void			STCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *a
 
   res = recv(socket, (void*)buffer, size, 0);
 
+  std::cout << "res : " << res << std::endl;
   if (res == -1)
     throw Exceptions::NetworkExcept("RECEIVE FAILED", errno);
   if (res == 0)

@@ -22,6 +22,7 @@ private:
   void					parser(ClientInfo* client);
   bool					describeGame(ClientInfo* client);
   bool					createGame(ClientInfo* client);
+  bool					setNick(ClientInfo* client);
   bool					joinGame(ClientInfo* client);
   bool					joinGame(ClientInfo* client, int id);
 };

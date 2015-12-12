@@ -57,8 +57,8 @@ bool NetworkHandler::selectClient()
   SOCKET sock = INVALID_SOCKET;
   if ((*fit) == _listen && !acceptNewClient())
     return false;
-  else
-    ++fit;
+  // else
+  //   ++fit;
 
   _activeClients.clear();
   std::vector<ClientInfo*>::iterator it;
@@ -88,6 +88,7 @@ ClientInfo*	NetworkHandler::getActiveClient()
   try
     {
       receiveFromClient(client);
+      std::cout << "passed try receive" << std::endl;
     }
   catch (Exceptions::NetworkExcept e)
     {
@@ -101,6 +102,7 @@ ClientInfo*	NetworkHandler::getActiveClient()
       closeConnection(client);
       return getActiveClient();
     }
+  std::cout << "suceess n getactive" << std::endl;
   return client;
 }
 
@@ -121,15 +123,22 @@ void			NetworkHandler::receiveFromClient(ClientInfo* client)
 
   client->setPacket(NULL);
   memset(header, 0, sizeof(ClientTCPHeader) + 1);
+  std::cout << "receive length" << sizeof(ClientTCPHeader) << std::endl;
   _network->recvData(header, sizeof(ClientTCPHeader), client->getSocket(), NULL);
+  std::cout << "enum : " << header->command << std::endl;
   packet = _factory->build(header);
   if (!packet->checkHeader())
     return ;
+  std::cout << "receive length" << header->size << std::endl;
   buff = new char[header->size + 1];
   memset(buff, 0, header->size + 1);
+  std::cout << "passed" << std::endl;
   _network->recvData(buff, header->size, client->getSocket(), NULL);
+  std::cout << "passed" << std::endl;
   tmp = std::string(buff);
+  std::cout << "passed" << std::endl;
   packet->setRawData(tmp);
+  std::cout << "passed" << std::endl;
   client->setPacket(packet);
 }
 
@@ -153,6 +162,7 @@ bool			NetworkHandler::sendToClient(ClientInfo* client, IServerPacket<ServerTCPR
       closeConnection(client);
       return false;
     }
+  std::cout << "success send" << std::endl;
   return true;
 }
 

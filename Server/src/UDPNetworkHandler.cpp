@@ -106,6 +106,16 @@ bool					UDPNetworkHandler::sendTo(GamerInfo *client,
   return true;
 }
 
+void					UDPNetworkHandler::broadcast(IServerPacket<ServerUDPResponse>* msg)
+{
+  std::vector<GamerInfo*>::iterator	it;
+
+  for (it = _clients->begin(); it != _clients->end(); ++it)
+    {
+      this->sendTo(*it, msg);
+    }
+}
+
 GamerInfo*				UDPNetworkHandler::selectClient()
 {
   std::vector<int>			fdList;
