@@ -58,6 +58,7 @@ IServerPacket<ServerTCPResponse>*	CNetworkHandler::receiveFromServer()
   memset(header, 0, sizeof(ServerTCPHeader));
   if (!tryReceive((char*)header, sizeof(ServerTCPHeader)))
     return NULL;
+  std::cout << header->size << std::endl;
   packet = _factory->build(header);
   if (!packet->checkHeader())
     return NULL;

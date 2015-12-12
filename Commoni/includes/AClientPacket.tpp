@@ -1,5 +1,6 @@
 template <typename T>
-AClientPacket<T>::AClientPacket(T cmd) : _command(cmd)
+AClientPacket<T>::AClientPacket(T cmd, uint32_t size)
+  : _command(cmd), _size(size)
 {
 }
 
@@ -12,6 +13,12 @@ template <typename T>
 T		AClientPacket<T>::getCommandType() const
 {
   return _command;
+}
+
+template <typename T>
+uint32_t	AClientPacket<T>::getDataSize() const
+{
+  return _size;
 }
 
 template class	AClientPacket<ClientTCPCommand>;
