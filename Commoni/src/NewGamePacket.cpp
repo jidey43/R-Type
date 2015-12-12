@@ -2,7 +2,7 @@
 #include "NewGamePacket.h"
 
 NewGamePacket::NewGamePacket(ClientTCPCommand command, std::string const& data)
-  : AClientPacket<ClientTCPCommand>(command), _data(new NewGameData), _header(new ClientTCPHeader)
+  : AClientPacket<ClientTCPCommand>(command, sizeof(NewGameData)), _data(new NewGameData), _header(new ClientTCPHeader)
 {
   _header->magic = MAGIC;
   _header->command = command;
@@ -12,7 +12,7 @@ NewGamePacket::NewGamePacket(ClientTCPCommand command, std::string const& data)
 }
 
 NewGamePacket::NewGamePacket(ClientTCPHeader* header)
-  : AClientPacket<ClientTCPCommand>(header->command), _data(new NewGameData), _header(header)
+  : AClientPacket<ClientTCPCommand>(header->command, header->size), _data(new NewGameData), _header(header)
 {
 }
 

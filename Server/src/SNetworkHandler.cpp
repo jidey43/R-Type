@@ -123,7 +123,7 @@ void			NetworkHandler::receiveFromClient(ClientInfo* client)
 
   client->setPacket(NULL);
   memset(header, 0, sizeof(ClientTCPHeader) + 1);
-  std::cout << "receive length" << sizeof(ClientTCPHeader) << std::endl;
+  std::cout << "send from server length" << sizeof(ClientTCPHeader) << std::endl;
   _network->recvData(header, sizeof(ClientTCPHeader), client->getSocket(), NULL);
   std::cout << "enum : " << header->command << std::endl;
   packet = _factory->build(header);

@@ -1,7 +1,7 @@
 #include "JoinPacket.hh"
 
 JoinPacket::JoinPacket(ClientTCPCommand command, int id)
-  : AClientPacket(command), _data(new JoinData), _header(new ClientTCPHeader)
+  : AClientPacket(command, sizeof(JoinData)), _data(new JoinData), _header(new ClientTCPHeader)
 {
   _header->magic = MAGIC;
   _header->command = command;
@@ -10,7 +10,7 @@ JoinPacket::JoinPacket(ClientTCPCommand command, int id)
 }
 
 JoinPacket::JoinPacket(ClientTCPHeader* header)
-  : AClientPacket(header->command), _data(new JoinData), _header(header)
+  : AClientPacket(header->command, header->size), _data(new JoinData), _header(header)
 {
 }
 
