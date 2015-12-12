@@ -22,7 +22,6 @@ SOCKET			CTCPSocket::startNetwork(std::string const &ip, std::string const &port
   hints.ai_protocol = IPPROTO_TCP;
   hints.ai_addr = NULL;
 
-  std::cout << "avant getaddrinfo" << std::endl;
   result = getaddrinfo(ip.c_str(), port.c_str(), &hints, &addr);
   if (result != 0) {
     throw Exceptions::NetworkExcept("GETADDRINFO ERROR", errno);
@@ -54,8 +53,6 @@ void			CTCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *a
   int			res;
 
   res = recv(socket, (void*)buffer, size, 0);
-  std::cout << "recv size: " << size << std::endl;
-
   std::cout << "received " << res << std::endl;
   if (res == -1)
     throw Exceptions::NetworkExcept("RECEIVE FAILED", errno);

@@ -1,7 +1,7 @@
 # include <string.h>
 # include "DelPlayPacket.h"
 
-DelPlayPacket::DelPlayPacket(ServerUDPResponse resp, int idx) : AServerPacket<ServerUDPResponse>(resp, sizeof(0)), _header(new ServerUDPHeader)
+DelPlayPacket::DelPlayPacket(ServerUDPResponse resp, int idx) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_header)), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;
