@@ -1,12 +1,12 @@
 # include <string.h>
 # include "AuthTCPPacket.h"
 
-AuthTCPPacket::AuthTCPPacket(ServerTCPResponse resp, int data) : AServerPacket<ServerTCPResponse>(resp), _header(new ServerTCPHeader), _data(new AuthTCPData)
+AuthTCPPacket::AuthTCPPacket(ServerTCPResponse resp, Bool success) : AServerPacket<ServerTCPResponse>(resp), _header(new ServerTCPHeader), _data(new AuthTCPData)
 {
   _header->size = sizeof(*_data);
   _header->magic = MAGIC;
   _header->command = resp;
-  _data->data = data;
+  _data->success = success;
   _data->magic = MAGIC;
 }
 

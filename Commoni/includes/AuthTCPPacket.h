@@ -6,7 +6,7 @@
 class AuthTCPPacket : public AServerPacket<ServerTCPResponse>
 {
  public:
-  AuthTCPPacket(ServerTCPResponse, int);
+  AuthTCPPacket(ServerTCPResponse, Bool);
   AuthTCPPacket(ServerTCPHeader*);
   ~AuthTCPPacket();
 
