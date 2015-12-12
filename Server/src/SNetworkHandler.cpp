@@ -85,7 +85,7 @@ ClientInfo*	NetworkHandler::getActiveClient()
   ClientInfo*	client = _activeClients.back();
 
   _activeClients.pop_back();
-  if (receiveFromClient(client))
+  if (!receiveFromClient(client))
     return NULL;
   std::cout << "suceess n getactive" << std::endl;
   if (client->getPacket() != NULL)
