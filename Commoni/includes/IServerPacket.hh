@@ -50,14 +50,14 @@ typedef struct
   uint32_t			success;
   char				name[256];
   uint32_t			magic;
-}				AuthUDPData;
+}  __attribute__ ((packed))    	AuthUDPData;
 
 typedef struct
 {
   float				x;
   float				y;
   uint32_t			magic;
-}				PosData;
+}  __attribute__ ((packed))	PosData;
 
 typedef struct
 {
@@ -65,7 +65,7 @@ typedef struct
   float				y;
   int				speed;
   uint32_t			magic;
-}				CreShotData;
+}  __attribute__ ((packed))	CreShotData;
 
 typedef struct
 {
@@ -73,7 +73,7 @@ typedef struct
   float				x;
   float				y;
   uint32_t			magic;
-}				CreIAData;
+}  __attribute__ ((packed))	CreIAData;
 
 typedef integerData GameOverData;
 typedef integerData GameListData;
