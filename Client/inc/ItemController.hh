@@ -1,8 +1,6 @@
 #pragma once
 
 #include <vector>
-#include "ShipItem.hh"
-#include "ShotItem.hh"
 #include "ViewController.hh"
 #include "GraphicalItem.h"
 #include "ObjectInfo.hpp"

@@ -2,7 +2,7 @@
 #include "ViewController.hh"
 #include "AssetsController.hh"
 
-extern ViewController *vc;
+//extern ViewController *vc;
 extern AssetsController *ac;
 
 class GraphicalItem

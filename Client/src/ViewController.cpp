@@ -18,7 +18,7 @@ void							ViewController::clear()
 	_mainWindow->clear();
 }
 
-void ViewController::operator<<(GameItem *item)
+void ViewController::operator<<(GraphicalItem *item)
 {
 	draw(item->getDrawable());
 }

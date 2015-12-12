@@ -3,9 +3,9 @@
 # include <iostream>
 # include <SFML/Graphics.hpp>
 # include <SFML/Audio.hpp>
-# include "GameItem.hh"
 # include "KeyboardStatus.hh"
 # include "AssetsController.hh"
+# include "GraphicalItem.h"
 
 extern AssetsController *ac;
 
@@ -26,7 +26,7 @@ extern AssetsController *ac;
 #define BUTTON_X 100
 #define BUTTON_Y 50
 
-class GameItem;
+class GraphicalItem;
 
 class				ViewController
 {
@@ -39,7 +39,7 @@ public:
 	void			refresh();
 	void			draw(sf::Drawable*);
 	void			clear();
-	void			operator<<(GameItem*);
+	void			operator<<(GraphicalItem*);
 
 //INPUT STUFF
 	keyboardStatus	getKeyboardStatus();
