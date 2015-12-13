@@ -1,6 +1,4 @@
-#ifdef _WIN32
-
-#include "CUDPSocket.h"
+#include "CUDPSocket.hh"
 
 CUDPSocket::CUDPSocket()
 {
@@ -19,7 +17,7 @@ int			CUDPSocket::startNetwork(std::string const &ip, std::string const &port, a
   hints->ai_family = AF_INET;
   hints->ai_socktype = SOCK_DGRAM;
   hints->ai_protocol = IPPROTO_UDP;
-  hints.ai_addr = INADDR_ANY;
+  hints->ai_addr = INADDR_ANY;
   result = getaddrinfo(ip.c_str(), port.c_str(), hints, &addr);
   if (result != 0) {
     throw Exceptions::NetworkExcept("GETADDRINFO ERROR", errno);
@@ -50,5 +48,3 @@ void			CUDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *add
   if (res == 0)
     throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
 }
-
-#endif
