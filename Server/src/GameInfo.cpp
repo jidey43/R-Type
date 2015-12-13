@@ -1,12 +1,14 @@
 #include "GameInfo.h"
 
-GameInfo::GameInfo(std::string const& name, int id, int port)
-  : _name(name), _id(id), _port(port)
+GameInfo::GameInfo(std::string const& name, int id, int port, std::string const& ip)
+  : _name(name), _id(id), _port(port), _thread(new UThread(std::to_string(port), ip))
 {
 }
 
 GameInfo::~GameInfo()
 {
+  for (std::vector<ClientInfo*>::iterator it = _clients.begin(); it != _clients.end(); ++it)
+    (*it)->setInGame(false);
 }
 
 std::string const& GameInfo::getName() const
@@ -35,16 +37,25 @@ bool GameInfo::addClient(ClientInfo * client)
     _clients.push_back(client);
   else
     return false;
+  client->setInGame(true);
   return true;
 }
 
-std::string const GameInfo::getClients() const
+std::string const& GameInfo::getClients() const
 {
-  std::string	buffer = "";
+  static std::string	buffer = "";
 
   for (std::vector<ClientInfo*>::const_iterator it = _clients.begin(); it != _clients.end(); ++it)
     {
       buffer += (*it)->getNickname() + "\n";
     }
   return buffer;
+}
+
+int		GameInfo::tryJoinGame()
+{
+  if (_thread->TryWaitThread())
+    return _port;
+  else
+    return -1;
 }

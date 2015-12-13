@@ -5,7 +5,6 @@
 # include "GamerInfo.hh"
 # include "UDPNetworkHandler.hh"
 
-
 class GameCore
 {
 public :

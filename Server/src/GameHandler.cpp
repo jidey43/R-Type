@@ -1,7 +1,8 @@
+#include <algorithm>
 #include "GameHandler.h"
 
-GameHandler::GameHandler()
-  : _maxID(13)
+GameHandler::GameHandler(std::string const& ip)
+  : _maxID(13), _ip(ip)
 {
   for (int i = BASE_PORT; i < BASE_PORT + MAX_GAME; ++i)
     {
@@ -18,7 +19,9 @@ GameInfo* GameHandler::addClientInGame(ClientInfo * client, int id)
   for (std::vector<GameInfo*>::iterator it = _gameList.begin(); it != _gameList.end(); ++it)
     {
       if ((*it)->getID() == id && (*it)->addClient(client))
-	return (*it);
+	{
+	  return (*it);
+	}
     }
   return NULL;
 }
@@ -30,12 +33,28 @@ int GameHandler::startNewGame(std::string const & name)
   for (std::vector<GameInfo*>::iterator it = _gameList.begin(); it != _gameList.end(); ++it)
     if ((*it)->getName() == name)
       return -1;
-  _gameList.push_back(new GameInfo(name, _maxID++, _ports.back()));
+  _gameList.push_back(new GameInfo(name, _maxID++, _ports.back(), _ip));
   _ports.pop_back();
   return _maxID - 1;
 }
 
 std::vector<GameInfo*>& GameHandler::getGameList()
 {
+  int		port;
+
+  for (std::vector<GameInfo*>::iterator it = _gameList.begin(); it != _gameList.end(); ++it)
+    {
+      if ((port = (*it)->tryJoinGame()) != -1)
+	{
+	  _ports.push_back(port);
+	  closeClient(it, *it);
+	}
+    }
   return _gameList;
+}
+
+void			GameHandler::closeClient(std::vector<GameInfo*>::iterator& it, GameInfo* game)
+{
+  delete (game);
+  it = _gameList.erase(std::find(_gameList.begin(), _gameList.end(), game));
 }

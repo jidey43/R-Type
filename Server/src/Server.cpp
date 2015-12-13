@@ -15,7 +15,7 @@
 
 Server::Server(std::string const & ip, std::string const & port)
  : _network(new NetworkHandler(ip, port)),
-	  _games(new GameHandler())
+	  _games(new GameHandler(ip))
 {
   if (_network->initSocket())
     {
@@ -51,34 +51,37 @@ void Server::answerClients()
 
 void Server::parser(ClientInfo * client)
 {
-  switch (client->getPacket()->getCommandType())
-    {
-    case JOIN_GAME:
+  if (client->isInGame())
+    switch (client->getPacket()->getCommandType())
       {
-	joinGame(client);
-	break;
+      case JOIN_GAME:
+	{
+	  joinGame(client);
+	  break;
+	}
+      case ADD_GAME:
+	{
+	  createGame(client);
+	  break;
+	}
+      case AUTH_TCP:
+	{
+	  setNick(client);
+	  break;
+	}
+      case REQ_GAME:
+	{
+	  describeGame(client);
+	  break;
+	}
+      default:
+	{
+	  std::cout << "no match..." << std::endl;
+	  break;
+	}
       }
-    case ADD_GAME:
-      {
-	createGame(client);
-	break;
-      }
-    case AUTH_TCP:
-      {
-	setNick(client);
-	break;
-      }
-    case REQ_GAME:
-      {
-	describeGame(client);
-	break;
-      }
-    default:
-      {
-	std::cout << "no match..." << std::endl;
-	break;
-      }
-    }
+  else
+    _network->sendToClient(client, new FailPacket(FAIL));
 }
 
 bool Server::describeGame(ClientInfo * client)
@@ -100,7 +103,7 @@ bool Server::createGame(ClientInfo * client)
 
   if (client->isInGame() || (id = _games->startNewGame(dynamic_cast<NewGamePacket*>(client->getPacket())->getData()->data)) == -1)
     {
-      _network->sendToClient(client, new FailPacket(DES_GAME));
+      _network->sendToClient(client, new FailPacket(FAIL));
     }
   else
     {
