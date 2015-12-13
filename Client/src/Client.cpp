@@ -5,7 +5,7 @@
 
 
 Client::Client(std::string const & ip, std::string const & port)
-	: _network(new CNetworkHandler(ip, port))
+	: _network(new CUDPNetworkHandler(ip, port))
 {
   if (_network->initSocket())
     {

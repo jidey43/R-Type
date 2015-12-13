@@ -1,7 +1,7 @@
 # include <string.h>
 # include "CAuthUDPPacket.h"
 
-CAuthUDPPacket::CAuthUDPPacket(ClientUDPCommand resp, int idx, int success, std::string const& name) : AClientPacket<ClientUDPCommand>(resp, sizeof(*_data) + sizeof(*_header)), _data(new CAuthUDPData)
+CAuthUDPPacket::CAuthUDPPacket(ClientUDPCommand resp, int idx, std::string const& name) : AClientPacket<ClientUDPCommand>(resp, sizeof(*_data) + sizeof(*_header)), _data(new CAuthUDPData)
 {
   _header->magic = MAGIC;
   _header->command = resp;
