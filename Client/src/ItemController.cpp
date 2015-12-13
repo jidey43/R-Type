@@ -3,6 +3,7 @@
 ItemController::ItemController()
 {
 	_background = new sf::Sprite;
+	_playerCount = 1;
 }
 
 ItemController::~ItemController()
@@ -30,7 +31,8 @@ void ItemController::setBackgroud(int id)
 
 void ItemController::addShip(sf::Vector2f speed, sf::Vector2i pos, float coeff)
 {
-	_items.emplace_back(new PlayerGraphical(speed, pos, coeff));
+  _items.emplace_back(new PlayerGraphical(speed, pos, coeff, _playerCount));
+  _playerCount = _playerCount + 1;
 }
 
 void ItemController::moveShip(int id, sf::Vector2f pos)

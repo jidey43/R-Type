@@ -10,11 +10,14 @@ BydoAlienGraphical::BydoAlienGraphical(sf::Vector2f speed, sf::Vector2i pos, flo
 	);
 }
 
-void BydoAlienGraphical::update()
+bool BydoAlienGraphical::update()
 {
-	BydoAlien::update();
+  bool	ret;
+
+  ret = BydoAlien::update();
 	_sprite->setPosition(
 		(_pos.x / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2),
 		(_pos.y / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2)
 		);
+	return (ret);
 }
