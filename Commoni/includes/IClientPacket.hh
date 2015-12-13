@@ -21,6 +21,11 @@ typedef struct
 
 typedef struct
 {
+  int		id;
+} __attribute__ ((packed))	JoinData;
+
+typedef struct
+{
   char				data[BUFF_LEN];
   uint32_t			magic;
 } __attribute__ ((packed))	stringData;
@@ -41,14 +46,6 @@ typedef struct
 typedef stringData NickData;
 typedef stringData NewGameData;
 typedef stringData CAuthUDPData;
-
-
-typedef struct
-{
-  int		id;
-} __attribute__ ((packed)) JoinData;
-
-typedef NewGameData NickData;
 
 template <typename T>
 class IClientPacket
