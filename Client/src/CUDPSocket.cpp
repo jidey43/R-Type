@@ -1,6 +1,4 @@
-#ifdef _WIN32
-
-#include "CUDPSocket.h"
+#include "CUDPSocket.hh"
 
 CUDPSocket::CUDPSocket()
 {
@@ -19,7 +17,7 @@ int			CUDPSocket::startNetwork(std::string const &ip, std::string const &port, a
   hints->ai_family = AF_INET;
   hints->ai_socktype = SOCK_DGRAM;
   hints->ai_protocol = IPPROTO_UDP;
-  hints.ai_addr = INADDR_ANY;
+  hints->ai_addr = INADDR_ANY;
   result = getaddrinfo(ip.c_str(), port.c_str(), hints, &addr);
   if (result != 0) {
     throw Exceptions::NetworkExcept("GETADDRINFO ERROR", errno);
@@ -32,7 +30,11 @@ int			CUDPSocket::startNetwork(std::string const &ip, std::string const &port, a
 
 void			CUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr)
 {
-  int res = sendto(_listen, (void *)buffer, size, 0, (sockaddr *)&addr, sizeof(addr));
+  socklen_t			addr_len = sizeof(addr);
+
+  std::cout << "socket = " << _listen << " ; buffer = " << (char*)buffer << " ; size = " << size  << std::endl;
+
+  int res = sendto(_listen, (void *)buffer, size, 0, (sockaddr *)addr, &addr_len);
   if (res == -1)
     throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
   if (res == 0)
@@ -44,11 +46,9 @@ void			CUDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *add
   socklen_t			addr_len = sizeof(addr);
   int				res;
 
-  res = recvfrom(_listen, (void *)buffer, size, 0, (sockaddr *)&addr, &addr_len);
+  res = recvfrom(_listen, (void *)buffer, size, 0, (sockaddr *)addr, &addr_len);
   if (res == -1)
     throw Exceptions::NetworkExcept("RECEIVEFROM ERROR", errno);
   if (res == 0)
     throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
 }
-
-#endif

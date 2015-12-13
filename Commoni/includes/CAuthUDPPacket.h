@@ -1,12 +1,12 @@
 #ifndef CAUTCHUDPPACKET_H_
-# define CAUTCHUDP PACKET_H_
+# define CAUTCHUDPPACKET_H_
 
 # include "AClientPacket.hh"
 
 class CAuthUDPPacket : public AClientPacket<ClientUDPCommand>
 {
  public:
-  CAuthUDPPacket(ClientUDPCommand, int, int, std::string const&);
+  CAuthUDPPacket(ClientUDPCommand, int, std::string const&);
   CAuthUDPPacket(ClientUDPHeader*);
   ~CAuthUDPPacket();
 

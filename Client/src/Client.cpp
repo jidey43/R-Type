@@ -1,5 +1,5 @@
 #include "Client.h"
-
+#include "CNetworkHandler.hh"
 #include <iostream>
 #include "NetworkDefines.h"
 
