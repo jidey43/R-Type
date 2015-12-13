@@ -30,7 +30,7 @@ private:
 
 public:
   bool						initSocket();
-  GamerInfo*					selectClient();
+  GamerInfo*					selectClient(struct timeval *to = NULL);
   IClientPacket<ClientUDPCommand>*		receiveFrom(GamerInfo*);
   bool						sendTo(GamerInfo*, IServerPacket<ServerUDPResponse>*);
   void						broadcast(IServerPacket<ServerUDPResponse>*);

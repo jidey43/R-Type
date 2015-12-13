@@ -117,13 +117,13 @@ void					UDPNetworkHandler::broadcast(IServerPacket<ServerUDPResponse>* msg)
     }
 }
 
-GamerInfo*				UDPNetworkHandler::selectClient()
+GamerInfo*				UDPNetworkHandler::selectClient(struct timeval *to)
 {
   std::vector<int>			fdList;
   GamerInfo*				client;
 
   fdList.push_back(_socket);
-  _network->selectClients(fdList, NULL);
+  _network->selectClients(fdList, to);
   if (!fdList.empty())
     {
       ClientDatas*	clientDatas = new ClientDatas();
