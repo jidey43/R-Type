@@ -34,7 +34,7 @@ void			CUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDat
 
   std::cout << "socket = " << _listen << " ; buffer = " << (char*)buffer << " ; size = " << size  << std::endl;
 
-  int res = sendto(_listen, (void *)buffer, size, 0, (sockaddr *)addr, &addr_len);
+  int res = sendto(_listen, (void *)buffer, size, 0, (sockaddr *)addr, addr_len);
   if (res == -1)
     throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
   if (res == 0)
@@ -43,7 +43,7 @@ void			CUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDat
 
 void			CUDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)
 {
-  socklen_t			addr_len = sizeof(addr);
+  socklen_t			addr_len;
   int				res;
 
   res = recvfrom(_listen, (void *)buffer, size, 0, (sockaddr *)addr, &addr_len);
