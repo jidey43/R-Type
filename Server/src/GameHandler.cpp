@@ -40,6 +40,12 @@ int GameHandler::startNewGame(std::string const & name)
 
 std::vector<GameInfo*>& GameHandler::getGameList()
 {
+  tryJoinGames();
+  return _gameList;
+}
+
+void		GameHandler::tryJoinGames()
+{
   int		port;
 
   for (std::vector<GameInfo*>::iterator it = _gameList.begin(); it != _gameList.end(); ++it)
@@ -47,13 +53,12 @@ std::vector<GameInfo*>& GameHandler::getGameList()
       if ((port = (*it)->tryJoinGame()) != -1)
 	{
 	  _ports.push_back(port);
-	  closeClient(it, *it);
+	  closeGame(it, *it);
 	}
     }
-  return _gameList;
 }
 
-void			GameHandler::closeClient(std::vector<GameInfo*>::iterator& it, GameInfo* game)
+void			GameHandler::closeGame(std::vector<GameInfo*>::iterator& it, GameInfo* game)
 {
   delete (game);
   it = _gameList.erase(std::find(_gameList.begin(), _gameList.end(), game));

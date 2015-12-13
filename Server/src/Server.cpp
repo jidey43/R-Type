@@ -34,6 +34,7 @@ void Server::start()
   while (1)
     {
       _network->selectClient();
+      _games->tryJoinGames();
       answerClients();
     }
 }

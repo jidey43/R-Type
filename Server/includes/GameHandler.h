@@ -21,7 +21,8 @@ class GameHandler
   GameInfo*				addClientInGame(ClientInfo* client, int id);
   int					startNewGame(std::string const& name);
   std::vector<GameInfo*>&		getGameList();
-  void					closeClient(std::vector<GameInfo*>::iterator& it, GameInfo* game);
+  void					closeGame(std::vector<GameInfo*>::iterator& it, GameInfo* game);
+  void					tryJoinGames();
 };
 
 #endif

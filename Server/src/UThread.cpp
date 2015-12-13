@@ -10,6 +10,7 @@ UThread::UThread(std::string const& port, std::string const& ip)
 
 UThread::~UThread()
 {
+  DestroyThread();
 }
 
 bool UThread::InitThread(void routine(std::string const& port, std::string const& ip))

@@ -12,8 +12,7 @@ public:
 
  private:
   CNetworkHandler*				_network;
-  /* ClientPacket*				_packet; */
-  SOCKET						_listen;
+  SOCKET					_listen;
 
  public:
   void						start();
