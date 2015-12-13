@@ -30,6 +30,7 @@ class NetworkHandler
   SINetwork<STCPSocket>*				_network;
   std::vector<ClientInfo*>			_activeClients;
   PacketFactory*				_factory;
+  struct timeval				_to;
 
  public:
   void						broadcast(IServerPacket<ServerTCPResponse>*);

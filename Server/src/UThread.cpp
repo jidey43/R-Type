@@ -1,43 +1,49 @@
-#ifdef __linux__
+// #ifdef __linux__
 
 #include "UThread.h"
 
-CUThread::CUThread(SafeQueue* stock)
-  : _safeStock(stock)
+UThread::UThread(std::string const& port, std::string const& ip)
+  : _port(port), _ip(ip)
 {
 }
 
 
-CUThread::~CUThread()
+UThread::~UThread()
 {
+  DestroyThread();
 }
 
-bool CUThread::InitThread(void routine(SafeQueue* stock))
+bool UThread::InitThread(void routine(std::string const& port, std::string const& ip))
 {
-	_routine = routine;
-	return true;
+  _routine = routine;
+  return true;
 }
 
-bool CUThread::StartThread()
+bool UThread::StartThread()
 {
-	_thread = new std::thread(_routine, _safeStock);
-	return true;
+  _thread = new std::thread(_routine, _port, _ip);
+  return true;
 }
 
-bool CUThread::WaitThread()
+bool UThread::TryWaitThread()
 {
-	_thread->join();
-	return true;
+  if (_thread->joinable())
+    {
+      _thread->join();
+      return true;
+    }
+  else
+    return false;
 }
 
-void CUThread::DestroyThread()
+void UThread::DestroyThread()
 {
-	delete _thread;
+  delete _thread;
 }
 
-IThread*				getThreadInstance(SafeQueue* queue)
-{
-	return new CUThread(queue);
-}
+// IThread*				getThreadInstance(SafeQueue* queue)
+// {
+//   return new UThread(queue);
+// }
 
-#endif
+// #endif

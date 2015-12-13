@@ -9,10 +9,6 @@ Client::Client(std::string const & ip, std::string const & port)
 {
   if (_network->initSocket())
     {
-      std::string		str;
-      // std::cout << "Client started" << std::endl;
-      // std::getline(std::cin, str);
-      // _network->sendToServer(str);
       start();
     }
 }

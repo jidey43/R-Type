@@ -23,6 +23,7 @@ class ClientInfo
 
  public:
   bool					isInGame() const;
+  void					setInGame(bool inGame);
   void					setPacket(IClientPacket<ClientTCPCommand>*);
   IClientPacket<ClientTCPCommand>*	getPacket() const;
   SOCKET				getSocket() const;

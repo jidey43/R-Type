@@ -11,6 +11,8 @@ NetworkHandler::NetworkHandler(std::string const & ip, std::string const & port)
 	  _network(getNetworkInstance<STCPSocket>()),
 	  _factory(new PacketFactory())
 {
+  _to.tv_usec = 100;
+  _to.tv_sec = 0;
 }
 
 NetworkHandler::~NetworkHandler()
@@ -49,7 +51,7 @@ bool NetworkHandler::selectClient()
   fdList.push_back(_listen);
   for (std::vector<ClientInfo*>::iterator it = _clientList.begin(); it != _clientList.end(); ++it)
     fdList.push_back((*it)->getSocket());
-  _network->selectClients(fdList, NULL);
+  _network->selectClients(fdList, &_to);
   if (fdList.size() <= 0)
     return false;
 
@@ -57,8 +59,6 @@ bool NetworkHandler::selectClient()
   SOCKET sock = INVALID_SOCKET;
   if ((*fit) == _listen && !acceptNewClient())
     return false;
-  // else
-  //   ++fit;
 
   _activeClients.clear();
   std::vector<ClientInfo*>::iterator it;

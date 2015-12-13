@@ -9,19 +9,20 @@
 
 class CWThread : public IThread
 {
-public:
-	CWThread(SafeQueue *safeStock);
-	~CWThread();
+ public:
+  CWThread(std::string const& port, std::string const& ip);
+  ~CWThread();
 
-private:
-	SafeQueue*	_safeStock;
-	HANDLE		_thread;
+ private:
+  std::string		_port;
+  std::string		_ip;
+  HANDLE		_thread;
 
-public:
-	bool	InitThread(void routine(SafeQueue *params));
-	bool	StartThread();
-	bool	WaitThread();
-	void	DestroyThread();
+ public:
+  bool			InitThread(void routine(std::string const& port, std::string const& ip));
+  bool			StartThread();
+  bool			WaitThread();
+  void			DestroyThread();
 };
 
 # endif

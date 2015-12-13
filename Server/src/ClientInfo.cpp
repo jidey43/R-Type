@@ -22,6 +22,11 @@ bool ClientInfo::isInGame() const
   return _isInGame;
 }
 
+void ClientInfo::setInGame(bool inGame)
+{
+  _isInGame = inGame;
+}
+
 void ClientInfo::setPacket(IClientPacket<ClientTCPCommand>* packet)
 {
   if (!_packet)
