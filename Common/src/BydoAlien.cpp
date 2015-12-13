@@ -8,7 +8,7 @@ BydoAlien::BydoAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff) : Alien(
 BydoAlien::~BydoAlien()
 {}
 
-void		BydoAlien::update()
+bool		BydoAlien::update()
 {}
 
 IObject		*BydoAlien::BasicShoot()

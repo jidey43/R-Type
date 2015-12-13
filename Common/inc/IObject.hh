@@ -15,7 +15,7 @@ public:
   virtual sf::Vector2i			getPos() const = 0;
   virtual sf::Vector2f			getSpeed() const = 0;
   virtual sf::Vector2i			getSize() const = 0;
-  virtual void				update() = 0;
+  virtual bool				update() = 0;
 };
 
 #endif

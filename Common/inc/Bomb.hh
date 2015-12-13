@@ -10,7 +10,7 @@ public:
   ~Bomb();
 
 public:
-  void		update();
+  bool		update();
   void	        boum();
 
 private:

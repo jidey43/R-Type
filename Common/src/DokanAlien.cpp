@@ -8,7 +8,7 @@ DokanAlien::DokanAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff) : Alie
 DokanAlien::~DokanAlien()
 {}
 
-void	        DokanAlien::update()
+bool	        DokanAlien::update()
 {}
 
 IObject		*DokanAlien::BasicShoot()

@@ -10,7 +10,7 @@ public:
   ~Alien();
 
 public:
-  void		update();
+  bool		update();
   IObject	*Basicshoot();
 };
 

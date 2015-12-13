@@ -7,5 +7,5 @@ class BasicPlayerProjectileGrapical : public BasicPlayerProjectile, public Graph
 {
 public:
 	BasicPlayerProjectileGrapical(sf::Vector2f speed, sf::Vector2i pos, float coeff);
-	void			update();
+	bool			update();
 };

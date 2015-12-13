@@ -1,14 +1,14 @@
 #include "Player.hh"
 #include <stdlib.h>
 
-Player::Player(sf::Vector2f speed, sf::Vector2i pos, float coeff) : Object(speed, pos, coeff)
+Player::Player(sf::Vector2f speed, sf::Vector2i pos, float coeff, int id) : Object(speed, pos, coeff), _id(id)
 { 
   _objType = ObjectInfo::PLAYER;
 }
 
 Player::~Player() {}
 
-void		Player::update()
+bool		Player::update()
 {
 }
 

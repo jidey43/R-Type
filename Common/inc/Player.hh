@@ -7,12 +7,15 @@
 class Player: public Object
 {
 public:
-  Player(sf::Vector2f, sf::Vector2i, float );
+  Player(sf::Vector2f, sf::Vector2i, float, int);
   ~Player();
 
 public:
-  void		update();
+  bool		update();
   IObject	*BasicShoot();
+
+private:
+  int		_id;
 };
 
 # endif

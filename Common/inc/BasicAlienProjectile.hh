@@ -10,7 +10,7 @@ public:
   ~BasicAlienProjectile();
 
 public:
-  void		update();
+  bool		update();
 };
 
 # endif

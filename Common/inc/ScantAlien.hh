@@ -10,7 +10,7 @@ public:
   ~ScantAlien();
 
 public:
-  void		update();
+  bool		update();
   IObject	*Basicshoot();
 };
 
