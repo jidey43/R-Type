@@ -1,8 +1,7 @@
-/*
 # include <iostream>
 # include <signal.h>
 # include "Server.hh"
-# include "NetworkHandler.h"
+# include "SNetworkHandler.h"
 # include "ClientInfo.h"
 # include "IThread.h"
 
@@ -50,21 +49,6 @@ int	main(int ac, char **av)
     }
   process_signal();
   Server* server = new Server("127.0.0.1", av[1]);
+  delete(server);
   std::cout << "ok" << std::endl;
-}
-*/
-
-#include <cstring>
-#include <iostream>
-#include "LevelLoader.hh"
-#include "Waves.hh"
-
-int     main()
-{
-  char *toto = strdup("level/Level1.lvl");
-  LevelLoader level;
-  level.parseLevel(toto);
-  std::cout << "proutouprout";
-  Waves waves = level.getNextWave();
-  std::cout << waves.getCount() << std::endl;
 }

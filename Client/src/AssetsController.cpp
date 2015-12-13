@@ -6,10 +6,10 @@ AssetsController::AssetsController(const char *assetsPath)
 	_soundTrack = new sf::Music;
 }
 
-AssetsController::~AssetsController()
-{
+// AssetsController::~AssetsController()
+// {
 
-}
+// }
 
 bool AssetsController::loadAssets()
 {

@@ -19,6 +19,11 @@ int GameInfo::getPort() const
   return _port;
 }
 
+int GameInfo::getPlayerNb() const
+{
+  return _clients.size();
+}
+
 int	GameInfo::getID() const
 {
   return _id;
@@ -26,7 +31,11 @@ int	GameInfo::getID() const
 
 bool GameInfo::addClient(ClientInfo * client)
 {
-  _clients.push_back(client);
+  if (_clients.size() < MAX_PLAYERS)
+    _clients.push_back(client);
+  else
+    return false;
+  return true;
 }
 
 std::string const GameInfo::getClients() const
