@@ -3,20 +3,20 @@
 
 # include "AServerPacket.hh"
 
-class CreShotPacket : public AServerPacket<ServerUDPResponse>
+class CreObjPacket : public AServerPacket<ServerUDPResponse>
 {
  public:
-  CreShotPacket(ServerUDPResponse, int, float, float, int);
-  CreShotPacket(ServerUDPHeader*);
-  ~CreShotPacket();
+  CreObjPacket(ServerUDPResponse, int, int, float, float, int);
+  CreObjPacket(ServerUDPHeader*);
+  ~CreObjPacket();
 
   char*				deserialize();
   bool				checkHeader();
   void				setRawData(char *);
-  CreShotData*			getData() const;
+  CreObjData*			getData() const;
 
  private:
-  CreShotData*			_data;
+  CreObjData*			_data;
   ServerUDPHeader*		_header;
 };
 

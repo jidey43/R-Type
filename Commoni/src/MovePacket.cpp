@@ -1,38 +1,38 @@
 # include <string.h>
-# include "CreShotPacket.h"
+# include "MovePacket.h"
 
-CreShotPacket::CreShotPacket(ServerUDPResponse resp, int idx, float x, float y, int speed) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new CreShotData), _header(new ServerUDPHeader)
+MovePacket::MovePacket(ServerUDPResponse resp, int idx, int id, float x, float y) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new MoveData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;
   _header->size = sizeof(*_data);
   _header->idx = idx;
+  _data->id = id;
   _data->x = x;
   _data->x = y;
-  _data->speed = speed;
   _data->magic = MAGIC;
 }
 
-CreShotPacket::CreShotPacket(ServerUDPHeader *header)
-  : AServerPacket<ServerUDPResponse>(header->command, header->size + sizeof(*_header)), _data(new CreShotData), _header(header)
+MovePacket::MovePacket(ServerUDPHeader *header)
+  : AServerPacket<ServerUDPResponse>(header->command, header->size + sizeof(*_header)), _data(new MoveData), _header(header)
 {
 }
 
-CreShotPacket::~CreShotPacket()
+MovePacket::~MovePacket()
 {
 }
 
-void			CreShotPacket::setRawData(char *data)
+void			MovePacket::setRawData(char *data)
 {
   memcpy(_data, (void *)data, sizeof(*_data));
 }
 
-CreShotData*		CreShotPacket::getData() const
+MoveData*		MovePacket::getData() const
 {
   return _data;
 }
 
-bool			CreShotPacket::checkHeader()
+bool			MovePacket::checkHeader()
 {
   if (_header->magic != MAGIC)
     return false;
@@ -43,7 +43,7 @@ bool			CreShotPacket::checkHeader()
   return true;
 }
 
-char*				CreShotPacket::deserialize()
+char*				MovePacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
 

@@ -1,7 +1,7 @@
 # include <string.h>
-# include "DelIAPacket.h"
+# include "DelItemPacket.h"
 
-DelIAPacket::DelIAPacket(ServerUDPResponse resp, int idx, int data) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new DelIAData), _header(new ServerUDPHeader)
+DelItemPacket::DelItemPacket(ServerUDPResponse resp, int idx, int data) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new DelItemData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;
@@ -11,26 +11,26 @@ DelIAPacket::DelIAPacket(ServerUDPResponse resp, int idx, int data) : AServerPac
   _data->magic = MAGIC;
 }
 
-DelIAPacket::DelIAPacket(ServerUDPHeader *header)
-  : AServerPacket<ServerUDPResponse>(header->command, header->size + sizeof(*_header)), _data(new DelIAData), _header(header)
+DelItemPacket::DelItemPacket(ServerUDPHeader *header)
+  : AServerPacket<ServerUDPResponse>(header->command, header->size + sizeof(*_header)), _data(new DelItemData), _header(header)
 {
 }
 
-DelIAPacket::~DelIAPacket()
+DelItemPacket::~DelItemPacket()
 {
 }
 
-void			DelIAPacket::setRawData(char *data)
+void			DelItemPacket::setRawData(char *data)
 {
   memcpy(_data, (void *)data, sizeof(*_data));
 }
 
-DelIAData*		DelIAPacket::getData() const
+DelItemData*		DelItemPacket::getData() const
 {
   return _data;
 }
 
-bool			DelIAPacket::checkHeader()
+bool			DelItemPacket::checkHeader()
 {
   if (_header->magic != MAGIC)
     return false;
@@ -41,7 +41,7 @@ bool			DelIAPacket::checkHeader()
   return true;
 }
 
-char*				DelIAPacket::deserialize()
+char*				DelItemPacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
 

@@ -1,12 +1,13 @@
 # include <string.h>
 # include "CrePlayPacket.h"
 
-CrePlayPacket::CrePlayPacket(ServerUDPResponse resp, int idx, float x, float y) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new CrePlayData), _header(new ServerUDPHeader)
+CrePlayPacket::CrePlayPacket(ServerUDPResponse resp, int idx, int id, float x, float y) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new CrePlayData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;
   _header->size = sizeof(*_data);
   _header->idx = idx;
+  _data->id = id;
   _data->x = x;
   _data->x = y;
   _data->magic = MAGIC;
