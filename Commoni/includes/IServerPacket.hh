@@ -54,18 +54,20 @@ typedef struct
 
 typedef struct
 {
+  int				id;
   float				x;
   float				y;
   uint32_t			magic;
-}  __attribute__ ((packed))	PosData;
+}  __attribute__ ((packed))	CrePlayData;
 
 typedef struct
 {
+  int				id;
   float				x;
   float				y;
   int				speed;
   uint32_t			magic;
-}  __attribute__ ((packed))	CreShotData;
+}  __attribute__ ((packed))	CreObjData;
 
 typedef struct
 {
@@ -73,13 +75,14 @@ typedef struct
   float				x;
   float				y;
   uint32_t			magic;
+  // enum type_ia		pattern;
 }  __attribute__ ((packed))	CreIAData;
+
 
 typedef integerData GameOverData;
 typedef integerData GameListData;
-typedef PosData CrePlayData;
-typedef PosData DelShotData;
-typedef integerData DelIAData;
+typedef integerData DelItemData;
+typedef CrePlayData MoveData;
 
 template <typename T>
 class IServerPacket

@@ -6,7 +6,7 @@
 class CrePlayPacket : public AServerPacket<ServerUDPResponse>
 {
  public:
-  CrePlayPacket(ServerUDPResponse, int, float, float);
+  CrePlayPacket(ServerUDPResponse, int, int, float, float);
   CrePlayPacket(ServerUDPHeader*);
   ~CrePlayPacket();
 

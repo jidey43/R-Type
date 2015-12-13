@@ -1,37 +1,39 @@
 # include <string.h>
-# include "DelShotPacket.h"
+# include "CreObjPacket.h"
 
-DelShotPacket::DelShotPacket(ServerUDPResponse resp, int idx, float x, float y) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new DelShotData), _header(new ServerUDPHeader)
+CreObjPacket::CreObjPacket(ServerUDPResponse resp, int idx, int id, float x, float y, int speed) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new CreObjData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;
   _header->size = sizeof(*_data);
   _header->idx = idx;
+  _data->id = id;
   _data->x = x;
   _data->x = y;
+  _data->speed = speed;
   _data->magic = MAGIC;
 }
 
-DelShotPacket::DelShotPacket(ServerUDPHeader *header)
-  : AServerPacket<ServerUDPResponse>(header->command, header->size + sizeof(*_header)), _data(new DelShotData), _header(header)
+CreObjPacket::CreObjPacket(ServerUDPHeader *header)
+  : AServerPacket<ServerUDPResponse>(header->command, header->size + sizeof(*_header)), _data(new CreObjData), _header(header)
 {
 }
 
-DelShotPacket::~DelShotPacket()
+CreObjPacket::~CreObjPacket()
 {
 }
 
-void			DelShotPacket::setRawData(char *data)
+void			CreObjPacket::setRawData(char *data)
 {
   memcpy(_data, (void *)data, sizeof(*_data));
 }
 
-DelShotData*		DelShotPacket::getData() const
+CreObjData*		CreObjPacket::getData() const
 {
   return _data;
 }
 
-bool			DelShotPacket::checkHeader()
+bool			CreObjPacket::checkHeader()
 {
   if (_header->magic != MAGIC)
     return false;
@@ -42,7 +44,7 @@ bool			DelShotPacket::checkHeader()
   return true;
 }
 
-char*				DelShotPacket::deserialize()
+char*				CreObjPacket::deserialize()
 {
   char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
 
