@@ -1,4 +1,4 @@
-#include "..\inc\PlayerGraphical.h"
+#include "PlayerGraphical.h"
 
 PlayerGraphical::PlayerGraphical(sf::Vector2f speed, sf::Vector2i pos, float coeff) :
 	Player(speed, pos, coeff), GraphicalItem()

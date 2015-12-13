@@ -1,4 +1,4 @@
-#include "..\inc\TextArea.h"
+#include "TextArea.h"
 
 TextArea::TextArea(Font font, sf::Vector2f pos, sf::Vector2f size, std::string defaultText)
 {
