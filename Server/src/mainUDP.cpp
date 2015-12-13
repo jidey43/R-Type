@@ -57,10 +57,12 @@ int	main(int ac, char **av)
   GamerInfo*				client;
   IClientPacket<ClientUDPCommand>*	packet;
 
-  if ((client = nh->selectClient()))
+  while (1)
     {
-      packet = nh->receiveFrom(client);
-      // processPacket(client, packet);
+      if ((client = nh->selectClient()))
+	{
+	  packet = nh->receiveFrom(client);
+	  // processPacket(client, packet);
+	}
     }
-
 }

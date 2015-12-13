@@ -13,8 +13,10 @@ int main(int ac, char **av)
   CUDPNetworkHandler			*nh = new CUDPNetworkHandler("127.0.0.1", av[1]);
   std::string				str;
   IServerPacket<ServerUDPResponse>	*packet;
+  struct timeval			to;
 
-
+  to.tv_usec = 100;
+  to.tv_sec = 0;
   nh->initSocket();
   while (1)
     {
@@ -23,6 +25,7 @@ int main(int ac, char **av)
       switch (i)
       	{
 	case 1:
+	  std::cout << "msg sent" << std::endl;
 	  nh->send(new CAuthUDPPacket(CAUTH_UDP, 0, "toto"));
 	  break;
 	case 2:
@@ -31,7 +34,7 @@ int main(int ac, char **av)
 	default:
 	  break;
       	}
-      if (nh->selectServer())
+      if (nh->selectServer(&to))
 	packet = nh->receive();
     }
 }

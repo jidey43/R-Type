@@ -87,12 +87,12 @@ bool					CUDPNetworkHandler::send(IClientPacket<ClientUDPCommand>* response)
   return true;
 }
 
-bool					CUDPNetworkHandler::selectServer()
+bool					CUDPNetworkHandler::selectServer(struct timeval *to)
 {
   std::vector<int>			fdList;
 
   fdList.push_back(_socket);
-  _network->selectFD(fdList, NULL);
+  _network->selectFD(fdList, to);
   if (!fdList.empty())
     {
       ServerUDPHeader*	header = new ServerUDPHeader();

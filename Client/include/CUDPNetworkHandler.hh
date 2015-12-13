@@ -29,7 +29,7 @@ private:
 
 public:
   bool						initSocket();
-  bool						selectServer();
+  bool						selectServer(struct timeval *to = NULL);
   IServerPacket<ServerUDPResponse>*		receive();
   bool						send(IClientPacket<ClientUDPCommand>*);
 
