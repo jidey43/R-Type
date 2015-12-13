@@ -7,5 +7,5 @@ class BasicAlienProjectileGrapical : public BasicAlienProjectile, public Graphic
 {
 public:
 	BasicAlienProjectileGrapical(sf::Vector2f speed, sf::Vector2i pos, float coeff);
-	void			update();
+	bool			update();
 };

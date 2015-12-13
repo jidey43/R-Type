@@ -10,7 +10,7 @@ class GraphicalItem
 public:
 	GraphicalItem();
 	sf::Drawable*		getDrawable();
-	virtual void				update() = 0;
+	virtual bool	        update() = 0;
 
 protected:
 	sf::Sprite			*_sprite;

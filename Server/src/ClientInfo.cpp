@@ -1,4 +1,4 @@
-# include "ClientInfo.h"
+#include "ClientInfo.h"
 
 ClientInfo::ClientInfo(SOCKET socket)
   : _isInGame(false),
@@ -9,7 +9,7 @@ ClientInfo::ClientInfo(SOCKET socket)
 }
 
 ClientInfo::ClientInfo(SOCKET socket, std::string const & nick)
-  : _isInGame(false), _disconnected(false), _socket(socket), _nickname(nick)
+  : _isInGame(false), _disconnected(false), _socket(socket), _nickname(nick), _packet(NULL)
 {
 }
 
@@ -22,14 +22,19 @@ bool ClientInfo::isInGame() const
   return _isInGame;
 }
 
-void ClientInfo::setPacket(IClientPacket* packet)
+void ClientInfo::setInGame(bool inGame)
+{
+  _isInGame = inGame;
+}
+
+void ClientInfo::setPacket(IClientPacket<ClientTCPCommand>* packet)
 {
   if (!_packet)
     delete (_packet);
   _packet = packet;
 }
 
-IClientPacket* ClientInfo::getPacket() const
+IClientPacket<ClientTCPCommand>*	ClientInfo::getPacket() const
 {
   return _packet;
 }

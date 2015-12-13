@@ -1,4 +1,4 @@
-#include "..\inc\GraphicalItem.h"
+#include "GraphicalItem.h"
 
 GraphicalItem::GraphicalItem()
 {

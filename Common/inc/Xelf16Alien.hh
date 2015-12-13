@@ -10,7 +10,7 @@ public:
   ~Xelf16Alien();
 
 public:
-  void		update();
+  bool		update();
   IObject	*Basicshoot();
 };
 

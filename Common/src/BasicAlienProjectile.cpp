@@ -6,5 +6,5 @@ BasicAlienProjectile::BasicAlienProjectile(sf::Vector2f speed, sf::Vector2i pos,
 BasicAlienProjectile::~BasicAlienProjectile()
 {}
 
-void		BasicAlienProjectile::update()
+bool		BasicAlienProjectile::update()
 {}

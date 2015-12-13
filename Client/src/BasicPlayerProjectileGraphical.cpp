@@ -1,4 +1,4 @@
-#include "..\inc\BasicPlayerProjectileGraphical.h"
+#include "BasicPlayerProjectileGraphical.h"
 
 BasicPlayerProjectileGrapical::BasicPlayerProjectileGrapical(sf::Vector2f speed, sf::Vector2i pos, float coeff) :
 	BasicPlayerProjectile(speed, pos, coeff), GraphicalItem()
@@ -11,12 +11,13 @@ BasicPlayerProjectileGrapical::BasicPlayerProjectileGrapical(sf::Vector2f speed,
 
 }
 
-void BasicPlayerProjectileGrapical::update()
+bool	BasicPlayerProjectileGrapical::update()
 {
-	BasicPlayerProjectile::update();
+  bool	ret;
+  ret = BasicPlayerProjectile::update();
 	_sprite->setPosition(
 		(_pos.x / SCREENRATIO) - (SHOT_ASSET_SIZE_Y / 2),
 		(_pos.y / SCREENRATIO) - (SHOT_ASSET_SIZE_Y / 2)
 		);
-
+	return (ret);
 }

@@ -10,7 +10,7 @@ public:
   ~Projectile();
 
 public:
-  void		update();
+  bool		update();
 }
 
 # endif

@@ -8,5 +8,5 @@ public:
 	BydoAlienGraphical(sf::Vector2f speed, sf::Vector2i pos, float coeff);
 
 public:
-	void				update();
+	bool				update();
 };

@@ -14,9 +14,13 @@ public:
   sf::Vector2i			getSize() const;
   sf::Vector2f			getSpeed() const;
   sf::Vector2i			getPos() const;
-  virtual void		        update() = 0;
-  
+  virtual bool		        update() = 0;
+
 protected:
+  bool				collision();
+
+protected:
+  
   sf::Vector2f			_speed;
   sf::Vector2i			_size;
   sf::Vector2i			_pos;
@@ -25,3 +29,4 @@ protected:
 };
 
 #endif
+

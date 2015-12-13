@@ -38,4 +38,5 @@ public:
 private:
 	std::vector<GraphicalItem*> _items;
 	sf::Sprite*					_background;
+  int						_playerCount;
 };

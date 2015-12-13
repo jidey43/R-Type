@@ -8,7 +8,7 @@ GlamAlien::GlamAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff) : Alien(
 GlamAlien::~GlamAlien()
 {}
 
-void	        GlamAlien::update()
+bool	        GlamAlien::update()
 {}
 
 IObject		*GlamAlien::BasicShoot()

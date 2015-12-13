@@ -10,7 +10,7 @@ public:
   ~GlamAlien();
 
 public:
-  void		update();
+  bool		update();
   IObject	*BasicShoot();
 };
 

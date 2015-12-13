@@ -2,7 +2,7 @@
 # define ISOCKET_H_
 
 # include <string>
-# include "INetwork.h"
+# include "SINetwork.h"
 # include "NetworkDefines.h"
 
 typedef enum

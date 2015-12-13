@@ -30,7 +30,7 @@ void					Manager::loop()
 		vc->clear();
 
 		_itemCtrl->update();
-		
+
 		_keyboardStatus =  vc->getKeyboardStatus();
 		treatEvents();
 
@@ -44,5 +44,5 @@ void					Manager::loop()
 
 void Manager::treatEvents()
 {
-	
+
 }

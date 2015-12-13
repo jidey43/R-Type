@@ -1,22 +1,21 @@
 #include <iostream>
 #include "Server.hh"
 #include "NetworkDefines.h"
-#include "WNetwork.hh"
+#include "SWNetwork.hh"
 #include "NewGamePacket.h"
 #include "JoinPacket.hh"
 #include "GameListPacket.h"
 #include "DesGamePacket.h"
 #include "GameListPacket.h"
-#include "AuthPacket.h"
+#include "AuthTCPPacket.h"
 #include "GameInfoPacket.h"
 #include "GameOverPacket.h"
 #include "FailPacket.h"
 #include "IServerPacket.hh"
 
-
 Server::Server(std::string const & ip, std::string const & port)
  : _network(new NetworkHandler(ip, port)),
-	  _games(new GameHandler())
+	  _games(new GameHandler(ip))
 {
   if (_network->initSocket())
     {
@@ -26,7 +25,7 @@ Server::Server(std::string const & ip, std::string const & port)
 
 Server::~Server()
 {
-
+  delete _games;
   delete _network;
 }
 
@@ -35,6 +34,7 @@ void Server::start()
   while (1)
     {
       _network->selectClient();
+      _games->tryJoinGames();
       answerClients();
     }
 }
@@ -45,43 +45,54 @@ void Server::answerClients()
 
   while ((client = _network->getActiveClient()))
     {
-      std::cout << "--> client [" << client->getNickname() << "]" << std::endl;
+      // std::cout << "--> client [" << client->getNickname() << "]" << std::endl;
       parser(client);
     }
 }
 
 void Server::parser(ClientInfo * client)
 {
-  switch (client->getPacket()->getCommandType())
-    {
-    case JOIN_GAME:
+  if (client->isInGame())
+    switch (client->getPacket()->getCommandType())
       {
-	joinGame(client);
-	break;
+      case JOIN_GAME:
+	{
+	  joinGame(client);
+	  break;
+	}
+      case ADD_GAME:
+	{
+	  createGame(client);
+	  break;
+	}
+      case AUTH_TCP:
+	{
+	  setNick(client);
+	  break;
+	}
+      case REQ_GAME:
+	{
+	  describeGame(client);
+	  break;
+	}
+      default:
+	{
+	  std::cout << "no match..." << std::endl;
+	  break;
+	}
       }
-    case ADD_GAME:
-      {
-	createGame(client);
-	break;
-      }
-    default:
-      {
-	std::cout << "no match..." << std::endl;
-	break;
-      }
-    }
-}
-
-void Server::deleteClient(std::vector<ClientInfo*>::iterator& it, ClientInfo* client)
-{
+  else
+    _network->sendToClient(client, new FailPacket(FAIL));
 }
 
 bool Server::describeGame(ClientInfo * client)
 {
-  _network->sendToClient(client, new GameListPacket(START_GAME_LIST));
+  if (_network->sendToClient(client, new GameListPacket(START_GAME_LIST)))
+    return false;
   for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
     {
-      _network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), (*it)->getClients()));
+      if (_network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), (*it)->getClients())))
+	return false;
     }
   _network->sendToClient(client, new GameListPacket(END_GAME_LIST));
   return true;
@@ -93,7 +104,7 @@ bool Server::createGame(ClientInfo * client)
 
   if (client->isInGame() || (id = _games->startNewGame(dynamic_cast<NewGamePacket*>(client->getPacket())->getData()->data)) == -1)
     {
-      _network->sendToClient(client, new FailPacket(DES_GAME));
+      _network->sendToClient(client, new FailPacket(FAIL));
     }
   else
     {
@@ -110,6 +121,7 @@ bool	Server::joinGame(ClientInfo* client)
     _network->sendToClient(client, new GameInfoPacket(GAME_INFO, game->getID(), game->getPort()));
   else
     _network->sendToClient(client, new FailPacket(FAIL));
+  return true;
 }
 
 bool	Server::joinGame(ClientInfo* client, int id)
@@ -119,4 +131,13 @@ bool	Server::joinGame(ClientInfo* client, int id)
   if ((game = _games->addClientInGame(client, id)) != NULL)
     _network->sendToClient(client, new GameInfoPacket(GAME_INFO, game->getID(), game->getPort()));
   else
-    _network->sendToClient(client, new FailPacket(FAIL));}
+    _network->sendToClient(client, new FailPacket(FAIL));
+  return true;
+}
+
+bool	Server::setNick(ClientInfo* client)
+{
+  client->setNickname(dynamic_cast<NickPacket*>(client->getPacket())->getData()->data);
+  _network->sendToClient(client, new AuthTCPPacket(AUTH, SUCCESS));
+  return true;
+}

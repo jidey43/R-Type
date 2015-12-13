@@ -6,5 +6,5 @@ BasicPlayerProjectile::BasicPlayerProjectile(sf::Vector2f speed, sf::Vector2i po
 BasicPlayerProjectile::~BasicPlayerProjectile()
 {}
 
-void		BasicPlayerProjectile::update()
+bool		BasicPlayerProjectile::update()
 {}

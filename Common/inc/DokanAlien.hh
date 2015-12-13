@@ -10,7 +10,7 @@ public:
   ~DokanAlien();
 
 public:
-  void		update();
+  bool		update();
   IObject	*BasicShoot();
 };
 

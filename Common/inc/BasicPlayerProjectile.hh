@@ -10,7 +10,7 @@ public:
   ~BasicPlayerProjectile();
 
 public:
-  void		update();
+  bool		update();
 };
 
 # endif

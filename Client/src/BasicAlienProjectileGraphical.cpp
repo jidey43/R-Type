@@ -1,4 +1,4 @@
-#include "..\inc\BasicAlienProjectileGraphical.h"
+#include "BasicAlienProjectileGraphical.h"
 
 BasicAlienProjectileGrapical::BasicAlienProjectileGrapical(sf::Vector2f speed, sf::Vector2i pos, float coeff) :
 	BasicAlienProjectile(speed, pos, coeff), GraphicalItem()
@@ -11,12 +11,14 @@ BasicAlienProjectileGrapical::BasicAlienProjectileGrapical(sf::Vector2f speed, s
 
 }
 
-void BasicAlienProjectileGrapical::update()
+bool BasicAlienProjectileGrapical::update()
 {
-	BasicAlienProjectile::update();
+  bool	ret;
+
+  ret = BasicAlienProjectile::update();
 	_sprite->setPosition(
 		(_pos.x / SCREENRATIO) - (SHOT_ASSET_SIZE_Y / 2),
 		(_pos.y / SCREENRATIO) - (SHOT_ASSET_SIZE_Y / 2)
 		);
-
+	return (ret);
 }

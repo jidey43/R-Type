@@ -10,7 +10,7 @@ public:
   ~KayberosAlien();
 
 public:
-  void		update();
+  bool		update();
   IObject	*Basicshoot();
 };
 
