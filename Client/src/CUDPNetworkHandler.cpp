@@ -1,3 +1,6 @@
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 #include "CUDPNetworkHandler.hh"
 #include "PacketFactory.hh"
 
@@ -14,8 +17,8 @@ CUDPNetworkHandler::CUDPNetworkHandler(std::string const& ip,
   server = gethostbyname(ip.c_str());
   memset((void *)&_serveraddr, 0, sizeof(_serveraddr));
   _serveraddr.sin_family = AF_INET;
-  memcpy((void *)&(_serveraddr.sin_addr.s_addr), (void *)server->h_addr, server->h_length);
   _serveraddr.sin_port = htons(std::atoi(port.c_str()));
+  inet_aton(ip.c_str(), &_serveraddr.sin_addr);
 }
 
 CUDPNetworkHandler::~CUDPNetworkHandler()
