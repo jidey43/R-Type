@@ -68,8 +68,8 @@ IClientPacket<ClientUDPCommand>*	UDPNetworkHandler::receiveFrom(GamerInfo *clien
   packet = _factory->build(header);
   if (!packet->checkHeader())
     throw Exceptions::BadHeaderRequest("Error, received bad Header from known client");
-  buff = new char[header->size + 1];
-  memset(buff, 0, header->size + 1);
+  buff = new char[header->size];
+  memset(buff, 0, header->size);
   try
     {
       _network->recvData(buff, header->size, _socket, client->getClientInfos());
@@ -87,8 +87,6 @@ bool					UDPNetworkHandler::sendTo(GamerInfo *client,
 								  IServerPacket<ServerUDPResponse>* response)
 {
   char*					buff;
-  IClientPacket<ClientUDPCommand>*	packet;
-  ClientUDPHeader*			header;
   std::string				toSend = response->deserialize();
 
   try
