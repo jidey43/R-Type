@@ -1,5 +1,5 @@
-#ifndef GAME_H_
-# define GAME_H_
+#ifndef GAMEINFO_H_
+# define GAMEINFO_H_
 
 # include <string>
 # include <vector>
@@ -22,6 +22,7 @@ class GameInfo
   std::string const&		getName() const;
   int				getID() const;
   int				getPort() const;
+  int				getPlayerNb() const;
   bool				addClient(ClientInfo* client);
   std::string const		getClients() const;
 };

@@ -3,7 +3,7 @@
 
 # include <vector>
 # include "GameInfo.h"
-# include "NetworkHandler.h"
+# include "SNetworkHandler.h"
 # include "GameHandler.h"
 
 class		Server
@@ -15,15 +15,14 @@ class		Server
  private:
   NetworkHandler*			_network;
   GameHandler*				_games;
-  IServerPacket*			_packet;
 
- private:
+private:
   void					start();
   void					answerClients();
   void					parser(ClientInfo* client);
-  void					deleteClient(std::vector<ClientInfo*>::iterator& it, ClientInfo* info);
   bool					describeGame(ClientInfo* client);
   bool					createGame(ClientInfo* client);
+  bool					setNick(ClientInfo* client);
   bool					joinGame(ClientInfo* client);
   bool					joinGame(ClientInfo* client, int id);
 };
