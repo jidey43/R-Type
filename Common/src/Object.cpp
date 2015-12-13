@@ -25,3 +25,10 @@ sf::Vector2i		Object::getPos() const
 {
   return _pos;
 }
+
+bool			Object::collision()
+{
+  
+
+  
+}
