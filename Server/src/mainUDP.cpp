@@ -1,7 +1,7 @@
 # include <iostream>
 # include <signal.h>
 # include "Server.hh"
-# include "UDPNetworkHandler.h"
+# include "UDPNetworkHandler.hh"
 # include "ClientInfo.h"
 # include "IThread.h"
 
@@ -48,7 +48,9 @@ int	main(int ac, char **av)
       return (1);
     }
   process_signal();
-  UDPNetworkHandler nh = new UDPNetworkHandler("127.0.0.1", av[1]);
+  std::vector<GamerInfo*>	*clients = new std::vector<GamerInfo*>;
+
+  UDPNetworkHandler		*nh = new UDPNetworkHandler("127.0.0.1", av[1], clients);
 
   nh->initSocket();
 
@@ -58,7 +60,7 @@ int	main(int ac, char **av)
   if ((client = nh->selectClient()))
     {
       packet = nh->receiveFrom(client);
-      processPacket(client, packet);
+      // processPacket(client, packet);
     }
 
 }

@@ -1,11 +1,11 @@
 #include "Client.h"
-
+#include "CNetworkHandler.hh"
 #include <iostream>
 #include "NetworkDefines.h"
 
 
 Client::Client(std::string const & ip, std::string const & port)
-	: _network(new CUDPNetworkHandler(ip, port))
+	: _network(new CNetworkHandler(ip, port))
 {
   if (_network->initSocket())
     {
