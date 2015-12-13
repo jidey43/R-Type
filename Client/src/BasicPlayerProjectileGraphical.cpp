@@ -1,4 +1,4 @@
-#include "..\inc\BasicPlayerProjectileGraphical.h"
+#include "BasicPlayerProjectileGraphical.h"
 
 BasicPlayerProjectileGrapical::BasicPlayerProjectileGrapical(sf::Vector2f speed, sf::Vector2i pos, float coeff) :
 	BasicPlayerProjectile(speed, pos, coeff), GraphicalItem()

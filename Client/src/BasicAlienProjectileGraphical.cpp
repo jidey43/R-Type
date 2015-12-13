@@ -1,4 +1,4 @@
-#include "..\inc\BasicAlienProjectileGraphical.h"
+#include "BasicAlienProjectileGraphical.h"
 
 BasicAlienProjectileGrapical::BasicAlienProjectileGrapical(sf::Vector2f speed, sf::Vector2i pos, float coeff) :
 	BasicAlienProjectile(speed, pos, coeff), GraphicalItem()
