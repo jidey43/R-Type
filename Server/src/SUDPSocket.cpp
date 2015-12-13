@@ -37,7 +37,10 @@ int			SUDPSocket::startNetwork(std::string const &ip, std::string const &port, a
 
 void			SUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr)
 {
-  int res = sendto(_listen, (void *)buffer, size, 0, (sockaddr *)&addr, sizeof(addr));
+  socklen_t		addr_len = sizeof(*addr);
+  int			res;
+
+  res = sendto(_listen, (void *)buffer, size, 0, (sockaddr *)&addr, addr_len);
   if (res == -1)
     throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
   if (res == 0)
@@ -46,10 +49,10 @@ void			SUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDat
 
 void			SUDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)
 {
-  socklen_t			addr_len = sizeof(addr);
+  socklen_t			addr_len;
   int				res;
 
-  res = recvfrom(_listen, (void *)buffer, size, 0, (sockaddr *)&addr, &addr_len);
+  res = recvfrom(_listen, (void *)buffer, size, 0, (sockaddr *)addr, &addr_len);
   if (res == -1)
     throw Exceptions::NetworkExcept("RECEIVEFROM ERROR", errno);
   if (res == 0)

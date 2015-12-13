@@ -30,7 +30,7 @@ int			CUDPSocket::startNetwork(std::string const &ip, std::string const &port, a
 
 void			CUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr)
 {
-  socklen_t			addr_len = sizeof(addr);
+  socklen_t			addr_len = sizeof(*addr);
 
   std::cout << "socket = " << _listen << " ; buffer = " << (char*)buffer << " ; size = " << size  << std::endl;
 
