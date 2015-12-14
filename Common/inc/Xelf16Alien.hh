@@ -6,7 +6,7 @@
 class Xelf16Alien : public Alien
 {
 public:
-  Xelf16Alien(sf::Vector2f speed, sf::Vector2i pos, float coeff);
+  Xelf16Alien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff);
   ~Xelf16Alien();
 
 public:

@@ -5,6 +5,7 @@
 class PlayerGraphical : public Player, public GraphicalItem
 {
 public:
-  PlayerGraphical(sf::Vector2f speed, sf::Vector2i pos, float coeff, int id);
-	bool		update();
+  PlayerGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id);
+  bool		update(std::vector<IObject*>&);
+  bool		update();
 };

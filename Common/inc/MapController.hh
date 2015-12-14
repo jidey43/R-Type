@@ -12,10 +12,13 @@ public:
 
   void		addObject(IObject*);
   void		updateMap();
-  void		updatePlayer();
+
+  void		updatePlayer(IObject*);
+  IObject*	getPlayer(int id);
+  void		deletePlayer(int id);
 
 private:
-  std::vector<IObject*>		_objList;
+  std::vector<IObject*>		_map;
 };
 
 #endif

@@ -2,7 +2,10 @@
 #include "BasicAlienProjectile.hh"
 #include <stdlib.h>
 
-GlamAlien::GlamAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff) : Alien(speed, pos, coeff)
+extern unsigned int _maxId;
+
+GlamAlien::GlamAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
+  : Alien(speed, pos, sf::Vector2i(0, 0), id, coeff)
 {}
 
 GlamAlien::~GlamAlien()
@@ -11,11 +14,15 @@ GlamAlien::~GlamAlien()
 bool	        GlamAlien::update()
 {}
 
+bool		GlamAlien::update(std::vector<IObject*>&)
+{}
+
 IObject		*GlamAlien::BasicShoot()
 {
-  sf::Vector2i pos;
+  sf::Vector2f pos;
 
   pos.x = _pos.x + _speed.x;
   pos.y = _pos.y;
-  return new BasicAlienProjectile(_speed, pos, 1.0);
+  _maxId = _maxId + 1;
+  return new BasicAlienProjectile(_speed, pos, 1);
 }

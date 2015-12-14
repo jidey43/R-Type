@@ -22,15 +22,15 @@ public:
 	void						update();
 
 public:
-	void						addShip(sf::Vector2f speed, sf::Vector2i pos, float coeff);
+	void						addShip(sf::Vector2f speed, sf::Vector2f pos, unsigned int);
 	void						moveShip(int id, sf::Vector2f);
 
 public:
 	void						addAlien(ObjectInfo::WaveType, sf::Vector2f speed, 
-							sf::Vector2i pos, float coeff);
+								 sf::Vector2f pos, unsigned id, float coeff);
 
 public:
-	void						addShot(Shot, sf::Vector2f speed, sf::Vector2i pos, float );
+	void						addShot(Shot, sf::Vector2f speed, sf::Vector2f pos, unsigned int);
 
 public:
 	void						setBackgroud(int id);

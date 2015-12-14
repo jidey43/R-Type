@@ -6,6 +6,7 @@
 class BasicAlienProjectileGrapical : public BasicAlienProjectile, public GraphicalItem
 {
 public:
-	BasicAlienProjectileGrapical(sf::Vector2f speed, sf::Vector2i pos, float coeff);
+	BasicAlienProjectileGrapical(sf::Vector2f speed, sf::Vector2f pos, unsigned int);
 	bool			update();
+	bool			update(std::vector<IObject*>&) {};
 };

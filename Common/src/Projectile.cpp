@@ -1,7 +1,7 @@
 #include "Projectile.hh"
 
-Projectile::Projectile(sf::Vector2f speed, sf::Vector2i pos, float coeff)
-  : Object(speed, pos, coeff)
+Projectile::Projectile(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, unsigned int id)
+  : Object(speed, pos, size, ObjectInfo::Type::ALIEN, id)
 {
 }
 

@@ -6,11 +6,12 @@
 class BasicAlienProjectile : public Projectile
 {
 public:
-  BasicAlienProjectile(sf::Vector2f speed, sf::Vector2i pos, float coeff);
+  BasicAlienProjectile(sf::Vector2f speed, sf::Vector2f pos, unsigned int id);
   ~BasicAlienProjectile();
 
 public:
   bool		update();
+  bool		update(std::vector<IObject*>&);
 };
 
 # endif

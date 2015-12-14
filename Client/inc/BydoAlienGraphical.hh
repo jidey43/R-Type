@@ -5,8 +5,9 @@
 class BydoAlienGraphical : public BydoAlien, public GraphicalItem
 {
 public:
-	BydoAlienGraphical(sf::Vector2f speed, sf::Vector2i pos, float coeff);
+  BydoAlienGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int, float coeff);
 
 public:
 	bool				update();
+  bool				update(std::vector<IObject*>&);
 };

@@ -8,7 +8,7 @@ AuthUDPPacket::AuthUDPPacket(ServerUDPResponse resp, int idx, int success, std::
   _header->size = sizeof(*_data);
   _header->idx = idx;
   _data->success = success;
-  bzero(_data->name, 256);
+  memset(_data->name, 0, 256);
   memcpy(&(_data->name), name.c_str(), name.size());
   _data->magic = MAGIC;
 }

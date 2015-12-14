@@ -44,7 +44,7 @@ Waves		LevelLoader::getNextWave()
       std::string				str = _lines.front();
       sf::Time					time;
       sf::Time					freq;
-      sf::Vector2i				pos;
+      sf::Vector2f				pos;
       sf::Vector2f				speed;
       std::istringstream			buffer;
       std::string				name;

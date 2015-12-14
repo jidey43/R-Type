@@ -6,11 +6,12 @@
 class GlamAlien : public Alien
 {
 public:
-  GlamAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff);
+  GlamAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff);
   ~GlamAlien();
 
 public:
   bool		update();
+  bool		update(std::vector<IObject*>&);
   IObject	*BasicShoot();
 };
 

@@ -11,6 +11,7 @@ public:
 
 public:
   bool		update();
+  bool		update(std::vector<IObject*>&);
   IObject	*Basicshoot();
 };
 

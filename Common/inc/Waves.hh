@@ -8,7 +8,7 @@
 class	Waves
 {
 public:
-  Waves(int, sf::Time, sf::Time, sf::Vector2i, sf::Vector2f, float, ObjectInfo::WaveType);
+  Waves(int, sf::Time, sf::Time, sf::Vector2f, sf::Vector2f, float, ObjectInfo::WaveType);
   Waves();
   ~Waves();
   
@@ -17,7 +17,7 @@ public:
   int		        getCount() const;
   sf::Time		getTime() const;
   sf::Time		getFreq() const;
-  sf::Vector2i		getPos() const;
+  sf::Vector2f		getPos() const;
   sf::Vector2f	        getSpeed() const;
   float		        getCoeff() const;
   ObjectInfo::WaveType  getType() const;
@@ -28,7 +28,7 @@ private:
   int			_count;
   sf::Time		_time;
   sf::Time		_frequency;
-  sf::Vector2i		_pos;
+  sf::Vector2f		_pos;
   sf::Vector2f		_speed;
   float			_coeff;
   ObjectInfo::WaveType	_type;
