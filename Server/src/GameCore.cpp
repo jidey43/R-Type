@@ -89,8 +89,11 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
 
 void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
+  Player*				player = _map->getPlayer(client->getID());
+
   dynamic_cast<Player*>(_map->getPlayer(client->getID()))->setDirection(dynamic_cast<SendMovePacket*>(packet)->getData()->dir);
-  _map->updatePlayer(_map->getPlayer(client->getID()));
+  _map->updatePlayer(player);
+  _network->sendTo(client, new MovePacket())
 }
 
 void					GameCore::gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
