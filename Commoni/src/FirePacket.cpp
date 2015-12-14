@@ -1,7 +1,7 @@
 # include <string.h>
 # include "FirePacket.h"
 
-FirePacket::FirePacket(ClientUDPCommand resp, int idx, float x, float y) : AClientPacket<ClientUDPCommand>(resp, sizeof(*_data) + sizeof(*_header)), _data(new FireData)
+FirePacket::FirePacket(ClientUDPCommand resp, int idx, float x, float y) : AClientPacket<ClientUDPCommand>(resp, sizeof(*_data) + sizeof(*_header)), _data(new FireData), _header(new ClientUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;

@@ -12,7 +12,6 @@ MapController::~MapController()
 
 void		MapController::addObject(IObject* obj)
 {
-  std::cout << "opopop" << std::endl;
   _map.push_back(obj);
 }
 

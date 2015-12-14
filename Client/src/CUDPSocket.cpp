@@ -32,9 +32,14 @@ void			CUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDat
 {
   socklen_t			addr_len = sizeof(*addr);
 
-  std::cout << "socket = " << _listen << " ; buffer = " << (char*)buffer << " ; size = " << size  << std::endl;
+  std::cout << "write on socket = " << _listen <<  " ; size = " << size  << std::endl;
 
-  int res = sendto(_listen, (void *)buffer, size, 0, (sockaddr *)addr, addr_len);
+  int res = sendto(_listen, (char*)buffer, sizeof(ClientUDPHeader), 0, (sockaddr *)addr, addr_len);
+  if (res == -1)
+    throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
+  if (res == 0)
+    throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
+  res = sendto(_listen, (char*)buffer + sizeof(ClientUDPHeader), size - sizeof(ClientUDPHeader), 0, (sockaddr *)addr, addr_len);
   if (res == -1)
     throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
   if (res == 0)

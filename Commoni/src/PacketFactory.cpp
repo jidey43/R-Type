@@ -73,12 +73,12 @@ IClientPacket<ClientUDPCommand>*		PacketFactory::build(ClientUDPHeader *header)
     case CAUTH_UDP:
       return new CAuthUDPPacket(header);
       break;
-    // case FIRE:
-    //   return new FirePacket(header);
-    //   break;
-    // case SEND_MOVE:
-    //   return new SendMovePacket(header);
-    //   break;
+    case FIRE:
+      return new FirePacket(header);
+      break;
+    case SEND_MOVE:
+      return new SendMovePacket(header);
+      break;
     // case DISCONNECT:
     //   return new DisconnectPacket(header);
     //   break;

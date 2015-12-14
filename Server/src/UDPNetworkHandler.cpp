@@ -66,7 +66,8 @@ IClientPacket<ClientUDPCommand>*	UDPNetworkHandler::receiveFrom(GamerInfo *clien
   else
     return NULL;
   packet = _factory->build(header);
-  if (!packet->checkHeader())
+  std::cout << "received header " << packet->getCommandType() << " and size = " << header->size << std::endl;
+  if (!packet || !packet->checkHeader())
     throw Exceptions::BadHeaderRequest("Error, received bad Header from known client");
   buff = new char[header->size];
   memset(buff, 0, header->size);
@@ -89,12 +90,11 @@ IClientPacket<ClientUDPCommand>*	UDPNetworkHandler::receiveFrom(GamerInfo *clien
 bool					UDPNetworkHandler::sendTo(GamerInfo *client,
 								  IServerPacket<ServerUDPResponse>* response)
 {
-  char*					buff;
-  std::string				toSend = response->deserialize();
+  char*					buff = response->deserialize();
 
   try
     {
-      _network->sendData((void*)(toSend.c_str()),
+      _network->sendData(buff,
 			 response->getPacketSize(),
 			 _socket,
 			 client->getClientInfos());
@@ -132,6 +132,8 @@ GamerInfo*				UDPNetworkHandler::selectClient(struct timeval *to)
       try
 	{
 	  _network->recvData(header, sizeof(*header), _socket, clientDatas);
+
+	  std::cout << sizeof(*header) << " " << header->command << " : size = " << header->size << " just received" << std::endl;
 	}
       catch (Exceptions::NetworkExcept e)
 	{
@@ -140,7 +142,7 @@ GamerInfo*				UDPNetworkHandler::selectClient(struct timeval *to)
 	}
       if ((client = this->getClient(clientDatas)))
 	client->setHeader(header);
-	return client;
+      return client;
     }
   return NULL;
 }

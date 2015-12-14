@@ -69,12 +69,11 @@ IServerPacket<ServerUDPResponse>*	CUDPNetworkHandler::receive()
 
 bool					CUDPNetworkHandler::send(IClientPacket<ClientUDPCommand>* response)
 {
-  char*					buff;
-  std::string				toSend = response->deserialize();
+  char*					buff = response->deserialize();
 
   try
     {
-      _network->sendData((void*)(toSend.c_str()),
+      _network->sendData(buff,
 			 response->getPacketSize(),
 			 _socket,
 			 &_serveraddr);

@@ -3,6 +3,7 @@
 
 # include "NetworkDefines.h"
 # include "SINetwork.hh"
+# include "IServerPacket.hh"
 # include "Exceptions.hpp"
 
 class			SUDPSocket

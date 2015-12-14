@@ -36,7 +36,7 @@ int main(int argc, char **av)
       std::cout << "REPONSE DU SERVEUR " << response->getCommandType() << "\n";
       CUDPNetworkHandler* udpHand = new CUDPNetworkHandler(((GameInfoPacket*)response)->getData()->ip, std::to_string(((GameInfoPacket*)response)->getData()->port));
       udpHand->initSocket();
-
+      udpHand->send(new CAuthUDPPacket(CAUTH_UDP, 0, "bite"));
       // END
 
       m = new Manager(udpHand);

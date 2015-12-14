@@ -2,7 +2,10 @@
 
 GameCore::GameCore(std::string const&ip, std::string const& port)
   : _clients(new std::vector<GamerInfo*>()),
-    _network(new UDPNetworkHandler(ip, port, _clients))
+    _network(new UDPNetworkHandler(ip, port, _clients)),
+    _map(new MapController),
+    _factory(new FactoryManager(_map, "../../level/Level1.lvl"))
+
 {
   std::cout << "start thread" << std::endl;
   this->run();
@@ -27,7 +30,8 @@ bool					GameCore::receivePacket()
   if ((client = _network->selectClient()))
     {
       packet = _network->receiveFrom(client);
-      processPacket(client, packet);
+      if (packet)
+	processPacket(client, packet);
     }
   return true;
 }
@@ -70,6 +74,7 @@ bool					GameCore::processPacket(GamerInfo* client,
 
 void					GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
+
   client->setName(dynamic_cast<CAuthUDPPacket*>(packet)->getData()->data);
   client->setAuth(true);
   client->setID(_maxId++);

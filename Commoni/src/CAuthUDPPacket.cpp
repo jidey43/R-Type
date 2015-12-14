@@ -7,8 +7,8 @@ CAuthUDPPacket::CAuthUDPPacket(ClientUDPCommand resp, int idx, std::string const
   _header->command = resp;
   _header->size = sizeof(*_data);
   _header->idx = idx;
-  memset(_data->data, 0, 256);
-  memcpy(&(_data->data), name.c_str(), name.size());
+  memset(_data->data, 0, sizeof(*_data));
+  memcpy(_data->data, name.c_str(), name.size());
   _data->magic = MAGIC;
 }
 

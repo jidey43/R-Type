@@ -2,6 +2,7 @@
 # define UDPSOCKET_H_
 
 # include "NetworkDefines.h"
+# include "IClientPacket.hh"
 # include "CINetwork.hh"
 # include "Exceptions.hpp"
 
