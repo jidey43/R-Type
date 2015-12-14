@@ -30,7 +30,7 @@ endif(WIN32)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake_modules")
 
 if(WIN32)
-set(SFML_ROOT "${PROJECT_SOURCE_DIR}/Client/SFML-2.3.2-win")
+set(SFML_ROOT "${PROJECT_SOURCE_DIR}/SFML-2.3.2-win")
 find_package(SFML 2.3.2 REQUIRED system window graphics network audio)
 if (SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
