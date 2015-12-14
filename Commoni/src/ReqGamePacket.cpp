@@ -1,6 +1,5 @@
 #include <string.h>
 #include "ReqGamePacket.h"
-#include <unistd.h>
 
 ReqGamePacket::ReqGamePacket(ClientTCPCommand command)
   : AClientPacket<ClientTCPCommand>(command, sizeof(*_header)), _header(new ClientTCPHeader)
