@@ -1,6 +1,7 @@
 #pragma once
 #include "ViewController.hh"
 #include "AssetsController.hh"
+#include "IObject.hh"
 
 //extern ViewController *vc;
 extern AssetsController *ac;

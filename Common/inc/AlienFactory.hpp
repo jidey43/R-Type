@@ -4,7 +4,10 @@
 # include <cstddef>
 # include <deque>
 # include "IAlienFactory.hh"
+# include "MapController.hh"
 # include "Waves.hh"
+
+extern unsigned int _maxId;
 
 template <class T>
 class	AlienFactory : public IAlienFactory
@@ -20,7 +23,8 @@ public:
 
     if (clock.getElapsedTime() >= _order.front().getTime())
       {
-        obj = new T(_order.front().getSpeed(), _order.front().getPos(), _order.front().getCoeff());
+	_maxId = _maxId + 1;
+        obj = new T(_order.front().getSpeed(), _order.front().getPos(), _maxId, _order.front().getCoeff());
 	_order.front().pop();
       }
     else

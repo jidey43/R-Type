@@ -1,7 +1,7 @@
 #include "Object.hh"
 
-Object::Object(sf::Vector2f speed, sf::Vector2f pos, ObjectInfo::Type type, unsigned int id)
-  : _speed(speed), _pos(pos),  _objType(type), _id(id)
+Object::Object(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, ObjectInfo::Type type, unsigned int id)
+  : _speed(speed), _pos(pos), _size(size), _objType(type), _id(id)
 {}
 
 Object::~Object() {}
@@ -45,4 +45,3 @@ bool			Object::collision(std::vector<IObject*> map)
     }
   return (true);
 }
-

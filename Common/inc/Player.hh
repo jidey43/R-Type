@@ -3,6 +3,7 @@
 
 # include "Object.hh"
 # include "BasicPlayerProjectile.hh"
+# include "NetworkDefines.h"
 
 class Player: public Object
 {
@@ -12,6 +13,8 @@ public:
 
 public:
   bool		update();
+  bool		update(IObject*);
+  bool		update(std::vector<IObject*>&);
   IObject	*BasicShoot();
   void		tryShoot();
   void		setDirection(Direction dir);

@@ -13,16 +13,12 @@ public:
   void		addObject(IObject*);
   void		updateMap();
 
-  void		updatePlayer();
+  void		updatePlayer(IObject*);
   IObject*	getPlayer(int id);
   void		deletePlayer(int id);
 
 private:
   std::vector<IObject*>		_map;
-  unsigned int			_maxID;
-
-public:
-  unsigned int			getMaxID();
 };
 
 #endif

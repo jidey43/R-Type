@@ -6,11 +6,12 @@
 class BasicPlayerProjectile : public Projectile
 {
 public:
-  BasicPlayerProjectile(sf::Vector2f, sf::Vector2i, float);
+  BasicPlayerProjectile(sf::Vector2f, sf::Vector2f, unsigned int);
   ~BasicPlayerProjectile();
 
 public:
   bool		update();
+  bool		update(std::vector<IObject*>&);
 };
 
 # endif

@@ -1,7 +1,7 @@
 #include "BasicPlayerProjectileGraphical.h"
 
-BasicPlayerProjectileGrapical::BasicPlayerProjectileGrapical(sf::Vector2f speed, sf::Vector2i pos, float coeff) :
-	BasicPlayerProjectile(speed, pos, coeff), GraphicalItem()
+BasicPlayerProjectileGrapical::BasicPlayerProjectileGrapical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id) :
+	BasicPlayerProjectile(speed, pos, id), GraphicalItem()
 {
 	_sprite->setTexture(*(ac->getShot(BASICPLAYERSHOT)));
 	_sprite->setPosition(

@@ -6,9 +6,7 @@ namespace ObjectInfo
 enum Type
   {
     PLAYER = 0,
-    ALIEN,
-    PROJECTILE_PLAYER,
-    PROJECTILE_ALIEN
+    ALIEN
   };
 
 enum Way
