@@ -3,8 +3,8 @@
 
 # include <vector>
 # include "GamerInfo.hh"
-// # include "FactoryManager.hh"
-// # include "MapController.hh"
+# include "FactoryManager.hh"
+# include "MapController.hh"
 # include "UDPNetworkHandler.hh"
 
 class GameCore
@@ -27,8 +27,8 @@ private :
 private :
   std::vector<GamerInfo*>*	_clients;
   UDPNetworkHandler*		_network;
-  // MapController*		_map;
-  // FactoryManager*		_factory;
+  MapController*		_map;
+  FactoryManager*		_factory;
 };
 
 #endif /* !GAMECORE_H_ */
