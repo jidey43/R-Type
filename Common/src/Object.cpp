@@ -26,9 +26,17 @@ sf::Vector2i		Object::getPos() const
   return _pos;
 }
 
-bool			Object::collision()
+bool			Object::collision(std::vector<IObject*> map)
 {
-  
-
-  
+  for (std::vector<IObject*>::iterator it = map.begin(); it != map.end(); it++)
+    {
+      if ((this != *it) && (this->getPos().x >= (*it)->getPos().x + (*it)->getSize().x)
+	  || (this->getPos().x + this->getSize().x <= (*it)->getPos().x)
+	  || (this->getPos().y >= (*it)->getPos().y + (*it)->getSize().y)
+	  || (this->getPos().y + this->getSize().y <= (*it)->getPos().y))
+	{
+	  return (false);
+	}
+    }
+  return (true);
 }

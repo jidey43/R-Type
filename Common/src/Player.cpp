@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 Player::Player(sf::Vector2f speed, sf::Vector2i pos, float coeff, int id) : Object(speed, pos, coeff), _id(id)
-{ 
+{
   _objType = ObjectInfo::PLAYER;
 }
 

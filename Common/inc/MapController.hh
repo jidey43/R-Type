@@ -13,7 +13,8 @@ public:
   void		addObject(IObject*);
   void		updateMap();
   void		updatePlayer();
-
+  
+  
 private:
   std::vector<IObject*>		_objList;
 };

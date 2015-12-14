@@ -2,6 +2,7 @@
 # define _OBJECT_HH_
 
 # include "IObject.hh"
+# include "MapController.hh"
 
 class Object : public IObject
 {
@@ -17,7 +18,7 @@ public:
   virtual bool		        update() = 0;
 
 protected:
-  bool				collision();
+  bool				collision(std::vector<IObject*>);
 
 protected:
   
