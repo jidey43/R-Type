@@ -1,24 +1,24 @@
-#include "MenuController.hh"
+# include "MenuController.hh"
 
-MenuController::MenuController()
+MenuController::MenuController(CNetworkHandler **tcpHand) : _tcpHandAddr(tcpHand)
 {
-	_join = false;
-	_ipArea = new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.3), 
-			sf::Vector2f(500,50), "Enter ip");
-	
-	_portArea = new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.4),
-		sf::Vector2f(500, 50), "Enter port");
+  _join = false;
+  _ipArea = new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.3),
+			 sf::Vector2f(500,50), "Enter ip");
 
-	_nicknameArea = new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.5),
-			sf::Vector2f(500, 50), "Enter nickname");
+  _portArea = new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.4),
+			   sf::Vector2f(500, 50), "Enter port");
 
-	_buttons.resize(NUMBEROFBUTTON);
-	_buttons[EXIT] = new ExitButton;
-	_buttons[JOIN] = new JoinButton;
+  _nicknameArea = new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.5),
+			       sf::Vector2f(500, 50), "Enter nickname");
 
-	_background = new Backgroud();
-	_logo.setTexture(*(ac->getLogo()));
-	_logo.setPosition(sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.05));
+  _buttons.resize(NUMBEROFBUTTON);
+  _buttons[EXIT] = new ExitButton;
+  _buttons[JOIN] = new JoinButton;
+
+  _background = new Backgroud();
+  _logo.setTexture(*(ac->getLogo()));
+  _logo.setPosition(sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.05));
 }
 
 MenuController::~MenuController()
@@ -27,78 +27,98 @@ MenuController::~MenuController()
 
 void MenuController::loop()
 {
-	while (true)
-	{
-		_clock.restart();
-		vc->clear();
+  while (true)
+    {
+      _clock.restart();
+      vc->clear();
 
-		if (_join)
-			return;
+      if (_join)
+	return;
 
-		_keyboardStatus = vc->getKeyboardStatus();
-		treatEvents();
+      _keyboardStatus = vc->getKeyboardStatus();
+      treatEvents();
 
-		update();
-		drawMenuItems();
+      update();
+      drawMenuItems();
 
-		vc->refresh();
-		_loopTime = _clock.getElapsedTime();
-		sf::sleep(sf::Time(sf::microseconds(16666)) - _loopTime);
-	}
+      vc->refresh();
+      _loopTime = _clock.getElapsedTime();
+      sf::sleep(sf::Time(sf::microseconds(16666)) - _loopTime);
+    }
 }
 
 void MenuController::treatEvents()
 {
-	if (_keyboardStatus.leftClick == true)
-		for (int i = 0; i != _buttons.size(); i++)
-		{
-			if (_buttons[i]->getIsHigh())
-				onClick((ButtonType)i);
-		}
+  if (_keyboardStatus.leftClick == true)
+    for (int i = 0; i != _buttons.size(); i++)
+      {
+	if (_buttons[i]->getIsHigh())
+	  onClick((ButtonType)i);
+      }
 }
 
 void MenuController::update()
 {
-	for (int i = 0; i != _buttons.size(); i++)
-	{
-		_buttons[i]->update(_keyboardStatus.mousePos);
-	}
-	_ipArea->update(_keyboardStatus);
-	_portArea->update(_keyboardStatus);
-	_nicknameArea->update(_keyboardStatus);
-	_background->update();
+  for (int i = 0; i != _buttons.size(); i++)
+    {
+      _buttons[i]->update(_keyboardStatus.mousePos);
+    }
+  _ipArea->update(_keyboardStatus);
+  _portArea->update(_keyboardStatus);
+  _nicknameArea->update(_keyboardStatus);
+  _background->update();
 }
 
 void MenuController::drawMenuItems()
 {
-	vc->draw(_background->getDrawable());
-	vc->draw(&_logo);
-	vc->draw(_ipArea->getTextArea());
-	vc->draw(_ipArea->getDrawableText());
-	vc->draw(_portArea->getTextArea());
-	vc->draw(_portArea->getDrawableText());
-	vc->draw(_nicknameArea->getTextArea());
-	vc->draw(_nicknameArea->getDrawableText());
-	for (int i = 0; i != _buttons.size(); i++)
-	{
-		vc->draw(_buttons[i]->getDrawable());
-	}
+  vc->draw(_background->getDrawable());
+  vc->draw(&_logo);
+  vc->draw(_ipArea->getTextArea());
+  vc->draw(_ipArea->getDrawableText());
+  vc->draw(_portArea->getTextArea());
+  vc->draw(_portArea->getDrawableText());
+  vc->draw(_nicknameArea->getTextArea());
+  vc->draw(_nicknameArea->getDrawableText());
+  for (int i = 0; i != _buttons.size(); i++)
+    {
+      vc->draw(_buttons[i]->getDrawable());
+    }
 }
 
 void MenuController::onClick(ButtonType type)
 {
-	switch (type)
-	{
-	case JOIN:
-		joinGame();
-		break;
-	case EXIT:
-		exit(0);
-		break;
-	}
+  switch (type)
+    {
+    case JOIN:
+      joinGame();
+      break;
+    case EXIT:
+      exit(0);
+      break;
+    }
 }
 
 void MenuController::joinGame()
 {
-	_join = true;
+  std::string ip = _ipArea->getText();
+  std::string port = _portArea->getText();
+IServerPacket<ServerTCPResponse>* response;
+
+  *_tcpHandAddr = new CNetworkHandler(ip, port);
+  CNetworkHandler* _tcpHand = *_tcpHandAddr;
+  if (_tcpHand->initSocket())
+    {
+      std::cout << "connected\n";
+      _tcpHand->sendToServer(new NickPacket(AUTH_TCP, _nicknameArea->getText()));
+      response = _tcpHand->receiveFromServer();
+      if (response->getCommandType() == AUTH)
+      {
+        std::cout << "aut\n";
+      }
+      else
+        std::cout << "pas auth " << response->getCommandType() << "\n";
+	    _join = true;
+    }
+  else
+    std::cout << "failed\n";
 }

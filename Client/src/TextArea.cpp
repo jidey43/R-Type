@@ -45,6 +45,11 @@ sf::Drawable * TextArea::getTextArea()
 	return _textArea;
 }
 
+std::string TextArea::getText()
+{
+  return _text;
+}
+
 sf::Text * TextArea::getDrawableText()
 {
 	return _drawableText;

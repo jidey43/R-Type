@@ -9,6 +9,7 @@ NewGamePacket::NewGamePacket(ClientTCPCommand command, std::string const& data)
   _header->size = sizeof(*_data);
   bzero(_data->data, sizeof(*_data));
   memcpy(&(_data->data), data.c_str(), data.size());
+  std::cout << _data->data << std::endl;
 }
 
 NewGamePacket::NewGamePacket(ClientTCPHeader* header)

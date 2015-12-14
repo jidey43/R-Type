@@ -12,6 +12,7 @@ public:
 	TextArea(Font font, sf::Vector2f pos, sf::Vector2f size, std::string defaultText);
 	void			update(keyboardStatus status);
 	sf::Drawable*	getTextArea();
+	std::string	getText();
 	sf::Text*		getDrawableText();
 	bool			cursorOnIt(sf::Vector2i);
 

@@ -5,6 +5,7 @@
 #include "ItemController.hh"
 #include "ObjectInfo.hpp"
 
+
 extern ViewController *vc;
 extern AssetsController *ac;
 
@@ -17,7 +18,7 @@ public:
 public:
 	void				loop();
 	void				treatEventsFromKeyboard();
-  void				treatEventsFromNetwork();
+	void				treatEventsFromNetwork();
 
 private:
 	sf::Clock			_clock;

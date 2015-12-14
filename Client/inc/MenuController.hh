@@ -6,6 +6,7 @@
 #include "ExitButton.h"
 #include "TextArea.h"
 #include "Background.h"
+#include "CNetworkHandler.hh"
 
 extern ViewController *vc;
 extern AssetsController *ac;
@@ -13,7 +14,7 @@ extern AssetsController *ac;
 class MenuController
 {
 public:
-	MenuController();
+	MenuController(CNetworkHandler **);
 	~MenuController();
 
 public:
@@ -25,6 +26,7 @@ public:
 	void						joinGame();
 
 private:
+	CNetworkHandler**				_tcpHandAddr;
 	sf::Clock					_clock;
 	keyboardStatus				_keyboardStatus;
 	Backgroud*					_background;

@@ -85,7 +85,7 @@ ClientInfo*	NetworkHandler::getActiveClient()
   ClientInfo*	client = _activeClients.back();
 
   _activeClients.pop_back();
-  if (!receiveFromClient(client) || client->getPacket() != NULL)
+  if (receiveFromClient(client) && client->getPacket() != NULL)
     return client;
   else
     return getActiveClient();

@@ -52,7 +52,7 @@ void Server::answerClients()
 
 void Server::parser(ClientInfo * client)
 {
-  if (client->isInGame())
+  if (!client->isInGame())
     switch (client->getPacket()->getCommandType())
       {
       case JOIN_GAME:
