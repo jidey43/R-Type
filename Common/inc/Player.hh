@@ -13,9 +13,13 @@ public:
 public:
   bool		update();
   IObject	*BasicShoot();
+  void		tryShoot();
+  void		setDirection(Direction dir);
 
 private:
   int		_id;
+  bool		_tryShoot;
+  Direction	_dir;
 };
 
 # endif

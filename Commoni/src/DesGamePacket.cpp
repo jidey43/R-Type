@@ -7,8 +7,8 @@ DesGamePacket::DesGamePacket(ServerTCPResponse resp, int id, std::string const& 
   _header->command = resp;
   _header->size = sizeof(*_data);
   _data->id = id;
-  bzero(_data->gameName, 256);
-  bzero(_data->players, 256);
+  memset(_data->gameName, 0, 256);
+  memset(_data->players, 0, 256);
   memcpy(&(_data->gameName), gameName.c_str(), gameName.size());
   memcpy(&(_data->players), players.c_str(), players.size());
   _data->magic = MAGIC;
