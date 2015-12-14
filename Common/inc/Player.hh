@@ -7,7 +7,7 @@
 class Player: public Object
 {
 public:
-  Player(sf::Vector2f, sf::Vector2i, float, int);
+  Player(sf::Vector2f, sf::Vector2f, unsigned int);
   ~Player();
 
 public:

@@ -1,7 +1,7 @@
 #include "Object.hh"
 
-Object::Object(sf::Vector2f speed, sf::Vector2i pos, float coeff)
-  : _speed(speed), _pos(pos),  _coeff(coeff)
+Object::Object(sf::Vector2f speed, sf::Vector2f pos, ObjectInfo::Type type, unsigned int id)
+  : _speed(speed), _pos(pos),  _objType(type), _id(id)
 {}
 
 Object::~Object() {}
@@ -21,9 +21,14 @@ sf::Vector2f		Object::getSpeed() const
   return _speed;
 }
 
-sf::Vector2i		Object::getPos() const
+sf::Vector2f		Object::getPos() const
 {
   return _pos;
+}
+
+unsigned int		Object::getId() const
+{
+  return _id;
 }
 
 bool			Object::collision(std::vector<IObject*> map)
@@ -40,3 +45,4 @@ bool			Object::collision(std::vector<IObject*> map)
     }
   return (true);
 }
+

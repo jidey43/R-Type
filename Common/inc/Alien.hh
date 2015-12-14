@@ -6,12 +6,15 @@
 class Alien : public Object
 {
 public:
-  Alien(sf::Vector2f, sf::Vector2i, float);
+  Alien(sf::Vector2f, sf::Vector2f, float);
   ~Alien();
 
 public:
   bool		update();
   IObject	*Basicshoot();
+
+protected:
+  float		_coeff;
 };
 
 # endif
