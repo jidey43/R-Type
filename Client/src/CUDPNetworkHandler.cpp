@@ -32,18 +32,17 @@ IServerPacket<ServerUDPResponse>*	CUDPNetworkHandler::receive()
 {
   char*					buff;
   IServerPacket<ServerUDPResponse>*	packet;
-  ServerUDPHeader*			header;
 
   if (_header)
     {
       packet = _factory->build(_header);
-      if (!packet->checkHeader())
+      if (!packet || !packet->checkHeader())
 	throw Exceptions::BadHeaderRequest("Error, received bad Header from known client");
-      buff = new char[header->size];
-      memset(buff, 0, header->size);
+      buff = new char[_header->size];
+      memset(buff, 0, _header->size);
       try
 	{
-	  _network->recvData((void *)buff, header->size, _socket, &_serveraddr);
+	  _network->recvData((void *)buff, _header->size, _socket, &_serveraddr);
 	}
       catch (Exceptions::NetworkExcept e)
 	{
