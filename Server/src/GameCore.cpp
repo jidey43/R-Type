@@ -1,9 +1,10 @@
-#include "../includes/GameCore.hh"
+#include "GameCore.hh"
 
 GameCore::GameCore(std::string const&ip, std::string const& port)
   : _clients(new std::vector<GamerInfo*>()),
     _network(new UDPNetworkHandler(ip, port, _clients))
 {
+  std::cout << "start thread" << std::endl;
 }
 
 GameCore::~GameCore()

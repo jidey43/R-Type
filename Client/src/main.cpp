@@ -34,10 +34,13 @@ int main(int argc, char **av)
       tcpHand->sendToServer(new NewGamePacket(ADD_GAME, "Game de l'espace"));
       response = tcpHand->receiveFromServer();
       std::cout << "REPONSE DU SERVEUR " << response->getCommandType() << "\n";
+//      response = (GameInfoPacket*)response;
+      CUDPNetworkHandler* udpHand = new CUDPNetworkHandler(((GameInfoPacket*)response)->getData()->ip, std::to_string(((GameInfoPacket*)response)->getData()->port));
+      udpHand->initSocket();
 
       // END
 
-      m = new Manager();
+      m = new Manager(udpHand);
       m->loop();
       delete m;
     }

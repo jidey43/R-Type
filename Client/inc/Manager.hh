@@ -4,7 +4,8 @@
 #include "AssetsController.hh"
 #include "ItemController.hh"
 #include "ObjectInfo.hpp"
-
+#include "CUDPNetworkHandler.hh"
+#include "IServerPacket.hh"
 
 extern ViewController *vc;
 extern AssetsController *ac;
@@ -12,19 +13,22 @@ extern AssetsController *ac;
 class					Manager
 {
 public:
-	Manager();
+	Manager(CUDPNetworkHandler*);
 	~Manager();
 
 public:
 	void				loop();
+	sf::Time 		getElapsedTimeSinceLoop();
 	void				treatEventsFromKeyboard();
 	void				treatEventsFromNetwork();
+	void 				treatPacket();
 
 private:
 	sf::Clock			_clock;
-	sf::Time			_loopTime;
+	sf::Time			_referential;
 
 private:
 	keyboardStatus		_keyboardStatus;
 	ItemController		*_itemCtrl;
+	CUDPNetworkHandler *_udpHand;
 };

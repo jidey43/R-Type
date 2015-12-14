@@ -47,19 +47,17 @@ std::vector<GameInfo*>& GameHandler::getGameList()
 void		GameHandler::tryJoinGames()
 {
   int		port;
+  std::vector<GameInfo*>::iterator it = _gameList.begin();
 
-  for (std::vector<GameInfo*>::iterator it = _gameList.begin(); it != _gameList.end(); ++it)
+  while (it != _gameList.end())
     {
       if ((port = (*it)->tryJoinGame()) != -1)
-	{
-	  _ports.push_back(port);
-	  closeGame(it, *it);
-	}
+	     {
+         	  _ports.push_back(port);
+            delete (*it);
+            it = _gameList.erase(it);
+	        }
+        else
+          it++;
     }
-}
-
-void			GameHandler::closeGame(std::vector<GameInfo*>::iterator& it, GameInfo* game)
-{
-  delete (game);
-  it = _gameList.erase(std::find(_gameList.begin(), _gameList.end(), game));
 }

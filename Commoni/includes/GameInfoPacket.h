@@ -6,7 +6,7 @@
 class GameInfoPacket : public AServerPacket<ServerTCPResponse>
 {
  public:
-  GameInfoPacket(ServerTCPResponse, int, int);
+  GameInfoPacket(ServerTCPResponse, std::string const&, int);
   GameInfoPacket(ServerTCPHeader*);
   ~GameInfoPacket();
 

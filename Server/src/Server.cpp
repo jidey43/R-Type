@@ -15,7 +15,8 @@
 
 Server::Server(std::string const & ip, std::string const & port)
  : _network(new NetworkHandler(ip, port)),
-	  _games(new GameHandler(ip))
+	  _games(new GameHandler(ip)),
+    _ip(ip)
 {
   if (_network->initSocket())
     {
@@ -81,8 +82,9 @@ void Server::parser(ClientInfo * client)
 	  break;
 	}
       }
-  else
-    _network->sendToClient(client, new FailPacket(FAIL));
+  else {
+    std::cout << "fail" << std::endl;
+    _network->sendToClient(client, new FailPacket(FAIL)); }
 }
 
 bool Server::describeGame(ClientInfo * client)
@@ -118,7 +120,7 @@ bool	Server::joinGame(ClientInfo* client)
   GameInfo*	game;
 
   if ((game = _games->addClientInGame(client, dynamic_cast<JoinPacket*>(client->getPacket())->getData()->id)) != NULL)
-    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, game->getID(), game->getPort()));
+    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort()));
   else
     _network->sendToClient(client, new FailPacket(FAIL));
   return true;
@@ -129,7 +131,7 @@ bool	Server::joinGame(ClientInfo* client, int id)
   GameInfo*	game;
 
   if ((game = _games->addClientInGame(client, id)) != NULL)
-    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, game->getID(), game->getPort()));
+    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort()));
   else
     _network->sendToClient(client, new FailPacket(FAIL));
   return true;

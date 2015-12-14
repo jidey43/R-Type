@@ -1,12 +1,13 @@
 # include <string.h>
 # include "GameInfoPacket.h"
 
-GameInfoPacket::GameInfoPacket(ServerTCPResponse resp, int id, int port) : AServerPacket<ServerTCPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _header(new ServerTCPHeader), _data(new GameInfoData)
+GameInfoPacket::GameInfoPacket(ServerTCPResponse resp, std::string const& ip, int port) : AServerPacket<ServerTCPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _header(new ServerTCPHeader), _data(new GameInfoData)
 {
   _header->magic = MAGIC;
   _header->command = resp;
   _header->size = sizeof(*_data);
-  _data->id = id;
+  memset(_data->ip, 0, sizeof(_data->ip));
+  memcpy(_data->ip, ip.c_str(), ip.size());
   _data->port = port;
   _data->magic = MAGIC;
 }

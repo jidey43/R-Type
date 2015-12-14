@@ -32,7 +32,7 @@ typedef struct
 
 typedef struct
 {
-  uint32_t			id;
+  char          ip[256];
   uint32_t			port;
   uint32_t			magic;
 } __attribute__ ((packed))	GameInfoData;

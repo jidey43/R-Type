@@ -1,7 +1,7 @@
 # include <string.h>
 # include "SendMovePacket.h"
 
-SendMovePacket::SendMovePacket(ClientUDPCommand resp, int idx, Direction dir) : AClientPacket<ClientUDPCommand>(resp, sizeof(*_data) + sizeof(*_header)), _data(new SendMoveData)
+SendMovePacket::SendMovePacket(ClientUDPCommand resp, int idx, Direction dir) : AClientPacket<ClientUDPCommand>(resp, sizeof(*_data) + sizeof(*_header)), _data(new SendMoveData), _header(new ClientUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;

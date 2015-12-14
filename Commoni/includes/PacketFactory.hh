@@ -19,6 +19,8 @@
 #include "DelShotPacket.h"
 #include "CreIAPacket.h"
 #include "DelIAPacket.h"
+#include "SendMovePacket.h"
+#include "FirePacket.h"
 #include "CAuthUDPPacket.h"
 #include "NetworkDefines.h"
 
