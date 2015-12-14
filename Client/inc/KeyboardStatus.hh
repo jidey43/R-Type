@@ -11,4 +11,5 @@ typedef struct s_keyboarStatus
 	bool		down;
 	bool		left;
 	bool		right;
+	bool		ctrl;
 }				keyboardStatus;

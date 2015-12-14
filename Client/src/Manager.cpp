@@ -32,7 +32,7 @@ void					Manager::loop()
 		_itemCtrl->update();
 
 		_keyboardStatus =  vc->getKeyboardStatus();
-		treatEvents();
+		treatEventsFromKeyboard();
 
 		_itemCtrl->draw();
 
@@ -42,7 +42,22 @@ void					Manager::loop()
 	}
 }
 
-void Manager::treatEvents()
+void Manager::treatEventsFromKeyboard()
+{
+	if (_keyboardStatus.up)
+		std::cout << "il a appuyé sur haut\n";
+	if (_keyboardStatus.down)
+		std::cout << "il a appuyé sur bas\n";
+	if (_keyboardStatus.left)
+		std::cout << "il a appuyé sur gauche\n";
+	if (_keyboardStatus.right)
+		std::cout << "il a appuyé sur droite\n";
+	if (_keyboardStatus.ctrl)
+		std::cout << "il a appuyé sur tirer  !\n";
+
+}
+
+void Manager::treatEventsFromNetwork()
 {
 
 }

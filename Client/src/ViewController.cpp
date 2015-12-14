@@ -55,6 +55,8 @@ keyboardStatus					ViewController::getKeyboardStatus()
 		state.left = true;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		state.right = true;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+		state.ctrl = true;
 	return state;
 }
 

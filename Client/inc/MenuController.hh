@@ -5,6 +5,7 @@
 #include "JoinButton.h"
 #include "ExitButton.h"
 #include "TextArea.h"
+#include "Background.h"
 
 extern ViewController *vc;
 extern AssetsController *ac;
@@ -26,10 +27,10 @@ public:
 private:
 	sf::Clock					_clock;
 	keyboardStatus				_keyboardStatus;
+	Backgroud*					_background;
 	sf::Time					_loopTime;
 	std::vector<MenuButton*>	_buttons;
 	bool						_join;
-	sf::Sprite					_background;
 	sf::Sprite					_logo;
 	TextArea*					_ipArea;
 	TextArea*					_portArea;

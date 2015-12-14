@@ -17,7 +17,7 @@ public:
   IObject	*getNextEnemy()
   {
     IObject	*obj;
-    if (0 == 0 /*_order.front()->getTime() == 0 future timer*/ )
+    if (0 == 0 /*_order.front()->getTime() == 0 future timer*/)
       {
         obj = new T(_order.front().getSpeed(), _order.front().getPos(), _order.front().getCoeff());
 	_order.front().pop();
@@ -38,8 +38,8 @@ public:
   {
     _order.push_back(wave);
   }
-  
-public:  
+
+public:
   std::deque<Waves>	_order;
   ObjectInfo::WaveType	_type;
 };
