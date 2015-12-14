@@ -5,6 +5,7 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
     _network(new UDPNetworkHandler(ip, port, _clients))
 {
   std::cout << "start thread" << std::endl;
+  this->run();
 }
 
 GameCore::~GameCore()

@@ -63,12 +63,14 @@ keyboardStatus					ViewController::getKeyboardStatus()
 char ViewController::getTextEntered()
 {
 	sf::Event e;
-	_mainWindow->pollEvent(e);
-	if (e.type == sf::Event::TextEntered)
-	{
+	if (_mainWindow->pollEvent(e))
+	  {
+	    if (e.type == sf::Event::TextEntered)
+	      {
 		if (e.text.unicode < 128)
-			return(static_cast<char>(e.text.unicode));
-	}
+		  return(static_cast<char>(e.text.unicode));
+	      }
+	  }
 	return -1;
 }
 
