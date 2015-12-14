@@ -8,14 +8,13 @@
 
 class FactoryManager
 {
-  //changer les char * en std::string
 public:
   FactoryManager(MapController* , const char*);
   ~FactoryManager();
 
-  void		update();
-  void		initialiseLevel();
-  void		changeLevel(char *);
+  std::vector<IObject*>		update(sf::Clock);
+  void				initialiseLevel();
+  void				changeLevel(char *);
 
 private:
   unsigned int			_nbFactory;

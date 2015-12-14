@@ -12,9 +12,10 @@ public:
 
 public:
   virtual ObjectInfo::Type		getObjType() const = 0;
-  virtual sf::Vector2i			getPos() const = 0;
+  virtual sf::Vector2f			getPos() const = 0;
   virtual sf::Vector2f			getSpeed() const = 0;
   virtual sf::Vector2i			getSize() const = 0;
+  virtual unsigned int			getId() const = 0;
   virtual bool				update() = 0;
 };
 

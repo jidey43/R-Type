@@ -1,7 +1,7 @@
 #include "Player.hh"
 #include <stdlib.h>
 
-Player::Player(sf::Vector2f speed, sf::Vector2i pos, int id)
+Player::Player(sf::Vector2f speed, sf::Vector2f pos, int id)
   : Object(speed, pos, ObjectInfo::PLAYER, id), _tryShoot(false)
 {
 }

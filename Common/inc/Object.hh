@@ -2,29 +2,31 @@
 # define _OBJECT_HH_
 
 # include "IObject.hh"
+# include "MapController.hh"
 
 class Object : public IObject
 {
 public:
-  Object(sf::Vector2f, sf::Vector2i, float);
+  Object(sf::Vector2f, sf::Vector2f, ObjectInfo::Type, unsigned int);
   ~Object();
 
 public:
   ObjectInfo::Type		getObjType() const;
   sf::Vector2i			getSize() const;
   sf::Vector2f			getSpeed() const;
-  sf::Vector2i			getPos() const;
+  sf::Vector2f			getPos() const;
+  unsigned int			getId() const;
   virtual bool		        update() = 0;
 
 protected:
-  bool				collision();
+  bool				collision(std::vector<IObject*>);
 
 protected:
+  unsigned int			_id;
   sf::Vector2f			_speed;
   sf::Vector2i			_size;
-  sf::Vector2i			_pos;
+  sf::Vector2f			_pos;
   ObjectInfo::Type		_objType;
-  float				_coeff;
 };
 
 #endif

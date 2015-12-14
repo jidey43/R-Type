@@ -1,4 +1,4 @@
-#include "..\inc\Background.h"
+#include "Background.h"
 
 Backgroud::Backgroud()
 {
