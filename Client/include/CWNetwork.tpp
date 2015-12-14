@@ -22,29 +22,29 @@ WNetwork<T>::WNetwork()
 template <typename T>
 WNetwork<T>::~WNetwork()
 {
-	delete _socket;
+  delete _socket;
 }
 
 template <typename T>
 bool WNetwork<T>::initClientSocket(std::string const &ip, std::string const &port)
 {
-	WSADATA wsaData;
-	addrinfo *hints = new addrinfo;
+  WSADATA wsaData;
+  addrinfo *hints = new addrinfo;
 
-	int result;
-	result = WSAStartup(MAKEWORD(2, 2), &wsaData);
-	if (result != 0)
-	{
-		printf("WSAStartup failed: %d\n", result);
-		return false;
-	}
-	ZeroMemory(hints, sizeof(hints));
-	if ((_listen = _socket->startNetwork(ip, port, hints)) == INVALID_SOCKET)
-	{
-		WSACleanup();
-		return false;
-	}
-	return true;
+  int result;
+  result = WSAStartup(MAKEWORD(2, 2), &wsaData);
+  if (result != 0)
+    {
+      printf("WSAStartup failed: %d\n", result);
+      return false;
+    }
+  ZeroMemory(hints, sizeof(hints));
+  if ((_listen = _socket->startNetwork(ip, port, hints)) == INVALID_SOCKET)
+    {
+      WSACleanup();
+      return false;
+    }
+  return true;
 }
 
 template <typename T>
@@ -75,32 +75,43 @@ void		WNetwork<T>::selectFD(std::vector<SOCKET>& fd, struct timeval *to)
 template <typename T>
 void WNetwork<T>::sendData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
-	 _socket->sendData(data, size, sock, addr);
+  _socket->sendData(data, size, sock, addr);
 }
 
 template <typename T>
 void WNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
-	_socket->rcvData(data, size, sock, addr);
+  _socket->rcvData(data, size, sock, addr);
+}
+
+template <typename T>
+void			WNetwork<T>::getServAddr(std::string const& ip, std::string const& port, struct sockaddr_in* addr)
+{
+  struct hostent	*he;
+
+  he = gethostbyname(ip.c_str());
+  memcpy(&(addr->sin_addr), he->h_addr_list[0], he->h_length);
+  addr->sin_family = AF_INET;
+  addr->sin_port = htons(port.c_str());
 }
 
 template <typename T>
 bool WNetwork<T>::closeConnection(SOCKET socket)
 {
-	closesocket(socket);
-	return false;
+  closesocket(socket);
+  return false;
 }
 
 template <typename T>
 SOCKET WNetwork<T>::getFd() const
 {
-	return (_listen);
+  return (_listen);
 }
 
 template <typename T>
 CINetwork<T>*		getNetworkInstance()
 {
-	return new WNetwork<T>();
+  return new WNetwork<T>();
 }
 
 #endif

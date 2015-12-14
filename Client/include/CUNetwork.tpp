@@ -6,6 +6,9 @@
 #include <vector>
 #include <string.h>
 #include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 #include "CTCPSocket.hh"
 #include "CUDPSocket.hh"
 #include "CINetwork.hh"
@@ -25,12 +28,12 @@ CUNetwork<T>::~CUNetwork()
 template <typename T>
 bool CUNetwork<T>::initClientSocket(std::string const &ip, std::string const &port)
 {
-	addrinfo *hints = new addrinfo;
+  addrinfo *hints = new addrinfo;
 
-	bzero(hints, sizeof(hints));
+  bzero(hints, sizeof(hints));
   try
     {
-    _listen = _socket->startNetwork(ip, port, hints);
+      _listen = _socket->startNetwork(ip, port, hints);
     }
   catch (Exceptions::NetworkExcept e)
     {
@@ -69,6 +72,15 @@ template <typename T>
 void CUNetwork<T>::recvData(void *data, int size, SOCKET sock, ClientDatas *addr)
 {
   _socket->rcvData(data, size, sock, addr);
+}
+
+template <typename T>
+void  CUNetwork<T>::getServAddr(std::string const& ip, std::string const& port, struct sockaddr_in *addr)
+{
+  memset((void *)addr, 0, sizeof(*addr));
+  addr->sin_family = AF_INET;
+  addr->sin_port = htons(std::atoi(port.c_str()));
+  inet_aton(ip.c_str(), &(addr->sin_addr));
 }
 
 template <typename T>

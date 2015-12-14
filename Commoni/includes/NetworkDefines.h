@@ -53,11 +53,9 @@ typedef enum
   {
     AUTH_UDP = 1,
     CRE_PLAY,
-    DEL_PLAY,
-    CRE_SHOT,
-    DEL_SHOT,
+    CRE_OBJ,
     CRE_IA,
-    DEL_IA,
+    DEL_ITEM,
     MOVE
   }		ServerUDPResponse;
 
