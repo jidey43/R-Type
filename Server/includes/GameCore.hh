@@ -2,6 +2,7 @@
 # define GAMECORE_H_
 
 # include <vector>
+# include "Player.hh"
 # include "GamerInfo.hh"
 # include "FactoryManager.hh"
 # include "MapController.hh"

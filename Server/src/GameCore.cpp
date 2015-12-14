@@ -1,4 +1,4 @@
-#include "../includes/GameCore.hh"
+#include "GameCore.hh"
 
 GameCore::GameCore(std::string const&ip, std::string const& port)
   : _clients(new std::vector<GamerInfo*>()),
@@ -53,7 +53,7 @@ bool					GameCore::processPacket(GamerInfo* client,
       }
     case DISCONNECT:
       {
-	gamerDiconnect(client, packet);
+	gamerDisconnect(client, packet);
 	break;
       }
     default:
@@ -71,22 +71,22 @@ void					GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>*
   client->setName(dynamic_cast<CAuthUDPPacket*>(packet)->getData()->data);
   client->setAuth(true);
   client->setID(_maxId++);
-  _map->addObject(new Player(sf::Vector2f(0,0), sf::Vector2i(10,10), 1, client->getID()));
+  _map->addObject(new Player(sf::Vector2f(0,0), sf::Vector2f(10,10), client->getID()));
 }
 
-void		gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
+void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
-  _map->getPlayer(client->getID())->tryShoot();
+  dynamic_cast<Player*>(_map->getPlayer(client->getID()))->tryShoot();
   _map->updatePlayer(_map->getPlayer(client->getID()));
 }
 
-void		gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
+void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
-  _map->getPlayer(client->getID())->setDirection(dynamic_cast<SendMovePacket*>(packet)->getData()->data);
+  dynamic_cast<Player*>(_map->getPlayer(client->getID()))->setDirection(dynamic_cast<SendMovePacket*>(packet)->getData()->data);
   _map->updatePlayer(_map->getPlayer(client->getID()));
 }
 
-void		gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
+void					GameCore::gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
   _map.deletePlayer(client->getID());
 }
