@@ -14,10 +14,11 @@ public:
   ~AlienFactory() {};
 
 public:
-  IObject	*getNextEnemy()
+  IObject	*getNextEnemy(sf::Clock clock)
   {
     IObject	*obj;
-    if (0 == 0 /*_order.front()->getTime() == 0 future timer*/)
+
+    if (clock.getElapsedTime() >= _order.front().getTime())
       {
         obj = new T(_order.front().getSpeed(), _order.front().getPos(), _order.front().getCoeff());
 	_order.front().pop();

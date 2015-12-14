@@ -31,7 +31,7 @@ void		FactoryManager::initialiseLevel()
   int j = 0;
   int nb = _levelLoader.getWavesCount();
   std::vector<Waves> waves(nb);
-  //a test
+
   waves.push_back(_levelLoader.getNextWave());
   for (int i = 0; j != nb; i = i + 1)
     {
@@ -55,17 +55,18 @@ void		FactoryManager::initialiseLevel()
   std::cout << "---------------------" << std::endl;
 }
 
-void		FactoryManager::update()
+std::vector<IObject*>		FactoryManager::update(sf::Clock clock)
 {
-  IObject	*obj;
+  std::vector<IObject*>		list;
+  IObject			*obj;
 
-  std::cout << "nb fact " << _nbFactory;
-  for (unsigned int i = 0; i != _nbFactory; i = i + 1)
+  for (std::vector<IAlienFactory*>::iterator it = _factories.begin(); it != _factories.end(); it++)
     {
-      obj = _factories[i]->getNextEnemy();
+      obj = (*it)->getNextEnemy(clock);
       if (obj != NULL)
 	{
-	  _map->addObject(obj);
+	  list.push_back(obj);
 	}
     }
+  return (list);
 }

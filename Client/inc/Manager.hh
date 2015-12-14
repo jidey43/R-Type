@@ -16,7 +16,8 @@ public:
 
 public:
 	void				loop();
-	void				treatEvents();
+	void				treatEventsFromKeyboard();
+  void				treatEventsFromNetwork();
 
 private:
 	sf::Clock			_clock;
