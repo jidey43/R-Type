@@ -8,7 +8,13 @@
 #include "BasicPlayerProjectileGraphical.h"
 #include "BasicAlienProjectileGraphical.h"
 #include "PlayerGraphical.h"
-
+#include "CrePlayPacket.h"
+#include "CreObjPacket.h"
+#include "MovePacket.h"
+#include "DelItemPacket.h"
+#include "CreIAPacket.h"
+#include "IServerPacket.hh"
+	
 extern ViewController *vc;
 
 class                           ItemController
@@ -22,12 +28,13 @@ public:
 	void						update();
 
 public:
-	void						addShip(sf::Vector2f speed, sf::Vector2f pos, unsigned int);
-	void						moveShip(int id, sf::Vector2f);
+	void						addShip(CrePlayPacket *packet);
+	void						addObj(CreObjPacket *packet);
+	void						moveShip(MovePacket *packet);
+	void						deleteObject(DelItemPacket *packet);
 
 public:
-	void						addAlien(ObjectInfo::WaveType, sf::Vector2f speed, 
-								 sf::Vector2f pos, unsigned id, float coeff);
+	void						addAlien(CreIAPacket *packet);
 
 public:
 	void						addShot(Shot, sf::Vector2f speed, sf::Vector2f pos, unsigned int);

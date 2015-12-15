@@ -6,6 +6,10 @@
 #include "ObjectInfo.hpp"
 #include "CUDPNetworkHandler.hh"
 #include "IServerPacket.hh"
+#include "CrePlayPacket.h"
+#include "CreObjPacket.h"
+#include "CreIAPacket.h"
+#include "MovePacket.h"
 
 extern ViewController *vc;
 extern AssetsController *ac;

@@ -18,12 +18,6 @@ void					Manager::loop()
 
 	//vc->startSoundtrack();
 
-	//PARTIE DE TEST DES ITEMS,  A DELETE
- 	_itemCtrl->addAlien(ObjectInfo::BYDO, sf::Vector2f(42, 42), sf::Vector2f(500, 300), 1, 1.0);
-	_itemCtrl->addShip(sf::Vector2f(10,10), sf::Vector2f(50, 50), 100);
-	_itemCtrl->addShot(BASICALIENSHOT, sf::Vector2f(42, 42), sf::Vector2f(100, 100), 1);
-	_itemCtrl->setBackgroud(BACKGROUND_ONE);
-
 		//GAME LOOP
 		_clock.restart();
 		while (1)
@@ -75,14 +69,19 @@ void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
 	switch (packetType)
 	{
 		case CRE_PLAY:
+			_itemCtrl->addShip(dynamic_cast<CrePlayPacket*>(res));
 			break;
 		case CRE_OBJ:
+			_itemCtrl->addObj(dynamic_cast<CreObjPacket*>(res));
 			break;
 		case CRE_IA:
+			_itemCtrl->addAlien(dynamic_cast<CreIAPacket*>(res));
 			break;
 		case DEL_ITEM:
+			_itemCtrl->deleteObject(dynamic_cast<DelItemPacket*>(res));
 			break;
 		case MOVE:
+			_itemCtrl->moveShip(dynamic_cast<MovePacket*>(res));
 			break;
 		default:
 			break;
