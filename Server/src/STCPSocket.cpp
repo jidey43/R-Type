@@ -20,7 +20,7 @@ SOCKET			STCPSocket::startNetwork(std::string const &ip, std::string const &port
   hints->ai_family = AF_INET;
   hints->ai_socktype = SOCK_STREAM;
   hints->ai_protocol = IPPROTO_TCP;
-  //hints->ai_addr = INADDR_ANY;
+  hints->ai_addr = INADDR_ANY;
   std::cout << ip << "   " << port << std::endl;
   result = getaddrinfo(ip.c_str(), port.c_str(), hints, &addr);
   if (result != 0) {
@@ -56,7 +56,6 @@ void	STCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientDat
 {
   int res = send(socket, (void*)buffer, size, 0);
 
-  std::cout << "sent " << res << " bytes"<< std::endl;
   if (res == -1)
     throw Exceptions::NetworkExcept("SEND FAILED", errno);
   if (res == 0)
@@ -70,7 +69,6 @@ void			STCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *a
 
   res = recv(socket, (void*)buffer, size, 0);
 
-  std::cout << "received " << res << " bytes"<< std::endl;
   if (res == -1)
     throw Exceptions::NetworkExcept("RECEIVE FAILED", errno);
   if (res == 0)

@@ -60,7 +60,6 @@ void		SUNetwork<T>::selectClients(std::vector<int>& fd, struct timeval *to)
   for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
     {
       if (FD_ISSET((*it), _readSet)){
-	std::cout << "RECEIVED" << std::endl;
 	buffer.push_back((*it));
       }
     }

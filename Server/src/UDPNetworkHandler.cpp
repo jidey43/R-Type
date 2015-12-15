@@ -40,7 +40,7 @@ GamerInfo*		UDPNetworkHandler::getClient(ClientDatas* datas)
     {
       if (*((*it)->getClientInfos()) == *datas)
 	{
-	  free(datas);
+	  // free(datas);
 	  std::cout << "CLIENT FOUND" << std::endl;
 	  return *it;
 	}
@@ -92,6 +92,7 @@ bool					UDPNetworkHandler::sendTo(GamerInfo *client,
 {
   char*					buff = response->deserialize();
 
+
   try
     {
       _network->sendData(buff,
@@ -132,8 +133,6 @@ GamerInfo*				UDPNetworkHandler::selectClient(struct timeval *to)
       try
 	{
 	  _network->recvData(header, sizeof(*header), _socket, clientDatas);
-
-	  std::cout << sizeof(*header) << " " << header->command << " : size = " << header->size << " just received" << std::endl;
 	}
       catch (Exceptions::NetworkExcept e)
 	{
