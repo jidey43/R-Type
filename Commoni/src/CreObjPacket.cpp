@@ -9,7 +9,7 @@ CreObjPacket::CreObjPacket(ServerUDPResponse resp, int idx, int id, float x, flo
   _header->idx = idx;
   _data->id = id;
   _data->x = x;
-  _data->x = y;
+  _data->y = y;
   _data->speed = speed;
   _data->magic = MAGIC;
 }

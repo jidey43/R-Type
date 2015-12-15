@@ -17,7 +17,7 @@ SOCKET			CTCPSocket::startNetwork(std::string const &ip, std::string const &port
   memset(&hints, 0, sizeof(hints));
   int result;
   hints.ai_flags = AI_PASSIVE;
-  hints.ai_family = AF_UNSPEC;
+  hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_protocol = IPPROTO_TCP;
   hints.ai_addr = NULL;

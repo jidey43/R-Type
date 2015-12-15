@@ -31,9 +31,12 @@ int main(int argc, char **av)
 
       // INIT DU UDP A LA MAIN
       IServerPacket<ServerTCPResponse> *response;
-      tcpHand->sendToServer(new NewGamePacket(ADD_GAME, "Game de l'espace"));
+      if (av[1])
+	tcpHand->sendToServer(new NewGamePacket(ADD_GAME, "Game de l'espace"));
+      else
+     	tcpHand->sendToServer(new JoinPacket(JOIN_GAME, 13));
       response = tcpHand->receiveFromServer();
-      std::cout << "REPONSE DU SERVEUR " << response->getCommandType() << "\n";
+      std::cout << "SERVER REPONSE " << response->getCommandType() << std::endl;
       CUDPNetworkHandler* udpHand = new CUDPNetworkHandler(((GameInfoPacket*)response)->getData()->ip, std::to_string(((GameInfoPacket*)response)->getData()->port));
       udpHand->initSocket();
       sleep(1);

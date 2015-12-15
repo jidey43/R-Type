@@ -74,27 +74,38 @@ bool					GameCore::processPacket(GamerInfo* client,
 
 void					GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
-
-  client->setName(dynamic_cast<CAuthUDPPacket*>(packet)->getData()->data);
-  client->setAuth(true);
-  client->setID(_maxId++);
-  _map->addObject(new Player(sf::Vector2f(0,0), sf::Vector2f(10,10), client->getID()));
+  if (!client->isAuth())
+    {
+      client->setName(dynamic_cast<CAuthUDPPacket*>(packet)->getData()->data);
+      client->setAuth(true);
+      client->setID(_maxId++);
+      _map->addObject(new Player(sf::Vector2f(0,0), sf::Vector2f(10,10), client->getID()));
+    }
   _network->sendTo(client, new AuthUDPPacket(AUTH_UDP, 0, SUCCESS, "test"));
 }
 
 void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
-  dynamic_cast<Player*>(_map->getPlayer(client->getID()))->tryShoot();
-  _map->updatePlayer(_map->getPlayer(client->getID()));
+  Player*				player = dynamic_cast<Player*>(_map->getPlayer(client->getID()));
+
+  if (client->isAuth())
+    {
+      player->tryShoot();
+      _map->updatePlayer(player);
+      _network->broadcast(new CreObjPacket(CRE_OBJ, 0, 0/*id du shot*/, 250, 250, 2));
+    }
 }
 
 void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
   Player*				player = dynamic_cast<Player*>(_map->getPlayer(client->getID()));
 
-  player->setDirection(dynamic_cast<SendMovePacket*>(packet)->getData()->dir);
-  _map->updatePlayer(player);
-  _network->sendTo(client, new MovePacket(MOVE, 0, client->getID(), 200, 200));
+  if (client->isAuth())
+    {
+      player->setDirection(dynamic_cast<SendMovePacket*>(packet)->getData()->dir);
+      _map->updatePlayer(player);
+      _network->sendTo(client, new MovePacket(MOVE, 0, client->getID(), 200, 200));
+    }
 }
 
 void					GameCore::gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)

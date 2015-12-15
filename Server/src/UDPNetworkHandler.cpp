@@ -67,7 +67,6 @@ IClientPacket<ClientUDPCommand>*	UDPNetworkHandler::receiveFrom(GamerInfo *clien
   else
     return NULL;
   packet = _factory->build(header);
-  std::cout << "received header " << packet->getCommandType() << " and size = " << header->size << std::endl;
   if (!packet || !packet->checkHeader())
     throw Exceptions::BadHeaderRequest("Error, received bad Header from known client");
   buff = new char[header->size];

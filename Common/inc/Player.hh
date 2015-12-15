@@ -15,7 +15,7 @@ public:
   bool		update();
   bool		update(std::vector<IObject*>&);
   IObject	*BasicShoot();
-  void		tryShoot();
+  bool		tryShoot();
   void		setDirection(Direction dir);
 
 private:

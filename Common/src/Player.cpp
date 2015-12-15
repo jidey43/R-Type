@@ -33,9 +33,10 @@ IObject		*Player::BasicShoot()
   return new BasicPlayerProjectile(_speed, pos, _maxId);
 }
 
-void		Player::tryShoot()
+bool		Player::tryShoot()
 {
   _tryShoot = true;
+  return true;
 }
 
 void		Player::setDirection(Direction dir)
