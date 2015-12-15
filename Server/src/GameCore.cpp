@@ -4,8 +4,9 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
   : _clients(new std::vector<GamerInfo*>()),
     _network(new UDPNetworkHandler(ip, port, _clients)),
     _map(new MapController),
-    _factory(new FactoryManager(_map, "../../level/Level1.lvl"))
-
+    _factory(new FactoryManager(_map, "../../level/Level1.lvl")),
+    _referential(sf::Time(sf::microseconds(16666))),
+    _running(true)
 {
   std::cout << "start thread" << std::endl;
   this->run();
@@ -19,7 +20,27 @@ bool		GameCore::run()
 {
   if (!_network->initSocket())
     return false;
-  while (receivePacket());
+
+  _clock.restart();
+  while (_running)
+    {
+      _map->updateMap();
+      sf::Time elapsed;
+      sf::Time lastTime = sf::microseconds(0);
+      while (_running && (elapsed = getElapsedTimeSinceLoop()) > lastTime)
+	{
+	  lastTime = elapsed;
+	  receivePacket();
+	}
+    }
+}
+
+sf::Time	GameCore::getElapsedTimeSinceLoop()
+{
+  sf::Time ret;
+
+  ret = sf::microseconds(_clock.getElapsedTime().asMicroseconds() % _referential.asMicroseconds());
+  return ret;
 }
 
 bool					GameCore::receivePacket()

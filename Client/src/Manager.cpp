@@ -36,6 +36,8 @@ void					Manager::loop()
 			_keyboardStatus =  vc->getKeyboardStatus();
 			treatEventsFromKeyboard();
 
+
+
 			sf::Time elapsed = getElapsedTimeSinceLoop();
 			sf::Time lastTime = sf::microseconds(0);
 			while ((elapsed = getElapsedTimeSinceLoop()) > lastTime )
@@ -71,7 +73,7 @@ void Manager::treatEventsFromKeyboard()
 void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
 {
 	ServerUDPResponse		packetType = res->getCommandType();
-	
+
 	switch (packetType)
 	{
 		case CRE_PLAY:
