@@ -48,7 +48,7 @@ void			CUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDat
 
 void			CUDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)
 {
-  socklen_t			addr_len;
+  socklen_t			addr_len = sizeof(*addr);
   int				res;
 
   res = recvfrom(_listen, (void *)buffer, size, 0, (sockaddr *)addr, &addr_len);
