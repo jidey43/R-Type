@@ -16,11 +16,11 @@ bool		Player::update()
 {
 }
 
-bool		Player::update(IObject*)
-{}
-
-bool		Player::update(std::vector<IObject*>&)
-{}
+bool		Player::update(std::vector<IObject*>& map)
+{
+  _pos += _move;
+  this->collision(map);
+}
 
 IObject		*Player::BasicShoot()
 {
@@ -39,5 +39,5 @@ void		Player::tryShoot()
 
 void		Player::setDirection(Direction dir)
 {
-  _dir = dir;
+  _move = sf::Vector2f((dir == UP ? -_speed.y : (dir == DOWN ? _speed.y : 0)), (dir == LEFT ? -_speed.x : (dir == RIGHT ? _speed.x : 0)));
 }

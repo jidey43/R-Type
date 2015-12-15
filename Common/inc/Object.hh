@@ -20,7 +20,7 @@ public:
   virtual bool			update(std::vector<IObject*> &) = 0;
   
 protected:
-  bool				collision(std::vector<IObject*>);
+  bool				collision(std::vector<IObject*>&);
 
 protected:
   unsigned int			_id;
