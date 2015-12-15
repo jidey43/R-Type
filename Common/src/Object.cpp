@@ -33,6 +33,11 @@ unsigned int		Object::getId() const
   return _id;
 }
 
+void			Object::setPos(const sf::Vector2f &pos)
+{
+  this->_pos = pos;
+}
+
 bool			Object::collision(std::vector<IObject*>& map)
 {
     return (false);

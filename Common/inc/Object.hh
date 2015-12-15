@@ -16,6 +16,7 @@ public:
   sf::Vector2f			getSpeed() const;
   sf::Vector2f			getPos() const;
   unsigned int			getId() const;
+  void				setPos(const sf::Vector2f &pos);
   virtual bool		        update() = 0;
   virtual bool			update(std::vector<IObject*> &) = 0;
   
