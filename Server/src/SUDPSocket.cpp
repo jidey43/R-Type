@@ -39,13 +39,13 @@ void			SUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDat
 {
   socklen_t			addr_len = sizeof(*addr);
 
-  std::cout << "write on socket = " << _listen <<  " ; size = " << size  << std::endl;
-
+  std::cout << "write header" << " ; size = " << sizeof(ServerUDPHeader) << std::endl;
   int res = sendto(_listen, (char *)buffer, sizeof(ServerUDPHeader), 0, (sockaddr *)addr, addr_len);
   if (res == -1)
     throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
   if (res == 0)
     throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
+  std::cout << "write data" << " ; size = " << size - sizeof(ServerUDPHeader) << std::endl;
   res = sendto(_listen, (char *)buffer + sizeof(ServerUDPHeader), size - sizeof(ServerUDPHeader), 0, (sockaddr *)addr, addr_len);
   if (res == -1)
     throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
