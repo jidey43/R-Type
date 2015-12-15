@@ -1,5 +1,5 @@
-#ifndef UDPSOCKET_H_
-# define UDPSOCKET_H_
+#ifndef CUDPSOCKET_H_
+# define CUDPSOCKET_H_
 
 # include "NetworkDefines.h"
 # include "IClientPacket.hh"

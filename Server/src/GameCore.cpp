@@ -113,7 +113,7 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
     {
       player->tryShoot();
       _map->updatePlayer(player);
-      _network->broadcast(new CreObjPacket(CRE_OBJ, 0, 0/*id du shot*/, 250, 250, 2));
+  _network->broadcast(new CreObjPacket(CRE_OBJ, 0, 0/*id du shot*/, 250, 250, 2));
     }
 }
 
