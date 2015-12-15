@@ -22,6 +22,8 @@ public:
 private:
   UDPNetworkHandler		*_network;
   std::vector<IObject*>		_map;
+  std::vector<IObject*>		_toCreate;
+  std::vector<IObject*>		_toDestroy;
 };
 
 #endif
