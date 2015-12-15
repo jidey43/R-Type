@@ -34,7 +34,7 @@ int			SUDPSocket::startNetwork(std::string const &ip, std::string const &port, a
     }
   return _listen;
 }
-#include <unistd.h>
+
 void			SUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr)
 {
   socklen_t			addr_len = sizeof(*addr);

@@ -23,8 +23,8 @@ typedef struct
   uint32_t			data;
   uint32_t			magic;
 } __attribute__ ((packed))	integerData;
-typedef struct
 
+typedef struct
 {
   Bool				success;
   uint32_t			magic;
@@ -62,6 +62,7 @@ typedef struct
 
 typedef struct
 {
+  
   int				id;
   float				x;
   float				y;
