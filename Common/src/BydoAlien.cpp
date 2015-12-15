@@ -10,7 +10,7 @@ BydoAlien::BydoAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, floa
   _f = 50;
   _rad = 6;
   _t = 1;
-  _a = 2;
+  _a = 10;
 }
 
 BydoAlien::~BydoAlien()
@@ -21,8 +21,8 @@ bool		BydoAlien::update()
 
 bool		BydoAlien::update(std::vector<IObject*> &map)
 {
-  this->pos.x = this->pos.x + this->speed.x;
-  this->pos.y = _a * sin((2 * _f * _t * M_PI) + _rad);  
+  this->_pos.x = this->_pos.x + this->_speed.x;
+  this->_pos.y = _a * sin((2 * _f * _t * M_PI) + _rad);  
   _t = _t + 1;
   map.push_back(this->BasicShoot());
 }
