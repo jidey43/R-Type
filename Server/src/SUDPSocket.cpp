@@ -55,7 +55,7 @@ void			SUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDat
 
 void			SUDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)
 {
-  socklen_t			addr_len;
+  socklen_t			addr_len = sizeof(ClientDatas);
   int				res;
 
   std::cout << "must read " << size << std::endl;
