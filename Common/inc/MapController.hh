@@ -1,13 +1,15 @@
-#ifndef _MAP_CONTROLLER_HH_
-# define _MAP_CONTROLLER_HH_
+#ifndef MAP_CONTROLLER_HH_
+# define MAP_CONTROLLER_HH_
 
 # include <vector>
 # include "IObject.hh"
+# include "UDPNetworkHandler.hh"
+# include "GamerInfo.hh"
 
 class	MapController
 {
 public:
-  MapController();
+  MapController(UDPNetworkHandler* network);
   ~MapController();
 
   void		addObject(IObject*);
@@ -18,6 +20,7 @@ public:
   void		deletePlayer(int id);
 
 private:
+  UDPNetworkHandler		*_network;
   std::vector<IObject*>		_map;
 };
 

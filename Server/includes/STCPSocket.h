@@ -1,5 +1,5 @@
-#ifndef TCPSOCKET_H_
-# define TCPSOCKET_H_
+#ifndef STCPSOCKET_H_
+# define STCPSOCKET_H_
 
 # include "NetworkDefines.h"
 # include "SINetwork.hh"

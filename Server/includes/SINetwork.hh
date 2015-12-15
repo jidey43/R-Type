@@ -1,5 +1,5 @@
-#ifndef INETWORK_H_
-# define INETWORK_H_
+#ifndef SINETWORK_H_
+# define SINETWORK_H_
 
 # include <vector>
 # include "NetworkDefines.h"

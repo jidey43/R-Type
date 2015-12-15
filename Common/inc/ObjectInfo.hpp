@@ -6,16 +6,16 @@ namespace ObjectInfo
 enum Type
   {
     PLAYER = 0,
-    ALIEN
+    ALIEN,
+    SHOT
   };
 
-enum Way
-  {
-    TOP = 0,
-    RIGHT,
-    BOT,
-    LEFT
-  };
+enum ShotType
+{
+  PLAYERREGULAR = 0,
+  ALIENREGULAR,
+  NUMBEROFSHOT
+};
 
 enum WaveType
   {
@@ -27,7 +27,9 @@ enum WaveType
     SCANT,
     SHELL,
     YORK,
-    XELF16
+    XELF16,
+    WALL,
+    NUMBEROFWAVE
   };
 };
 

@@ -3,7 +3,7 @@
 GameCore::GameCore(std::string const&ip, std::string const& port)
   : _clients(new std::vector<GamerInfo*>()),
     _network(new UDPNetworkHandler(ip, port, _clients)),
-    _map(new MapController),
+    _map(new MapController(_network)),
     _factory(new FactoryManager(_map, "../../level/Level1.lvl")),
     _referential(sf::Time(sf::microseconds(16666))),
     _running(true)
@@ -113,7 +113,6 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
     {
       player->tryShoot();
       _map->updatePlayer(player);
-  _network->broadcast(new CreObjPacket(CRE_OBJ, 0, 0/*id du shot*/, 250, 250, 2));
     }
 }
 

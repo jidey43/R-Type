@@ -1,5 +1,5 @@
-#ifndef UDPSOCKET_H_
-# define UDPSOCKET_H_
+#ifndef SUDPSOCKET_H_
+# define SUDPSOCKET_H_
 
 # include "NetworkDefines.h"
 # include "SINetwork.hh"

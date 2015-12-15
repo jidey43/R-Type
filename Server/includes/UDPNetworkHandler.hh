@@ -3,7 +3,6 @@
 
 # include <string>
 # include <vector>
-// # include "STCPSocket.hh"
 # include "SUDPSocket.h"
 # include "NetworkDefines.h"
 # include "SINetwork.hh"
