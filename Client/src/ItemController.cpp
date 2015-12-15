@@ -7,7 +7,7 @@ ItemController::ItemController()
 }
 
 ItemController::~ItemController()
-{	
+{
 }
 
 void ItemController::draw()
@@ -24,15 +24,15 @@ void ItemController::update()
 		i->update();
 }
 
-void ItemController::setBackgroud(int id)
+void ItemController::setBackground(int id)
 {
 	_background->setTexture(*(ac->getBackground(id)));
 }
 
 void ItemController::addShip(CrePlayPacket *packet)
 {
-	CrePlayData *data = packet->getData();
-	
+  CrePlayData *data = packet->getData();
+
   _items.emplace_back(new PlayerGraphical(sf::Vector2f(0,0), sf::Vector2f(data->x, data->y), data->id));
 }
 
@@ -50,26 +50,37 @@ void ItemController::addObj(CreObjPacket *packet)
 }
 
 void ItemController::moveShip(MovePacket *packet)
-{	
-	int id = packet->getData()->id;
-	sf::Vector2f newPos(packet->getData()->x ,packet->getData()->y);
-	
-	int i;
-	for (i = 0; ((IObject*)_items[i])->getId() != id || i == _items.size(); i++);
-	if (i == _items.size())
-		return;
-	((IObject*)_items[i])->setPos(newPos);
+{
+  int id = packet->getData()->id;
+  sf::Vector2f newPos(packet->getData()->x ,packet->getData()->y);
+
+  int i;
+  for (i = 0; i != _items.size(); ++i)
+    {
+      if ((dynamic_cast<PlayerGraphical*>(_items[i])->getId()) == id)
+	{
+	  std::cout << "pos = " << newPos.x << " : " << newPos.y << std::endl;
+	  break;
+	}
+    }
+  if (i == _items.size())
+    return;
+  dynamic_cast<PlayerGraphical*>(_items[i])->setPos(newPos);
 }
 
 void ItemController::deleteObject(DelItemPacket *packet)
 {
-	int  id = packet->getData()->data;
-	
-	int i;
-	for (i = 0; ((IObject*)_items[i])->getId() != id || i == _items.size(); i++);
-	if (i == _items.size())
-		return;
-	_items.erase(_items.begin() + i);
+  int  id = packet->getData()->data;
+
+  size_t i;
+  for (i = 0; i != _items.size(); ++i)
+    {
+      if ((dynamic_cast<PlayerGraphical*>(_items[i])->getId()) == id)
+	break;
+    }
+  if (i == _items.size())
+    return;
+  _items.erase(_items.begin() + i);
 }
 
 void ItemController::addAlien(CreIAPacket *packet)
@@ -87,4 +98,3 @@ void ItemController::addAlien(CreIAPacket *packet)
 	// 	break;
 	// }
 }
-

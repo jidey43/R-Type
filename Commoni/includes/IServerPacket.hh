@@ -74,11 +74,11 @@ typedef struct
 
 typedef struct
 {
-  int				                   id;
-  float				                 x;
-  float				                 y;
-  uint32_t			               magic;
-  enum ObjectInfo::WaveType		 iatype;
+  int				id;
+  float				x;
+  float				y;
+  uint32_t			magic;
+  enum ObjectInfo::WaveType	iatype;
 }  __attribute__ ((packed))	   CreIAData;
 
 

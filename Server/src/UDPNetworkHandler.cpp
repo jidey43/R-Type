@@ -92,7 +92,7 @@ bool					UDPNetworkHandler::sendTo(GamerInfo *client,
 {
   char*					buff = response->deserialize();
 
-
+  std::cout << "send : " << response->getCommandType() << std::endl;
   try
     {
       _network->sendData(buff,

@@ -19,6 +19,8 @@ public:
   virtual void				setPos(const sf::Vector2f &pos) = 0;
   virtual void				setSpeed(const sf::Vector2f &speed) = 0;
   virtual unsigned int			getId() const = 0;
+  virtual bool				isAlive() const = 0;
+  virtual bool				isShooting() = 0;
   virtual bool				update(std::vector<IObject*>&) = 0;
   virtual bool				update() = 0;
 };

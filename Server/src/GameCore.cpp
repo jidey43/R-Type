@@ -65,21 +65,25 @@ bool					GameCore::processPacket(GamerInfo* client,
     {
     case CAUTH_UDP:
       {
+	std::cout << "CAUTHUDP Received" << std::endl;
 	authGamer(client, packet);
 	break;
       }
     case FIRE:
       {
+	std::cout << "FIRE Received" << std::endl;
 	gamerTryShoot(client, packet);
 	break;
       }
     case SEND_MOVE:
       {
+	std::cout << "SENDMOVE Received" << std::endl;
 	gamerMove(client, packet);
 	break;
       }
     case DISCONNECT:
       {
+	std::cout << "DISCONNECT Received" << std::endl;
 	gamerDisconnect(client, packet);
 	break;
       }
@@ -89,20 +93,23 @@ bool					GameCore::processPacket(GamerInfo* client,
 	break;
       }
     }
-  std::cout << "Packet Received" << std::endl;
   return true;
 }
 
 void					GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
+  Player*				player;
+
   if (!client->isAuth())
     {
       client->setName(dynamic_cast<CAuthUDPPacket*>(packet)->getData()->data);
       client->setAuth(true);
       client->setID(_maxId++);
-      _map->addObject(new Player(sf::Vector2f(0,0), sf::Vector2f(10,10), client->getID()));
+      _map->addObject(new Player(sf::Vector2f(10,6), sf::Vector2f(50,50), client->getID()));
     }
+   player = dynamic_cast<Player*>(_map->getPlayer(client->getID()));
   _network->sendTo(client, new AuthUDPPacket(AUTH_UDP, 0, SUCCESS, "test"));
+  _network->broadcast(new CrePlayPacket(CRE_PLAY, 0, player->getId(), player->getPos().x, player->getPos().y));
 }
 
 void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
@@ -113,6 +120,8 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
     {
       player->tryShoot();
       _map->updatePlayer(player);
+      // if (player->isShooting())
+      _network->broadcast(new CreObjPacket(CRE_OBJ, 0, player->getId(), player->getPos().x, player->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
     }
 }
 
@@ -124,7 +133,7 @@ void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>*
     {
       player->setDirection(dynamic_cast<SendMovePacket*>(packet)->getData()->dir);
       _map->updatePlayer(player);
-      _network->sendTo(client, new MovePacket(MOVE, 0, client->getID(), 200, 200));
+      _network->sendTo(client, new MovePacket(MOVE, 0, client->getID(), player->getPos().x, player->getPos().y));
     }
 }
 
