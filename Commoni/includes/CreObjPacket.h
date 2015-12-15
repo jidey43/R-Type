@@ -2,18 +2,19 @@
 # define CRESHOTPACKET_H_
 
 # include "AServerPacket.hh"
+# include "ObjectInfo.hpp"
 
 class CreObjPacket : public AServerPacket<ServerUDPResponse>
 {
  public:
-  CreObjPacket(ServerUDPResponse, int, int, float, float, int);
+  CreObjPacket(ServerUDPResponse, int, int, float, float, int, ObjectInfo::ShotType type);
   CreObjPacket(ServerUDPHeader*);
   ~CreObjPacket();
 
   char*				deserialize();
   bool				checkHeader();
   void				setRawData(char *);
-  CreObjData*			getData() const;
+   CreObjData*			getData() const;
 
  private:
   CreObjData*			_data;
