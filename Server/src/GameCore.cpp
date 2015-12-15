@@ -3,7 +3,7 @@
 GameCore::GameCore(std::string const&ip, std::string const& port)
   : _clients(new std::vector<GamerInfo*>()),
     _network(new UDPNetworkHandler(ip, port, _clients)),
-    _map(new MapController(_network)),
+    _map(new MapController()),
     _factory(new FactoryManager(_map, "../../level/Level1.lvl")),
     _referential(sf::Time(sf::microseconds(16666))),
     _running(true)
@@ -96,9 +96,11 @@ bool					GameCore::processPacket(GamerInfo* client,
   return true;
 }
 
-void					GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
+void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
-  Player*				player;
+  Player*						player;
+  std::vector<IServerPacket<ServerUDPResponse>*>*	toSend;
+  IServerPacket<ServerUDPResponse>*			packetToSend;
 
   if (!client->isAuth())
     {
@@ -108,8 +110,16 @@ void					GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>*
       _map->addObject(new Player(sf::Vector2f(10,6), sf::Vector2f(50,50), client->getID()));
     }
    player = dynamic_cast<Player*>(_map->getPlayer(client->getID()));
-  _network->sendTo(client, new AuthUDPPacket(AUTH_UDP, 0, SUCCESS, "test"));
-  _network->broadcast(new CrePlayPacket(CRE_PLAY, 0, player->getId(), player->getPos().x, player->getPos().y));
+   _map->generatePacketsMap(player);
+   toSend = _map->getMap();
+   while (!toSend->empty())
+     {
+       packetToSend = toSend->back();
+       _network->sendTo(client, packetToSend);
+       delete packetToSend;
+       toSend->pop_back();
+     }
+   _network->broadcast(new CrePlayPacket(CRE_PLAY, 0, player->getId(), player->getPos().x, player->getPos().y));
 }
 
 void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
@@ -120,8 +130,8 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
     {
       player->tryShoot();
       _map->updatePlayer(player);
-      // if (player->isShooting())
-      _network->broadcast(new CreObjPacket(CRE_OBJ, 0, player->getId(), player->getPos().x, player->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
+      if (player->isShooting())
+	_network->broadcast(new CreObjPacket(CRE_OBJ, 0, player->getId(), player->getPos().x, player->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
     }
 }
 
@@ -133,7 +143,7 @@ void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>*
     {
       player->setDirection(dynamic_cast<SendMovePacket*>(packet)->getData()->dir);
       _map->updatePlayer(player);
-      _network->sendTo(client, new MovePacket(MOVE, 0, client->getID(), player->getPos().x, player->getPos().y));
+      _network->broadcast(new MovePacket(MOVE, 0, client->getID(), player->getPos().x, player->getPos().y));
     }
 }
 
