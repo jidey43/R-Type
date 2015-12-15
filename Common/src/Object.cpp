@@ -31,7 +31,7 @@ unsigned int		Object::getId() const
   return _id;
 }
 
-bool			Object::collision(std::vector<IObject*> map)
+bool			Object::collision(std::vector<IObject*>& map)
 {
   for (std::vector<IObject*>::iterator it = map.begin(); it != map.end(); it++)
     {

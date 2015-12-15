@@ -13,7 +13,6 @@ public:
 
 public:
   bool		update();
-  bool		update(IObject*);
   bool		update(std::vector<IObject*>&);
   IObject	*BasicShoot();
   void		tryShoot();
@@ -22,6 +21,7 @@ public:
 private:
   int		_id;
   bool		_tryShoot;
+  sf::Vector2f	_move;
   Direction	_dir;
 };
 

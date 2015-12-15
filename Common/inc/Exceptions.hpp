@@ -8,7 +8,6 @@
 
 namespace Exceptions
 {
-
 class NetworkExcept : public std::exception
 {
 public:

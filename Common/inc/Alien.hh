@@ -1,6 +1,7 @@
 #ifndef _ALIEN_HH_
 # define _ALIEN_HH_
 
+# include <cmath>
 # include "Object.hh"
 
 class Alien : public Object
@@ -15,6 +16,10 @@ public:
 
 protected:
   float		_coeff;
+  int		_t;
+  int		_f;
+  int		_a;
+  float		_rad;
 };
 
 # endif

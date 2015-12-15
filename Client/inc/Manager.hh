@@ -21,7 +21,7 @@ public:
 	sf::Time 		getElapsedTimeSinceLoop();
 	void				treatEventsFromKeyboard();
 	void				treatEventsFromNetwork();
-	void 				treatPacket();
+	void 				treatPacket(IServerPacket<ServerUDPResponse>* res);
 
 private:
 	sf::Clock			_clock;

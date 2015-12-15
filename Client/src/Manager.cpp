@@ -19,7 +19,7 @@ void					Manager::loop()
 	//vc->startSoundtrack();
 
 	//PARTIE DE TEST DES ITEMS,  A DELETE
-  _itemCtrl->addAlien(ObjectInfo::BYDO, sf::Vector2f(42, 42), sf::Vector2f(500, 300), 1, 1.0);
+ 	_itemCtrl->addAlien(ObjectInfo::BYDO, sf::Vector2f(42, 42), sf::Vector2f(500, 300), 1, 1.0);
 	_itemCtrl->addShip(sf::Vector2f(10,10), sf::Vector2f(50, 50), 100);
 	_itemCtrl->addShot(BASICALIENSHOT, sf::Vector2f(42, 42), sf::Vector2f(100, 100), 1);
 	_itemCtrl->setBackgroud(BACKGROUND_ONE);
@@ -68,9 +68,25 @@ void Manager::treatEventsFromKeyboard()
 		_udpHand->send(new FirePacket(FIRE, 0, 0, 0));
 }
 
-void Manager::treatPacket()
+void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
 {
-
+	ServerUDPResponse		packetType = res->getCommandType();
+	
+	switch (packetType)
+	{
+		case CRE_PLAY:
+			break;
+		case CRE_OBJ:
+			break;
+		case CRE_IA:
+			break;
+		case DEL_ITEM:
+			break;
+		case MOVE:
+			break;
+		default:
+			break;
+	}
 }
 
 void Manager::treatEventsFromNetwork()
@@ -83,7 +99,7 @@ void Manager::treatEventsFromNetwork()
 			if (_udpHand->selectServer(&to))
 			{
 				res = _udpHand->receive();
-				treatPacket();
+				treatPacket(res);
 			}
 
 }
