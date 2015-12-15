@@ -67,18 +67,18 @@ typedef struct
   int				id;
   float				x;
   float				y;
-  int				speed;
+  int				   speed;
   uint32_t			magic;
-  //object type
+  ObjectInfo::ShotType     type;
 }  __attribute__ ((packed))	CreObjData;
 
 typedef struct
 {
-  int				                   id;
-  float				                 x;
-  float				                 y;
-  uint32_t			               magic;
-  enum ObjectInfo::WaveType		 iatype;
+  int				id;
+  float				x;
+  float				y;
+  uint32_t			magic;
+  enum ObjectInfo::WaveType	iatype;
 }  __attribute__ ((packed))	   CreIAData;
 
 

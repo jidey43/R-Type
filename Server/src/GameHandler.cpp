@@ -26,7 +26,7 @@ GameInfo* GameHandler::addClientInGame(ClientInfo * client, int id)
   return NULL;
 }
 
-int GameHandler::startNewGame(std::string const & name)
+int GameHandler::startNewGame(std::string const &name)
 {
   if (_ports.size() == 0)
     return -1;
@@ -48,16 +48,19 @@ void		GameHandler::tryJoinGames()
 {
   int		port;
   std::vector<GameInfo*>::iterator it = _gameList.begin();
+  std::vector<GameInfo*>::iterator itTmp;
 
   while (it != _gameList.end())
     {
       if ((port = (*it)->tryJoinGame()) != -1)
 	     {
-         	  _ports.push_back(port);
-            delete (*it);
-            it = _gameList.erase(it);
-	        }
-        else
-          it++;
+	       _ports.push_back(port);
+	       delete (*it);
+	       itTmp = it + 1;
+	       _gameList.erase(it);
+	       it = itTmp;
+	     }
+      else
+	it++;
     }
 }

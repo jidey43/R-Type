@@ -113,6 +113,8 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
     {
       player->tryShoot();
       _map->updatePlayer(player);
+      // if (player->isShooting())
+      _network->broadcast(new CreObjPacket(CRE_OBJ, 0, player->getId(), player->getPos().x, player->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
     }
 }
 
@@ -124,7 +126,7 @@ void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>*
     {
       player->setDirection(dynamic_cast<SendMovePacket*>(packet)->getData()->dir);
       _map->updatePlayer(player);
-      _network->sendTo(client, new MovePacket(MOVE, 0, client->getID(), 200, 200));
+      _network->sendTo(client, new MovePacket(MOVE, 0, client->getID(), player->getPos().x, player->getPos().y));
     }
 }
 

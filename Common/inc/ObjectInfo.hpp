@@ -10,6 +10,13 @@ enum Type
     SHOT
   };
 
+enum ShotType
+{
+  PLAYERREGULAR = 0,
+  ALIENREGULAR,
+  NUMBEROFSHOT
+};
+
 enum WaveType
   {
     BYDO = 0,
@@ -21,7 +28,8 @@ enum WaveType
     SHELL,
     YORK,
     XELF16,
-    WALL
+    WALL,
+    NUMBEROFWAVE
   };
 };
 

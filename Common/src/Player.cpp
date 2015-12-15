@@ -15,12 +15,16 @@ Player::~Player()
 bool		Player::update()
 {
   _pos += _move;
+  _move = sf::Vector2f(0,0);
+  return true;
 }
 
 bool		Player::update(std::vector<IObject*>& map)
 {
   _pos += _move;
+  _move = sf::Vector2f(0,0);
   this->collision(map);
+  return true;
 }
 
 IObject		*Player::BasicShoot()

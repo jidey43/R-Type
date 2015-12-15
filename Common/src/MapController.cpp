@@ -13,20 +13,8 @@ MapController::~MapController()
 
 void		MapController::addObject(IObject* obj)
 {
-  std::cout << "ajout d'un player avec id " << obj->getId() << std::endl;
+  std::cout << "ajout d'un obj avec id " << obj->getId() << std::endl;
   _map.push_back(obj);
-  // switch (obj->getObjType())
-  //   {
-  //   case (ObjectInfo::PLAYER):
-  //     _network->broadcast(new CrePlayPacket(CRE_PLAY, 0, obj->getId(), obj->getPos().x, obj->getPos().y));
-  //     break;
-  //   case (ObjectInfo::ALIEN):
-  //     break;
-  //   case (ObjectInfo::SHOT):
-  //     break;
-  //   default:
-  //     break;
-  //   }
 }
 
 void		MapController::updateMap()
