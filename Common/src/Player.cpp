@@ -14,6 +14,7 @@ Player::~Player()
 
 bool		Player::update()
 {
+  _pos += _move;
 }
 
 bool		Player::update(std::vector<IObject*>& map)
