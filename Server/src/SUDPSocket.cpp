@@ -61,6 +61,7 @@ void			SUDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *add
   std::cout << "must read " << size << std::endl;
   res = recvfrom(_listen, (char *)buffer, size, 0, (sockaddr *)addr, &addr_len);
   std::cout << "read " << res << std::endl;
+  std::cout << "after receive addr = " << addr->sin_addr.s_addr << std::endl;
   if (res == -1)
     throw Exceptions::NetworkExcept("RECEIVEFROM ERROR", errno);
   if (res == 0)
