@@ -24,6 +24,7 @@ protected:
 
 protected:
   unsigned int			_id;
+  int				_life;
   sf::Vector2f			_speed;
   sf::Vector2i			_size;
   sf::Vector2f			_pos;

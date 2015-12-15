@@ -6,11 +6,12 @@
 class Bomb : public Projectile
 {
 public:
-  Bomb(ObjectInfo::Type, sf::Vector2f, sf::Vector2i, float);
+  Bomb(ObjectInfo::Type, sf::Vector2f, sf::Vector2i, unsigned int);
   ~Bomb();
 
 public:
   bool		update();
+  bool		update(std::vector<IObject*>&);
   void	        boum();
 
 private:
