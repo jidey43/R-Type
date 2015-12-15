@@ -37,9 +37,6 @@ public:
 	void						addAlien(CreIAPacket *packet);
 
 public:
-	void						addShot(Shot, sf::Vector2f speed, sf::Vector2f pos, unsigned int);
-
-public:
 	void						setBackgroud(int id);
 
 private:

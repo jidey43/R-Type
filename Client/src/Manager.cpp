@@ -16,7 +16,7 @@ void					Manager::loop()
 
 	//STARTING GAME
 
-	//vc->startSoundtrack();
+	vc->startSoundtrack();
 
 		//GAME LOOP
 		_clock.restart();

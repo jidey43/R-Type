@@ -38,7 +38,15 @@ void ItemController::addShip(CrePlayPacket *packet)
 
 void ItemController::addObj(CreObjPacket *packet)
 {
-		
+	int id = packet->getData()->id;
+	sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
+	int speed = packet->getData()->speed;
+	
+
+	if (packet->getData()->type == ObjectInfo::PLAYERREGULAR)
+		_items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));		
+	if (packet->getData()->type == ObjectInfo::ALIENREGULAR)
+		_items.emplace_back(new BasicAlienProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));		
 }
 
 void ItemController::moveShip(MovePacket *packet)
@@ -64,32 +72,19 @@ void ItemController::deleteObject(DelItemPacket *packet)
 	_items.erase(_items.begin() + i);
 }
 
-
-void ItemController::addShot(Shot type, sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
-{
-	switch (type)
-	{
-	case BASICPLAYERSHOT:
-		_items.emplace_back(new BasicPlayerProjectileGrapical(speed, pos, id));
-		break;
-	case BASICALIENSHOT:
-		_items.emplace_back(new BasicAlienProjectileGrapical(speed, pos, id));
-		break;
-
-	default:
-		break;
-	}
-}
-
 void ItemController::addAlien(CreIAPacket *packet)
 {
-// 	switch (type)
-// 	{
-// 	case ObjectInfo::WaveType::BYDO :
-// //	  _items.emplace_back(new BydoAlienGraphical(speed, pos, id, coeff));
-// 		break;
-// 	default:
-// 		break;
-// 	}
+	// ObjectInfo::WaveType type = packet->iatype;
+	// sf::Vector2f pos(packet->x, packet->y);
+	// int id = packet->id;
+	// 
+	// switch (type)
+	// {
+	// case ObjectInfo::WaveType::BYDO :
+	//   _items.emplace_back(new BydoAlienGraphical(1, pos, id, 1));
+	// 	break;
+	// default:
+	// 	break;
+	// }
 }
 
