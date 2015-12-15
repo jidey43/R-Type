@@ -43,7 +43,14 @@ void ItemController::addObj(CreObjPacket *packet)
 
 void ItemController::moveShip(MovePacket *packet)
 {	
+	int id = packet->getData()->id;
+	sf::Vector2f newPos(packet->getData()->x ,packet->getData()->y);
 	
+	int i;
+	for (i = 0; ((IObject*)_items[i])->getId() != id || i == _items.size(); i++);
+	if (i == _items.size())
+		return;
+	((IObject*)_items[i])->setPos(newPos);
 }
 
 void ItemController::deleteObject(DelItemPacket *packet)
