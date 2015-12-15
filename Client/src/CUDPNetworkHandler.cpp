@@ -1,4 +1,4 @@
-#include "../include/CUDPNetworkHandler.hh"
+#include "CUDPNetworkHandler.hh"
 #include "PacketFactory.hh"
 
 CUDPNetworkHandler::CUDPNetworkHandler(std::string const& ip,

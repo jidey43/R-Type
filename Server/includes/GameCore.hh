@@ -6,7 +6,6 @@
 # include "GamerInfo.hh"
 # include "FactoryManager.hh"
 # include "MapController.hh"
-# include "UDPNetworkHandler.hh"
 
 class GameCore
 {
