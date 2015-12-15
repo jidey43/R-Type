@@ -7,7 +7,7 @@ ItemController::ItemController()
 }
 
 ItemController::~ItemController()
-{	
+{
 }
 
 void ItemController::draw()
@@ -24,72 +24,77 @@ void ItemController::update()
 		i->update();
 }
 
-void ItemController::setBackgroud(int id)
+void ItemController::setBackground(int id)
 {
 	_background->setTexture(*(ac->getBackground(id)));
 }
 
 void ItemController::addShip(CrePlayPacket *packet)
 {
-	CrePlayData *data = packet->getData();
-	
+  CrePlayData *data = packet->getData();
+
   _items.emplace_back(new PlayerGraphical(sf::Vector2f(0,0), sf::Vector2f(data->x, data->y), data->id));
 }
 
 void ItemController::addObj(CreObjPacket *packet)
 {
-		
+	int id = packet->getData()->id;
+	sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
+	int speed = packet->getData()->speed;
+	
+
+	if (packet->getData()->type == ObjectInfo::PLAYERREGULAR)
+		_items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));		
+	if (packet->getData()->type == ObjectInfo::ALIENREGULAR)
+		_items.emplace_back(new BasicAlienProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));		
 }
 
 void ItemController::moveShip(MovePacket *packet)
-{	
-	int id = packet->getData()->id;
-	sf::Vector2f newPos(packet->getData()->x ,packet->getData()->y);
-	
-	int i;
-	for (i = 0; ((IObject*)_items[i])->getId() != id || i == _items.size(); i++);
-	if (i == _items.size())
-		return;
-	((IObject*)_items[i])->setPos(newPos);
+{
+  int id = packet->getData()->id;
+  sf::Vector2f newPos(packet->getData()->x ,packet->getData()->y);
+
+  int i;
+  for (i = 0; i != _items.size(); ++i)
+    {
+      if ((dynamic_cast<PlayerGraphical*>(_items[i])->getId()) == id)
+	{
+	  std::cout << "pos = " << newPos.x << " : " << newPos.y << std::endl;
+	  break;
+	}
+    }
+  if (i == _items.size())
+    return;
+  dynamic_cast<PlayerGraphical*>(_items[i])->setPos(newPos);
 }
 
 void ItemController::deleteObject(DelItemPacket *packet)
 {
-	int  id = packet->getData()->data;
-	
-	int i;
-	for (i = 0; ((IObject*)_items[i])->getId() != id || i == _items.size(); i++);
-	if (i == _items.size())
-		return;
-	_items.erase(_items.begin() + i);
-}
+  int  id = packet->getData()->data;
 
-
-void ItemController::addShot(Shot type, sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
-{
-	switch (type)
-	{
-	case BASICPLAYERSHOT:
-		_items.emplace_back(new BasicPlayerProjectileGrapical(speed, pos, id));
-		break;
-	case BASICALIENSHOT:
-		_items.emplace_back(new BasicAlienProjectileGrapical(speed, pos, id));
-		break;
-
-	default:
-		break;
-	}
+  size_t i;
+  for (i = 0; i != _items.size(); ++i)
+    {
+      if ((dynamic_cast<PlayerGraphical*>(_items[i])->getId()) == id)
+	break;
+    }
+  if (i == _items.size())
+    return;
+  _items.erase(_items.begin() + i);
 }
 
 void ItemController::addAlien(CreIAPacket *packet)
 {
-// 	switch (type)
-// 	{
-// 	case ObjectInfo::WaveType::BYDO :
-// //	  _items.emplace_back(new BydoAlienGraphical(speed, pos, id, coeff));
-// 		break;
-// 	default:
-// 		break;
-// 	}
+	// ObjectInfo::WaveType type = packet->iatype;
+	// sf::Vector2f pos(packet->x, packet->y);
+	// int id = packet->id;
+	// 
+	// switch (type)
+	// {
+	// case ObjectInfo::WaveType::BYDO :
+	//   _items.emplace_back(new BydoAlienGraphical(1, pos, id, 1));
+	// 	break;
+	// default:
+	// 	break;
+	// }
 }
-

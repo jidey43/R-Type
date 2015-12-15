@@ -14,7 +14,7 @@
 #include "DelItemPacket.h"
 #include "CreIAPacket.h"
 #include "IServerPacket.hh"
-	
+
 extern ViewController *vc;
 
 class                           ItemController
@@ -37,13 +37,10 @@ public:
 	void						addAlien(CreIAPacket *packet);
 
 public:
-	void						addShot(Shot, sf::Vector2f speed, sf::Vector2f pos, unsigned int);
-
-public:
-	void						setBackgroud(int id);
+	void						setBackground(int id);
 
 private:
-	std::vector<GraphicalItem*> _items;
+	std::vector<GraphicalItem*>		 _items;
 	sf::Sprite*					_background;
   int						_playerCount;
 };
