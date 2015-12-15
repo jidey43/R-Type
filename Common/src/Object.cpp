@@ -38,8 +38,8 @@ bool			Object::collision(std::vector<IObject*>& map)
     return (false);
   for (std::vector<IObject*>::iterator it = map.begin(); it != map.end(); it++)
     {
-      if ((this.getObjType() == ObjectInfo::Type::PLAYER && (*it).getObjType() == ObjectInfo::Type::ALIEN)
-	  ||(this.getObjType() == ObjectInfo::Type::ALIEN && (*it).getObjType() == ObjectInfo::Type::PLAYER))
+      if ((this->getObjType() == ObjectInfo::Type::PLAYER && (*it)->getObjType() == ObjectInfo::Type::ALIEN)
+	  ||(this->getObjType() == ObjectInfo::Type::ALIEN && (*it)->getObjType() == ObjectInfo::Type::PLAYER))
 	{
 	  if ((this != *it) && (this->getPos().x >= (*it)->getPos().x + (*it)->getSize().x)
 	      || (this->getPos().x + this->getSize().x <= (*it)->getPos().x)
