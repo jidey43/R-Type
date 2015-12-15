@@ -6,11 +6,12 @@
 class ShellAlien : public Alien
 {
 public:
-  ShellAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff);
+  ShellAlien(sf::Vector2f speed, sf::Vector2i pos, unsigned int id, float coeff);
   ~ShellAlien();
 
 public:
   bool		update();
+  bool		update(std::vector<IObject*>&);
   IObject	*Basicshoot();
 }
 
