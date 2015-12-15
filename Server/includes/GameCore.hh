@@ -23,12 +23,16 @@ private :
   void		gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet);
   void		gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet);
   void		gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet);
+  sf::Time	getElapsedTimeSinceLoop();
 
 private :
   std::vector<GamerInfo*>*	_clients;
   UDPNetworkHandler*		_network;
   MapController*		_map;
   FactoryManager*		_factory;
+  sf::Clock			_clock;
+  sf::Time			_referential;
+  bool				_running;
 };
 
 #endif /* !GAMECORE_H_ */

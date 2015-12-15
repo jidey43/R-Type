@@ -29,14 +29,41 @@ void ItemController::setBackgroud(int id)
 	_background->setTexture(*(ac->getBackground(id)));
 }
 
-void ItemController::addShip(sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
+void ItemController::addShip(CrePlayPacket *packet)
 {
-  _items.emplace_back(new PlayerGraphical(speed, pos, id));
+	CrePlayData *data = packet->getData();
+	
+  _items.emplace_back(new PlayerGraphical(sf::Vector2f(0,0), sf::Vector2f(data->x, data->y), data->id));
 }
 
-void ItemController::moveShip(int id, sf::Vector2f pos)
+void ItemController::addObj(CreObjPacket *packet)
 {
+		
 }
+
+void ItemController::moveShip(MovePacket *packet)
+{	
+	int id = packet->getData()->id;
+	sf::Vector2f newPos(packet->getData()->x ,packet->getData()->y);
+	
+	int i;
+	for (i = 0; ((IObject*)_items[i])->getId() != id || i == _items.size(); i++);
+	if (i == _items.size())
+		return;
+	((IObject*)_items[i])->setPos(newPos);
+}
+
+void ItemController::deleteObject(DelItemPacket *packet)
+{
+	int  id = packet->getData()->data;
+	
+	int i;
+	for (i = 0; ((IObject*)_items[i])->getId() != id || i == _items.size(); i++);
+	if (i == _items.size())
+		return;
+	_items.erase(_items.begin() + i);
+}
+
 
 void ItemController::addShot(Shot type, sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
 {
@@ -54,16 +81,15 @@ void ItemController::addShot(Shot type, sf::Vector2f speed, sf::Vector2f pos, un
 	}
 }
 
-void ItemController::addAlien(ObjectInfo::WaveType type, sf::Vector2f speed,
-			      sf::Vector2f pos, unsigned int id, float coeff)
+void ItemController::addAlien(CreIAPacket *packet)
 {
-	switch (type)
-	{
-	case ObjectInfo::WaveType::BYDO :
-	  _items.emplace_back(new BydoAlienGraphical(speed, pos, id, coeff));
-		break;
-	default:
-		break;
-	}
+// 	switch (type)
+// 	{
+// 	case ObjectInfo::WaveType::BYDO :
+// //	  _items.emplace_back(new BydoAlienGraphical(speed, pos, id, coeff));
+// 		break;
+// 	default:
+// 		break;
+// 	}
 }
 

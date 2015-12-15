@@ -2,12 +2,13 @@
 # define ISERVERPACKET_H_
 
 # include "NetworkDefines.h"
+# include "ObjectInfo.hpp"
 
 typedef struct
 {
-  uint32_t			magic;
-  ServerTCPResponse		command;
-  uint32_t			size;
+  uint32_t			       magic;
+  ServerTCPResponse		 command;
+  uint32_t			       size;
 } __attribute__ ((packed))	ServerTCPHeader;
 
 typedef struct
@@ -23,8 +24,8 @@ typedef struct
   uint32_t			data;
   uint32_t			magic;
 } __attribute__ ((packed))	integerData;
-typedef struct
 
+typedef struct
 {
   Bool				success;
   uint32_t			magic;
@@ -62,21 +63,23 @@ typedef struct
 
 typedef struct
 {
+
   int				id;
   float				x;
   float				y;
   int				speed;
   uint32_t			magic;
+  //object type
 }  __attribute__ ((packed))	CreObjData;
 
 typedef struct
 {
-  int				id;
-  float				x;
-  float				y;
-  uint32_t			magic;
-  // enum type_ia		pattern;
-}  __attribute__ ((packed))	CreIAData;
+  int				                   id;
+  float				                 x;
+  float				                 y;
+  uint32_t			               magic;
+  enum ObjectInfo::WaveType		 iatype;
+}  __attribute__ ((packed))	   CreIAData;
 
 
 typedef integerData GameOverData;
