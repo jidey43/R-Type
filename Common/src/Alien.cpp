@@ -9,3 +9,8 @@ Alien::~Alien() {}
 bool		Alien::update()
 {
 }
+
+ObjectInfo::WaveType	Alien::getRealType() const
+{
+  return _realType;
+}

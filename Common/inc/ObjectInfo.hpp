@@ -10,6 +10,15 @@ enum Type
     SHOT
   };
 
+enum PlayerType
+  {
+    PLAYER1 = 0,
+    PLAYER2,
+    PLAYER3,
+    PLAYER4,
+    NUMBERPLAYER
+  };
+  
 enum ShotType
 {
   PLAYERREGULAR = 0,

@@ -12,17 +12,19 @@ public:
   ~Player();
 
 public:
-  bool		update();
-  bool		update(std::vector<IObject*>&);
-  IObject	*BasicShoot();
-  bool		tryShoot();
-  void		setDirection(Direction dir);
-
+  bool				update();
+  bool				update(std::vector<IObject*>&);
+  IObject			*BasicShoot();
+  bool				tryShoot();
+  void				setDirection(Direction dir);
+  ObjectInfo::PlayerType	getRealType() const;
+  
 private:
-  int		_id;
-  bool		_tryShoot;
-  sf::Vector2f	_move;
-  Direction	_dir;
+  int				_id;
+  bool				_tryShoot;
+  sf::Vector2f			_move;
+  Direction			_dir;
+  ObjectInfo::PlayerType	_realType;
 };
 
 # endif

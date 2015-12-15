@@ -48,3 +48,8 @@ void		Player::setDirection(Direction dir)
 {
   _move = sf::Vector2f((dir == UP ? -_speed.y : (dir == DOWN ? _speed.y : 0)), (dir == LEFT ? -_speed.x : (dir == RIGHT ? _speed.x : 0)));
 }
+
+ObjectInfo::PlayerType	Player::getRealType() const
+{
+  return _realType;
+}

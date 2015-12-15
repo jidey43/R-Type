@@ -11,15 +11,17 @@ public:
   ~Alien();
 
 public:
-  bool		update();
-  IObject	*Basicshoot();
-
+  bool			update();
+  IObject		*Basicshoot();
+  ObjectInfo::WaveType	getRealType() const;
+ 
 protected:
-  float		_coeff;
-  int		_t;
-  int		_f;
-  int		_a;
-  float		_rad;
+  float			_coeff;
+  int			_t;
+  int			_f;
+  int			_a;
+  float			_rad;
+  ObjectInfo::WaveType	_realType;
 };
 
 # endif
