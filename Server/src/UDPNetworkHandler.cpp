@@ -29,6 +29,7 @@ bool		UDPNetworkHandler::initSocket()
   if (_network->initServerSocket(_ip, _port))
     {
       _socket = _network->getFd();
+      std::cout << "now soocket UDP = " << _socket << std::endl;
       return true;
     }
   return false;
@@ -40,7 +41,7 @@ GamerInfo*		UDPNetworkHandler::getClient(ClientDatas* datas)
     {
       if (*((*it)->getClientInfos()) == *datas)
 	{
-	  // free(datas);
+	  delete datas;
 	  std::cout << "CLIENT FOUND" << std::endl;
 	  return *it;
 	}
@@ -140,8 +141,10 @@ GamerInfo*				UDPNetworkHandler::selectClient(struct timeval *to)
 	  return NULL;
 	}
       if ((client = this->getClient(clientDatas)))
-	client->setHeader(header);
-      return client;
+	{
+	  client->setHeader(header);
+	  return client;
+	}
     }
   return NULL;
 }
