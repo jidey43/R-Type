@@ -34,9 +34,11 @@ void Server::start()
 {
   while (1)
     {
-      _network->selectClient();
-      _games->tryJoinGames();
-      answerClients();
+      if (_network->selectClient())
+	{
+	  _games->tryJoinGames();
+	  answerClients();
+	}
     }
 }
 
@@ -64,6 +66,7 @@ void Server::parser(ClientInfo * client)
       case ADD_GAME:
 	{
 	  createGame(client);
+	  std::cout << "JOIN GAME END" << std::endl;
 	  break;
 	}
       case AUTH_TCP:
@@ -111,6 +114,7 @@ bool Server::createGame(ClientInfo * client)
   else
     {
       joinGame(client, id);
+      std::cout << "game joined" << std::endl;
     }
   return true;
 }

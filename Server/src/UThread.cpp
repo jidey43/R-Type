@@ -27,7 +27,7 @@ bool UThread::StartThread()
 
 bool UThread::TryWaitThread()
 {
-  if (_thread->joinable())
+  if (!_thread->joinable())
     {
       _thread->join();
       return true;
