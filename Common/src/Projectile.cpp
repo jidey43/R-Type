@@ -9,4 +9,11 @@ Projectile::~Projectile() {}
 
 bool		Projectile::update()
 {
+  this->_pos.x = this->_pos.x + this->_speed.x;
+}
+
+bool		Projectile::update(std::vector<IObject*> &map)
+{
+  this->update();
+  this->collision(map);
 }

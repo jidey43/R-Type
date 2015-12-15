@@ -4,6 +4,8 @@ Object::Object(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, ObjectIn
   : _speed(speed), _pos(pos), _size(size), _objType(type), _id(id)
 {
   _life = 1;
+  _isAlive = true;
+  _isShoot = false;
 }
 
 Object::~Object() {}
@@ -44,9 +46,24 @@ void                    Object::setSpeed(const sf::Vector2f &speed)
 }
 
 
+bool			Object::isAlive() const
+{
+  return _isAlive;
+}
+
+bool			Object::isShooting()
+{
+  if (_isShoot == true)
+    {
+      _isShoot = false;
+      return true;
+    }
+  else
+    return false;
+}
+
 bool			Object::collision(std::vector<IObject*>& map)
 {
-    return (false);
   for (std::vector<IObject*>::iterator it = map.begin(); it != map.end(); it++)
     {
       if ((this->getObjType() == ObjectInfo::Type::PLAYER && (*it)->getObjType() == ObjectInfo::Type::ALIEN)
@@ -62,6 +79,9 @@ bool			Object::collision(std::vector<IObject*>& map)
 	}
     }
   if (_life == 0)
-    return (true);
-  return (false);
+    {
+      _isAlive = false;
+      return (_isAlive);
+    }
+  return (true);
 }
