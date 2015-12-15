@@ -30,6 +30,7 @@ IObject		*Player::BasicShoot()
   pos.x = _pos.x + _size.x;
   pos.y = _pos.y;
   _maxId = _maxId + 1;
+  _isShoot = true;
   return new BasicPlayerProjectile(_speed, pos, _maxId);
 }
 

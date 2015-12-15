@@ -25,11 +25,10 @@ bool		BydoAlien::update()
 
 bool		BydoAlien::update(std::vector<IObject*> &map)
 {
-  this->_pos.x = this->_pos.x + this->_speed.x;
-  this->_pos.y = _a * sin((2 * _f * _t * M_PI) + _rad);  
-  _t = _t + 1;
+  this->update();
   map.push_back(this->BasicShoot());
   this->collision(map);
+  return (_isAlive);
 }
 
 IObject		*BydoAlien::BasicShoot()
@@ -39,5 +38,6 @@ IObject		*BydoAlien::BasicShoot()
   pos.x = _pos.x + _speed.x;
   pos.y = _pos.y;
   _maxId = _maxId + 1;
+  _isShoot = true;
   return new BasicAlienProjectile(_speed, pos, _maxId);
 }
