@@ -40,7 +40,7 @@ GamerInfo*		UDPNetworkHandler::getClient(ClientDatas* datas)
     {
       if (*((*it)->getClientInfos()) == *datas)
 	{
-	  // free(datas);
+	  delete datas;
 	  std::cout << "CLIENT FOUND" << std::endl;
 	  return *it;
 	}
