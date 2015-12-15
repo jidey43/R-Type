@@ -1,7 +1,7 @@
 # include <string.h>
 # include "AuthUDPPacket.h"
 
-AuthUDPPacket::AuthUDPPacket(ServerUDPResponse resp, int idx, int success, std::string const& name) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new AuthUDPData)
+AuthUDPPacket::AuthUDPPacket(ServerUDPResponse resp, int idx, int success, std::string const& name) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new AuthUDPData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;

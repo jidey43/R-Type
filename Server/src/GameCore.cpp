@@ -79,6 +79,7 @@ void					GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>*
   client->setAuth(true);
   client->setID(_maxId++);
   _map->addObject(new Player(sf::Vector2f(0,0), sf::Vector2f(10,10), client->getID()));
+  _network->sendTo(client, new AuthUDPPacket(AUTH_UDP, 0, SUCCESS, "test"));
 }
 
 void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
