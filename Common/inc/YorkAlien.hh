@@ -6,11 +6,12 @@
 class YorkAlien : public Alien
 {
 public:
-  YorkAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff);
+  YorkAlien(sf::Vector2f speed, sf::Vector2i pos, unsigned int id, float coeff);
   ~YorkAlien();
 
 public:
   bool		update();
+  bool		update(std::vector<IObject*>&);
   IObject	*Basicshoot();
 };
 

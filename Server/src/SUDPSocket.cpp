@@ -34,18 +34,19 @@ int			SUDPSocket::startNetwork(std::string const &ip, std::string const &port, a
     }
   return _listen;
 }
-
+#include <unistd.h>
 void			SUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDatas *addr)
 {
   socklen_t			addr_len = sizeof(*addr);
 
-  std::cout << "write on socket = " << _listen <<  " ; size = " << size  << std::endl;
-
+  std::cout << "write header on socket " << _listen << " ; size = " << sizeof(ServerUDPHeader) << std::endl;
   int res = sendto(_listen, (char *)buffer, sizeof(ServerUDPHeader), 0, (sockaddr *)addr, addr_len);
   if (res == -1)
     throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
   if (res == 0)
     throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
+  std::cout << "write data" << " ; size = " << size - sizeof(ServerUDPHeader) << std::endl;
+  write(1, (char*)buffer + sizeof(ServerUDPHeader), size - sizeof(ServerUDPHeader));
   res = sendto(_listen, (char *)buffer + sizeof(ServerUDPHeader), size - sizeof(ServerUDPHeader), 0, (sockaddr *)addr, addr_len);
   if (res == -1)
     throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
@@ -55,12 +56,13 @@ void			SUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDat
 
 void			SUDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)
 {
-  socklen_t			addr_len;
+  socklen_t			addr_len = sizeof(*addr);
   int				res;
 
   std::cout << "must read " << size << std::endl;
   res = recvfrom(_listen, (char *)buffer, size, 0, (sockaddr *)addr, &addr_len);
   std::cout << "read " << res << std::endl;
+  std::cout << "after receive addr = " << addr->sin_addr.s_addr <<  " : addr_len =  " << addr_len << " = sizeof addr ->" << sizeof(*addr) <<std::endl;
   if (res == -1)
     throw Exceptions::NetworkExcept("RECEIVEFROM ERROR", errno);
   if (res == 0)

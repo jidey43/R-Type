@@ -9,7 +9,7 @@ MovePacket::MovePacket(ServerUDPResponse resp, int idx, int id, float x, float y
   _header->idx = idx;
   _data->id = id;
   _data->x = x;
-  _data->x = y;
+  _data->y = y;
   _data->magic = MAGIC;
 }
 
@@ -45,10 +45,9 @@ bool			MovePacket::checkHeader()
 
 char*				MovePacket::deserialize()
 {
-  char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
+  char*				buff = new char[sizeof(*_header) + sizeof(*_data)];
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));
-  buff[sizeof(*_header) + sizeof(*_data)] = 0;
   return buff;
 }

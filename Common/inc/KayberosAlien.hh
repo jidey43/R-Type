@@ -6,7 +6,7 @@
 class KayberosAlien : public Alien
 {
 public:
-  KayberosAlien(sf::Vector2f speed, sf::Vector2i pos, float coeff);
+  KayberosAlien(sf::Vector2f speed, sf::Vector2i pos, unsigned int id, float coeff);
   ~KayberosAlien();
 
 public:
