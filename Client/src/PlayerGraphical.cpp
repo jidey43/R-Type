@@ -12,6 +12,13 @@ PlayerGraphical::PlayerGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned 
 
 bool PlayerGraphical::update(std::vector<IObject*> &map)
 {
+  this->update();
+  return this->collision(map);
+}
+
+bool	PlayerGraphical::update()
+{
+
   bool	ret;
 
   ret = Player::update();
@@ -20,11 +27,6 @@ bool PlayerGraphical::update(std::vector<IObject*> &map)
 		(_pos.y / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2)
 		);
 	return (ret);
-}
-
-bool	PlayerGraphical::update()
-{
-
 
   return (true);
 }
