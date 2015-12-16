@@ -65,25 +65,25 @@ bool					GameCore::processPacket(GamerInfo* client,
     {
     case CAUTH_UDP:
       {
-	std::cout << "CAUTHUDP Received" << std::endl;
+	// std::cout << "CAUTHUDP Received" << std::endl;
 	authGamer(client, packet);
 	break;
       }
     case FIRE:
       {
-	std::cout << "FIRE Received" << std::endl;
+	// std::cout << "FIRE Received" << std::endl;
 	gamerTryShoot(client, packet);
 	break;
       }
     case SEND_MOVE:
       {
-	std::cout << "SENDMOVE Received" << std::endl;
+	// std::cout << "SENDMOVE Received" << std::endl;
 	gamerMove(client, packet);
 	break;
       }
     case DISCONNECT:
       {
-	std::cout << "DISCONNECT Received" << std::endl;
+	// std::cout << "DISCONNECT Received" << std::endl;
 	gamerDisconnect(client, packet);
 	break;
       }
