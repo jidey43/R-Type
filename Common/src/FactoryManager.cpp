@@ -1,5 +1,6 @@
 #include <iostream>
 #include "FactoryManager.hh"
+#include "Exceptions.hpp"
 #include "KayberosAlien.hh"
 #include "GlamAlien.hh"
 #include "YorkAlien.hh"
@@ -37,7 +38,7 @@ void		FactoryManager::initialiseLevel()
     {
       if (i > static_cast<int>(_nbFactory))
 	{
-	  std::cout << "Error: bad type in the waves" << std::endl;
+	  throw Exceptions::ObjectExcept("Error this Factory type is not declare"); 
 	  break;
 	}
       if (waves[j].getType() == _factories[i]->getType())
