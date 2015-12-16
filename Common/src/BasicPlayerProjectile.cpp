@@ -8,7 +8,12 @@ BasicPlayerProjectile::~BasicPlayerProjectile()
 {}
 
 bool		BasicPlayerProjectile::update()
-{}
+{
+  this->_pos.x = this->_pos.x + this->_speed.x;
+}
 
-bool		BasicPlayerProjectile::update(std::vector<IObject*>&)
-{}
+bool		BasicPlayerProjectile::update(std::vector<IObject*>& map)
+{
+  this->update();
+  this->collision(map);
+}

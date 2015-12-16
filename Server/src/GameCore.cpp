@@ -133,7 +133,7 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
       if (player->isShooting())
 	{
 	  _map->addObject(player->BasicShoot());
-	  _network->broadcast(new CreObjPacket(CRE_OBJ, 0, player->getId(), player->getPos().x, player->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
+	  _network->broadcast(new CreObjPacket(CRE_OBJ, 0, player->getId(), player->getPos().x, player->getPos().y, 15, ObjectInfo::PLAYERREGULAR));
 	}
     }
 }
