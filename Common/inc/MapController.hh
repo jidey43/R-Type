@@ -18,10 +18,12 @@ public:
   void		addObject(IObject*);
   void		updateMap();
   std::vector<IServerPacket<ServerUDPResponse>*>*     getMap() const;
-  void		updatePlayer(IObject*);
+  void		updatePlayer(IObject*// , sf::Clock const&
+			     );
   IObject*	getPlayer(int id);
   void		deletePlayer(int id);
   void		generatePacketsMap(IObject *);
+  void		checkNewObj(std::vector<IObject*>::iterator& it, IObject* obj);
 
 private:
   std::vector<IObject*>		_map;

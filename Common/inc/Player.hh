@@ -27,6 +27,7 @@ private:
   ObjectInfo::PlayerType	_realType;
   sf::Time			_unblockShot;
   sf::Time			_pauseShotDelay;
+  sf::Time			_lastLoopTime;
 };
 
 # endif

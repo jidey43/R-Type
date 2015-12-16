@@ -19,6 +19,7 @@
 #include "FirePacket.h"
 #include "MovePacket.h"
 #include "SendMovePacket.h"
+#include "DisconnectPacket.h"
 #include "DelItemPacket.h"
 #include "CAuthUDPPacket.h"
 #include "NetworkDefines.h"

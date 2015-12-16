@@ -12,15 +12,21 @@ Player::~Player()
 {
 }
 
-bool		Player::update()
+bool		Player::update(// sf::Clock const& clock
+			       )
 {
+  // _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
+  // _lastLoopTime = clock.getElapsedTime();
   _pos += _move;
   _move = sf::Vector2f(0,0);
   return true;
 }
 
-bool		Player::update(std::vector<IObject*>& map)
+bool		Player::update(std::vector<IObject*>& map// , sf::Clock const& clock
+			       )
 {
+  // _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
+  // _lastLoopTime = clock.getElapsedTime();
   _pos += _move;
   _move = sf::Vector2f(0,0);
   this->collision(map);
