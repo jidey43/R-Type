@@ -16,8 +16,8 @@ public:
   bool				update(std::vector<IObject*>&);
   IObject			*BasicShoot();
   bool				tryShoot();
-  void				setDirection(Direction dir);
-  ObjectInfo::PlayerType	getRealType() const;
+  void				setDirection(const Direction &dir);
+  const ObjectInfo::PlayerType	&getRealType() const;
   
 private:
   int				_id;

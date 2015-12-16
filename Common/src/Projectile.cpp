@@ -18,7 +18,7 @@ bool		Projectile::update(std::vector<IObject*> &map)
   this->collision(map);
 }
 
-ObjectInfo::ShotType	Projectile::getRealType() const
+const ObjectInfo::ShotType	&Projectile::getRealType() const
 {
   return _realType;
 }

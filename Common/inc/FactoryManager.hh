@@ -12,7 +12,7 @@ public:
   FactoryManager(MapController* , const char*);
   ~FactoryManager();
 
-  std::vector<IObject*>		update(sf::Clock);
+  std::vector<IObject*>		*update(const sf::Clock&);
   void				initialiseLevel();
   void				changeLevel(char *);
 

@@ -44,12 +44,12 @@ bool		Player::tryShoot()
   return true;
 }
 
-void		Player::setDirection(Direction dir)
+void		Player::setDirection(const Direction &dir)
 {
   _move = sf::Vector2f((dir == LEFT ? -_speed.x : (dir == RIGHT ? _speed.x : 0)), (dir == UP ? -_speed.y : (dir == DOWN ? _speed.y : 0)));
 }
 
-ObjectInfo::PlayerType	Player::getRealType() const
+const ObjectInfo::PlayerType	&Player::getRealType() const
 {
   return _realType;
 }

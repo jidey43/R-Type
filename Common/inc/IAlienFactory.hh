@@ -10,9 +10,9 @@ class IAlienFactory
 {
 public:
   virtual ~IAlienFactory() {};
-  virtual IObject		   *getNextEnemy(sf::Clock clock) = 0;
-  virtual ObjectInfo::WaveType	   getType() const = 0;
-  virtual void			   setWave(Waves) = 0;
+  virtual IObject			   *getNextEnemy(const sf::Clock&) = 0;
+  virtual const ObjectInfo::WaveType	   &getType() const = 0;
+  virtual void				   setWave(const Waves&) = 0;
 };
 
 #endif

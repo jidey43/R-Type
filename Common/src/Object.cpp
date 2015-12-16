@@ -10,27 +10,27 @@ Object::Object(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, ObjectIn
 
 Object::~Object() {}
 
-ObjectInfo::Type	Object::getObjType() const
+const ObjectInfo::Type	&Object::getObjType() const
 {
   return _objType;
 }
 
-sf::Vector2i		Object::getSize() const
+const sf::Vector2i		&Object::getSize() const
 {
   return _size;
 }
 
-sf::Vector2f		Object::getSpeed() const
+const sf::Vector2f		&Object::getSpeed() const
 {
   return _speed;
 }
 
-sf::Vector2f		Object::getPos() const
+const sf::Vector2f		&Object::getPos() const
 {
   return _pos;
 }
 
-unsigned int		Object::getId() const
+const unsigned int		&Object::getId() const
 {
   return _id;
 }
