@@ -5,7 +5,7 @@ namespace ObjectInfo
 {
 enum Type
   {
-    PLAYER = 1,
+    PLAYER = 0,
     ALIEN,
     SHOT
   };

@@ -76,10 +76,11 @@ IClientPacket<ClientUDPCommand>*		PacketFactory::build(ClientUDPHeader *header)
     case SEND_MOVE:
       return new SendMovePacket(header);
       break;
-    // case DISCONNECT:
-    //   return new DisconnectPacket(header);
-    //   break;
+    case DISCONNECT:
+      return new DisconnectPacket(header);
+      break;
     default:
+      std::cout << "command unknown trying to build packet -> " << header->command  << " : " << header->size << std::endl;
       return NULL;
       break;
     }

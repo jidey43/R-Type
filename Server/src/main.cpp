@@ -42,13 +42,13 @@ int	process_signal()
 
 int	main(int ac, char **av)
 {
-  if (ac != 2)
+  if (ac != 3)
     {
-      std::cout << "USAGE : ./server [port]" << std::endl;
+      std::cout << "USAGE : ./server [ip] [port]" << std::endl;
       return (1);
     }
   process_signal();
-  Server* server = new Server("0", av[1]);
+  Server* server = new Server(av[1], av[2]);
   delete(server);
   std::cout << "ok" << std::endl;
 }
