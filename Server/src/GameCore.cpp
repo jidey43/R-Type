@@ -14,6 +14,11 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
 
 GameCore::~GameCore()
 {
+  for (auto& client : *_clients)
+    {
+      delete client;
+    }
+  delete _clients;
 }
 
 bool		GameCore::run()
@@ -24,7 +29,8 @@ bool		GameCore::run()
   _clock.restart();
   while (_running)
     {
-      _map->updateMap();
+      _map->updateMap(// _clock
+		      );
       sf::Time elapsed;
       sf::Time lastTime = sf::microseconds(0);
       while (_running && (elapsed = getElapsedTimeSinceLoop()) > lastTime)

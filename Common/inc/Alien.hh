@@ -11,9 +11,9 @@ public:
   ~Alien();
 
 public:
-  bool			update();
-  IObject		*Basicshoot();
-  ObjectInfo::WaveType	getRealType() const;
+  bool				update();
+  IObject			*Basicshoot();
+  const ObjectInfo::WaveType	&getRealType() const;
  
 protected:
   float			_coeff;

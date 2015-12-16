@@ -39,7 +39,7 @@ void		LevelLoader::parseLevel(const char *name)
   _levelFile.close();
 }
 
-Waves		LevelLoader::getNextWave()
+const Waves		LevelLoader::getNextWave()
 {
       std::string				str = _lines.front();
       sf::Time					time;
@@ -69,16 +69,16 @@ Waves		LevelLoader::getNextWave()
       buffer >> fnb;
       freq = sf::milliseconds(fnb);
       buffer >> coeff;
+
+      for (inb = 0; name != _compare[inb]; inb = inb + 1);
       
-      int	i;
-      for (i = 0; name != _compare[i];i = i + 1);
-      ObjectInfo::WaveType			type = (ObjectInfo::WaveType)i;
+      ObjectInfo::WaveType			type = static_cast<ObjectInfo::WaveType>(inb);
       _lines.pop_front();
       Waves	wave(nb, time, freq, pos, speed, coeff, type);
       return (wave);
 }
 
-int		LevelLoader::getWavesCount()
+const int		LevelLoader::getWavesCount() const
 {
   return _wavesCount;
 }

@@ -11,20 +11,20 @@ public:
   ~Object();
 
 public:
-  ObjectInfo::Type		getObjType() const;
-  sf::Vector2i			getSize() const;
-  sf::Vector2f			getSpeed() const;
-  sf::Vector2f			getPos() const;
-  unsigned int			getId() const;
-  bool				isAlive() const;
-  bool				isShooting();
-  void				setPos(const sf::Vector2f &pos);
-  void				setSpeed(const sf::Vector2f &speed);
-  virtual bool		        update() = 0;
-  virtual bool			update(std::vector<IObject*> &) = 0;
+  const ObjectInfo::Type		&getObjType() const;
+  const sf::Vector2i			&getSize() const;
+  const sf::Vector2f			&getSpeed() const;
+  const sf::Vector2f			&getPos() const;
+  const unsigned int			&getId() const;
+  bool					isAlive() const;
+  bool					isShooting();
+  void					setPos(const sf::Vector2f &pos);
+  void					setSpeed(const sf::Vector2f &speed);
+  virtual bool				update() = 0;
+  virtual bool				update(std::vector<IObject*> &) = 0;
   
 protected:
-  bool				collision(std::vector<IObject*>&);
+  bool					collision(std::vector<IObject*>&);
 
 protected:
   unsigned int			_id;

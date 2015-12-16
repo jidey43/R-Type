@@ -29,8 +29,7 @@ void			MapController::generatePacketsMap(IObject* player)
 	  break ;
 	default :
 	  break ;
-	  }
-
+	}
     }
 }
 
@@ -45,17 +44,32 @@ void		MapController::addObject(IObject* obj)
   std::cout << "add object with id = " << obj->getId() << std::endl;
 }
 
-void		MapController::updateMap()
+void		MapController::updateMap(// sf::Clock const& clock
+					 )
 {
+  _deserializedMap->clear();
   for (std::vector<IObject*>::iterator it = _map.begin(); it != _map.end(); ++it)
     {
-	(*it)->update(_map);
+      (*it)->update(_map// , clock
+		    );
+      checkNewObj(it, (*it));
     }
 }
 
-void		MapController::updatePlayer(IObject* player)
+void		MapController::checkNewObj(std::vector<IObject*>::iterator& it, IObject* obj)
 {
-  player->update(_map);
+  if (obj->isShooting())
+    {
+      _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, obj->getId(), obj->getPos().x, obj->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
+      // _map->addObject(obj->BasicShoot());
+    }  // if (obj->)
+}
+
+void		MapController::updatePlayer(IObject* player// , sf::Clock const& clock
+					    )
+{
+  player->update(_map// , clock
+		 );
 }
 
 IObject*	MapController::getPlayer(int id)

@@ -9,7 +9,7 @@ public:
   Projectile(sf::Vector2f, sf::Vector2f, sf::Vector2i, unsigned int);
   ~Projectile();
   
-  ObjectInfo::ShotType	getRealType() const;
+  const ObjectInfo::ShotType	&getRealType() const;
   
   
 public:

@@ -64,6 +64,10 @@ private:
   BadHeaderRequest	&operator=(const BadHeaderRequest &) throw();
 };
 
+ class FactoryExcept : public std::exception
+  {
+  };
+  
 };
 
 

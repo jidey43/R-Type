@@ -17,7 +17,7 @@ public:
   ~AlienFactory() {};
 
 public:
-  IObject	*getNextEnemy(sf::Clock clock)
+  IObject	*getNextEnemy(const sf::Clock &clock)
   {
     IObject	*obj;
 
@@ -34,12 +34,12 @@ public:
     return (obj);
   }
 
-  ObjectInfo::WaveType	getType() const
+  const ObjectInfo::WaveType	&getType() const
   {
     return _type;
   }
 
-  void			setWave(Waves wave)
+  void			setWave(const Waves &wave)
   {
     _order.push_back(wave);
   }

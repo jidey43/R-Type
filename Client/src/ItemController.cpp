@@ -58,9 +58,9 @@ void ItemController::moveShip(MovePacket *packet)
   int i;
   for (i = 0; i != _items.size(); ++i)
     {
-      if ((dynamic_cast<PlayerGraphical*>(_items[i])->getId()) == id)
+      if ((static_cast<PlayerGraphical*>(_items[i])->getId()) == id)
 	{
-	  dynamic_cast<PlayerGraphical*>(_items[i])->setPos(newPos);
+	  static_cast<PlayerGraphical*>(_items[i])->setPos(newPos);
 	  std::cout << "pos = " << newPos.x << " : " << newPos.y << std::endl;
 	  break;
 	}
@@ -74,7 +74,7 @@ void ItemController::deleteObject(DelItemPacket *packet)
   size_t i;
   for (i = 0; i != _items.size(); ++i)
     {
-      if ((dynamic_cast<PlayerGraphical*>(_items[i])->getId()) == id)
+      if ((static_cast<PlayerGraphical*>(_items[i])->getId()) == id)
 	break;
     }
   if (i == _items.size())
