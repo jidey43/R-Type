@@ -29,8 +29,7 @@ void			MapController::generatePacketsMap(IObject* player)
 	  break ;
 	default :
 	  break ;
-	  }
-
+	}
     }
 }
 
@@ -47,10 +46,22 @@ void		MapController::addObject(IObject* obj)
 
 void		MapController::updateMap()
 {
+  _deserialize.clear();
   for (std::vector<IObject*>::iterator it = _map.begin(); it != _map.end(); ++it)
     {
 	(*it)->update(_map);
+	checkNewObj(it, (*it));
     }
+}
+
+void		MapController::checkNewObj(std::vector<IObject*>::iterator& it, IObject* obj)
+{
+  if (obj->isShooting())
+    {
+      _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, player->getId(), player->getPos().x, player->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
+      _map->addObject(client->BasicShoot);
+    }
+  // if (obj->)
 }
 
 void		MapController::updatePlayer(IObject* player)

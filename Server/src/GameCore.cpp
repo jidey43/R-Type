@@ -14,6 +14,12 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
 
 GameCore::~GameCore()
 {
+  for (auto i : _clients)
+    delete (i);
+  delete _clients;
+  delete _network;
+  delete _map;
+  delete _factory;
 }
 
 bool		GameCore::run()
