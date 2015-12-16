@@ -66,38 +66,22 @@ bool					GameCore::receivePacket()
 bool					GameCore::processPacket(GamerInfo* client,
 								IClientPacket<ClientUDPCommand>* packet)
 {
-  // TODO : Parsing paquets
   switch (packet->getCommandType())
     {
     case CAUTH_UDP:
-      {
-	std::cout << "CAUTHUDP Received" << std::endl;
-	authGamer(client, packet);
-	break;
-      }
+      authGamer(client, packet);
+      break;
     case FIRE:
-      {
-	std::cout << "FIRE Received" << std::endl;
-	gamerTryShoot(client, packet);
-	break;
-      }
+      gamerTryShoot(client, packet);
+      break;
     case SEND_MOVE:
-      {
-	std::cout << "SENDMOVE Received" << std::endl;
-	gamerMove(client, packet);
-	break;
-      }
+      gamerMove(client, packet);
+      break;
     case DISCONNECT:
-      {
-	std::cout << "DISCONNECT Received" << std::endl;
-	gamerDisconnect(client, packet);
-	break;
-      }
+      gamerDisconnect(client, packet);
+      break;
     default:
-      {
-	std::cout << "Unknown command" << std::endl;
-	break;
-      }
+      break;
     }
   return true;
 }
@@ -125,6 +109,7 @@ void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand
        delete packetToSend;
        toSend->pop_back();
      }
+   _network->sendTo(client, new AuthUDPPacket(AUTH_UDP, 0, SUCCESS));
    _network->broadcast(new CrePlayPacket(CRE_PLAY, 0, player->getId(), player->getPos().x, player->getPos().y));
 }
 
