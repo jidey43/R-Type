@@ -14,10 +14,10 @@ public:
   LevelLoader();
   ~LevelLoader();
 
-  void		parseLevel(const char *);
-  Waves		getNextWave();
-  int		getWavesCount();
-  
+  void			parseLevel(const char *);
+  const Waves		getNextWave();
+  const int		getWavesCount() const;
+
 private:
   std::string			 _name;
   std::string			 _oldName;

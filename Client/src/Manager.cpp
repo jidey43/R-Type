@@ -13,8 +13,9 @@ Manager::~Manager()
 
 void					Manager::loop()
 {
-
-  //STARTING GAME
+    sf::Time elapsed;
+    sf::Time lastTime;
+ //STARTING GAME
 
 	// vc->startSoundtrack();
   _itemCtrl->setBackground(1);
@@ -30,10 +31,8 @@ void					Manager::loop()
       _keyboardStatus =  vc->getKeyboardStatus();
       treatEventsFromKeyboard();
 
-
-
-      sf::Time elapsed = getElapsedTimeSinceLoop();
-      sf::Time lastTime = sf::microseconds(0);
+      elapsed = getElapsedTimeSinceLoop();
+      lastTime = sf::microseconds(0);
       while ((elapsed = getElapsedTimeSinceLoop()) > lastTime )
 	{
 	  lastTime = elapsed;

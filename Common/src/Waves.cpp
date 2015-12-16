@@ -10,13 +10,16 @@ Waves::Waves() {}
 
 Waves		&Waves::operator=(const Waves& wave)
 {
-  _count = wave._count;
-  _time = wave._time;
-  _pos = wave._pos;
-  _frequency = wave._frequency;
-  _speed = wave._speed;
-  _coeff = wave._coeff;
-  _type = wave._type;
+  if (this != &wave)
+    {
+      _count = wave._count;
+      _time = wave._time;
+      _pos = wave._pos;
+      _frequency = wave._frequency;
+      _speed = wave._speed;
+      _coeff = wave._coeff;
+      _type = wave._type;
+    }
   return (*this);
 }
 
@@ -26,37 +29,37 @@ void		Waves::pop()
   _count = _count - 1;
 }
 
-int	        Waves::getCount() const
+const int			&Waves::getCount() const
 {
   return _count;
 }
 
-sf::Time	Waves::getFreq() const
+const sf::Time			&Waves::getFreq() const
 {
   return _frequency;
 }
 
-sf::Time	Waves::getTime() const
+const sf::Time			&Waves::getTime() const
 {
   return _time;
 }
 
-sf::Vector2f	Waves::getPos() const
+const sf::Vector2f		&Waves::getPos() const
 {
   return _pos;
 }
 
-float		Waves::getCoeff() const
+const float			&Waves::getCoeff() const
 {
   return _coeff;
 }
 
-sf::Vector2f	Waves::getSpeed() const
+const sf::Vector2f		&Waves::getSpeed() const
 {
   return _speed;
 }
 
-ObjectInfo::WaveType	Waves::getType() const
+const ObjectInfo::WaveType	&Waves::getType() const
 {
   return _type;
 }

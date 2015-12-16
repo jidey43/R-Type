@@ -31,7 +31,7 @@ void TextArea::update(keyboardStatus status)
 				_text = "";
 			if (entry == '\b' && _text.size() != 0)
 				_text.pop_back();
-			else
+			else if (entry != '\b')
 				_text += entry;
 		}
 	}

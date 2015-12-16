@@ -7,10 +7,10 @@ extern unsigned int _maxId;
 BydoAlien::BydoAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
   : Alien(speed, pos, sf::Vector2i(0, 0), id, coeff)
 {
-  _f = 50;
-  _rad = 6;
+  _f = 70;
+  _rad = 3;
   _t = 1;
-  _a = 10;
+  _a = 5;
 }
 
 BydoAlien::~BydoAlien()
@@ -19,8 +19,9 @@ BydoAlien::~BydoAlien()
 bool		BydoAlien::update()
 {
   this->_pos.x = this->_pos.x + this->_speed.x;
-  this->_pos.y = _a * sin((2 * _f * _t * M_PI) + _rad);
+  this->_pos.y = _a * cos((2 * _f * _t * M_PI) + _rad);
   _t = _t + 1;
+  return true;
 }
 
 bool		BydoAlien::update(std::vector<IObject*> &map)

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "FactoryManager.hh"
+#include "Exceptions.hpp"
 #include "KayberosAlien.hh"
 #include "GlamAlien.hh"
 #include "YorkAlien.hh"
@@ -28,36 +29,32 @@ void		FactoryManager::changeLevel(char *level)
 
 void		FactoryManager::initialiseLevel()
 {
-  int j = 0;
-  int nb = _levelLoader.getWavesCount();
-  std::vector<Waves> waves(nb);
+  int j			= 0;
+  int nb	        = _levelLoader.getWavesCount();
+  std::vector<Waves>	waves(nb);
 
   waves.push_back(_levelLoader.getNextWave());
   for (int i = 0; j != nb; i = i + 1)
     {
-      if (i > (int)_nbFactory)
+      if (i > static_cast<int>(_nbFactory))
 	{
-	  std::cout << "Error: bad type in the waves" << std::endl;
+	  throw Exceptions::ObjectExcept("Error this Factory type is not declare"); 
 	  break;
 	}
-      std::cout << waves[j].getType() << " " << _factories[i]->getType() << std::endl;
       if (waves[j].getType() == _factories[i]->getType())
 	{
-	  std::cout << "put wave" << std::endl;
 	  _factories[i]->setWave(waves[j]);
 	  j = j + 1;
 	  if (j < _levelLoader.getWavesCount())
 	    waves.push_back(_levelLoader.getNextWave());
 	  i = 0;
 	}
-      std::cout << "nb " << nb << " j  " << j << " i " <<  i << std::endl;
     }
-  std::cout << "---------------------" << std::endl;
 }
 
-std::vector<IObject*>		FactoryManager::update(sf::Clock clock)
+std::vector<IObject*>		*FactoryManager::update(const sf::Clock &clock)
 {
-  std::vector<IObject*>		list;
+  std::vector<IObject*>		*list;
   IObject			*obj;
 
   for (std::vector<IAlienFactory*>::iterator it = _factories.begin(); it != _factories.end(); it++)
@@ -65,7 +62,7 @@ std::vector<IObject*>		FactoryManager::update(sf::Clock clock)
       obj = (*it)->getNextEnemy(clock);
       if (obj != NULL)
 	{
-	  list.push_back(obj);
+	  list->push_back(obj);
 	}
     }
   return (list);

@@ -12,15 +12,21 @@ Player::~Player()
 {
 }
 
-bool		Player::update()
+bool		Player::update(// sf::Clock const& clock
+			       )
 {
+  // _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
+  // _lastLoopTime = clock.getElapsedTime();
   _pos += _move;
   _move = sf::Vector2f(0,0);
   return true;
 }
 
-bool		Player::update(std::vector<IObject*>& map)
+bool		Player::update(std::vector<IObject*>& map// , sf::Clock const& clock
+			       )
 {
+  // _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
+  // _lastLoopTime = clock.getElapsedTime();
   _pos += _move;
   _move = sf::Vector2f(0,0);
   this->collision(map);
@@ -44,12 +50,12 @@ bool		Player::tryShoot()
   return true;
 }
 
-void		Player::setDirection(Direction dir)
+void		Player::setDirection(const Direction &dir)
 {
   _move = sf::Vector2f((dir == LEFT ? -_speed.x : (dir == RIGHT ? _speed.x : 0)), (dir == UP ? -_speed.y : (dir == DOWN ? _speed.y : 0)));
 }
 
-ObjectInfo::PlayerType	Player::getRealType() const
+const ObjectInfo::PlayerType	&Player::getRealType() const
 {
   return _realType;
 }

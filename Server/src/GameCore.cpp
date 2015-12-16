@@ -14,6 +14,11 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
 
 GameCore::~GameCore()
 {
+  for (auto& client : *_clients)
+    {
+      delete client;
+    }
+  delete _clients;
 }
 
 bool		GameCore::run()
@@ -24,7 +29,8 @@ bool		GameCore::run()
   _clock.restart();
   while (_running)
     {
-      _map->updateMap();
+      _map->updateMap(// _clock
+		      );
       sf::Time elapsed;
       sf::Time lastTime = sf::microseconds(0);
       while (_running && (elapsed = getElapsedTimeSinceLoop()) > lastTime)
@@ -65,25 +71,25 @@ bool					GameCore::processPacket(GamerInfo* client,
     {
     case CAUTH_UDP:
       {
-	// std::cout << "CAUTHUDP Received" << std::endl;
+	std::cout << "CAUTHUDP Received" << std::endl;
 	authGamer(client, packet);
 	break;
       }
     case FIRE:
       {
-	// std::cout << "FIRE Received" << std::endl;
+	std::cout << "FIRE Received" << std::endl;
 	gamerTryShoot(client, packet);
 	break;
       }
     case SEND_MOVE:
       {
-	// std::cout << "SENDMOVE Received" << std::endl;
+	std::cout << "SENDMOVE Received" << std::endl;
 	gamerMove(client, packet);
 	break;
       }
     case DISCONNECT:
       {
-	// std::cout << "DISCONNECT Received" << std::endl;
+	std::cout << "DISCONNECT Received" << std::endl;
 	gamerDisconnect(client, packet);
 	break;
       }

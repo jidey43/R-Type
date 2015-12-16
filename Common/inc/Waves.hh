@@ -13,14 +13,14 @@ public:
   ~Waves();
   
 public:
-  Waves			&operator=(const Waves&);
-  int		        getCount() const;
-  sf::Time		getTime() const;
-  sf::Time		getFreq() const;
-  sf::Vector2f		getPos() const;
-  sf::Vector2f	        getSpeed() const;
-  float		        getCoeff() const;
-  ObjectInfo::WaveType  getType() const;
+  Waves				      &operator=(const Waves&);
+  const int				      &getCount() const;
+  const sf::Time		      &getTime() const;
+  const sf::Time		      &getFreq() const;
+  const sf::Vector2f		      &getPos() const;
+  const sf::Vector2f		      &getSpeed() const;
+  const float			      &getCoeff() const;
+  const ObjectInfo::WaveType	      &getType() const;
   void			setCount(int);  
   void			pop();
 
