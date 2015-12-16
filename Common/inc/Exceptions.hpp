@@ -64,10 +64,43 @@ private:
   BadHeaderRequest	&operator=(const BadHeaderRequest &) throw();
 };
 
- class FactoryExcept : public std::exception
-  {
-  };
+class FactoryExcept : public std::exception
+{
+public:
+  FactoryExcept(std::string const &msg) throw()
+    : _msg(msg) {}
+  FactoryExcept(const FactoryExcept & other) throw()
+    : _msg(other.msg) {}
   
+  virtual ~FactoryExcept() throw() {}
+  virtual const char *     what() const throw()
+  {
+    return _msg.c_str();
+  }
+
+private:
+  std::string		_msg;
+  FactoryExcept		&operator=(const FactoryExcept &) throw();
+};
+  
+class ObjectExecpt : public std::exception
+{
+public:
+  ObjectExcept(std::string const &msg) throw()
+    :_msg(msg) {}
+  ObjectExcept(const ObjectExcept & other) throw()
+    :_msg(other.msg){}
+
+  virtual ~ObjectExcept() throw() {}
+  virtual const char *     what() const throw()
+    {
+      return _msg.c_str();
+    }
+  
+private:
+  std::string		_msg;
+  ObjectExcept		&operator=(const ObjectExcept &) throw();
+};
 };
 
 
