@@ -42,6 +42,7 @@ std::vector<IServerPacket<ServerUDPResponse>*>*	MapController::getMap() const
 void		MapController::addObject(IObject* obj)
 {
   _map.push_back(obj);
+  std::cout << "add object with id = " << obj->getId() << std::endl;
 }
 
 void		MapController::updateMap()

@@ -104,12 +104,12 @@ void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand
 
   if (!client->isAuth())
     {
-      client->setName(dynamic_cast<CAuthUDPPacket*>(packet)->getData()->data);
+      client->setName(static_cast<CAuthUDPPacket*>(packet)->getData()->data);
       client->setAuth(true);
       client->setID(_maxId++);
       _map->addObject(new Player(sf::Vector2f(10,6), sf::Vector2f(50,50), client->getID()));
     }
-   player = dynamic_cast<Player*>(_map->getPlayer(client->getID()));
+   player = static_cast<Player*>(_map->getPlayer(client->getID()));
    _map->generatePacketsMap(player);
    toSend = _map->getMap();
    while (!toSend->empty())
@@ -124,24 +124,28 @@ void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand
 
 void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
-  Player*				player = dynamic_cast<Player*>(_map->getPlayer(client->getID()));
+  Player*				player = static_cast<Player*>(_map->getPlayer(client->getID()));
 
   if (client->isAuth())
     {
+      std::cout << "tryshoot" << std::endl;
       player->tryShoot();
+      std::cout << "update" << std::endl;
       _map->updatePlayer(player);
-      if (player->isShooting())
+      if (player->isShooting()) {
+	std::cout << "in the IF" << std::endl;
 	_network->broadcast(new CreObjPacket(CRE_OBJ, 0, player->getId(), player->getPos().x, player->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
+    }
     }
 }
 
 void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
-  Player*				player = dynamic_cast<Player*>(_map->getPlayer(client->getID()));
+  Player*				player = static_cast<Player*>(_map->getPlayer(client->getID()));
 
   if (client->isAuth())
     {
-      player->setDirection(dynamic_cast<SendMovePacket*>(packet)->getData()->dir);
+      player->setDirection(static_cast<SendMovePacket*>(packet)->getData()->dir);
       _map->updatePlayer(player);
       _network->broadcast(new MovePacket(MOVE, 0, client->getID(), player->getPos().x, player->getPos().y));
     }

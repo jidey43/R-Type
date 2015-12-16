@@ -41,12 +41,12 @@ void ItemController::addObj(CreObjPacket *packet)
 	int id = packet->getData()->id;
 	sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
 	int speed = packet->getData()->speed;
-	
+
 
 	if (packet->getData()->type == ObjectInfo::PLAYERREGULAR)
-		_items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));		
+		_items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
 	if (packet->getData()->type == ObjectInfo::ALIENREGULAR)
-		_items.emplace_back(new BasicAlienProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));		
+		_items.emplace_back(new BasicAlienProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
 }
 
 void ItemController::moveShip(MovePacket *packet)
@@ -59,13 +59,11 @@ void ItemController::moveShip(MovePacket *packet)
     {
       if ((dynamic_cast<PlayerGraphical*>(_items[i])->getId()) == id)
 	{
+	  dynamic_cast<PlayerGraphical*>(_items[i])->setPos(newPos);
 	  std::cout << "pos = " << newPos.x << " : " << newPos.y << std::endl;
 	  break;
 	}
     }
-  if (i == _items.size())
-    return;
-  dynamic_cast<PlayerGraphical*>(_items[i])->setPos(newPos);
 }
 
 void ItemController::deleteObject(DelItemPacket *packet)
@@ -88,7 +86,7 @@ void ItemController::addAlien(CreIAPacket *packet)
 	// ObjectInfo::WaveType type = packet->iatype;
 	// sf::Vector2f pos(packet->x, packet->y);
 	// int id = packet->id;
-	// 
+	//
 	// switch (type)
 	// {
 	// case ObjectInfo::WaveType::BYDO :

@@ -48,7 +48,7 @@ int	main(int ac, char **av)
       return (1);
     }
   process_signal();
-  Server* server = new Server("127.0.0.1", av[1]);
+  Server* server = new Server("0", av[1]);
   delete(server);
   std::cout << "ok" << std::endl;
 }
