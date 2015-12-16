@@ -5,7 +5,7 @@ namespace ObjectInfo
 {
 enum Type
   {
-    PLAYER = 0,
+    PLAYER = 1,
     ALIEN,
     SHOT
   };
@@ -18,10 +18,10 @@ enum PlayerType
     PLAYER4,
     NUMBERPLAYER
   };
-  
+
 enum ShotType
 {
-  PLAYERREGULAR = 0,
+  PLAYERREGULAR = 1,
   ALIENREGULAR,
   NUMBEROFSHOT
 };

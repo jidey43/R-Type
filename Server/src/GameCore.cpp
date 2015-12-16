@@ -128,14 +128,13 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
 
   if (client->isAuth())
     {
-      std::cout << "tryshoot" << std::endl;
       player->tryShoot();
-      std::cout << "update" << std::endl;
       _map->updatePlayer(player);
-      if (player->isShooting()) {
-	std::cout << "in the IF" << std::endl;
-	_network->broadcast(new CreObjPacket(CRE_OBJ, 0, player->getId(), player->getPos().x, player->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
-    }
+      if (player->isShooting())
+	{
+	  _map->addObject(player->BasicShoot());
+	  _network->broadcast(new CreObjPacket(CRE_OBJ, 0, player->getId(), player->getPos().x, player->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
+	}
     }
 }
 

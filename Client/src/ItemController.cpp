@@ -42,6 +42,7 @@ void ItemController::addObj(CreObjPacket *packet)
 	sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
 	int speed = packet->getData()->speed;
 
+	std::cout << "adding object type = " << packet->getData()->type << " and speed " << speed << std::endl;
 
 	if (packet->getData()->type == ObjectInfo::PLAYERREGULAR)
 		_items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
