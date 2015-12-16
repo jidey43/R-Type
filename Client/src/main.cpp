@@ -32,7 +32,7 @@ int main(int argc, char **av)
       // INIT DU UDP A LA MAIN
       IServerPacket<ServerTCPResponse> *response;
       if (av[1])
-	tcpHand->sendToServer(new NewGamePacket(ADD_GAME, "Game de l'espace"));
+    	tcpHand->sendToServer(new NewGamePacket(ADD_GAME, "Game de l'espace"));
       else
      	tcpHand->sendToServer(new JoinPacket(JOIN_GAME, 13));
       response = tcpHand->receiveFromServer();

@@ -3,18 +3,23 @@
 MenuController::MenuController(CNetworkHandler **tcpHand) : _tcpHandAddr(tcpHand)
 {
   _join = false;
-  _ipArea = new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.3),
+  _ipArea = 
+  new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.3),
 			 sf::Vector2f(500,50), "Enter ip");
 
-  _portArea = new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.4),
-			   sf::Vector2f(500, 50), "Enter port");
+  _portArea = 
+  new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.4),
+			 sf::Vector2f(500, 50), "Enter port");
 
-  _nicknameArea = new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.5),
-			       sf::Vector2f(500, 50), "Enter nickname");
+  _nicknameArea = 
+  new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.5),
+			 sf::Vector2f(500, 50), "Enter nickname");
 
   _buttons.resize(NUMBEROFBUTTON);
-  _buttons[EXIT] = new ExitButton;
-  _buttons[JOIN] = new JoinButton;
+  _buttons[JOIN] = new MenuButton
+  ("Join", sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.6), sf::Vector2f(500 , 50), STAR);;
+  _buttons[EXIT] = new MenuButton
+  ("Exit", sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.7), sf::Vector2f(500 , 50),  STAR);
 
   _background = new Backgroud();
   _logo.setTexture(*(ac->getLogo()));
@@ -81,7 +86,8 @@ void MenuController::drawMenuItems()
   vc->draw(_nicknameArea->getDrawableText());
   for (int i = 0; i != _buttons.size(); i++)
     {
-      vc->draw(_buttons[i]->getDrawable());
+      vc->draw(_buttons[i]->getBackground());
+      vc->draw(_buttons[i]->getDrawableText());
     }
 }
 

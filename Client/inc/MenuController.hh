@@ -2,8 +2,7 @@
 
 #include "ViewController.hh"
 #include "AssetsController.hh"
-#include "JoinButton.h"
-#include "ExitButton.h"
+#include "MenuButton.h"
 #include "TextArea.h"
 #include "Background.h"
 #include "CNetworkHandler.hh"
@@ -26,7 +25,7 @@ public:
 	void						joinGame();
 
 private:
-	CNetworkHandler**				_tcpHandAddr;
+	CNetworkHandler**			_tcpHandAddr;
 	sf::Clock					_clock;
 	keyboardStatus				_keyboardStatus;
 	Backgroud*					_background;

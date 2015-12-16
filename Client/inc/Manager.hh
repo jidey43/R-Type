@@ -22,7 +22,7 @@ public:
 
 public:
 	void				loop();
-	sf::Time 		getElapsedTimeSinceLoop();
+	sf::Time 			getElapsedTimeSinceLoop();
 	void				treatEventsFromKeyboard();
 	void				treatEventsFromNetwork();
 	void 				treatPacket(IServerPacket<ServerUDPResponse>* res);
