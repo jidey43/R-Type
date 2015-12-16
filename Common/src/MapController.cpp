@@ -29,7 +29,7 @@ void			MapController::generatePacketsMap(IObject* player)
 	  break ;
 	default :
 	  break ;
-	  }
+	}
 
     }
 }
@@ -49,7 +49,7 @@ void		MapController::updateMap()
 {
   for (std::vector<IObject*>::iterator it = _map.begin(); it != _map.end(); ++it)
     {
-	(*it)->update(_map);
+      (*it)->update(_map);
     }
 }
 

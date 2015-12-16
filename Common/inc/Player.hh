@@ -18,13 +18,15 @@ public:
   bool				tryShoot();
   void				setDirection(Direction dir);
   ObjectInfo::PlayerType	getRealType() const;
-  
+
 private:
   int				_id;
   bool				_tryShoot;
   sf::Vector2f			_move;
   Direction			_dir;
   ObjectInfo::PlayerType	_realType;
+  sf::Time			_unblockShot;
+  sf::Time			_pauseShotDelay;
 };
 
 # endif
