@@ -20,8 +20,8 @@ void ItemController::draw()
 
 void ItemController::update()
 {
-	for (GraphicalItem* i : _items)
-		i->update();
+  for (GraphicalItem* i : _items)
+    i->update(_clock);
 }
 
 void ItemController::setBackground(int id)

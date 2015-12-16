@@ -2,6 +2,7 @@
 # define _ALIEN_HH_
 
 # include <cmath>
+# include "BasicAlienProjectile.hh"
 # include "Object.hh"
 
 class Alien : public Object
@@ -11,10 +12,11 @@ public:
   ~Alien();
 
 public:
-  bool				update();
-  IObject			*Basicshoot();
+  bool				update(std::vector<IObject*>&, sf::Clock const&);
+  bool				update(sf::Clock const&);
+  IObject			*BasicShoot();
   const ObjectInfo::WaveType	&getRealType() const;
- 
+
 protected:
   float			_coeff;
   int			_t;

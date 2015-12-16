@@ -7,6 +7,10 @@
 # include "UDPNetworkHandler.hh"
 # include "GamerInfo.hh"
 # include "IServerPacket.hh"
+# include "../../SFML-2.3.2-uni/include/SFML/System/Clock.hpp"
+
+# define MAP_SIZE_Y 900
+# define MAP_SIZE_X 1600
 
 class	MapController
 {
@@ -16,10 +20,9 @@ public:
 
 
   void		addObject(IObject*);
-  void		updateMap();
+  void		updateMap(sf::Clock const&);
   std::vector<IServerPacket<ServerUDPResponse>*>*     getMap() const;
-  void		updatePlayer(IObject*// , sf::Clock const&
-			     );
+  void		updatePlayer(IObject*, sf::Clock const&);
   IObject*	getPlayer(int id);
   void		deletePlayer(int id);
   void		generatePacketsMap(IObject *);

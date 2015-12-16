@@ -6,6 +6,6 @@ class PlayerGraphical : public Player, public GraphicalItem
 {
 public:
   PlayerGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id);
-  bool		update(std::vector<IObject*>&);
-  bool		update();
+  bool		update(std::vector<IObject*>&, sf::Clock const&);
+  bool		update(sf::Clock const&);
 };

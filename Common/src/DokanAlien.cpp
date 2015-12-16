@@ -5,17 +5,25 @@
 extern unsigned int _maxId;
 
 DokanAlien::DokanAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
-  : Alien(speed, pos, sf::Vector2i(0, 0), id, coeff) 
+  : Alien(speed, pos, sf::Vector2i(0, 0), id, coeff)
 {}
 
 DokanAlien::~DokanAlien()
 {}
 
-bool	        DokanAlien::update()
-{}
 
-bool		DokanAlien::update(std::vector<IObject*>&)
+bool		DokanAlien::update(sf::Clock const& clock, std::vector<IObject*>& map)
 {
+  this->_pos.x = this->_pos.x + this->_speed.x;
+  this->_pos.y = _a * sin((2 * _f * _t * M_PI) + _rad);
+  _t = _t + 1;
+}
+
+bool		DokanAlien::update(sf::Clock const& clock)
+{
+  this->_pos.x = this->_pos.x + this->_speed.x;
+  this->_pos.y = _a * sin((2 * _f * _t * M_PI) + _rad);
+  _t = _t + 1;
 }
 
 IObject		*DokanAlien::BasicShoot()

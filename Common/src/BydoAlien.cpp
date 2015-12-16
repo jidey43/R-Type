@@ -16,16 +16,16 @@ BydoAlien::BydoAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, floa
 BydoAlien::~BydoAlien()
 {}
 
-bool		BydoAlien::update()
+bool		BydoAlien::update(sf::Clock const& clock)
 {
   this->_pos.x = this->_pos.x + this->_speed.x;
   this->_pos.y = _a * sin((2 * _f * _t * M_PI) + _rad);
   _t = _t + 1;
 }
 
-bool		BydoAlien::update(std::vector<IObject*> &map)
+bool		BydoAlien::update(std::vector<IObject*> &map, sf::Clock const& clock)
 {
-  this->update();
+  this->update(clock);
   map.push_back(this->BasicShoot());
   this->collision(map);
   return (_isAlive);

@@ -11,9 +11,6 @@ extern AssetsController *ac;
 
 #define SCREENRATIO 0.83333
 
-#define MAP_SIZE_Y 900
-#define MAP_SIZE_X 1600
-
 #define RES_X 1920
 #define RES_Y 1080
 

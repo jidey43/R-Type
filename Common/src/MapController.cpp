@@ -2,10 +2,13 @@
 #include <algorithm>
 #include "MapController.hh"
 #include "ObjectInfo.hpp"
+#include "Alien.hh"
+#include "Player.hh"
 
 unsigned int _maxId;
 
-MapController::MapController() : _map(), _deserializedMap(new std::vector<IServerPacket<ServerUDPResponse>*>)
+MapController::MapController()
+  : _deserializedMap(new std::vector<IServerPacket<ServerUDPResponse>*>)
 {}
 
 MapController::~MapController()
@@ -44,14 +47,12 @@ void		MapController::addObject(IObject* obj)
   std::cout << "add object with id = " << obj->getId() << std::endl;
 }
 
-void		MapController::updateMap(// sf::Clock const& clock
-					 )
+void		MapController::updateMap(sf::Clock const& clock)
 {
   _deserializedMap->clear();
   for (std::vector<IObject*>::iterator it = _map.begin(); it != _map.end(); ++it)
     {
-      (*it)->update(_map// , clock
-		    );
+      (*it)->update(_map, clock);
       checkNewObj(it, (*it));
     }
 }
@@ -60,16 +61,35 @@ void		MapController::checkNewObj(std::vector<IObject*>::iterator& it, IObject* o
 {
   if (obj->isShooting())
     {
+      if (obj->getObjType() == ObjectInfo::PLAYER)
+	{
+	  _map.push_back(static_cast<Player*>(obj)->BasicShoot());
       _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, obj->getId(), obj->getPos().x, obj->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
-      // _map->addObject(obj->BasicShoot());
+	}
+      if (obj->getObjType() == ObjectInfo::ALIEN)
+	{
+	  _map.push_back(static_cast<Alien*>(obj)->BasicShoot());
+	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, obj->getId(), obj->getPos().x, obj->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
+	}
     }  // if (obj->)
+  // if (!obj->isAlive())
+  //   {
+  //     if (obj->getObjType() == PLAYER)
+  // 	{
+  // 	  _map->addObject(static_cast<Player*>(obj)->BasicShoot());
+  // 	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, obj->getId(), obj->getPos().x, obj->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
+  // 	}
+  //     if (obj->getObjType() == ALIEN)
+  // 	{
+  // 	  _map->addObject(static_cast<Alien*>(obj)->BasicShoot());
+  // 	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, obj->getId(), obj->getPos().x, obj->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
+  // 	}
+  //   }
 }
 
-void		MapController::updatePlayer(IObject* player// , sf::Clock const& clock
-					    )
+void		MapController::updatePlayer(IObject* player, sf::Clock const& clock)
 {
-  player->update(_map// , clock
-		 );
+  player->update(_map, clock);
 }
 
 IObject*	MapController::getPlayer(int id)

@@ -10,7 +10,8 @@ public:
   ~Projectile();
 
 public:
-  bool		update();
+  bool				update(sf::Clock const&, std::vector<IObject*>&);
+  bool				update(sf::Clock const&);
 }
 
 # endif

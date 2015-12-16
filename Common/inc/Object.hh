@@ -20,9 +20,9 @@ public:
   bool					isShooting();
   void					setPos(const sf::Vector2f &pos);
   void					setSpeed(const sf::Vector2f &speed);
-  virtual bool				update() = 0;
-  virtual bool				update(std::vector<IObject*> &) = 0;
-  
+  virtual bool				update(std::vector<IObject*>&, sf::Clock const&) = 0;
+  virtual bool				update(sf::Clock const&) = 0;
+
 protected:
   bool					collision(std::vector<IObject*>&);
 

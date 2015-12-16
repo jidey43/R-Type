@@ -4,7 +4,10 @@
 extern unsigned int _maxId;
 
 Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
-  : Object(speed, pos, sf::Vector2i(0,0), ObjectInfo::PLAYER, id), _tryShoot(false)
+  : Object(speed, pos, sf::Vector2i(0,0), ObjectInfo::PLAYER, id),
+    _canShoot(true),
+    _pauseShotDelay(sf::milliseconds(300)),
+    _lastLoopTime(sf::milliseconds(0))
 {
 }
 
@@ -12,21 +15,24 @@ Player::~Player()
 {
 }
 
-bool		Player::update(// sf::Clock const& clock
-			       )
+bool		Player::update(sf::Clock const& clock)
 {
-  // _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
-  // _lastLoopTime = clock.getElapsedTime();
+  _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
+  _lastLoopTime = clock.getElapsedTime();
+  if (_pauseShotDelay <= sf::milliseconds(0))
+    {
+      _canShoot = true;
+      _pauseShotDelay = sf::milliseconds(300);
+    }
   _pos += _move;
   _move = sf::Vector2f(0,0);
   return true;
 }
 
-bool		Player::update(std::vector<IObject*>& map// , sf::Clock const& clock
-			       )
+bool		Player::update(std::vector<IObject*>& map, sf::Clock const& clock)
 {
-  // _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
-  // _lastLoopTime = clock.getElapsedTime();
+  _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
+  _lastLoopTime = clock.getElapsedTime();
   _pos += _move;
   _move = sf::Vector2f(0,0);
   this->collision(map);
@@ -45,9 +51,13 @@ IObject		*Player::BasicShoot()
 
 bool		Player::tryShoot()
 {
-  _tryShoot = true;
-  _isShoot = true;
-  return true;
+  if (_canShoot)
+    {
+      _isShoot = true;
+      _canShoot = false;
+      return true;
+    }
+  return false;
 }
 
 void		Player::setDirection(const Direction &dir)

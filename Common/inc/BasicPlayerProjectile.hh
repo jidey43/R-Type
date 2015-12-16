@@ -10,8 +10,8 @@ public:
   ~BasicPlayerProjectile();
 
 public:
-  bool		update();
-  bool		update(std::vector<IObject*>&);
+  bool		update(sf::Clock const&);
+  bool		update(std::vector<IObject*>&, sf::Clock const&);
 };
 
 # endif

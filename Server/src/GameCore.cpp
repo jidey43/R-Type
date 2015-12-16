@@ -29,8 +29,7 @@ bool		GameCore::run()
   _clock.restart();
   while (_running)
     {
-      _map->updateMap(// _clock
-		      );
+      _map->updateMap(_clock);
       sf::Time elapsed;
       sf::Time lastTime = sf::microseconds(0);
       while (_running && (elapsed = getElapsedTimeSinceLoop()) > lastTime)
@@ -135,12 +134,12 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
   if (client->isAuth())
     {
       player->tryShoot();
-      _map->updatePlayer(player);
-      if (player->isShooting())
-	{
-	  _map->addObject(player->BasicShoot());
-	  _network->broadcast(new CreObjPacket(CRE_OBJ, 0, player->getId(), player->getPos().x, player->getPos().y, 15, ObjectInfo::PLAYERREGULAR));
-	}
+      // _map->updatePlayer(player);
+      // if (player->isShooting())
+      // 	{
+      // 	  _map->addObject(player->BasicShoot());
+      // 	  _network->broadcast(new CreObjPacket(CRE_OBJ, 0, player->getId(), player->getPos().x, player->getPos().y, 15, ObjectInfo::PLAYERREGULAR));
+      // 	}
     }
 }
 
@@ -151,7 +150,7 @@ void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>*
   if (client->isAuth())
     {
       player->setDirection(static_cast<SendMovePacket*>(packet)->getData()->dir);
-      _map->updatePlayer(player);
+      _map->updatePlayer(player, _clock);
       _network->broadcast(new MovePacket(MOVE, 0, client->getID(), player->getPos().x, player->getPos().y));
     }
 }

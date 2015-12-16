@@ -11,7 +11,7 @@ class GraphicalItem
 public:
 	GraphicalItem();
 	sf::Drawable*		getDrawable();
-	virtual bool	        update() = 0;
+	virtual bool	        update(sf::Clock const&) = 0;
 
 protected:
 	sf::Sprite			*_sprite;

@@ -11,11 +11,14 @@ GlamAlien::GlamAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, floa
 GlamAlien::~GlamAlien()
 {}
 
-bool	        GlamAlien::update()
-{}
 
-bool		GlamAlien::update(std::vector<IObject*>&)
-{}
+bool		GlamAlien::update(std::vector<IObject*>&, sf::Clock const&)
+{
+}
+
+bool		GlamAlien::update(sf::Clock const&)
+{
+}
 
 IObject		*GlamAlien::BasicShoot()
 {

@@ -20,27 +20,28 @@ extern ViewController *vc;
 class                           ItemController
 {
 public:
-	ItemController();
-	~ItemController();
+  ItemController();
+  ~ItemController();
 
 public:
-	void						draw();
-	void						update();
+  void						draw();
+  void						update();
 
 public:
-	void						addShip(CrePlayPacket *packet);
-	void						addObj(CreObjPacket *packet);
-	void						moveShip(MovePacket *packet);
-	void						deleteObject(DelItemPacket *packet);
+  void						addShip(CrePlayPacket *packet);
+  void						addObj(CreObjPacket *packet);
+  void						moveShip(MovePacket *packet);
+  void						deleteObject(DelItemPacket *packet);
 
 public:
-	void						addAlien(CreIAPacket *packet);
+  void						addAlien(CreIAPacket *packet);
 
 public:
-	void						setBackground(int id);
+  void						setBackground(int id);
 
 private:
-	std::vector<GraphicalItem*>		 _items;
-	sf::Sprite*					_background;
+  sf::Clock					_clock;
+  std::vector<GraphicalItem*>			 _items;
+  sf::Sprite*					_background;
   int						_playerCount;
 };

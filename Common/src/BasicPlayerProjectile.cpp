@@ -7,13 +7,13 @@ BasicPlayerProjectile::BasicPlayerProjectile(sf::Vector2f speed, sf::Vector2f po
 BasicPlayerProjectile::~BasicPlayerProjectile()
 {}
 
-bool		BasicPlayerProjectile::update()
+bool		BasicPlayerProjectile::update(sf::Clock const& clock)
 {
   this->_pos.x = this->_pos.x + this->_speed.x;
 }
 
-bool		BasicPlayerProjectile::update(std::vector<IObject*>& map)
+bool		BasicPlayerProjectile::update(std::vector<IObject*>& map, sf::Clock const& clock)
 {
-  this->update();
+  this->update(clock);
   this->collision(map);
 }

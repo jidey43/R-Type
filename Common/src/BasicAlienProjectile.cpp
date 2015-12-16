@@ -7,9 +7,10 @@ BasicAlienProjectile::BasicAlienProjectile(sf::Vector2f speed, sf::Vector2f pos,
 BasicAlienProjectile::~BasicAlienProjectile()
 {}
 
-bool		BasicAlienProjectile::update()
-{}
+bool		BasicAlienProjectile::update(std::vector<IObject*>& map, sf::Clock const& clock)
+{
+}
 
-bool		BasicAlienProjectile::update(std::vector<IObject*>&)
+bool		BasicAlienProjectile::update(sf::Clock const& clock)
 {
 }
