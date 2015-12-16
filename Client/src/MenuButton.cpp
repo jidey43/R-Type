@@ -1,16 +1,30 @@
 #include "../inc/MenuButton.h"
 
-MenuButton::MenuButton()
+MenuButton::MenuButton(std::string text, sf::Vector2f pos, sf::Vector2f size, Font font) :
+_text(text), _position(pos), _size(size)
 {
-	_spriteHigh = new sf::Sprite;
-	_spriteReg = new sf::Sprite;
+	_font = ac->getFont(font);
+	_background = new sf::RectangleShape(_size);
+	_background->setPosition(_position);
+	_background->setFillColor(sf::Color(76, 157, 172));
+
+	_drawableText = new sf::Text;
+	_drawableText->setFont(*_font);
+	_drawableText->setPosition(
+	_position.x + (_size.x / 2 - ((_drawableText->getCharacterSize() * (_text.size()-1) / 2)))
+	, _position.y + 5);
+	_drawableText->setString(_text);
+	_isHigh = false;
 }
 
-sf::Drawable * MenuButton::getDrawable()
+sf::Drawable* MenuButton::getBackground()
 {
-	if (_isHigh)
-		return _spriteHigh;
-	return _spriteReg;
+	return _background;	
+}
+
+sf::Drawable* MenuButton::getDrawableText()
+{
+	return _drawableText;
 }
 
 sf::Vector2f MenuButton::getPosition()
@@ -21,15 +35,20 @@ sf::Vector2f MenuButton::getPosition()
 void MenuButton::update(sf::Vector2i mousepos)
 {
 	_isHigh = cursorOnIt(mousepos);
+	if (_isHigh)
+		_background->setFillColor(sf::Color(171, 76, 172));
+	else
+		_background->setFillColor(sf::Color(76, 157, 172));
+
 }
 
 bool MenuButton::cursorOnIt(sf::Vector2i mousepos)
 {
 	if (
 		mousepos.x > _position.x &&
-		mousepos.x < (_position.x + BUTTON_X) &&
+		mousepos.x < (_position.x + _size.x) &&
 		mousepos.y > _position.y &&
-		mousepos.y < (_position.y + BUTTON_Y)
+		mousepos.y < (_position.y + _size.y)
 		)
 		return true;
 	return false;

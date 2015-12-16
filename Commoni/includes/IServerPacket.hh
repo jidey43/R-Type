@@ -48,8 +48,7 @@ typedef struct
 
 typedef struct
 {
-  uint32_t			success;
-  char				name[256];
+  Bool				success;
   uint32_t			magic;
 }  __attribute__ ((packed))    	AuthUDPData;
 

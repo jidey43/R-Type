@@ -18,6 +18,7 @@ public:
   const unsigned int			&getId() const;
   bool					isAlive() const;
   bool					isShooting();
+  void					setShooting(bool);
   void					setPos(const sf::Vector2f &pos);
   void					setSpeed(const sf::Vector2f &speed);
   virtual bool				update(std::vector<IObject*>&, sf::Clock const&) = 0;

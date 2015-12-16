@@ -22,6 +22,7 @@ public:
   virtual const unsigned int			&getId() const = 0;
   virtual bool					isAlive() const = 0;
   virtual bool					isShooting() = 0;
+  virtual void					setShooting(bool) = 0;
   virtual bool					update(std::vector<IObject*>&, sf::Clock const&) = 0;
   virtual bool					update(sf::Clock const&) = 0;
 };

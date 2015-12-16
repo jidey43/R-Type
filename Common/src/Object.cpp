@@ -10,7 +10,7 @@ Object::Object(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, ObjectIn
 
 Object::~Object() {}
 
-const ObjectInfo::Type	&Object::getObjType() const
+const ObjectInfo::Type		&Object::getObjType() const
 {
   return _objType;
 }
@@ -53,13 +53,13 @@ bool			Object::isAlive() const
 
 bool			Object::isShooting()
 {
-  if (_isShoot == true)
-    {
-      _isShoot = false;
-      return true;
-    }
-  else
-    return false;
+  return _isShoot;
+}
+
+
+void			Object::setShooting(bool shoot)
+{
+  _isShoot = shoot;
 }
 
 bool			Object::collision(std::vector<IObject*>& map)

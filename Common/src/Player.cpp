@@ -17,10 +17,14 @@ Player::~Player()
 
 bool		Player::update(sf::Clock const& clock)
 {
+  std::cout << _pauseShotDelay.asMilliseconds() << std::endl;
   _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
+  std::cout << _pauseShotDelay.asMilliseconds() << std::endl;
   _lastLoopTime = clock.getElapsedTime();
   if (_pauseShotDelay <= sf::milliseconds(0))
     {
+      std::cout << "CANSHOOT" << std::endl;
+      _isShoot = false;
       _canShoot = true;
       _pauseShotDelay = sf::milliseconds(300);
     }
@@ -31,8 +35,17 @@ bool		Player::update(sf::Clock const& clock)
 
 bool		Player::update(std::vector<IObject*>& map, sf::Clock const& clock)
 {
+  std::cout << _pauseShotDelay.asMilliseconds() << std::endl;
   _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
+  std::cout << _pauseShotDelay.asMilliseconds() << std::endl;
   _lastLoopTime = clock.getElapsedTime();
+  if (_pauseShotDelay <= sf::milliseconds(0))
+    {
+      std::cout << "CANSHOOT" << std::endl;
+      _isShoot = false;
+      _canShoot = true;
+      _pauseShotDelay = sf::milliseconds(300);
+    }
   _pos += _move;
   _move = sf::Vector2f(0,0);
   this->collision(map);
@@ -45,7 +58,6 @@ IObject		*Player::BasicShoot()
 
   pos.x = _pos.x + _size.x;
   pos.y = _pos.y;
-  _isShoot = false;
   return new BasicPlayerProjectile(_speed, pos, _maxId++);
 }
 
