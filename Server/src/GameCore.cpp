@@ -126,7 +126,7 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
 {
   Player*				player = static_cast<Player*>(_map->getPlayer(client->getID()));
 
-  if (client->isAuth())
+  if (player && client->isAuth())
     {
       player->tryShoot();
       _map->updatePlayer(player);
@@ -142,7 +142,7 @@ void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>*
 {
   Player*				player = static_cast<Player*>(_map->getPlayer(client->getID()));
 
-  if (client->isAuth())
+  if (player && client->isAuth())
     {
       player->setDirection(static_cast<SendMovePacket*>(packet)->getData()->dir);
       _map->updatePlayer(player);

@@ -42,7 +42,6 @@ std::vector<IServerPacket<ServerUDPResponse>*>*	MapController::getMap() const
 void		MapController::addObject(IObject* obj)
 {
   _map.push_back(obj);
-  std::cout << "add object with id = " << obj->getId() << std::endl;
 }
 
 void		MapController::updateMap()
@@ -60,6 +59,8 @@ void		MapController::updatePlayer(IObject* player)
 
 IObject*	MapController::getPlayer(int id)
 {
+  if (id == -1)
+    return NULL;
   for (std::vector<IObject*>::iterator it = _map.begin(); it != _map.end(); ++it)
     {
       if ((*it)->getId() == id)

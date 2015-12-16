@@ -18,6 +18,7 @@ int			CUDPSocket::startNetwork(std::string const &ip, std::string const &port, a
   hints->ai_socktype = SOCK_DGRAM;
   hints->ai_protocol = IPPROTO_UDP;
   hints->ai_addr = INADDR_ANY;
+
   result = getaddrinfo(ip.c_str(), port.c_str(), hints, &addr);
   if (result != 0) {
     throw Exceptions::NetworkExcept("GETADDRINFO ERROR", errno);
@@ -42,7 +43,6 @@ void			CUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDat
     throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
   if (res == 0)
     throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
-  std::cout << "sent" << size << " bytes" << std::endl;
 }
 
 void			CUDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)
@@ -51,7 +51,6 @@ void			CUDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *add
   int				res;
 
   res = recvfrom(_listen, (void *)buffer, size, 0, (sockaddr *)addr, &addr_len);
-  std::cout << "received " << res << " bytes" << std::endl;
   if (res == -1)
     throw Exceptions::NetworkExcept("RECEIVEFROM ERROR", errno);
   if (res == 0)

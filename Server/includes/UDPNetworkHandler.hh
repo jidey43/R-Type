@@ -31,6 +31,7 @@ public:
   bool						initSocket();
   GamerInfo*					selectClient(struct timeval *to = NULL);
   IClientPacket<ClientUDPCommand>*		receiveFrom(GamerInfo*);
+  ClientDatas*					copyClientAddr(ClientDatas* datas);
   bool						sendTo(GamerInfo*, IServerPacket<ServerUDPResponse>*);
   void						broadcast(IServerPacket<ServerUDPResponse>*);
 
