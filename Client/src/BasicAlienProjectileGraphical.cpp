@@ -11,11 +11,11 @@ BasicAlienProjectileGrapical::BasicAlienProjectileGrapical(sf::Vector2f speed, s
 
 }
 
-bool BasicAlienProjectileGrapical::update()
+bool BasicAlienProjectileGrapical::update(sf::Clock const& clock)
 {
   bool	ret;
 
-  ret = BasicAlienProjectile::update();
+  ret = BasicAlienProjectile::update(clock);
 	_sprite->setPosition(
 		(_pos.x / SCREENRATIO) - (SHOT_ASSET_SIZE_Y / 2),
 		(_pos.y / SCREENRATIO) - (SHOT_ASSET_SIZE_Y / 2)

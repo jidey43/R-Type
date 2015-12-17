@@ -5,6 +5,7 @@
 # include "ObjectInfo.hpp"
 # include <SFML/System/Vector2.hpp>
 # include <SFML/System/Time.hpp>
+# include <SFML/System/Clock.hpp>
 
 class IObject
 {
@@ -21,8 +22,9 @@ public:
   virtual const unsigned int			&getId() const = 0;
   virtual bool					isAlive() const = 0;
   virtual bool					isShooting() = 0;
-  virtual bool					update(std::vector<IObject*>&) = 0;
-  virtual bool					update() = 0;
+  virtual void					setShooting(bool) = 0;
+  virtual bool					update(std::vector<IObject*>&, sf::Clock const&) = 0;
+  virtual bool					update(sf::Clock const&) = 0;
 };
 
 #endif

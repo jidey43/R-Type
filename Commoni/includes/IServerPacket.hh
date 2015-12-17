@@ -48,8 +48,7 @@ typedef struct
 
 typedef struct
 {
-  uint32_t			success;
-  char				name[256];
+  Bool				success;
   uint32_t			magic;
 }  __attribute__ ((packed))    	AuthUDPData;
 
@@ -67,9 +66,9 @@ typedef struct
   int				id;
   float				x;
   float				y;
-  int				   speed;
+  float				speed;
   uint32_t			magic;
-  ObjectInfo::ShotType     type;
+  ObjectInfo::ShotType		type;
 }  __attribute__ ((packed))	CreObjData;
 
 typedef struct

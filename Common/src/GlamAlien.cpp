@@ -16,7 +16,7 @@ GlamAlien::GlamAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, floa
 GlamAlien::~GlamAlien()
 {}
 
-bool	        GlamAlien::update()
+bool		GlamAlien::update(sf::Clock const&)
 {
   this->_pos.x = this->_pos.x + this->_speed.x;
   this->_pos.y = _a * sin((2 * _f * _t * M_PI) + _rad);
@@ -24,9 +24,10 @@ bool	        GlamAlien::update()
   return true;
 }
 
-bool		GlamAlien::update(std::vector<IObject*> &map)
+
+bool		GlamAlien::update(std::vector<IObject*>& map, sf::Clock const& clock)
 {
-  this->update();
+  this->update(clock);
   this->collision(map);
   return (_isAlive);
 }

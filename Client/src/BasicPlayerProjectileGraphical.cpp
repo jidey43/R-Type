@@ -11,10 +11,10 @@ BasicPlayerProjectileGrapical::BasicPlayerProjectileGrapical(sf::Vector2f speed,
 
 }
 
-bool	BasicPlayerProjectileGrapical::update()
+bool	BasicPlayerProjectileGrapical::update(sf::Clock const& clock)
 {
   bool	ret;
-  ret = BasicPlayerProjectile::update();
+  ret = BasicPlayerProjectile::update(clock);
 	_sprite->setPosition(
 		(_pos.x / SCREENRATIO) - (SHOT_ASSET_SIZE_Y / 2),
 		(_pos.y / SCREENRATIO) - (SHOT_ASSET_SIZE_Y / 2)

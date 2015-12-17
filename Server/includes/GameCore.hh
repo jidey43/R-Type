@@ -21,6 +21,7 @@ private :
   bool		processPacket(GamerInfo*, IClientPacket<ClientUDPCommand>*);
   void		authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>*);
   void		gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet);
+  void		sendMap(GamerInfo *client);
   void		gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet);
   void		gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet);
   sf::Time	getElapsedTimeSinceLoop();

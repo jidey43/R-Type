@@ -7,6 +7,6 @@ class BasicPlayerProjectileGrapical : public BasicPlayerProjectile, public Graph
 {
 public:
 	BasicPlayerProjectileGrapical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id);
-	bool			update();
-	bool			update(std::vector<IObject*>&) {};
+	bool			update(sf::Clock const&);
+	bool			update(std::vector<IObject*>&, sf::Clock const&) {};
 };

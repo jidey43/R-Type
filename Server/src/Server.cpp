@@ -123,8 +123,9 @@ bool	Server::joinGame(ClientInfo* client)
 {
   GameInfo*	game;
 
-  if ((game = _games->addClientInGame(client, dynamic_cast<JoinPacket*>(client->getPacket())->getData()->id)) != NULL)
-    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort()));
+  if ((game = _games->addClientInGame(client, dynamic_cast<JoinPacket*>(client->getPacket())->getData()->id)) != NULL) {
+    std::cout << game->getPort() << " : port when joining" << std::endl;
+    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort())); }
   else
     _network->sendToClient(client, new FailPacket(FAIL));
   return true;
@@ -134,8 +135,9 @@ bool	Server::joinGame(ClientInfo* client, int id)
 {
   GameInfo*	game;
 
-  if ((game = _games->addClientInGame(client, id)) != NULL)
-    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort()));
+  if ((game = _games->addClientInGame(client, id)) != NULL) {
+    std::cout << game->getPort() << " : port when creating" << std::endl;
+    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort())); }
   else
     _network->sendToClient(client, new FailPacket(FAIL));
   return true;

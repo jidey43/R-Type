@@ -80,7 +80,6 @@ IClientPacket<ClientUDPCommand>*		PacketFactory::build(ClientUDPHeader *header)
       return new DisconnectPacket(header);
       break;
     default:
-      std::cout << "command unknown trying to build packet -> " << header->command  << " : " << header->size << std::endl;
       return NULL;
       break;
     }

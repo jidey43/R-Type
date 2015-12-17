@@ -8,7 +8,6 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
     _referential(sf::Time(sf::microseconds(16666))),
     _running(true)
 {
-  std::cout << "start thread" << std::endl;
   this->run();
 }
 
@@ -29,13 +28,13 @@ bool		GameCore::run()
   _clock.restart();
   while (_running)
     {
-      _map->updateMap(// _clock
-		      );
+      _map->updateMap(_clock);
+      this->sendMap(NULL);
       sf::Time elapsed;
       sf::Time lastTime = sf::microseconds(0);
       while (_running && (elapsed = getElapsedTimeSinceLoop()) > lastTime)
-	{
-	  lastTime = elapsed;
+      	{
+      	  lastTime = elapsed;
 	  receivePacket();
 	}
     }
@@ -66,47 +65,47 @@ bool					GameCore::receivePacket()
 bool					GameCore::processPacket(GamerInfo* client,
 								IClientPacket<ClientUDPCommand>* packet)
 {
-  // TODO : Parsing paquets
   switch (packet->getCommandType())
     {
     case CAUTH_UDP:
-      {
-	std::cout << "CAUTHUDP Received" << std::endl;
-	authGamer(client, packet);
-	break;
-      }
+      authGamer(client, packet);
+      break;
     case FIRE:
-      {
-	std::cout << "FIRE Received" << std::endl;
-	gamerTryShoot(client, packet);
-	break;
-      }
+      gamerTryShoot(client, packet);
+      break;
     case SEND_MOVE:
-      {
-	std::cout << "SENDMOVE Received" << std::endl;
-	gamerMove(client, packet);
-	break;
-      }
+      gamerMove(client, packet);
+      break;
     case DISCONNECT:
-      {
-	std::cout << "DISCONNECT Received" << std::endl;
-	gamerDisconnect(client, packet);
-	break;
-      }
+      gamerDisconnect(client, packet);
+      break;
     default:
-      {
-	std::cout << "Unknown command" << std::endl;
-	break;
-      }
+      break;
     }
   return true;
+}
+
+void							GameCore::sendMap(GamerInfo* client)
+{
+  std::vector<IServerPacket<ServerUDPResponse>*>*	toSend;
+  IServerPacket<ServerUDPResponse>*			packetToSend;
+
+  toSend = _map->getMap();
+  while (!toSend->empty())
+    {
+      packetToSend = toSend->back();
+      if (client)
+	_network->sendTo(client, packetToSend);
+      else
+	_network->broadcast(packetToSend);
+      delete packetToSend;
+      toSend->pop_back();
+    }
 }
 
 void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
   Player*						player;
-  std::vector<IServerPacket<ServerUDPResponse>*>*	toSend;
-  IServerPacket<ServerUDPResponse>*			packetToSend;
 
   if (!client->isAuth())
     {
@@ -117,14 +116,8 @@ void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand
     }
    player = static_cast<Player*>(_map->getPlayer(client->getID()));
    _map->generatePacketsMap(player);
-   toSend = _map->getMap();
-   while (!toSend->empty())
-     {
-       packetToSend = toSend->back();
-       _network->sendTo(client, packetToSend);
-       delete packetToSend;
-       toSend->pop_back();
-     }
+   _network->sendTo(client, new AuthUDPPacket(AUTH_UDP, 0, SUCCESS));
+   this->sendMap(client);
    _network->broadcast(new CrePlayPacket(CRE_PLAY, 0, player->getId(), player->getPos().x, player->getPos().y));
 }
 
@@ -132,26 +125,21 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
 {
   Player*				player = static_cast<Player*>(_map->getPlayer(client->getID()));
 
-  if (client->isAuth())
+  if (player && client->isAuth())
     {
       player->tryShoot();
-      _map->updatePlayer(player);
-      if (player->isShooting())
-	{
-	  _map->addObject(player->BasicShoot());
-	  _network->broadcast(new CreObjPacket(CRE_OBJ, 0, player->getId(), player->getPos().x, player->getPos().y, 15, ObjectInfo::PLAYERREGULAR));
-	}
     }
 }
+
 
 void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
   Player*				player = static_cast<Player*>(_map->getPlayer(client->getID()));
 
-  if (client->isAuth())
+  if (player && client->isAuth())
     {
       player->setDirection(static_cast<SendMovePacket*>(packet)->getData()->dir);
-      _map->updatePlayer(player);
+      _map->updatePlayer(player, _clock);
       _network->broadcast(new MovePacket(MOVE, 0, client->getID(), player->getPos().x, player->getPos().y));
     }
 }

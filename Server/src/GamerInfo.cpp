@@ -1,7 +1,7 @@
 #include "GamerInfo.hh"
 
 GamerInfo::GamerInfo(ClientDatas* datas)
-  : _clientInfo(datas), _header(NULL), _name(""), _isAuth(false)
+  : _clientInfo(datas), _header(NULL), _name(""), _isAuth(false), _id(-1)
 {
 }
 
