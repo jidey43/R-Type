@@ -1,3 +1,4 @@
+
 # include <iostream>
 # include "ViewController.hh"
 # include "Manager.hh"
@@ -8,7 +9,7 @@
 
 ViewController *vc;
 AssetsController *ac;
-
+/*
 int main(int argc, char **av)
 {
   ac = new AssetsController("../../assets/");
@@ -59,4 +60,14 @@ int main(int argc, char **av)
       m->loop();
       delete m;
     }
+}
+*/
+
+#include "FactoryManager.hh"
+
+int	main()
+{
+  MapController *m = new MapController;
+  FactoryManager toto(m,"level/Level1.lvl");
+  toto.initialiseLevel();
 }

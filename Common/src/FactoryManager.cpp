@@ -13,9 +13,9 @@
 FactoryManager::FactoryManager(MapController *map, const char *levelFileName) : _map(map)
 {
   _levelLoader.parseLevel(levelFileName);
-  _factories.push_back(new AlienFactory<BydoAlien>(ObjectInfo::BYDO));
-  _factories.push_back(new AlienFactory<GlamAlien>(ObjectInfo::GLAM));
-  _factories.push_back(new AlienFactory<DokanAlien>(ObjectInfo::DOKAN));
+  _factories.push_back(new AlienFactory<BydoAlien>(ObjectInfo::WaveType::BYDO));
+  _factories.push_back(new AlienFactory<GlamAlien>(ObjectInfo::WaveType::GLAM));
+  _factories.push_back(new AlienFactory<DokanAlien>(ObjectInfo::WaveType::DOKAN));
   _nbFactory = 3;
 }
 
@@ -36,18 +36,21 @@ void		FactoryManager::initialiseLevel()
   waves.push_back(_levelLoader.getNextWave());
   for (int i = 0; j != nb; i = i + 1)
     {
-      if (i > static_cast<int>(_nbFactory))
+      if (i >= static_cast<int>(_nbFactory))
 	{
-	  throw Exceptions::ObjectExcept("Error this Factory type is not declare"); 
+	  throw Exceptions::FactoryExcept("Error this Factory type is not declare"); 
 	  break;
 	}
+      std::cout << "Wave  = " << waves[j].getType() << "bidule = " << _factories[i]->getType() << std::endl;
+      std::cout << j << "  " << _levelLoader.getWavesCount() << std::endl;
       if (waves[j].getType() == _factories[i]->getType())
 	{
 	  _factories[i]->setWave(waves[j]);
 	  j = j + 1;
+	  i = 0;
 	  if (j < _levelLoader.getWavesCount())
 	    waves.push_back(_levelLoader.getNextWave());
-	  i = 0;
+	  std::cout << "OKOKOK" << std::endl;
 	}
     }
 }
