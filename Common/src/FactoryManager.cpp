@@ -38,13 +38,14 @@ void		FactoryManager::initialiseLevel()
     {
       if (i > static_cast<int>(_nbFactory))
 	{
-	  throw Exceptions::ObjectExcept("Error this Factory type is not declare"); 
+	  throw Exceptions::FactoryExcept("Error this Factory type is not declare"); 
 	  break;
 	}
       if (waves[j].getType() == _factories[i]->getType())
 	{
 	  _factories[i]->setWave(waves[j]);
 	  j = j + 1;
+	  std::cout << j << _levelLoader.getWavesCount() << std::endl;
 	  if (j < _levelLoader.getWavesCount())
 	    waves.push_back(_levelLoader.getNextWave());
 	  i = 0;

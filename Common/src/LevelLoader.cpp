@@ -1,3 +1,4 @@
+#include "Exceptions.hpp"
 #include "LevelLoader.hh"
 #include "Waves.hh"
 #include <iostream>
@@ -33,10 +34,10 @@ void		LevelLoader::parseLevel(const char *name)
 	  _lines.push_back(line);
 	  _wavesCount = _wavesCount + 1;
 	}      
+      _levelFile.close();
     }
   else
-    std::cout << "error" << std::endl;
-  _levelFile.close();
+    throw Exceptions::FactoryExcept("Level file not found");
 }
 
 const Waves		LevelLoader::getNextWave()
