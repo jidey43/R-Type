@@ -31,8 +31,7 @@ public:
 private:
   std::vector<IObject*>		_map;
   std::vector<IServerPacket<ServerUDPResponse>*>	*_deserializedMap;
-  std::vector<IObject*>		_toCreate;
-  std::vector<IObject*>		_toDestroy;
+  std::vector<IObject*>		_toAppend;
 };
 
 #endif

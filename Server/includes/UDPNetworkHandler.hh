@@ -29,7 +29,7 @@ private:
 
 public:
   bool						initSocket();
-  GamerInfo*					selectClient(struct timeval *to = NULL);
+  GamerInfo*					selectClient();
   IClientPacket<ClientUDPCommand>*		receiveFrom(GamerInfo*);
   ClientDatas*					copyClientAddr(ClientDatas* datas);
   bool						sendTo(GamerInfo*, IServerPacket<ServerUDPResponse>*);
@@ -42,6 +42,7 @@ private:
   std::vector<GamerInfo*>*			_clients;
   PacketFactory*				_factory;
   SOCKET					_socket;
+  struct timeval				_tv;
 };
 
 bool		operator==(ClientDatas left, ClientDatas right);

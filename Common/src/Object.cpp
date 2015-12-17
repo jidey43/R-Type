@@ -67,16 +67,18 @@ bool			Object::collision(std::vector<IObject*>& map)
   for (std::vector<IObject*>::iterator it = map.begin(); it != map.end(); it++)
     {
       if ((this->getObjType() == ObjectInfo::Type::PLAYER && (*it)->getObjType() == ObjectInfo::Type::ALIEN)
-	  ||(this->getObjType() == ObjectInfo::Type::ALIEN && (*it)->getObjType() == ObjectInfo::Type::PLAYER))
-	{
-	  if ((this != *it) && (this->getPos().x >= (*it)->getPos().x + (*it)->getSize().x)
-	      || (this->getPos().x + this->getSize().x <= (*it)->getPos().x)
-	      || (this->getPos().y >= (*it)->getPos().y + (*it)->getSize().y)
-	      || (this->getPos().y + this->getSize().y <= (*it)->getPos().y))
-	    {
-	      _life = _life - 1;
-	    }
-	}
+  	  ||(this->getObjType() == ObjectInfo::Type::ALIEN && (*it)->getObjType() == ObjectInfo::Type::PLAYER))
+  	{
+  	  if ((this != *it)
+	      && ((this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x)
+		  && (this->getPos().x + this->getSize().x >= (*it)->getPos().x)
+		  && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y)
+		  && (this->getPos().y + this->getSize().y >= (*it)->getPos().y)))
+  	    {
+	      std::cout << "COLLISION !!!! entre" << this->getId() << " and " << (*it)->getId() << std::endl;
+  	      _life = _life - 1;
+  	    }
+  	}
     }
   if (_life == 0)
     {

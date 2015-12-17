@@ -13,6 +13,8 @@ UDPNetworkHandler::UDPNetworkHandler(std::string const& ip,
     _clients(clients),
     _factory(new PacketFactory())
 {
+  _tv.tv_sec = 1;
+  _tv.tv_usec = 1;
 }
 
 UDPNetworkHandler::~UDPNetworkHandler()
@@ -131,13 +133,13 @@ void					UDPNetworkHandler::broadcast(IServerPacket<ServerUDPResponse>* msg)
     }
 }
 
-GamerInfo*				UDPNetworkHandler::selectClient(struct timeval *to)
+GamerInfo*				UDPNetworkHandler::selectClient()
 {
   std::vector<int>			fdList;
   GamerInfo*				client;
 
   fdList.push_back(_socket);
-  _network->selectClients(fdList, to);
+  _network->selectClients(fdList, &_tv);
   if (!fdList.empty())
     {
       ClientDatas*	clientDatas = new ClientDatas();

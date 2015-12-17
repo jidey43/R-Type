@@ -8,7 +8,6 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
     _referential(sf::Time(sf::microseconds(16666))),
     _running(true)
 {
-  std::cout << "start thread" << std::endl;
   this->run();
 }
 
@@ -23,9 +22,6 @@ GameCore::~GameCore()
 
 bool		GameCore::run()
 {
-  std::vector<IServerPacket<ServerUDPResponse>*>*	toSend;
-  IServerPacket<ServerUDPResponse>*			packetToSend;
-
   if (!_network->initSocket())
     return false;
 
@@ -33,20 +29,12 @@ bool		GameCore::run()
   while (_running)
     {
       _map->updateMap(_clock);
-      toSend = _map->getMap();
-      while (!toSend->empty())
-	{
-	  packetToSend = toSend->back();
-	  _network->broadcast(packetToSend);
-	  delete packetToSend;
-	  toSend->pop_back();
-	}
-
+      this->sendMap(NULL);
       sf::Time elapsed;
       sf::Time lastTime = sf::microseconds(0);
       while (_running && (elapsed = getElapsedTimeSinceLoop()) > lastTime)
-	{
-	  lastTime = elapsed;
+      	{
+      	  lastTime = elapsed;
 	  receivePacket();
 	}
     }
@@ -97,11 +85,27 @@ bool					GameCore::processPacket(GamerInfo* client,
   return true;
 }
 
+void							GameCore::sendMap(GamerInfo* client)
+{
+  std::vector<IServerPacket<ServerUDPResponse>*>*	toSend;
+  IServerPacket<ServerUDPResponse>*			packetToSend;
+
+  toSend = _map->getMap();
+  while (!toSend->empty())
+    {
+      packetToSend = toSend->back();
+      if (client)
+	_network->sendTo(client, packetToSend);
+      else
+	_network->broadcast(packetToSend);
+      delete packetToSend;
+      toSend->pop_back();
+    }
+}
+
 void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
   Player*						player;
-  std::vector<IServerPacket<ServerUDPResponse>*>*	toSend;
-  IServerPacket<ServerUDPResponse>*			packetToSend;
 
   if (!client->isAuth())
     {
@@ -112,15 +116,8 @@ void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand
     }
    player = static_cast<Player*>(_map->getPlayer(client->getID()));
    _map->generatePacketsMap(player);
-   toSend = _map->getMap();
-   while (!toSend->empty())
-     {
-       packetToSend = toSend->back();
-       _network->sendTo(client, packetToSend);
-       delete packetToSend;
-       toSend->pop_back();
-     }
    _network->sendTo(client, new AuthUDPPacket(AUTH_UDP, 0, SUCCESS));
+   this->sendMap(client);
    _network->broadcast(new CrePlayPacket(CRE_PLAY, 0, player->getId(), player->getPos().x, player->getPos().y));
 }
 
@@ -130,12 +127,10 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
 
   if (player && client->isAuth())
     {
-      if (player->tryShoot())
-	{
-          _map->addObject(player->BasicShoot());
-	}
+      player->tryShoot();
     }
 }
+
 
 void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {

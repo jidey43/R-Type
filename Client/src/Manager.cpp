@@ -96,15 +96,14 @@ void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
 
 void Manager::treatEventsFromNetwork()
 {
-			struct timeval to;
-			to.tv_sec = 0;
-			to.tv_usec = 1;
-			IServerPacket<ServerUDPResponse> *res;
+  struct timeval to;
+  to.tv_sec = 0;
+  to.tv_usec = 1;
+  IServerPacket<ServerUDPResponse> *res;
 
-			if (_udpHand->selectServer(&to))
-			{
-				res = _udpHand->receive();
-				treatPacket(res);
-			}
-
+  if (_udpHand->selectServer(&to))
+    {
+      if (res = _udpHand->receive())
+	treatPacket(res);
+    }
 }

@@ -66,9 +66,9 @@ typedef struct
   int				id;
   float				x;
   float				y;
-  int				   speed;
+  float				speed;
   uint32_t			magic;
-  ObjectInfo::ShotType     type;
+  ObjectInfo::ShotType		type;
 }  __attribute__ ((packed))	CreObjData;
 
 typedef struct

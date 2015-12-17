@@ -28,7 +28,7 @@ void			MapController::generatePacketsMap(IObject* player)
 	  _deserializedMap->push_back(new CrePlayPacket(CRE_PLAY, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y));
 	  break ;
 	case ObjectInfo::SHOT :
-	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
+	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, ObjectInfo::PLAYERREGULAR));
 	  break ;
 	default :
 	  break ;
@@ -48,42 +48,45 @@ void		MapController::addObject(IObject* obj)
 
 void		MapController::updateMap(sf::Clock const& clock)
 {
+  auto it = _map.begin();
+
+  _toAppend.clear();
   _deserializedMap->clear();
-  for (std::vector<IObject*>::iterator it = _map.begin(); it != _map.end(); ++it)
+  while (it != _map.end())
     {
       (*it)->update(_map, clock);
       checkNewObj(it, (*it));
+      if (it == _map.end())
+	break;
+      ++it;
     }
+  for (auto second = _toAppend.begin(); second != _toAppend.end(); ++second)
+    _map.push_back(*second);
 }
 
 void		MapController::checkNewObj(std::vector<IObject*>::iterator& it, IObject* obj)
 {
   if (obj->isShooting())
     {
-      std::cout << "ISSHOOTING" << std::endl;
       obj->setShooting(false);
       if (obj->getObjType() == ObjectInfo::PLAYER)
-	{
-	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, obj->getId(), obj->getPos().x, obj->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
-	}
+  	{
+  	  _toAppend.push_back(static_cast<Player*>(obj)->BasicShoot());
+	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, _maxId - 1, obj->getPos().x, obj->getPos().y, obj->getSpeed().x, ObjectInfo::PLAYERREGULAR));
+  	}
       if (obj->getObjType() == ObjectInfo::ALIEN)
-	{
-	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, obj->getId(), obj->getPos().x, obj->getPos().y, 2, ObjectInfo::ALIENREGULAR));
-	}
-    }  // if (obj->)
-  // if (!obj->isAlive())
-  //   {
-  //     if (obj->getObjType() == PLAYER)
-  // 	{
-  // 	  _map->addObject(static_cast<Player*>(obj)->BasicShoot());
-  // 	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, obj->getId(), obj->getPos().x, obj->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
-  // 	}
-  //     if (obj->getObjType() == ALIEN)
-  // 	{
-  // 	  _map->addObject(static_cast<Alien*>(obj)->BasicShoot());
-  // 	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, obj->getId(), obj->getPos().x, obj->getPos().y, 2, ObjectInfo::PLAYERREGULAR));
-  // 	}
-  //   }
+  	{
+  	  _toAppend.push_back(static_cast<Alien*>(obj)->BasicShoot());
+  	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, _maxId - 1, obj->getPos().x, obj->getPos().y,  obj->getSpeed().x, ObjectInfo::ALIENREGULAR));
+  	}
+    }
+  if (!obj->isAlive())
+    {
+      std::cout << "id to delete = " << obj->getId() << " : " << obj->getObjType()<< std::endl;
+      _deserializedMap->push_back(new DelItemPacket(DEL_ITEM, 0, obj->getId()));
+      delete this->getPlayer(obj->getId());
+      it = _map.erase(it);
+    }
 }
 
 void		MapController::updatePlayer(IObject* player, sf::Clock const& clock)

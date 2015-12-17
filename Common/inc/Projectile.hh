@@ -6,7 +6,7 @@
 class Projectile : public Object
 {
 public:
-  Projectile(sf::Vector2f, sf::Vector2f, sf::Vector2i, unsigned int);
+  Projectile(sf::Vector2f, sf::Vector2f, sf::Vector2i, unsigned int, ObjectInfo::ShotType);
   ~Projectile();
 
   const ObjectInfo::ShotType	&getRealType() const;
