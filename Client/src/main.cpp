@@ -67,6 +67,7 @@ int main(int argc, char **av)
 
 int	main()
 {
-  FactoryManager toto("level/Level1.lvl");
+  MapController *m = new MapController;
+  FactoryManager toto(m,"level/Level1.lvl");
   toto.initialiseLevel();
 }

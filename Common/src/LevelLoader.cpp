@@ -73,7 +73,9 @@ const Waves		LevelLoader::getNextWave()
 
       for (inb = 0; name != _compare[inb]; inb = inb + 1);
       
-      ObjectInfo::WaveType			type = static_cast<ObjectInfo::WaveType>(inb);
+      std::cout << "le type" << inb << std::endl;
+      ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
+      std::cout << type << std::endl;
       _lines.pop_front();
       Waves	wave(nb, time, freq, pos, speed, coeff, type);
       return (wave);
