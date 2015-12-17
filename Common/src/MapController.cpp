@@ -60,8 +60,7 @@ void		MapController::updateMap(sf::Clock const& clock)
 	break;
       ++it;
     }
-  for (auto second = _toAppend.begin(); second != _toAppend.end(); ++second)
-    _map.push_back(*second);
+  _map.insert(std::end(_map), std::begin(_toAppend), std::end(_toAppend));
 }
 
 void		MapController::checkNewObj(std::vector<IObject*>::iterator& it, IObject* obj)
