@@ -14,15 +14,15 @@ public:
   
 public:
   Waves				      &operator=(const Waves&);
-  const int				      &getCount() const;
+  const int			      &getCount() const;
   const sf::Time		      &getTime() const;
   const sf::Time		      &getFreq() const;
   const sf::Vector2f		      &getPos() const;
   const sf::Vector2f		      &getSpeed() const;
   const float			      &getCoeff() const;
   const ObjectInfo::WaveType	      &getType() const;
-  void			setCount(int);  
-  void			pop();
+  void				      setCount(int);  
+  void				      pop();
 
 private:
   int			_count;

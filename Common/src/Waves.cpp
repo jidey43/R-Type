@@ -62,6 +62,5 @@ const sf::Vector2f		&Waves::getSpeed() const
 
 const ObjectInfo::WaveType	&Waves::getType() const
 {
-  std::cout << "le vrai type sisi ma geuele " << _type << std::endl;
   return _type;
 }
