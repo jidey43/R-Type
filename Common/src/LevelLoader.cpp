@@ -16,7 +16,6 @@ LevelLoader::LevelLoader()
   _compare[5] = "shell";
   _compare[6] = "york";
   _compare[7] = "xelf16";
-  
 }
 
 LevelLoader::~LevelLoader() {}
@@ -40,7 +39,7 @@ void		LevelLoader::parseLevel(const char *name)
     throw Exceptions::FactoryExcept("Level file not found");
 }
 
-const Waves		LevelLoader::getNextWave()
+Waves						LevelLoader::getNextWave()
 {
       std::string				str = _lines.front();
       sf::Time					time;
@@ -73,9 +72,7 @@ const Waves		LevelLoader::getNextWave()
 
       for (inb = 0; name != _compare[inb]; inb = inb + 1);
       
-      std::cout << "le type" << inb << std::endl;
       ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
-      std::cout << type << std::endl;
       _lines.pop_front();
       Waves	wave(nb, time, freq, pos, speed, coeff, type);
       return (wave);

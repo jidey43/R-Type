@@ -15,7 +15,7 @@ public:
   ~LevelLoader();
 
   void			parseLevel(const char *);
-  const Waves		getNextWave();
+  Waves			getNextWave();
   const int		getWavesCount() const;
 
 private:

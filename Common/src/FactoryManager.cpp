@@ -31,7 +31,7 @@ void		FactoryManager::initialiseLevel()
 {
   int j			= 0;
   int nb	        = _levelLoader.getWavesCount();
-  std::vector<Waves>	waves(nb);
+  std::vector<Waves>	waves;
 
   waves.push_back(_levelLoader.getNextWave());
   for (int i = 0; j != nb; i = i + 1)
@@ -41,16 +41,15 @@ void		FactoryManager::initialiseLevel()
 	  throw Exceptions::FactoryExcept("Error this Factory type is not declare"); 
 	  break;
 	}
-      std::cout << "Wave  = " << waves[j].getType() << "bidule = " << _factories[i]->getType() << std::endl;
-      std::cout << j << "  " << _levelLoader.getWavesCount() << std::endl;
       if (waves[j].getType() == _factories[i]->getType())
 	{
 	  _factories[i]->setWave(waves[j]);
 	  j = j + 1;
-	  i = 0;
-	  if (j < _levelLoader.getWavesCount())
-	    waves.push_back(_levelLoader.getNextWave());
-	  std::cout << "OKOKOK" << std::endl;
+	  i = -1;
+	  if (j < nb)
+	    {
+	      waves.push_back(_levelLoader.getNextWave());
+	    }
 	}
     }
 }
