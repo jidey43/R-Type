@@ -15,6 +15,9 @@ public:
   ~LevelLoader();
 
   void			parseLevel(const char *);
+  static bool	        verifLine(const std::string &);
+  static bool		verifFirst(const std::string &);
+  static bool		verifOther(const std::string &);
   Waves			getNextWave();
   const int		getWavesCount() const;
 
