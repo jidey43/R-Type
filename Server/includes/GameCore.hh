@@ -3,6 +3,7 @@
 
 # include <vector>
 # include "Player.hh"
+# include "Alien.hh"
 # include "GamerInfo.hh"
 # include "FactoryManager.hh"
 # include "MapController.hh"
@@ -21,10 +22,12 @@ private :
   bool		processPacket(GamerInfo*, IClientPacket<ClientUDPCommand>*);
   void		authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>*);
   void		gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet);
-  void		sendMap(GamerInfo *client);
+  void		sendMap(GamerInfo *client, std::vector<IServerPacket<ServerUDPResponse>*> *toSendMap);
   void		gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet);
   void		gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet);
   sf::Time	getElapsedTimeSinceLoop();
+  std::vector<IServerPacket<ServerUDPResponse>*>*		generatePackets(std::vector<IObject*>* aliens);
+  void		updateMap();
 
 private :
   std::vector<GamerInfo*>*	_clients;

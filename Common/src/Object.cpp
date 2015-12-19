@@ -1,4 +1,5 @@
 #include "Object.hh"
+#include "Projectile.hh"
 
 Object::Object(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, ObjectInfo::Type type, unsigned int id)
   : _speed(speed), _pos(pos), _size(size), _objType(type), _id(id)
@@ -66,8 +67,9 @@ bool			Object::collision(std::vector<IObject*>& map)
 {
   for (std::vector<IObject*>::iterator it = map.begin(); it != map.end(); it++)
     {
-      if ((this->getObjType() == ObjectInfo::Type::PLAYER && (*it)->getObjType() == ObjectInfo::Type::ALIEN)
-  	  ||(this->getObjType() == ObjectInfo::Type::ALIEN && (*it)->getObjType() == ObjectInfo::Type::PLAYER))
+      // si this = player et que ennemi = shot&&alien ou alien
+      if ((this->getObjType() == ObjectInfo::PLAYER && (((*it)->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::ALIENREGULAR) || (*it)->getObjType() == ObjectInfo::ALIEN))
+	  ||(this->getObjType() == ObjectInfo::ALIEN && (((*it)->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::PLAYERREGULAR) || (*it)->getObjType() == ObjectInfo::PLAYER)))
   	{
   	  if ((this != *it)
 	      && ((this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x)
