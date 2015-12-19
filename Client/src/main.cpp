@@ -30,10 +30,10 @@ int main(int argc, char **av)
 
   while (true)
     {
-      menu = new MenuController(&tcpHand);
-      menu->loop();
-      menu2 = new GameSelectorController(&udpHand, tcpHand);
-      menu2->loop();
+      // menu = new MenuController(&tcpHand);
+      // menu->loop();
+      // menu2 = new GameSelectorController(&udpHand, tcpHand);
+      // menu2->loop();
       
       // INIT DU UDP A LA MAIN
       IServerPacket<ServerTCPResponse> *response;
