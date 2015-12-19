@@ -1,5 +1,6 @@
 #include <iostream>
 #include "FactoryManager.hh"
+#include "Exceptions.hpp"
 #include "KayberosAlien.hh"
 #include "GlamAlien.hh"
 #include "YorkAlien.hh"
@@ -12,9 +13,9 @@
 FactoryManager::FactoryManager(MapController *map, const char *levelFileName) : _map(map)
 {
   _levelLoader.parseLevel(levelFileName);
-  _factories.push_back(new AlienFactory<BydoAlien>(ObjectInfo::BYDO));
-  _factories.push_back(new AlienFactory<GlamAlien>(ObjectInfo::GLAM));
-  _factories.push_back(new AlienFactory<DokanAlien>(ObjectInfo::DOKAN));
+  _factories.push_back(new AlienFactory<BydoAlien>(ObjectInfo::WaveType::BYDO));
+  _factories.push_back(new AlienFactory<GlamAlien>(ObjectInfo::WaveType::GLAM));
+  _factories.push_back(new AlienFactory<DokanAlien>(ObjectInfo::WaveType::DOKAN));
   _nbFactory = 3;
 }
 
@@ -30,23 +31,25 @@ void		FactoryManager::initialiseLevel()
 {
   int j			= 0;
   int nb	        = _levelLoader.getWavesCount();
-  std::vector<Waves>	waves(nb);
+  std::vector<Waves>	waves;
 
   waves.push_back(_levelLoader.getNextWave());
   for (int i = 0; j != nb; i = i + 1)
     {
-      if (i > static_cast<int>(_nbFactory))
+      if (i >= static_cast<int>(_nbFactory))
 	{
-	  std::cout << "Error: bad type in the waves" << std::endl;
+	  throw Exceptions::FactoryExcept("Error this Factory type is not declare"); 
 	  break;
 	}
       if (waves[j].getType() == _factories[i]->getType())
 	{
 	  _factories[i]->setWave(waves[j]);
 	  j = j + 1;
-	  if (j < _levelLoader.getWavesCount())
-	    waves.push_back(_levelLoader.getNextWave());
-	  i = 0;
+	  i = -1;
+	  if (j < nb)
+	    {
+	      waves.push_back(_levelLoader.getNextWave());
+	    }
 	}
     }
 }

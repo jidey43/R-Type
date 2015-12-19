@@ -10,19 +10,19 @@ BydoAlienGraphical::BydoAlienGraphical(sf::Vector2f speed, sf::Vector2f pos, uns
 	);
 }
 
-bool BydoAlienGraphical::update()
+bool BydoAlienGraphical::update(sf::Clock const& clock)
 {
   bool	ret;
 
-  ret = BydoAlien::update();
-	_sprite->setPosition(
+  ret = BydoAlien::update(clock);
+  _sprite->setPosition(
 		(_pos.x / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2),
 		(_pos.y / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2)
 		);
 	return (ret);
 }
 
-bool	BydoAlienGraphical::update(std::vector<IObject*>&)
+bool	BydoAlienGraphical::update(std::vector<IObject*>&, sf::Clock const&)
 {
   return (true);
 }

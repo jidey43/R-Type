@@ -1,5 +1,8 @@
 #include "UDPNetworkHandler.hh"
 #include "PacketFactory.hh"
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 UDPNetworkHandler::UDPNetworkHandler(std::string const& ip,
 				     std::string const& port,
@@ -10,6 +13,8 @@ UDPNetworkHandler::UDPNetworkHandler(std::string const& ip,
     _clients(clients),
     _factory(new PacketFactory())
 {
+  _tv.tv_sec = 1;
+  _tv.tv_usec = 1;
 }
 
 UDPNetworkHandler::~UDPNetworkHandler()
@@ -47,11 +52,22 @@ GamerInfo*		UDPNetworkHandler::getClient(ClientDatas* datas)
   if (_clients->size() < 4)
     {
       GamerInfo*	newPlayer = new GamerInfo(datas);
+
+      for (std::vector<GamerInfo*>::iterator it = _clients->begin(); it != _clients->end(); ++it)
+	std::cout <<  "already in vecotr sin addr : " << ((*it)->getClientInfos())->sin_addr.s_addr << " port : " << ((*it)->getClientInfos())->sin_port << " family : " << ((*it)->getClientInfos())->sin_family  << std::endl;
       _clients->push_back(newPlayer);
-      std::cout << "NEW CLIENT" << std::endl;
+      std::cout << "NEW CLIENT -> " << datas->sin_addr.s_addr << std::endl;
       return newPlayer;
     }
   return NULL;
+}
+
+ClientDatas*				UDPNetworkHandler::copyClientAddr(ClientDatas* datas)
+{
+  ClientDatas				*cpy = new ClientDatas;
+
+  memcpy(cpy, datas, sizeof(*datas));
+  return cpy;
 }
 
 IClientPacket<ClientUDPCommand>*	UDPNetworkHandler::receiveFrom(GamerInfo *client)
@@ -59,7 +75,6 @@ IClientPacket<ClientUDPCommand>*	UDPNetworkHandler::receiveFrom(GamerInfo *clien
   char*					buff;
   IClientPacket<ClientUDPCommand>*	packet;
   ClientUDPHeader*			header;
-
   if ((header = client->getHeader()))
     client->setHeader(NULL);
   else
@@ -67,12 +82,6 @@ IClientPacket<ClientUDPCommand>*	UDPNetworkHandler::receiveFrom(GamerInfo *clien
   packet = _factory->build(header);
   if (!packet || !packet->checkHeader())
     {
-      if (!packet)
-	std::cout << "packet NULL !!!!!" << std::endl;
-      else
-	{
-	  std::cout << "data header -> " << header->magic <<  " : " << header->size << " : " << header->command << std::endl;
-	}
       return NULL;
       // throw Exceptions::BadHeaderRequest("Error, received bad Header from known client");
     }
@@ -82,7 +91,7 @@ IClientPacket<ClientUDPCommand>*	UDPNetworkHandler::receiveFrom(GamerInfo *clien
     {
       try
 	{
-	  _network->recvData(buff, header->size, _socket, client->getClientInfos());
+	  _network->recvData(buff, header->size, _socket, this->copyClientAddr(client->getClientInfos()));
 	}
       catch (Exceptions::NetworkExcept e)
 	{
@@ -124,13 +133,13 @@ void					UDPNetworkHandler::broadcast(IServerPacket<ServerUDPResponse>* msg)
     }
 }
 
-GamerInfo*				UDPNetworkHandler::selectClient(struct timeval *to)
+GamerInfo*				UDPNetworkHandler::selectClient()
 {
   std::vector<int>			fdList;
   GamerInfo*				client;
 
   fdList.push_back(_socket);
-  _network->selectClients(fdList, to);
+  _network->selectClients(fdList, &_tv);
   if (!fdList.empty())
     {
       ClientDatas*	clientDatas = new ClientDatas();
@@ -156,9 +165,7 @@ GamerInfo*				UDPNetworkHandler::selectClient(struct timeval *to)
 
 bool		operator==(ClientDatas left, ClientDatas right)
 {
-  if (left.sin_family == right.sin_family
-      && left.sin_port == right.sin_port
-      && left.sin_addr.s_addr == right.sin_addr.s_addr)
-    return true;
-  return false;
+  return (left.sin_family == right.sin_family
+  	  && left.sin_port == right.sin_port
+  	  && left.sin_addr.s_addr == right.sin_addr.s_addr);
 }

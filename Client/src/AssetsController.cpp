@@ -2,7 +2,7 @@
 
 AssetsController::AssetsController(const char *assetsPath)
 {
-	_assetsPath = std::string(assetsPath);	
+	_assetsPath = std::string(assetsPath);
 	_soundTrack = new sf::Music;
 }
 
@@ -57,7 +57,7 @@ bool AssetsController::loadBackground()
 		_backgrounds.emplace_back(new sf::Texture);
 	}
 	if (
-		_rtypeLogo->loadFromFile(_assetsPath + "rtypelogo.png") && 
+		_rtypeLogo->loadFromFile(_assetsPath + "rtypelogo.png") &&
 		_backgrounds[MENU_BACKGROUND]->loadFromFile(_assetsPath + "background/menu_background.png") &&
 		_backgrounds[BACKGROUND_ONE]->loadFromFile(_assetsPath + "background/background1.png")
 		)

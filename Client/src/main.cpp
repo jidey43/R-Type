@@ -1,3 +1,4 @@
+
 # include <iostream>
 # include "ViewController.hh"
 # include "Manager.hh"
@@ -31,7 +32,7 @@ int main(int argc, char **av)
     {
       menu = new MenuController(&tcpHand);
       menu->loop();
-      menu2 = new GameSelectorController(&udpHand);
+      menu2 = new GameSelectorController(&udpHand, tcpHand);
       menu2->loop();
       
       // INIT DU UDP A LA MAIN
@@ -41,11 +42,19 @@ int main(int argc, char **av)
       else
      	tcpHand->sendToServer(new JoinPacket(JOIN_GAME, 13));
       response = tcpHand->receiveFromServer();
-      std::cout << "SERVER REPONSE " << response->getCommandType() << std::endl;
-      udpHand = new CUDPNetworkHandler(((GameInfoPacket*)response)->getData()->ip, std::to_string(((GameInfoPacket*)response)->getData()->port));
+      CUDPNetworkHandler* udpHand = new CUDPNetworkHandler(((GameInfoPacket*)response)->getData()->ip, std::to_string(((GameInfoPacket*)response)->getData()->port));
       udpHand->initSocket();
       sleep(1);
       udpHand->send(new CAuthUDPPacket(CAUTH_UDP, 0, "bite"));
+      IServerPacket<ServerUDPResponse>	*packet;
+      while (true)
+	{
+	  if (udpHand->selectServer(NULL)
+	      && (packet = udpHand->receive())
+	      && packet->getCommandType() == AUTH_UDP
+	      && static_cast<AuthUDPPacket*>(packet)->getData()->success == SUCCESS)
+	    break;
+	}
       // END
 
       m = new Manager(udpHand);
@@ -53,3 +62,16 @@ int main(int argc, char **av)
       delete m;
     }
 }
+
+/*
+
+#include "FactoryManager.hh"
+
+int	main()
+{
+  MapController *m = new MapController;
+  FactoryManager toto(m,"level/Level1.lvl");
+  toto.initialiseLevel();
+}
+
+*/

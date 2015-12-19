@@ -10,8 +10,8 @@ public:
   ~DokanAlien();
 
 public:
-  bool		update();
-  bool		update(std::vector<IObject*>&);
+  bool				update(sf::Clock const&, std::vector<IObject*>&);
+  bool				update(sf::Clock const&);
   IObject	*BasicShoot();
 };
 

@@ -20,8 +20,8 @@ void ItemController::draw()
 
 void ItemController::update()
 {
-	for (GraphicalItem* i : _items)
-		i->update();
+  for (GraphicalItem* i : _items)
+    i->update(_clock);
 }
 
 void ItemController::setBackground(int id)
@@ -40,7 +40,7 @@ void ItemController::addObj(CreObjPacket *packet)
 {
 	int id = packet->getData()->id;
 	sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
-	int speed = packet->getData()->speed;
+	float speed = packet->getData()->speed;
 
 	std::cout << "adding object type = " << packet->getData()->type << " and speed " << speed << std::endl;
 
@@ -54,11 +54,11 @@ void ItemController::moveShip(MovePacket *packet)
 {
   int id = packet->getData()->id;
   sf::Vector2f newPos(packet->getData()->x ,packet->getData()->y);
+  std::cout << "ID = " << id << std::endl;
 
-  int i;
-  for (i = 0; i != _items.size(); ++i)
+  for (unsigned int i = 0; i != _items.size(); ++i)
     {
-      if ((static_cast<PlayerGraphical*>(_items[i])->getId()) == id)
+      if (dynamic_cast<IObject*>(_items[i])->getId() == id)
 	{
 	  static_cast<PlayerGraphical*>(_items[i])->setPos(newPos);
 	  std::cout << "pos = " << newPos.x << " : " << newPos.y << std::endl;
@@ -74,7 +74,7 @@ void ItemController::deleteObject(DelItemPacket *packet)
   size_t i;
   for (i = 0; i != _items.size(); ++i)
     {
-      if ((static_cast<PlayerGraphical*>(_items[i])->getId()) == id)
+      if ((dynamic_cast<IObject*>(_items[i])->getId()) == id)
 	break;
     }
   if (i == _items.size())
@@ -84,16 +84,16 @@ void ItemController::deleteObject(DelItemPacket *packet)
 
 void ItemController::addAlien(CreIAPacket *packet)
 {
-	// ObjectInfo::WaveType type = packet->iatype;
-	// sf::Vector2f pos(packet->x, packet->y);
-	// int id = packet->id;
-	//
-	// switch (type)
-	// {
-	// case ObjectInfo::WaveType::BYDO :
-	//   _items.emplace_back(new BydoAlienGraphical(1, pos, id, 1));
-	// 	break;
-	// default:
-	// 	break;
-	// }
+  // ObjectInfo::WaveType type = packet->iatype;
+  // sf::Vector2f pos(packet->x, packet->y);
+  // int id = packet->id;
+
+  // switch (type)
+  //   {
+  //   case ObjectInfo::WaveType::BYDO :
+  //     _items.emplace_back(new BydoAlienGraphical(1, pos, id, 1));
+  //     break;
+  //   default:
+  //     break;
+  //   }
 }

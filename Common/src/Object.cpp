@@ -10,7 +10,7 @@ Object::Object(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, ObjectIn
 
 Object::~Object() {}
 
-const ObjectInfo::Type	&Object::getObjType() const
+const ObjectInfo::Type		&Object::getObjType() const
 {
   return _objType;
 }
@@ -53,13 +53,13 @@ bool			Object::isAlive() const
 
 bool			Object::isShooting()
 {
-  if (_isShoot == true)
-    {
-      _isShoot = false;
-      return true;
-    }
-  else
-    return false;
+  return _isShoot;
+}
+
+
+void			Object::setShooting(bool shoot)
+{
+  _isShoot = shoot;
 }
 
 bool			Object::collision(std::vector<IObject*>& map)
@@ -67,16 +67,18 @@ bool			Object::collision(std::vector<IObject*>& map)
   for (std::vector<IObject*>::iterator it = map.begin(); it != map.end(); it++)
     {
       if ((this->getObjType() == ObjectInfo::Type::PLAYER && (*it)->getObjType() == ObjectInfo::Type::ALIEN)
-	  ||(this->getObjType() == ObjectInfo::Type::ALIEN && (*it)->getObjType() == ObjectInfo::Type::PLAYER))
-	{
-	  if ((this != *it) && (this->getPos().x >= (*it)->getPos().x + (*it)->getSize().x)
-	      || (this->getPos().x + this->getSize().x <= (*it)->getPos().x)
-	      || (this->getPos().y >= (*it)->getPos().y + (*it)->getSize().y)
-	      || (this->getPos().y + this->getSize().y <= (*it)->getPos().y))
-	    {
-	      _life = _life - 1;
-	    }
-	}
+  	  ||(this->getObjType() == ObjectInfo::Type::ALIEN && (*it)->getObjType() == ObjectInfo::Type::PLAYER))
+  	{
+  	  if ((this != *it)
+	      && ((this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x)
+		  && (this->getPos().x + this->getSize().x >= (*it)->getPos().x)
+		  && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y)
+		  && (this->getPos().y + this->getSize().y >= (*it)->getPos().y)))
+  	    {
+	      std::cout << "COLLISION !!!! entre" << this->getId() << " and " << (*it)->getId() << std::endl;
+  	      _life = _life - 1;
+  	    }
+  	}
     }
   if (_life == 0)
     {
