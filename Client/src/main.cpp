@@ -6,6 +6,7 @@
 # include "AssetsController.hh"
 # include "CNetworkHandler.hh"
 # include "CUDPNetworkHandler.hh"
+# include "GameSelectorController.hh"
 
 ViewController *vc;
 AssetsController *ac;
@@ -24,14 +25,16 @@ int main(int argc, char **av)
   Manager *m;
   MenuController *menu;
   CNetworkHandler *tcpHand;
+  CUDPNetworkHandler *udpHand;
+  GameSelectorController *menu2;
 
   while (true)
     {
       menu = new MenuController(&tcpHand);
       menu->loop();
-
-      //
-      //
+      menu2 = new GameSelectorController(&udpHand, tcpHand);
+      menu2->loop();
+      
       // INIT DU UDP A LA MAIN
       IServerPacket<ServerTCPResponse> *response;
       if (av[1])
@@ -53,8 +56,6 @@ int main(int argc, char **av)
 	    break;
 	}
       // END
-      //
-      //
 
       m = new Manager(udpHand);
       m->loop();
@@ -62,11 +63,24 @@ int main(int argc, char **av)
     }
 }
 
+/*
+>>>>>>> 6ee252e788b0c584e385dd6c79099000603bc3f1
+
 // #include "FactoryManager.hh"
 
+<<<<<<< HEAD
 // int	main()
 // {
 //   MapController *m = new MapController;
 //   FactoryManager toto(m,"../../level/Level1.lvl");
 //   toto.initialiseLevel();
 // }
+=======
+int	main()
+{
+  MapController *m = new MapController;
+  FactoryManager toto(m,"level/Level1.lvl");
+  toto.initialiseLevel();
+}
+
+*/
