@@ -5,6 +5,7 @@
 # include "AssetsController.hh"
 # include "CNetworkHandler.hh"
 # include "CUDPNetworkHandler.hh"
+# include "GameSelectorController.hh"
 
 ViewController *vc;
 AssetsController *ac;
@@ -23,12 +24,16 @@ int main(int argc, char **av)
   Manager *m;
   MenuController *menu;
   CNetworkHandler *tcpHand;
+  CUDPNetworkHandler *udpHand;
+  GameSelectorController *menu2;
 
   while (true)
     {
       menu = new MenuController(&tcpHand);
       menu->loop();
-
+      menu2 = new GameSelectorController(&udpHand);
+      menu2->loop();
+      
       // INIT DU UDP A LA MAIN
       IServerPacket<ServerTCPResponse> *response;
       if (av[1])
@@ -37,7 +42,7 @@ int main(int argc, char **av)
      	tcpHand->sendToServer(new JoinPacket(JOIN_GAME, 13));
       response = tcpHand->receiveFromServer();
       std::cout << "SERVER REPONSE " << response->getCommandType() << std::endl;
-      CUDPNetworkHandler* udpHand = new CUDPNetworkHandler(((GameInfoPacket*)response)->getData()->ip, std::to_string(((GameInfoPacket*)response)->getData()->port));
+      udpHand = new CUDPNetworkHandler(((GameInfoPacket*)response)->getData()->ip, std::to_string(((GameInfoPacket*)response)->getData()->port));
       udpHand->initSocket();
       sleep(1);
       udpHand->send(new CAuthUDPPacket(CAUTH_UDP, 0, "bite"));
