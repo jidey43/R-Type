@@ -8,7 +8,7 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
     _referential(sf::Time(sf::microseconds(16666))),
     _running(true)
 {
-  _factory->initialiseLevel();
+  // _factory->initialiseLevel();
   this->run();
 }
 
@@ -23,22 +23,13 @@ GameCore::~GameCore()
 
 bool		GameCore::run()
 {
-  std::vector<IObject*>		*aliens;
-  std::vector<IServerPacket<ServerUDPResponse>*>*	toSend;
-
   if (!_network->initSocket())
     return false;
 
   _clock.restart();
   while (_running)
     {
-      _map->updateMap(_clock);
-      aliens = _factory->update(_clock);
-      toSend = generatePackets(aliens);
-      toSend->insert(std::begin(*toSend), std::begin(*(_map->getMap())), std::end(*(_map->getMap())));
-      this->sendMap(NULL, toSend);
-      delete toSend;
-      delete aliens;
+      this->updateMap();
       sf::Time elapsed;
       sf::Time lastTime = sf::microseconds(0);
       while (_running && (elapsed = getElapsedTimeSinceLoop()) > lastTime)
@@ -47,6 +38,20 @@ bool		GameCore::run()
 	  receivePacket();
 	}
     }
+}
+
+void		GameCore::updateMap()
+{
+  std::vector<IObject*>		*aliens;
+  std::vector<IServerPacket<ServerUDPResponse>*>	*toSend;
+
+  _map->updateMap(_clock);
+  // aliens = _factory->update(_clock);
+  // toSend = generatePackets(aliens);
+  // toSend->insert(std::begin(*toSend), std::begin(*(_map->getMap())), std::end(*(_map->getMap())));
+  toSend = _map->getMap();
+  this->sendMap(NULL, toSend);
+  // delete toSend;
 }
 
 sf::Time	GameCore::getElapsedTimeSinceLoop()

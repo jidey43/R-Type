@@ -27,6 +27,8 @@ private :
   void		gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet);
   sf::Time	getElapsedTimeSinceLoop();
   std::vector<IServerPacket<ServerUDPResponse>*>*		generatePackets(std::vector<IObject*>* aliens);
+  void		updateMap();
+
 private :
   std::vector<GamerInfo*>*	_clients;
   UDPNetworkHandler*		_network;
