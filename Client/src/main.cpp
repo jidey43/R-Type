@@ -62,28 +62,3 @@ int main(int argc, char **av)
       delete m;
     }
 }
-<<<<<<< HEAD
-=======
-
-/*
->>>>>>> 6ee252e788b0c584e385dd6c79099000603bc3f1
-
-// #include "FactoryManager.hh"
-
-<<<<<<< HEAD
-// int	main()
-// {
-//   MapController *m = new MapController;
-//   FactoryManager toto(m,"../../level/Level1.lvl");
-//   toto.initialiseLevel();
-// }
-=======
-int	main()
-{
-  MapController *m = new MapController;
-  FactoryManager toto(m,"level/Level1.lvl");
-  toto.initialiseLevel();
-}
-
-*/
->>>>>>> 48167744e83eb2b286c05595b21449aab9d0e77f
