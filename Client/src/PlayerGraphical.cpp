@@ -1,9 +1,14 @@
 #include "PlayerGraphical.h"
 
+int playerSkinId = 0;
+
 PlayerGraphical::PlayerGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id) :
   Player(speed, pos, id), GraphicalItem()
 {
-	_sprite->setTexture(*(ac->getShipTexture(1)));
+    if (playerSkinId >= 4)
+        playerSkinId = 0;
+    playerSkinId += 1;
+	_sprite->setTexture(*(ac->getShipTexture(playerSkinId)));
 	_sprite->setPosition(
 		(_pos.x / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2),
 		(_pos.y / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2)

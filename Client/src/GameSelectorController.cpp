@@ -22,29 +22,22 @@ _tcpHand(tcpHand), _udpHand(handler)
 
 }
 
-/*
-boucle sur DesGameData -> iserverpacket.hh dans commoni
-envyer un des game packet dans commoni src gamepacket
-game list packet avev start
-game liste avev info
-game list avec end
-*/
-
 void                        GameSelectorController::initList()
 {
     IServerPacket<ServerTCPResponse> *response;
     ServerTCPResponse type;
     std::string name;
-    int         id;
+    unsigned int         id;
 
 
     _tcpHand->sendToServer(new ReqGamePacket(REQ_GAME));
     while (true)
     {
         std::cout << "before receive" << std::endl;
-       response = _tcpHand->receiveFromServer();
-        std::cout << "after receive" << std::endl;
+       if ((response = _tcpHand->receiveFromServer()) == NULL)
+        std::cout << "NULL returned\n";
        type = response->getCommandType();
+        std::cout << "after receive  type  " <<  type << std::endl;
        if (type == DES_GAME)
        {
            std::cout << "itération" << std::endl;

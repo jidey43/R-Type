@@ -96,10 +96,15 @@ bool Server::describeGame(ClientInfo * client)
     return false;
   for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
     {
+      std::cout << "inside describegame loop" << (*it)->getID() << (*it)->getName() <<  (*it)->getClients() << "\n" ;
       if (!_network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), (*it)->getClients())))
-	return false;
-    }
+      	return false;
   _network->sendToClient(client, new GameListPacket(END_GAME_LIST));
+          
+    }
+      std::cout << "outside describegame loop\n";
+  _network->sendToClient(client, new GameListPacket(END_GAME_LIST));
+      std::cout << "outside describegame loop - Part II , the return of the debug cout\n";
   return true;
 }
 
