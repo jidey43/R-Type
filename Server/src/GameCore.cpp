@@ -48,8 +48,6 @@ void		GameCore::updateMap()
 
   _map->updateMap(_clock);
   aliens = _factory->update(_clock);
-  //  if (aliens->front() != NULL)
-  // std::cout << "totototototottoo" << aliens->front()->getPos().x << std::endl;
   toSend = generatePackets(aliens);
   toSend->insert(std::begin(*toSend), std::begin(*(_map->getMap())), std::end(*(_map->getMap())));
   this->sendMap(NULL, toSend);

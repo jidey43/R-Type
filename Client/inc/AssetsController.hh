@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <SFML/Audio/Music.hpp>
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 typedef enum e_ButtonType
@@ -18,6 +19,12 @@ typedef enum e_BackgroundType
 	BACKGROUND_ONE,
 	NUMBEROFBACKGROUND
 }				BackgroundType;
+
+typedef enum    e_Sound
+{
+    BASICSHOT = 0,
+    NUMBEROFSOUND   
+}               Sound;
 
 typedef enum e_Fonts
 {
@@ -64,9 +71,10 @@ public:
 
 public:
 	sf::Music					*getSoundTrack();
+    sf::SoundBuffer             *getSound(Sound);
 	sf::Texture					*getShipTexture(int id);
 	sf::Texture					*getBackground(int id);
-	sf::Texture					*getShot(Shot type);
+	sf::Texture					*getShot(Shot);
 	sf::Texture					*getButton(ButtonType, bool);
 	sf::Texture					*getLogo();
 	sf::Font					*getFont(Font);
@@ -86,5 +94,6 @@ private:
 	std::vector<sf::Texture*>	_buttonsHigh;
 	std::vector<sf::Texture*>	_shots;
 	std::vector<sf::Font*>		_fonts;
+    std::vector<sf::SoundBuffer*> _sounds;
 	sf::Texture*				_rtypeLogo;
 };
