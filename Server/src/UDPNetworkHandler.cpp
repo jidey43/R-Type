@@ -13,7 +13,7 @@ UDPNetworkHandler::UDPNetworkHandler(std::string const& ip,
     _clients(clients),
     _factory(new PacketFactory())
 {
-  _tv.tv_sec = 1;
+  _tv.tv_sec = 0;
   _tv.tv_usec = 1;
 }
 
