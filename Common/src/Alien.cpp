@@ -21,7 +21,7 @@ const ObjectInfo::WaveType	&Alien::getRealType() const
   return _realType;
 }
 
-IObject		*Alien::BasicShoot()
+BasicAlienProjectile		*Alien::BasicShoot()
 {
   sf::Vector2f pos;
 

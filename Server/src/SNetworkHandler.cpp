@@ -40,7 +40,6 @@ bool NetworkHandler::acceptNewClient()
     return false;
   _clientList.push_back(new ClientInfo(sock, clientName));
 
-  std::cout << "new client : " << sock << " " + _clientList.back()->getNickname() << std::endl;
   return true;
 }
 

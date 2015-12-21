@@ -114,16 +114,14 @@ IServerPacket<ServerTCPResponse>* response;
   CNetworkHandler* _tcpHand = *_tcpHandAddr;
   if (_tcpHand->initSocket())
     {
-      std::cout << "connected\n";
       _tcpHand->sendToServer(new NickPacket(AUTH_TCP, _nicknameArea->getText()));
       response = _tcpHand->receiveFromServer();
       if (response->getCommandType() == AUTH)
       {
-        std::cout << "aut\n";
 	_join = true;
       }
       else
-        std::cout << "pas auth " << response->getCommandType() << "\n";
+	;
     }
   else
     std::cout << "failed\n";

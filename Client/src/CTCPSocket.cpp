@@ -30,7 +30,6 @@ SOCKET			CTCPSocket::startNetwork(std::string const &ip, std::string const &port
   SOCKET	listen;
   if ((listen = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol)) == INVALID_SOCKET)
     throw Exceptions::NetworkExcept("SOCKET ERROR", errno);
-  std::cout << "sock : " << listen << "   " << ip << "   " << port << std::endl;
   if (connect(listen, (struct sockaddr*)addr->ai_addr, (int)addr->ai_addrlen) == INVALID_SOCKET)
     throw Exceptions::NetworkExcept("CONNECT ERROR", errno);
   return listen;
@@ -38,10 +37,8 @@ SOCKET			CTCPSocket::startNetwork(std::string const &ip, std::string const &port
 
 void	CTCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientDatas *addr)
 {
-  std::cout << "send size : " << size << std::endl;
   int res = send(socket, (void*)buffer, size, 0);
 
-  std::cout << "sent " << size << " bytes" << std::endl;
   if (res == -1)
     throw Exceptions::NetworkExcept("SEND FAILED", errno);
   if (res == 0)
