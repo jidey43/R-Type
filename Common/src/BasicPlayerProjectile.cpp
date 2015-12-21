@@ -12,11 +12,9 @@ bool		BasicPlayerProjectile::update(sf::Clock const& clock)
   if (_pos.x + _size.x < 0 || _pos.x > MAP_SIZE_X
       || _pos.y + _size.y < 0 || _pos.y > MAP_SIZE_Y)
     {
-      std::cout << "shot delete in " << _pos.x << " : " << _pos.y << std::endl;
       _isAlive = false;
     }
   this->_pos.x = this->_pos.x + this->_speed.x;
-  // std::cout << "alive in " << _pos.x << " : " << _pos.y << std::endl;
  }
 
 bool		BasicPlayerProjectile::update(std::vector<IObject*>& map, sf::Clock const& clock)

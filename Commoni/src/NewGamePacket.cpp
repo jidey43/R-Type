@@ -25,7 +25,6 @@ void			NewGamePacket::setRawData(char *data)
   void*			buff;
 
   memcpy(_data, (void *)data, sizeof(*_data));
-  std::cout << "DATA :" << _data->data << std::endl;
 }
 
 NewGameData*		NewGamePacket::getData() const

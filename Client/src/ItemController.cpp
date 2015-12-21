@@ -42,30 +42,26 @@ void ItemController::addShip(CrePlayPacket *packet)
 
 void ItemController::addObj(CreObjPacket *packet)
 {
-	int id = packet->getData()->id;
-	sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
-	float speed = packet->getData()->speed;
+  int id = packet->getData()->id;
+  sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
+  float speed = packet->getData()->speed;
 
-	std::cout << "adding object type = " << packet->getData()->type << " and speed " << speed << std::endl;
-
-	if (packet->getData()->type == ObjectInfo::PLAYERREGULAR)
-		_items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
-	if (packet->getData()->type == ObjectInfo::ALIENREGULAR)
-		_items.emplace_back(new BasicAlienProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
+  if (packet->getData()->type == ObjectInfo::PLAYERREGULAR)
+    _items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
+  if (packet->getData()->type == ObjectInfo::ALIENREGULAR)
+    _items.emplace_back(new BasicAlienProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
 }
 
 void ItemController::moveShip(MovePacket *packet)
 {
   int id = packet->getData()->id;
   sf::Vector2f newPos(packet->getData()->x ,packet->getData()->y);
-  std::cout << "ID = " << id << std::endl;
 
   for (unsigned int i = 0; i != _items.size(); ++i)
     {
       if (dynamic_cast<IObject*>(_items[i])->getId() == id)
 	{
 	  static_cast<PlayerGraphical*>(_items[i])->setPos(newPos);
-	  std::cout << "pos = " << newPos.x << " : " << newPos.y << std::endl;
 	  break;
 	}
     }
@@ -100,7 +96,7 @@ void ItemController::addAlien(CreIAPacket *packet)
   sf::Vector2f speed(1, 1);
   sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
   unsigned int id = packet->getData()->id;
-  
+
 
   switch (type)
     {

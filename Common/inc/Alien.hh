@@ -14,7 +14,7 @@ public:
 public:
   bool				update(std::vector<IObject*>&, sf::Clock const&);
   bool				update(sf::Clock const&);
-  IObject			*BasicShoot();
+  BasicAlienProjectile		*BasicShoot();
   const ObjectInfo::WaveType	&getRealType() const;
 
 protected:
