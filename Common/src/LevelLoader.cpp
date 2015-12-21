@@ -55,7 +55,8 @@ bool		LevelLoader::verifLine(const std::string &line)
 	  t.clear();
 	}
     }
-  if (tmp.size() != 9)
+  std::cout << "LA SIZE :" << tmp.size() << std::endl;
+  if (tmp.size() != 7)
     return (false);
   if (verifFirst(tmp.front()) == false)
     return (false);
@@ -81,6 +82,7 @@ void		LevelLoader::parseLevel(const char *name)
 	{
 	  if (verifLine(line) == true)
 	    {
+	      std::cout << "ahahahahhahahahah" <<  line << std::endl;
 	      _lines.push_back(line);
 	      _wavesCount = _wavesCount + 1;
 	    }
@@ -91,43 +93,46 @@ void		LevelLoader::parseLevel(const char *name)
     throw Exceptions::FactoryExcept("Level file not found");
 }
 
-Waves						LevelLoader::getNextWave()
+Waves						*LevelLoader::getNextWave()
 {
-      std::string				str = _lines.front();
-      sf::Time					time;
-      sf::Time					freq;
-      sf::Vector2f				pos;
-      sf::Vector2f				speed;
-      std::istringstream			buffer;
-      std::string				name;
-      float					fnb;
-      int					inb;
-      int					nb;
-      float					coeff;
+  if (_lines.size() <= 0)
+    return NULL;
+  
+  std::string				str = _lines.front();
+  sf::Time					time;
+  sf::Time					freq;
+  sf::Vector2f				pos;
+  sf::Vector2f				speed;
+  std::istringstream			buffer;
+  std::string				name;
+  float					fnb;
+  int					inb;
+  int					nb;
+  float					coeff;
 
-      buffer.str (str);
-      buffer >> name;
-      buffer >> nb;
-      buffer >> inb;
-      pos.x = inb;
-      buffer >> inb;
-      pos.y = inb;
-      buffer >> fnb;
-      speed.x = fnb;
-      buffer >> fnb;
-      speed.y = fnb;
-      buffer >> fnb;
-      time = sf::seconds(fnb);
-      buffer >> fnb;
-      freq = sf::seconds(fnb);
-      buffer >> coeff;
-
-      for (inb = 0; name != _compare[inb]; inb = inb + 1);
-
-      ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
-      _lines.pop_front();
-      Waves	wave(nb, time, freq, pos, speed, coeff, type);
-      return (wave);
+  buffer.str (str);
+  buffer >> name;
+  buffer >> nb;
+  buffer >> inb;
+  pos.x = inb;
+  buffer >> inb;
+  pos.y = inb;
+  buffer >> fnb;
+  speed.x = fnb;
+  buffer >> fnb;
+  speed.y = fnb;
+  buffer >> fnb;
+  time = sf::seconds(fnb);
+  buffer >> fnb;
+  freq = sf::seconds(fnb);
+  buffer >> coeff;
+  
+  for (inb = 0; name != _compare[inb]; inb = inb + 1);
+  
+  ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
+  _lines.pop_front();
+  Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type);
+  return (wave);
 }
 
 const int		LevelLoader::getWavesCount() const

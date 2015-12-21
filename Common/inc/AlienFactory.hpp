@@ -23,15 +23,15 @@ public:
 
     if (_order.size() <= 0)
       return NULL;
-    if (clock.getElapsedTime() >= _order.front().getTime())
+    if (clock.getElapsedTime() >= _order.front()->getTime())
       {
 	_maxId = _maxId + 1;
-        obj = new T(_order.front().getSpeed(), _order.front().getPos(), _maxId, _order.front().getCoeff());
-	_order.front().pop();
+        obj = new T(_order.front()->getSpeed(), _order.front()->getPos(), _maxId, _order.front()->getCoeff());
+	_order.front()->pop();
       }
     else
       obj = NULL;
-    if (_order.front().getCount() == 0)
+    if (_order.front()->getCount() == 0)
       _order.pop_front();
     return (obj);
   }
@@ -41,13 +41,13 @@ public:
     return _type;
   }
 
-  void			setWave(const Waves &wave)
+  void			setWave(Waves *wave)
   {
     _order.push_back(wave);
   }
 
 public:
-  std::deque<Waves>	_order;
+  std::deque<Waves*>	_order;
   ObjectInfo::WaveType	_type;
 };
 
