@@ -53,10 +53,7 @@ GamerInfo*		UDPNetworkHandler::getClient(ClientDatas* datas)
     {
       GamerInfo*	newPlayer = new GamerInfo(datas);
 
-      for (std::vector<GamerInfo*>::iterator it = _clients->begin(); it != _clients->end(); ++it)
-	std::cout <<  "already in vecotr sin addr : " << ((*it)->getClientInfos())->sin_addr.s_addr << " port : " << ((*it)->getClientInfos())->sin_port << " family : " << ((*it)->getClientInfos())->sin_family  << std::endl;
       _clients->push_back(newPlayer);
-      std::cout << "NEW CLIENT -> " << datas->sin_addr.s_addr << std::endl;
       return newPlayer;
     }
   return NULL;

@@ -20,8 +20,7 @@ bool CNetworkHandler::initSocket()
   if (_network->initClientSocket(_ip, _port))
     {
       _listen = _network->getFd();
-			std::cout << "lel = " << _listen << std::endl;
-      	return true;
+      return true;
     }
   return false;
 }

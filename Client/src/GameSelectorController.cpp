@@ -15,7 +15,7 @@ _tcpHand(tcpHand), _udpHand(handler)
     _join = false;
 
     _createGameButton = new MenuButton("Create a game", sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.3), sf::Vector2f(500 , 50), STAR);
-    
+
     _gameName =   new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.2),
 			 sf::Vector2f(500, 50), "Enter new game name");
 
@@ -33,14 +33,10 @@ void                        GameSelectorController::initList()
     _tcpHand->sendToServer(new ReqGamePacket(REQ_GAME));
     while (true)
     {
-        std::cout << "before receive" << std::endl;
-       if ((response = _tcpHand->receiveFromServer()) == NULL)
-        std::cout << "NULL returned\n";
-       type = response->getCommandType();
-        std::cout << "after receive  type  " <<  type << std::endl;
-       if (type == DES_GAME)
+      response = _tcpHand->receiveFromServer();
+      type = response->getCommandType();
+      if (type == DES_GAME)
        {
-           std::cout << "itération" << std::endl;
            name = static_cast<DesGamePacket*>(response)->getData()->gameName;
            id = static_cast<DesGamePacket*>(response)->getData()->id;
             _games.emplace_back(

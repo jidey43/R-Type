@@ -20,17 +20,17 @@ NickPacket::~NickPacket()
 {
 }
 
-void			NickPacket::setRawData(char *data)
+void		NickPacket::setRawData(char *data)
 {
   memcpy(_data, (void *)data, sizeof(*_data));
 }
 
-NickData*		NickPacket::getData() const
+NickData	*NickPacket::getData() const
 {
   return _data;
 }
 
-bool			NickPacket::checkHeader()
+bool		NickPacket::checkHeader()
 {
   if (_header->magic != MAGIC)
     return false;
@@ -41,9 +41,9 @@ bool			NickPacket::checkHeader()
   return true;
 }
 
-char*				NickPacket::deserialize()
+char		*NickPacket::deserialize()
 {
-  char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
+  char*buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
 
   std::cout << sizeof(*_header) << " " << sizeof(*_data) << std::endl;
   memcpy(buff, _header, sizeof(*_header));
