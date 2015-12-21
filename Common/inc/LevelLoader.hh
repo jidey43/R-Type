@@ -18,7 +18,7 @@ public:
   static bool	        verifLine(const std::string &);
   static bool		verifFirst(const std::string &);
   static bool		verifOther(const std::string &);
-  Waves			getNextWave();
+  Waves			*getNextWave();
   const int		getWavesCount() const;
 
 private:
