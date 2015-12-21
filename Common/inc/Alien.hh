@@ -19,7 +19,6 @@ public:
 
 protected:
   float			_coeff;
-  int			_t;
   int			_f;
   int			_a;
   float			_rad;

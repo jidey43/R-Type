@@ -3,15 +3,15 @@
 MenuController::MenuController(CNetworkHandler **tcpHand) : _tcpHandAddr(tcpHand)
 {
   _join = false;
-  _ipArea = 
+  _ipArea =
   new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.3),
 			 sf::Vector2f(500,50), "Enter ip");
 
-  _portArea = 
+  _portArea =
   new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.4),
 			 sf::Vector2f(500, 50), "Enter port");
 
-  _nicknameArea = 
+  _nicknameArea =
   new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.5),
 			 sf::Vector2f(500, 50), "Enter nickname");
 
@@ -37,11 +37,11 @@ void MenuController::loop()
       _clock.restart();
       vc->clear();
 
-      if (_join)
-	return;
-
       _keyboardStatus = vc->getKeyboardStatus();
       treatEvents();
+
+      if (_join)
+	return;
 
       update();
       drawMenuItems();
@@ -120,10 +120,10 @@ IServerPacket<ServerTCPResponse>* response;
       if (response->getCommandType() == AUTH)
       {
         std::cout << "aut\n";
+	_join = true;
       }
       else
         std::cout << "pas auth " << response->getCommandType() << "\n";
-	    _join = true;
     }
   else
     std::cout << "failed\n";

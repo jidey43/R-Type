@@ -9,7 +9,6 @@ BydoAlien::BydoAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, floa
 {
   _f = 70;
   _rad = 3;
-  _t = 1;
   _a = 5;
 }
 
@@ -19,8 +18,7 @@ BydoAlien::~BydoAlien()
 bool		BydoAlien::update(sf::Clock const& clock)
 {
   this->_pos.x = this->_pos.x + this->_speed.x;
-  this->_pos.y = _a * cos((2 * _f * _t * M_PI) + _rad);
-  _t = _t + 1;
+  this->_pos.y = _a * cos((2 * _f * clock.getElapsedTime().asMicroseconds() * M_PI) + _rad);
   return true;
 }
 

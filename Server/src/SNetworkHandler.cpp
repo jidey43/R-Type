@@ -111,10 +111,13 @@ bool			NetworkHandler::receiveFromClient(ClientInfo* client)
   packet = _factory->build(header);
   if (!packet || !packet->checkHeader())
     return false;
-  buff = new char[header->size + 1];
-  if (!tryReceive(client, (char*)buff, header->size))
-    return false;
-  packet->setRawData(buff);
+  if (header->size != 0)
+    {
+      buff = new char[header->size + 1];
+      if (!tryReceive(client, (char*)buff, header->size))
+	return false;
+      packet->setRawData(buff);
+    }
   client->setPacket(packet);
   return true;
 }

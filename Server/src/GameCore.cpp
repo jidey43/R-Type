@@ -8,7 +8,7 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
     _referential(sf::Time(sf::microseconds(16666))),
     _running(true)
 {
-  // _factory->initialiseLevel();
+  _factory->initialiseLevel();
   this->run();
 }
 
@@ -46,12 +46,11 @@ void		GameCore::updateMap()
   std::vector<IServerPacket<ServerUDPResponse>*>	*toSend;
 
   _map->updateMap(_clock);
-  // aliens = _factory->update(_clock);
-  // toSend = generatePackets(aliens);
-  // toSend->insert(std::begin(*toSend), std::begin(*(_map->getMap())), std::end(*(_map->getMap())));
-  toSend = _map->getMap();
+  aliens = _factory->update(_clock);
+  toSend = generatePackets(aliens);
+  toSend->insert(std::begin(*toSend), std::begin(*(_map->getMap())), std::end(*(_map->getMap())));
   this->sendMap(NULL, toSend);
-  // delete toSend;
+  delete toSend;
 }
 
 sf::Time	GameCore::getElapsedTimeSinceLoop()
