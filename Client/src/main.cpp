@@ -11,7 +11,6 @@ ViewController *vc;
 AssetsController *ac;
 
 
-
 int main(int argc, char **av)
 {
   ac = new AssetsController("../../assets/");
@@ -63,15 +62,3 @@ int main(int argc, char **av)
       delete m;
     }
 }
-/*
-
-#include "LevelLoader.hh"
-
-int	main()
-{
-  LevelLoader m;
-
-  m.parseLevel("level/Level1.lvl");
-}
->>>>>>> 6e68b32c9d92a585d706fea02b7b2bbf554cf699
-*/

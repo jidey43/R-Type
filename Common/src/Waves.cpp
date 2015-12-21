@@ -26,7 +26,7 @@ Waves		&Waves::operator=(const Waves& wave)
 
 void		Waves::pop()
 {
-  _time = _time - _frequency;
+  _time = _time + _frequency;
   _count = _count - 1;
 }
 
