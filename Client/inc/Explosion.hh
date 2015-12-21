@@ -13,5 +13,8 @@ class           Explosion : public GraphicalItem
     bool            update(sf::Clock const&);
      
     private:
-    sf::Vector2f   _pos;
+    sf::Vector2f    _pos;
+    sf::Time        _referential;
+    sf::Time        _lastUpdate;
+    int             _stage;
 };

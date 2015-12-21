@@ -24,8 +24,15 @@ void ItemController::update()
 {
   for (GraphicalItem* i : _items)
     i->update(_clock);
-  for (GraphicalItem* i : _unlogicalItems)
-    i->update(_clock);
+  for (std::vector<GraphicalItem*>::iterator it = _unlogicalItems.begin(); it != _unlogicalItems.end();)
+  {
+    if (!((*it)->update(_clock)))
+    {
+        it = _unlogicalItems.erase(it);
+    }
+    else    
+    ++it;
+  } 
 }
 
 void ItemController::setBackground(int id)
