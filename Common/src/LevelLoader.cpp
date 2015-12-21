@@ -51,7 +51,6 @@ bool		LevelLoader::verifLine(const std::string &line)
 	}
       if (line[i + 1] == ' ' && line[i] != ' ')
 	{
-	  std::cout << "on ajoute t : " << t << std::endl;
 	  tmp.push_back(t);
 	  t.clear();
 	}
@@ -77,18 +76,14 @@ void		LevelLoader::parseLevel(const char *name)
   if (_levelFile.is_open())
     {
       std::string	  line;
-      
+
       while (getline(_levelFile, line, '\n'))
 	{
-	  std::cout << line << std::endl;
 	  if (verifLine(line) == true)
 	    {
-	      std::cout << "true" << std::endl;
 	      _lines.push_back(line);
 	      _wavesCount = _wavesCount + 1;
 	    }
-	  else
-	    std::cout << "false" << std::endl;
 	}
       _levelFile.close();
     }
@@ -109,7 +104,7 @@ Waves						LevelLoader::getNextWave()
       int					inb;
       int					nb;
       float					coeff;
-      
+
       buffer.str (str);
       buffer >> name;
       buffer >> nb;
@@ -128,7 +123,7 @@ Waves						LevelLoader::getNextWave()
       buffer >> coeff;
 
       for (inb = 0; name != _compare[inb]; inb = inb + 1);
-      
+
       ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
       _lines.pop_front();
       Waves	wave(nb, time, freq, pos, speed, coeff, type);
