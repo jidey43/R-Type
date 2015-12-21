@@ -41,6 +41,7 @@ bool AssetsController::loadSoundAssets()
 
 bool AssetsController::loadShipsAssets()
 {
+    _explosion = new sf::Texture;
 	for (int i = 0; i != 4; i++)
 	{
 		_ships.emplace_back(new sf::Texture);
@@ -49,7 +50,8 @@ bool AssetsController::loadShipsAssets()
 		_ships[0]->loadFromFile(_assetsPath + "ships/ship1.png") &&
 		_ships[1]->loadFromFile(_assetsPath + "ships/ship2.png") &&
 		_ships[2]->loadFromFile(_assetsPath + "ships/ship3.png") &&
-		_ships[3]->loadFromFile(_assetsPath + "ships/ship4.png")
+		_ships[3]->loadFromFile(_assetsPath + "ships/ship4.png") &&
+        _explosion->loadFromFile(_assetsPath + "explosion.png")
 		)
 		return true;
 	return false;
@@ -161,6 +163,11 @@ sf::Font* AssetsController::getFont(Font font)
 sf::Texture * AssetsController::getAlien(AlienType type)
 {
 	return _aliens[type];
+}
+
+sf::Texture*					AssetsController::getExplosion()
+{
+    return _explosion;
 }
 
 sf::SoundBuffer* AssetsController::getSound(Sound sound)
