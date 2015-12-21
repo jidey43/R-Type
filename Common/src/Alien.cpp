@@ -8,6 +8,11 @@ Alien::Alien(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, unsigned i
 
 Alien::~Alien() {}
 
+const float		&Alien::getCoeff() const
+{
+  return _coeff;
+}
+
 bool		Alien::update(std::vector<IObject*>& map, sf::Clock const& clock)
 {
 }
