@@ -31,8 +31,8 @@ void					Manager::loop()
       _keyboardStatus =  vc->getKeyboardStatus();
       treatEventsFromKeyboard();
 
-      elapsed = getElapsedTimeSinceLoop();
       lastTime = sf::microseconds(0);
+
       while ((elapsed = getElapsedTimeSinceLoop()) > lastTime)
 	{
 	  lastTime = elapsed;
