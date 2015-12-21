@@ -122,9 +122,9 @@ Waves						LevelLoader::getNextWave()
       buffer >> fnb;
       speed.y = fnb;
       buffer >> fnb;
-      time = sf::milliseconds(fnb);
+      time = sf::seconds(fnb);
       buffer >> fnb;
-      freq = sf::milliseconds(fnb);
+      freq = sf::seconds(fnb);
       buffer >> coeff;
 
       for (inb = 0; name != _compare[inb]; inb = inb + 1);
