@@ -79,6 +79,7 @@ public:
 	sf::Texture					*getLogo();
 	sf::Font					*getFont(Font);
 	sf::Texture					*getAlien(AlienType);
+	sf::Texture					*getExplosion();
 
 private:
 	std::string					_assetsPath;
@@ -96,4 +97,5 @@ private:
 	std::vector<sf::Font*>		_fonts;
     std::vector<sf::SoundBuffer*> _sounds;
 	sf::Texture*				_rtypeLogo;
+    sf::Texture*                _explosion;
 };

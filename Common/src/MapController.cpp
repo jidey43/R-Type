@@ -55,6 +55,7 @@ void		MapController::updateMap(sf::Clock const& clock)
   while (it != _map.end())
     {
       (*it)->update(_map, clock);
+      std::cout << "Alien pos y " << (*it)->getPos().y << std::endl;
       checkNewObj(it, (*it));
       if (it == _map.end())
 	break;
