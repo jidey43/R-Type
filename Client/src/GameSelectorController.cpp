@@ -35,6 +35,9 @@ void                        GameSelectorController::initList()
     IServerPacket<ServerTCPResponse> *response;
     response = _tcpHand->receiveFromServer();
     ServerTCPResponse type;
+    std::string name;
+    int         id;
+  
 
     _tcpHand->sendToServer(new ReqGamePacket(REQ_GAME));
     while (true)
@@ -43,10 +46,12 @@ void                        GameSelectorController::initList()
        type = response->getCommandType();
        if (type == DES_GAME)
        {
+           name = static_cast<DesGamePacket*>(response)->getData()->gameName;
+           id = static_cast<DesGamePacket*>(response)->getData()->id;
             _games.emplace_back(
             std::pair<MenuButton*, int>(
-            new MenuButton(static_cast<DesGamePacket*>(response)->getData()->gameName, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.6), sf::Vector2f(500 , 50), STAR)
-            , static_cast<DesGamePacket*>(response)->getData()->id
+            new MenuButton(name , sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.6), sf::Vector2f(500 , 50), STAR)
+            , id
             )
             );
        }
