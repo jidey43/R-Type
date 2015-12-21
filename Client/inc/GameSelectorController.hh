@@ -1,5 +1,6 @@
 #pragma once
 
+#include <utility>
 #include "ViewController.hh"
 #include "AssetsController.hh"
 #include "MenuButton.h"
@@ -7,6 +8,7 @@
 #include "Background.h"
 #include "CNetworkHandler.hh"
 #include "CUDPNetworkHandler.hh"
+#include "ReqGamePacket.h"
 
 class			GameSelectorController
 {
@@ -17,8 +19,9 @@ class			GameSelectorController
 	void						treatEvents();
 	void						update();
 	void						drawMenuItems();
-	void						onClick(ButtonType);
-	void						joinGame();
+	void						joinGame(int i);
+    void                        initList();
+    void                        createGame();
 
 private:
 		sf::Clock					_clock;
@@ -27,7 +30,12 @@ private:
 		sf::Time					_loopTime;
 		bool						_join;
 		sf::Text*					_disclaimer;
-		
+		std::vector<std::pair<MenuButton*, int>>   _games;
+        MenuButton                  *_createGameButton;
+        TextArea                    *_gameName;
+        
 private:
 		CNetworkHandler				*_tcpHand;
+        CUDPNetworkHandler          **_udpHand;
+
 };
