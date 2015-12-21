@@ -67,6 +67,7 @@ std::vector<IServerPacket<ServerUDPResponse>*>*		GameCore::generatePackets(std::
 
     for (std::vector<IObject*>::iterator it = aliens->begin(); it != aliens->end(); ++it)
       ret->push_back(new CreIAPacket(CRE_IA, 0, _maxId++, (*it)->getPos().x, (*it)->getPos().y, static_cast<Alien*>((*it))->getRealType()));
+    return ret;
 }
 
 void							GameCore::sendMap(GamerInfo* client, std::vector<IServerPacket<ServerUDPResponse>*> *toSendMap)

@@ -38,7 +38,7 @@ void		FactoryManager::initialiseLevel()
     {
       if (i >= static_cast<int>(_nbFactory))
 	{
-	  throw Exceptions::FactoryExcept("Error this Factory type is not declare"); 
+	  throw Exceptions::FactoryExcept("Error this Factory type is not declare");
 	  break;
 	}
       if (waves[j].getType() == _factories[i]->getType())
@@ -56,7 +56,7 @@ void		FactoryManager::initialiseLevel()
 
 std::vector<IObject*>		*FactoryManager::update(const sf::Clock &clock)
 {
-  std::vector<IObject*>		*list;
+  std::vector<IObject*>		*list = new std::vector<IObject*>;
   IObject			*obj;
 
   for (std::vector<IAlienFactory*>::iterator it = _factories.begin(); it != _factories.end(); it++)
