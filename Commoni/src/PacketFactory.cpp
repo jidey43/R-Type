@@ -95,6 +95,9 @@ IClientPacket<ClientTCPCommand>*		PacketFactory::build(ClientTCPHeader* header)
     case JOIN_GAME:
       return new JoinPacket(header);
       break;
+    case REQ_GAME:
+      return new ReqGamePacket(header);
+      break;
     case ADD_GAME:
       return new NewGamePacket(header);
       break;

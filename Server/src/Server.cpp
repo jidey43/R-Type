@@ -48,7 +48,6 @@ void Server::answerClients()
 
   while ((client = _network->getActiveClient()))
     {
-      // std::cout << "--> client [" << client->getNickname() << "]" << std::endl;
       parser(client);
     }
 }
@@ -85,18 +84,20 @@ void Server::parser(ClientInfo * client)
 	  break;
 	}
       }
-  else {
-    std::cout << "fail" << std::endl;
-    _network->sendToClient(client, new FailPacket(FAIL)); }
+  else
+    {
+      std::cout << "fail" << std::endl;
+      _network->sendToClient(client, new FailPacket(FAIL));
+    }
 }
 
 bool Server::describeGame(ClientInfo * client)
 {
-  if (_network->sendToClient(client, new GameListPacket(START_GAME_LIST)))
+  if (!_network->sendToClient(client, new GameListPacket(START_GAME_LIST)))
     return false;
   for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
     {
-      if (_network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), (*it)->getClients())))
+      if (!_network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), (*it)->getClients())))
 	return false;
     }
   _network->sendToClient(client, new GameListPacket(END_GAME_LIST));
@@ -123,9 +124,8 @@ bool	Server::joinGame(ClientInfo* client)
 {
   GameInfo*	game;
 
-  if ((game = _games->addClientInGame(client, dynamic_cast<JoinPacket*>(client->getPacket())->getData()->id)) != NULL) {
-    std::cout << game->getPort() << " : port when joining" << std::endl;
-    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort())); }
+  if ((game = _games->addClientInGame(client, dynamic_cast<JoinPacket*>(client->getPacket())->getData()->id)) != NULL)
+    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort()));
   else
     _network->sendToClient(client, new FailPacket(FAIL));
   return true;
@@ -135,9 +135,8 @@ bool	Server::joinGame(ClientInfo* client, int id)
 {
   GameInfo*	game;
 
-  if ((game = _games->addClientInGame(client, id)) != NULL) {
-    std::cout << game->getPort() << " : port when creating" << std::endl;
-    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort())); }
+  if ((game = _games->addClientInGame(client, id)) != NULL)
+    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort()));
   else
     _network->sendToClient(client, new FailPacket(FAIL));
   return true;

@@ -4,6 +4,7 @@
 #include "IClientPacket.hh"
 #include "IServerPacket.hh"
 #include "NewGamePacket.h"
+#include "ReqGamePacket.h"
 #include "NickPacket.h"
 #include "JoinPacket.hh"
 #include "AuthTCPPacket.h"
