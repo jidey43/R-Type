@@ -14,6 +14,7 @@ public:
 public:
   bool				update(std::vector<IObject*>&, sf::Clock const&);
   bool				update(sf::Clock const&);
+  const float&			getCoeff() const;
   BasicAlienProjectile		*BasicShoot();
   const ObjectInfo::WaveType	&getRealType() const;
 

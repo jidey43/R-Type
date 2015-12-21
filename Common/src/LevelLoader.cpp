@@ -55,7 +55,6 @@ bool		LevelLoader::verifLine(const std::string &line)
 	  t.clear();
 	}
     }
-  std::cout << "LA SIZE :" << tmp.size() << std::endl;
   if (tmp.size() != 7)
     return (false);
   if (verifFirst(tmp.front()) == false)
@@ -82,7 +81,6 @@ void		LevelLoader::parseLevel(const char *name)
 	{
 	  if (verifLine(line) == true)
 	    {
-	      std::cout << "ahahahahhahahahah" <<  line << std::endl;
 	      _lines.push_back(line);
 	      _wavesCount = _wavesCount + 1;
 	    }
@@ -97,7 +95,7 @@ Waves						*LevelLoader::getNextWave()
 {
   if (_lines.size() <= 0)
     return NULL;
-  
+
   std::string				str = _lines.front();
   sf::Time					time;
   sf::Time					freq;
@@ -126,9 +124,9 @@ Waves						*LevelLoader::getNextWave()
   buffer >> fnb;
   freq = sf::seconds(fnb);
   buffer >> coeff;
-  
+
   for (inb = 0; name != _compare[inb]; inb = inb + 1);
-  
+
   ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
   _lines.pop_front();
   Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type);
