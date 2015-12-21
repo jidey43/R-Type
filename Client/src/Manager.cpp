@@ -15,9 +15,10 @@ void					Manager::loop()
 {
     sf::Time elapsed;
     sf::Time lastTime;
- //STARTING GAME
 
-	// vc->startSoundtrack();
+     //STARTING GAME
+
+	vc->startSoundtrack();
   _itemCtrl->setBackground(1);
   //GAME LOOP
   _clock.restart();
