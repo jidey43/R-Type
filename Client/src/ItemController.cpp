@@ -84,16 +84,18 @@ void ItemController::deleteObject(DelItemPacket *packet)
 
 void ItemController::addAlien(CreIAPacket *packet)
 {
-  // ObjectInfo::WaveType type = packet->iatype;
-  // sf::Vector2f pos(packet->x, packet->y);
-  // int id = packet->id;
+  ObjectInfo::WaveType type = packet->getData()->iatype;
+  sf::Vector2f speed(1, 1);
+  sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
+  unsigned int id = packet->getData()->id;
+  
 
-  // switch (type)
-  //   {
-  //   case ObjectInfo::WaveType::BYDO :
-  //     _items.emplace_back(new BydoAlienGraphical(1, pos, id, 1));
-  //     break;
-  //   default:
-  //     break;
-  //   }
+  switch (type)
+    {
+    case ObjectInfo::WaveType::BYDO :
+      _items.emplace_back(new BydoAlienGraphical(speed, pos, id, 1));
+      break;
+    default:
+      break;
+    }
 }
