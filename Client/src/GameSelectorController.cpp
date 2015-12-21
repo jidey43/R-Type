@@ -4,19 +4,19 @@ GameSelectorController::GameSelectorController(CUDPNetworkHandler **handler, CNe
 _tcpHand(tcpHand), _udpHand(handler)
 {
 	_background = new Backgroud;
-	std::string txt("Choisissez une partie, que la force soit avec vous");
+	std::string txt("or choose an existing game, May the force be with you");
 	_disclaimer = new sf::Text(txt, *(ac->getFont(STAR)));
 	
 	_disclaimer->setPosition(
-	(RES_X / 2) - ((_disclaimer->getCharacterSize() * txt.size()) / 2)
-	, 30	
+	(RES_X / 2) - (((_disclaimer->getCharacterSize() * txt.size()) / 2))
+	, RES_Y * 0.4
 	);
     
     _join = false;	
 
-    _createGameButton = new MenuButton("Create Game", sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.2), sf::Vector2f(500 , 50), STAR);
+    _createGameButton = new MenuButton("Create a game", sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.3), sf::Vector2f(500 , 50), STAR);
     
-    _gameName =   new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.5),
+    _gameName =   new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.2),
 			 sf::Vector2f(500, 50), "Enter new game name");
 
     
@@ -33,7 +33,6 @@ game list avec end
 void                        GameSelectorController::initList()
 {
     IServerPacket<ServerTCPResponse> *response;
-    response = _tcpHand->receiveFromServer();
     ServerTCPResponse type;
     std::string name;
     int         id;
@@ -42,10 +41,13 @@ void                        GameSelectorController::initList()
     _tcpHand->sendToServer(new ReqGamePacket(REQ_GAME));
     while (true)
     {
+        std::cout << "before receive" << std::endl;
        response = _tcpHand->receiveFromServer();
+        std::cout << "after receive" << std::endl;
        type = response->getCommandType();
        if (type == DES_GAME)
        {
+           std::cout << "itération" << std::endl;
            name = static_cast<DesGamePacket*>(response)->getData()->gameName;
            id = static_cast<DesGamePacket*>(response)->getData()->id;
             _games.emplace_back(
