@@ -21,7 +21,8 @@ BydoAlien::~BydoAlien()
 bool		BydoAlien::update(sf::Clock const& clock)
 {
   this->_pos.x = this->_pos.x - this->_speed.x;
-  this->_pos.y = _pos.y - (_a * cos((0.5 * _f * clock.getElapsedTime().asSeconds() * M_PI) + _rad));
+  this->_pos.y = _pos.y - (_a * 0.1 * cos((0.1 * _f * clock.getElapsedTime().asSeconds() * M_PI) + _rad));
+  // this->_pos.y = _pos.y - (_a * cos((0.5 * _f * clock.getElapsedTime().asSeconds() * M_PI) + _rad));
   return true;
 }
 
