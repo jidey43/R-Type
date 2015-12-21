@@ -7,6 +7,7 @@
 #include "BydoAlienGraphical.hh"
 #include "BasicPlayerProjectileGraphical.h"
 #include "BasicAlienProjectileGraphical.h"
+#include "Explosion.hh"
 #include "PlayerGraphical.h"
 #include "CrePlayPacket.h"
 #include "CreObjPacket.h"
@@ -32,6 +33,7 @@ public:
   void						addObj(CreObjPacket *packet);
   void						moveShip(MovePacket *packet);
   void						deleteObject(DelItemPacket *packet);
+  void                      addExplosion(sf::Vector2f);
 
 public:
   void						addAlien(CreIAPacket *packet);
@@ -42,6 +44,7 @@ public:
 private:
   sf::Clock					_clock;
   std::vector<GraphicalItem*>			 _items;
+  std::vector<GraphicalItem*>			 _unlogicalItems;  
   sf::Sprite*					_background;
   int						_playerCount;
 };
