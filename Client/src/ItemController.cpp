@@ -16,11 +16,15 @@ void ItemController::draw()
 		vc->draw(_background);
 	for (GraphicalItem *i : _items)
 		vc->draw(i->getDrawable());
+	for (GraphicalItem *i : _unlogicalItems)
+		vc->draw(i->getDrawable());
 }
 
 void ItemController::update()
 {
   for (GraphicalItem* i : _items)
+    i->update(_clock);
+  for (GraphicalItem* i : _unlogicalItems)
     i->update(_clock);
 }
 
@@ -67,6 +71,13 @@ void ItemController::moveShip(MovePacket *packet)
     }
 }
 
+void ItemController::addExplosion(sf::Vector2f pos)
+{
+    Explosion *expl = new Explosion(pos);
+
+    _unlogicalItems.push_back(expl);
+}
+
 void ItemController::deleteObject(DelItemPacket *packet)
 {
   int  id = packet->getData()->data;
@@ -79,6 +90,7 @@ void ItemController::deleteObject(DelItemPacket *packet)
     }
   if (i == _items.size())
     return;
+  addExplosion(dynamic_cast<IObject*>(_items[i])->getPos());
   _items.erase(_items.begin() + i);
 }
 
