@@ -30,7 +30,13 @@ bool AssetsController::loadSoundAssets()
 {
 	if (_soundTrack->openFromFile(_assetsPath + "audio/ost.ogg") == false)
 		return false;
-	return true;
+        for (int i = 0; i != NUMBEROFSOUND; i++)
+            _sounds.emplace_back(new sf::SoundBuffer);
+    if (
+        _sounds[BASICALIENSHOT]->loadFromFile(_assetsPath + "audio/shot.wav")
+    )
+        return true;
+	return false;
 }
 
 bool AssetsController::loadShipsAssets()
@@ -155,4 +161,9 @@ sf::Font* AssetsController::getFont(Font font)
 sf::Texture * AssetsController::getAlien(AlienType type)
 {
 	return _aliens[type];
+}
+
+sf::SoundBuffer* AssetsController::getSound(Sound sound)
+{
+    return _sounds[sound];
 }
