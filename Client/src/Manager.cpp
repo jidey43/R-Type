@@ -33,7 +33,7 @@ void					Manager::loop()
 
       elapsed = getElapsedTimeSinceLoop();
       lastTime = sf::microseconds(0);
-      while ((elapsed = getElapsedTimeSinceLoop()) > lastTime )
+      while ((elapsed = getElapsedTimeSinceLoop()) > lastTime)
 	{
 	  lastTime = elapsed;
 	  treatEventsFromNetwork();

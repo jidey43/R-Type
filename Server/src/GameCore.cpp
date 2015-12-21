@@ -23,6 +23,7 @@ GameCore::~GameCore()
 
 bool		GameCore::run()
 {
+  sf::Time elapsed;
   if (!_network->initSocket())
     return false;
 
@@ -30,13 +31,12 @@ bool		GameCore::run()
   while (_running)
     {
       this->updateMap();
-      sf::Time elapsed;
-      sf::Time lastTime = sf::microseconds(0);
-      while (_running && (elapsed = getElapsedTimeSinceLoop()) > lastTime)
+     sf::Time lastTime = sf::microseconds(0);
+      while (_running && ((elapsed = getElapsedTimeSinceLoop()) > lastTime))
       	{
-      	  lastTime = elapsed;
 	  receivePacket();
 	}
+      std::cout << "break" << std::endl;
     }
 }
 
