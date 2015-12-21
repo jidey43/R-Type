@@ -12,8 +12,8 @@ AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data
   _data->x = x;
   _data->y = y;
   _data->speed = speed;
-  _data->magic = MAGIC;
   _data->type = type;
+  _data->magic = MAGIC;
 }
 
 CreObjPacket::CreObjPacket(ServerUDPHeader *header)

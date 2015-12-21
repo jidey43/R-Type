@@ -7,6 +7,7 @@ extern unsigned int _maxId;
 BydoAlien::BydoAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
   : Alien(speed, pos, sf::Vector2i(0, 0), id, coeff)
 {
+  _realType = ObjectInfo::BYDO;
   _f = 70;
   _rad = 3;
   _a = 5;

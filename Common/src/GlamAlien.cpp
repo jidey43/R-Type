@@ -7,6 +7,7 @@ extern unsigned int _maxId;
 GlamAlien::GlamAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
   : Alien(speed, pos, sf::Vector2i(0, 0), id, coeff)
 {
+  _realType = ObjectInfo::GLAM;
   _f = 50;
   _rad = 6;
   _a = 10;

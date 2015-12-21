@@ -21,6 +21,8 @@ public:
   {
     IObject	*obj;
 
+    if (_order.size() <= 0)
+      return NULL;
     if (clock.getElapsedTime() >= _order.front().getTime())
       {
 	_maxId = _maxId + 1;
