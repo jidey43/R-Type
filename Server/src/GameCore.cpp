@@ -50,7 +50,7 @@ void		GameCore::updateMap()
   aliens = _factory->update(_clock);
   for (auto it = aliens->begin(); it != aliens->end(); ++it)
     {
-      _map->addObject(*(*it));
+      _map->addObject(*it);
       updateMap();
     }
   toSend = generatePackets(aliens);

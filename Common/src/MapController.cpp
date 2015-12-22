@@ -41,11 +41,9 @@ std::vector<IServerPacket<ServerUDPResponse>*>*	MapController::getMap() const
   return _deserializedMap;
 }
 
-void		MapController::addObject(const IObject& obj)
+void		MapController::addObject(IObject* obj)
 {
-  IObject*	tmp = new IObject(obj);
-
-  _map.push_back(tmp);
+  _map.push_back(obj);
 }
 
 void		MapController::updateMap(sf::Clock const& clock)
