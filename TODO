@@ -1,0 +1,15 @@
+obstacles sur les bords de la map + collisions avec obstacles
+
+fin de jeu (end game packet)
+
+menu de fin de jeu
+
+plusieurs fichiers de niveaux
+
+classes de boss à qui pop à chaque fin de niveau
+
+corriger les hitbox
+
+augmenter la vitesse des shots
+
+avoir des sprite pour chaque alien
