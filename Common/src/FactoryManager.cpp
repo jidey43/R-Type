@@ -9,6 +9,8 @@
 #include "RiosAlien.hh"
 #include "BydoAlien.hh"
 #include "DokanAlien.hh"
+#include "Obstacle.hh"
+#include "ShellAlien.hh"
 
 FactoryManager::FactoryManager(MapController *map, const char *levelFileName) : _map(map)
 {
@@ -16,6 +18,13 @@ FactoryManager::FactoryManager(MapController *map, const char *levelFileName) : 
   _factories.push_back(new AlienFactory<BydoAlien>(ObjectInfo::WaveType::BYDO));
   _factories.push_back(new AlienFactory<GlamAlien>(ObjectInfo::WaveType::GLAM));
   _factories.push_back(new AlienFactory<DokanAlien>(ObjectInfo::WaveType::DOKAN));
+  _factories.push_back(new AlienFactory<KayberosAlien>(ObjectInfo::WaveType::KAYBEROS));
+  _factories.push_back(new AlienFactory<RiosAlien>(ObjectInfo::WaveType::RIOS));
+  _factories.push_back(new AlienFactory<ScantAlien>(ObjectInfo::WaveType::SCANT));
+  _factories.push_back(new AlienFactory<ShellAlien>(ObjectInfo::WaveType::SHELL));
+  _factories.push_back(new AlienFactory<YorkAlien>(ObjectInfo::WaveType::YORK));
+  _factories.push_back(new AlienFactory<Xelf16Alien>(ObjectInfo::WaveType::XELF16));
+  //  _factories.push_back(new AlienFactory<Obstacle>(ObjectInfo::WaveType::OBSTACLE));
   _nbFactory = _factories.size();
 }
 
