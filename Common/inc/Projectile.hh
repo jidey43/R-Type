@@ -13,7 +13,7 @@ public:
 
 
 public:
-  virtual bool		update(std::vector<IObject*>&,sf::Clock const&) = 0;
+  virtual bool		update(sf::Clock const&, std::vector<IObject*>&) = 0;
   virtual bool		update(sf::Clock const&) = 0;
   ObjectInfo::ShotType	_realType;
 };
