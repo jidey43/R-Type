@@ -6,13 +6,13 @@
 class ScantAlien : public Alien
 {
 public:
-  ScantAlien(sf::Vector2f speed, sf::Vector2i pos, unsigned int id, float coeff);
+  ScantAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff);
   ~ScantAlien();
 
 public:
   bool		update(sf::Clock const&, std::vector<IObject*>&);
   bool		update(sf::Clock const&);
-  IObject	*Basicshoot();
+  IObject	*BasicShoot();
 };
 
 # endif

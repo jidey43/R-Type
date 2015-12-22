@@ -1,39 +1,40 @@
-#include "GlamAlien.hh"
+#include "YorkAlien.hh"
 #include "BasicAlienProjectile.hh"
 #include <stdlib.h>
 
 extern unsigned int _maxId;
 
-GlamAlien::GlamAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
+YorkAlien::YorkAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
   : Alien(speed, pos, sf::Vector2i(100, 100), id, coeff)
 {
-  _realType = ObjectInfo::GLAM;
+  _realType = ObjectInfo::YORK;
+  _life = 2;
   _f = 50;
   _rad = 6;
   _a = 10;
 }
 
-GlamAlien::~GlamAlien()
+YorkAlien::~YorkAlien()
 {}
 
-bool		GlamAlien::update(sf::Clock const& clock)
+bool	        YorkAlien::update(sf::Clock const& clock)
 {
   this->_pos.x = this->_pos.x - this->_speed.x;
   this->_pos.y = _a * sin((2 * _f * clock.getElapsedTime().asMicroseconds() * M_PI) + _rad);
-  if ((int)(_pos.x) % 400 == 0)
-    _isShoot = true;
   return true;
 }
 
 
-bool		GlamAlien::update(sf::Clock const& clock, std::vector<IObject*>& map)
+bool	        YorkAlien::update(sf::Clock const& clock, std::vector<IObject*>& map)
 {
   this->update(clock);
   this->collision(map);
+  if ((int)(_pos.x) % 400 == 0)
+    _isShoot = true;
   return (_isAlive);
 }
 
-BasicAlienProjectile		*GlamAlien::BasicShoot()
+IObject		*YorkAlien::BasicShoot()
 {
   sf::Vector2f pos;
 

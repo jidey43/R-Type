@@ -1,22 +1,22 @@
-#include "GlamAlien.hh"
+#include "ShellAlien.hh"
 #include "BasicAlienProjectile.hh"
 #include <stdlib.h>
 
 extern unsigned int _maxId;
 
-GlamAlien::GlamAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
+ShellAlien::ShellAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
   : Alien(speed, pos, sf::Vector2i(100, 100), id, coeff)
 {
-  _realType = ObjectInfo::GLAM;
+  _realType = ObjectInfo::SHELL;
   _f = 50;
   _rad = 6;
   _a = 10;
 }
 
-GlamAlien::~GlamAlien()
+ShellAlien::~ShellAlien()
 {}
 
-bool		GlamAlien::update(sf::Clock const& clock)
+bool		ShellAlien::update(sf::Clock const& clock)
 {
   this->_pos.x = this->_pos.x - this->_speed.x;
   this->_pos.y = _a * sin((2 * _f * clock.getElapsedTime().asMicroseconds() * M_PI) + _rad);
@@ -26,14 +26,14 @@ bool		GlamAlien::update(sf::Clock const& clock)
 }
 
 
-bool		GlamAlien::update(sf::Clock const& clock, std::vector<IObject*>& map)
+bool		ShellAlien::update(sf::Clock const& clock, std::vector<IObject*>& map)
 {
   this->update(clock);
   this->collision(map);
   return (_isAlive);
 }
 
-BasicAlienProjectile		*GlamAlien::BasicShoot()
+IObject		*ShellAlien::BasicShoot()
 {
   sf::Vector2f pos;
 
