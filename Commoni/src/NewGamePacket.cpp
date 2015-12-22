@@ -7,7 +7,7 @@ NewGamePacket::NewGamePacket(ClientTCPCommand command, std::string const& data)
   _header->magic = MAGIC;
   _header->command = command;
   _header->size = sizeof(*_data);
-  bzero(_data->data, sizeof(*_data));
+  memset(_data->data, 0, sizeof(*_data));
   memcpy(&(_data->data), data.c_str(), data.size());
 }
 
