@@ -39,8 +39,8 @@ IObject		*BydoAlien::BasicShoot()
 {
   sf::Vector2f pos;
 
-  pos.x = _pos.x + _size.x;
-  pos.y = _pos.y + _size.y;
+  pos.x = _pos.x  + (_size.x / 2);
+  pos.y = _pos.y + (_size.y / 2);
   _isShoot = false;
   return new BasicAlienProjectile(_speed, pos, _maxId++);
 }
