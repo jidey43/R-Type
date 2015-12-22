@@ -40,5 +40,6 @@ IObject		*BydoAlien::BasicShoot()
   pos.x = _pos.x  + (_size.x / 2);
   pos.y = _pos.y + (_size.y / 2);
   _isShoot = false;
+  std::cout << "max ID : " << _maxId << std::endl;
   return new BasicAlienProjectile(_speed, pos, _maxId++);
 }

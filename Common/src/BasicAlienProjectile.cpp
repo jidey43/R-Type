@@ -1,7 +1,7 @@
 # include "BasicAlienProjectile.hh"
 
 BasicAlienProjectile::BasicAlienProjectile(sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
-  : Projectile(speed, pos, sf::Vector2i(0,0), id, ObjectInfo::ALIENREGULAR)
+  : Projectile(speed, pos, sf::Vector2i(50,20), id, ObjectInfo::ALIENREGULAR)
 {}
 
 BasicAlienProjectile::~BasicAlienProjectile()

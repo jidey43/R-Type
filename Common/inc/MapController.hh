@@ -9,8 +9,8 @@
 # include "IServerPacket.hh"
 # include "../../SFML-2.3.2-uni/include/SFML/System/Clock.hpp"
 
-# define MAP_SIZE_Y 1080
 # define MAP_SIZE_X 1920
+# define MAP_SIZE_Y 1080
 
 class	MapController
 {
