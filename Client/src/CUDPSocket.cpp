@@ -13,11 +13,13 @@ int			CUDPSocket::startNetwork(std::string const &ip, std::string const &port, a
   ConnectionData *addr = NULL;
   int result;
 
+  memset(hints, 0, sizeof(*hints));
   hints->ai_flags = AI_PASSIVE;
   hints->ai_family = AF_INET;
   hints->ai_socktype = SOCK_DGRAM;
   hints->ai_protocol = IPPROTO_UDP;
   hints->ai_addr = INADDR_ANY;
+
 
   result = getaddrinfo(ip.c_str(), port.c_str(), hints, &addr);
   if (result != 0) {
