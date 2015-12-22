@@ -48,8 +48,7 @@ void		MapController::addObject(IObject* obj)
 
 void		MapController::addAlien(IObject* obj)
 {
-  IObject *o = new Alien(*(static_cast<Alien*>(obj)));
-  _map.push_back(o);
+  _map.push_back(obj);
 }
 
 void		MapController::updateMap(sf::Clock const& clock)
@@ -60,8 +59,11 @@ void		MapController::updateMap(sf::Clock const& clock)
   _deserializedMap->clear();
   while (it != _map.end())
     {
-      (*it)->update(clock, _map);
-      checkNewObj(it, (*it));
+      std::cout << "it : " << *it << std::endl;
+      // if (*it != NULL) // debug
+	(*it)->update(clock, _map);
+      // if (*it != NULL)
+	checkNewObj(it, (*it));
       if (it == _map.end())
 	break;
       ++it;

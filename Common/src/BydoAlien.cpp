@@ -29,7 +29,6 @@ bool		BydoAlien::update(sf::Clock const& clock)
 bool		BydoAlien::update(sf::Clock const& clock, std::vector<IObject*> &map)
 {
   this->update(clock);
-  map.push_back(this->BasicShoot());
   this->collision(map);
   return (_isAlive);
 }
