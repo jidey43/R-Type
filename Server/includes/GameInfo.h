@@ -2,7 +2,7 @@
 # define GAMEINFO_H_
 
 # include <string>
-# include <vector>
+# include <vector> 
 # include "UThread.h"
 # include "ClientInfo.h"
 
