@@ -10,11 +10,12 @@ Alien::~Alien() {}
 
 bool		        Alien::update(sf::Clock const&, std::vector<IObject*>&)
 {
-
+	return true;
 }
+
 bool		        Alien::update(sf::Clock const&)
 {
-
+	return true;
 }
 
 const float		&Alien::getCoeff() const
