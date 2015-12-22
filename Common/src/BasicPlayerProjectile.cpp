@@ -2,7 +2,9 @@
 
 BasicPlayerProjectile::BasicPlayerProjectile(sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
   : Projectile(speed, pos, sf::Vector2i(10,10), id, ObjectInfo::PLAYERREGULAR)
-{}
+{
+  std::cout << "pos shot : " << pos.x << "  " << pos.y << std::endl;
+}
 
 BasicPlayerProjectile::~BasicPlayerProjectile()
 {}

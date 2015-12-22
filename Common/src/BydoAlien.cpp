@@ -16,7 +16,8 @@ BydoAlien::BydoAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, floa
 }
 
 BydoAlien::~BydoAlien()
-{}
+{
+}
 
 bool		BydoAlien::update(sf::Clock const& clock)
 {
@@ -39,7 +40,6 @@ IObject		*BydoAlien::BasicShoot()
 
   pos.x = _pos.x + _speed.x;
   pos.y = _pos.y;
-  _maxId = _maxId + 1;
   _isShoot = true;
-  return new BasicAlienProjectile(_speed, pos, _maxId);
+  return new BasicAlienProjectile(_speed, pos, _maxId++);
 }
