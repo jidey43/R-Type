@@ -42,15 +42,19 @@ bool AssetsController::loadSoundAssets()
 bool AssetsController::loadShipsAssets()
 {
     _explosion = new sf::Texture;
-	for (int i = 0; i != 4; i++)
+	for (int i = 0; i != NUMBEROFSHIP; i++)
 	{
 		_ships.emplace_back(new sf::Texture);
 	}
 	if (
-		_ships[0]->loadFromFile(_assetsPath + "ships/ship1.png") &&
-		_ships[1]->loadFromFile(_assetsPath + "ships/ship2.png") &&
-		_ships[2]->loadFromFile(_assetsPath + "ships/ship3.png") &&
-		_ships[3]->loadFromFile(_assetsPath + "ships/ship4.png") &&
+		_ships[PONE]->loadFromFile(_assetsPath + "ships/ship1.png") &&
+		_ships[PTWO]->loadFromFile(_assetsPath + "ships/ship2.png") &&
+		_ships[PTHREE]->loadFromFile(_assetsPath + "ships/ship3.png") &&
+		_ships[PFOUR]->loadFromFile(_assetsPath + "ships/ship4.png") &&
+		_ships[PONEFIRE]->loadFromFile(_assetsPath + "ships/ship1prop.png") &&
+		_ships[PTWOFIRE]->loadFromFile(_assetsPath + "ships/ship2prop.png") &&
+		_ships[PTHREEFIRE]->loadFromFile(_assetsPath + "ships/ship3prop.png") &&
+		_ships[PFOURFIRE]->loadFromFile(_assetsPath + "ships/ship4prop.png") &&
         _explosion->loadFromFile(_assetsPath + "explosion.png")
 		)
 		return true;
@@ -128,9 +132,9 @@ sf::Music * AssetsController::getSoundTrack()
 	return _soundTrack;
 }
 
-sf::Texture* AssetsController::getShipTexture(int id)
+sf::Texture* AssetsController::getShipTexture(Ship id)
 {
-	return _ships[id - 1];
+	return _ships[id];
 }
 
 sf::Texture* AssetsController::getBackground(int id)

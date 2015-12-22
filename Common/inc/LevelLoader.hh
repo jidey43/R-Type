@@ -26,9 +26,8 @@ private:
   std::string			 _oldName;
   std::ifstream			 _levelFile;
   std::deque<std::string>	 _lines;
-  std::string			 _compare[8];
+  std::string			 _compare[12];
   unsigned int		        _wavesCount;
 };
 
 #endif
-
