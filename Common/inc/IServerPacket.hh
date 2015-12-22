@@ -77,6 +77,7 @@ typedef struct
   int				id;
   float				x;
   float				y;
+  float				speed;
   uint32_t			magic;
   enum ObjectInfo::WaveType	iatype;
 } 	   CreIAData;

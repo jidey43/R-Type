@@ -17,8 +17,7 @@ bool		BasicPlayerProjectile::update(sf::Clock const& clock)
     }
   this->_pos.x = this->_pos.x + this->_speed.x;
   return true;
-
- }
+}
 
 bool		BasicPlayerProjectile::update(sf::Clock const& clock, std::vector<IObject*>& map)
 {
