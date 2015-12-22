@@ -8,8 +8,8 @@
 #include <vector>
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include "CTCPSocket.h"
-#include "CUDPSocket.h"
+#include "CTCPSocket.hh"
+#include "CUDPSocket.hh"
 #include "CINetwork.hh"
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 
@@ -50,20 +50,20 @@ bool WNetwork<T>::initClientSocket(std::string const &ip, std::string const &por
 template <typename T>
 void		WNetwork<T>::selectFD(std::vector<SOCKET>& fd, struct timeval *to)
 {
-  std::vector<int>	buffer;
+  std::vector<unsigned int>	buffer;
   SOCKET			maxFd = 0;
 
   FD_ZERO(_readSet);
-  for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
+  for (std::vector<unsigned int>::iterator it = fd.begin(); it != fd.end(); ++it)
     {
       FD_SET((*it), _readSet);
-      if (*it > maxFd)
+      if ((unsigned int)*it > maxFd)
 	maxFd = *it;
     }
   if (select(maxFd + 1, _readSet, NULL, NULL, to) < 0) {
     throw Exceptions::NetworkExcept("SELECT ERROR", errno);
   }
-  for (std::vector<int>::iterator it = fd.begin(); it != fd.end(); ++it)
+  for (std::vector<unsigned int>::iterator it = fd.begin(); it != fd.end(); ++it)
     {
       if (FD_ISSET((*it), _readSet))
 	buffer.push_back((*it));
@@ -92,7 +92,7 @@ void			WNetwork<T>::getServAddr(std::string const& ip, std::string const& port, 
   he = gethostbyname(ip.c_str());
   memcpy(&(addr->sin_addr), he->h_addr_list[0], he->h_length);
   addr->sin_family = AF_INET;
-  addr->sin_port = htons(port.c_str());
+  addr->sin_port = htons(atoi(port.c_str()));
 }
 
 template <typename T>

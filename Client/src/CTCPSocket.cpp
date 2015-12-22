@@ -37,7 +37,7 @@ SOCKET			CTCPSocket::startNetwork(std::string const &ip, std::string const &port
 
 void	CTCPSocket::sendData(const void *buffer, int size, SOCKET socket, ClientDatas *addr)
 {
-  int res = send(socket, (void*)buffer, size, 0);
+  int res = send(socket, (char*)buffer, size, 0);
 
   if (res == -1)
     throw Exceptions::NetworkExcept("SEND FAILED", errno);
@@ -50,7 +50,7 @@ void			CTCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *a
   int			addr_len = sizeof(addr);
   int			res;
 
-  res = recv(socket, (void*)buffer, size, 0);
+  res = recv(socket, (char*)buffer, size, 0);
 
   if (res == -1)
     throw Exceptions::NetworkExcept("RECEIVE FAILED", errno);

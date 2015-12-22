@@ -11,6 +11,7 @@ bool		BasicAlienProjectile::update(sf::Clock const& clock, std::vector<IObject*>
 {
   this->update(clock);
   this->collision(map);
+  return true;
 }
 
 bool		BasicAlienProjectile::update(sf::Clock const& clock)
@@ -19,4 +20,5 @@ bool		BasicAlienProjectile::update(sf::Clock const& clock)
       || _pos.y + _size.y < 0 || _pos.y > MAP_SIZE_Y)
     _isAlive = false;
   this->_pos.x = this->_pos.x + this->_speed.x;
+  return true;
 }

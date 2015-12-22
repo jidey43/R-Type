@@ -3,13 +3,13 @@
 
 # include <string.h>
 # include "NetworkDefines.h"
-
+# pragma pack (1)
 typedef struct
 {
   uint32_t			magic;
   ClientTCPCommand		command;
   int				size;
-} __attribute__ ((packed))	ClientTCPHeader;
+} ClientTCPHeader;
 
 typedef struct
 {
@@ -17,24 +17,24 @@ typedef struct
   ClientUDPCommand		command;
   uint32_t			size;
   uint32_t			idx;
-} __attribute__ ((packed))	ClientUDPHeader;
+} ClientUDPHeader;
 
 typedef struct
 {
   int		id;
-} __attribute__ ((packed))	JoinData;
+} JoinData;
 
 typedef struct
 {
   char				data[BUFF_LEN];
   uint32_t			magic;
-} __attribute__ ((packed))	stringData;
+} stringData;
 
 typedef struct
 {
   Direction			dir;
   uint32_t			magic;
-}				SendMoveData;
+} SendMoveData;
 
 typedef struct
 {
@@ -60,5 +60,7 @@ public:
   virtual bool			checkHeader() = 0;
   virtual size_t		getPacketSize() const = 0;
 };
+
+# pragma pack ()
 
 #endif
