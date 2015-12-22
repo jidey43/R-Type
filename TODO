@@ -18,6 +18,7 @@ finir les scores
 
 patch la reception des games (des game packet) + bouton refresh
 
+patch la reconnexion à une game en cours
 
 OPTIONAL :
 
