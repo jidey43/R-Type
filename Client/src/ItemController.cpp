@@ -93,7 +93,6 @@ void ItemController::deleteObject(DelItemPacket *packet)
     }
   if (i == _items.size())
     return;
-  //  addExplosion(dynamic_cast<IObject*>(_items[i])->getPos());
   addExplosion(static_cast<sf::Sprite*>(_items[i]->getDrawable())->getPosition());
   _items.erase(_items.begin() + i);
 }
