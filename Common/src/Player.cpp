@@ -4,7 +4,7 @@
 extern unsigned int _maxId;
 
 Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
-  : Object(speed, pos, sf::Vector2i(70,30), ObjectInfo::PLAYER, id),
+  : Object(speed, pos, sf::Vector2i(100,30), ObjectInfo::PLAYER, id),
     _canShoot(true),
     _pauseShotDelay(sf::milliseconds(150)),
     _lastLoopTime(sf::milliseconds(0))
