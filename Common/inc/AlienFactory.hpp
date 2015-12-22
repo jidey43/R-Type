@@ -34,6 +34,7 @@ public:
 	  obj->push_back(NULL);
 	if ((*it)->getCount() <= 0)
 	  _order.erase(it);
+      }
     return (obj);
   }
 

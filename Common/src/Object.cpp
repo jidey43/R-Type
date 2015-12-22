@@ -83,13 +83,19 @@ bool			Object::collision(std::vector<IObject*>& map)
 	  // if (this->getObjType() == ObjectInfo::PLAYER)
 	  //   std::cout << "PLAYERRRRRR\n";
 	    // std::cout << "START COLLISION pos shot : " << this->getPos().x << " " << this->getPos().y << "\npos alien : " << (*it)->getPos().x << " " << (*it)->getPos().y << "\n";
+  	  // if ((this != *it)
+	  //     && ((this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x)
+	  // 	  && (this->getPos().x + this->getSize().x >= (*it)->getPos().x)
+	  // 	  && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y)
+	  // 	  && (this->getPos().y + this->getSize().y >= (*it)->getPos().y)))
+  	  //   {
+	      // std::cout << "COLLISION [" << this->getObjType() << "] !!!! entre" << this->getId() << " and " << (*it)->getId() << std::endl;
   	  if ((this != *it)
-	      && ((this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x)
+	      && ( ( (this->getPos().x >= (*it)->getPos().x) && (this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x) && (this->getPos().y >= (*it)->getPos().y) && (this->getPos().y <= (*it)->getPos().y + (*it)->getPos().y))
 		  && (this->getPos().x + this->getSize().x >= (*it)->getPos().x)
 		  && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y)
 		  && (this->getPos().y + this->getSize().y >= (*it)->getPos().y)))
   	    {
-	      // std::cout << "COLLISION [" << this->getObjType() << "] !!!! entre" << this->getId() << " and " << (*it)->getId() << std::endl;
   	      _life = _life - 1;
   	    }
   	}
