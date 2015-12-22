@@ -66,15 +66,19 @@ void		FactoryManager::initialiseLevel()
 std::vector<IObject*>		*FactoryManager::update(const sf::Clock &clock)
 {
   std::vector<IObject*>		*list = new std::vector<IObject*>;
-  IObject			*obj;
+  std::vector<IObject*>		*obj;
 
   for (std::vector<IAlienFactory*>::iterator it = _factories.begin(); it != _factories.end(); it++)
     {
       obj = (*it)->getNextEnemy(clock);
-      if (obj != NULL)
+      for (auto it = obj->begin(); it != obj->end(); it++)
 	{
-	  list->push_back(obj);
+	  if (*it != NULL)
+	    {
+	      list->push_back(*it);
+	    }
 	}
+      delete obj;
     }
   return (list);
 }
