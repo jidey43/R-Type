@@ -20,6 +20,8 @@ patch la reception des games (des game packet) + bouton refresh
 
 patch la reconnexion à une game en cours
 
+patch segfault plein d'aliens
+
 OPTIONAL :
 
 faire l'index dans le header des packets
