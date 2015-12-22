@@ -142,7 +142,7 @@ void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand
       client->setName(static_cast<CAuthUDPPacket*>(packet)->getData()->data);
       client->setAuth(true);
       client->setID(_maxId++);
-      _map->addObject(new Player(sf::Vector2f(10,6), sf::Vector2f(50,50), client->getID()));
+      _map->addObject(new Player(sf::Vector2f(10,10), sf::Vector2f(50,50), client->getID()));
     }
    player = static_cast<Player*>(_map->getPlayer(client->getID()));
    _map->generatePacketsMap(player);

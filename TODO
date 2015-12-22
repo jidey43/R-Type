@@ -12,4 +12,4 @@ corriger les hitbox
 
 augmenter la vitesse des shots
 
-avoir des sprite pour chaque alien
+avoir des (sprite, pattern déplacement, shot) différent pour chaque alien
