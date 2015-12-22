@@ -35,12 +35,13 @@ bool		BydoAlien::update(sf::Clock const& clock, std::vector<IObject*> &map)
   return (_isAlive);
 }
 
-IObject		*BydoAlien::BasicShoot()
+BasicAlienProjectile		*BydoAlien::BasicShoot()
 {
   sf::Vector2f pos;
 
   pos.x = _pos.x + _speed.x;
   pos.y = _pos.y;
-  _isShoot = true;
+  _isShoot = false;
+  std::cout << "max ID : " << _maxId << std::endl;
   return new BasicAlienProjectile(_speed, pos, _maxId++);
 }

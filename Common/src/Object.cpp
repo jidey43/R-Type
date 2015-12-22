@@ -65,12 +65,12 @@ void			Object::setShooting(bool shoot)
 
 bool			Object::collision(std::vector<IObject*>& map)
 {
-  if (this->getObjType() == ObjectInfo::ALIEN)
-    std::cout << "BEGIN ALIENNNNNN\n";
+  // if (this->getObjType() == ObjectInfo::ALIEN)
+  //   std::cout << "BEGIN ALIENNNNNN\n";
   for (std::vector<IObject*>::iterator it = map.begin(); it != map.end(); it++)
     {
-      std::cout << "it :" << *it << "\n";
-      std::cout << "type : " << (*it)->getObjType() << std::endl;
+      // std::cout << "it :" << *it << "\n";
+      // std::cout << "type : " << (*it)->getObjType() << std::endl;
       // si this = player et que ennemi = shot&&alien ou alien
       if ((this->getObjType() == ObjectInfo::PLAYER && (((*it)->getObjType() == ObjectInfo::SHOT
 	  && static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::ALIENREGULAR) || (*it)->getObjType() == ObjectInfo::ALIEN))

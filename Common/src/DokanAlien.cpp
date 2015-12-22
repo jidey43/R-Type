@@ -31,7 +31,7 @@ bool		DokanAlien::update(sf::Clock const& clock)
   return true;
 }
 
-IObject		*DokanAlien::BasicShoot()
+BasicAlienProjectile	*DokanAlien::BasicShoot()
 {
   sf::Vector2f pos;
 
