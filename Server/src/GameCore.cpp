@@ -50,8 +50,7 @@ void		GameCore::updateMap()
   aliens = _factory->update(_clock);
   for (auto it = aliens->begin(); it != aliens->end(); ++it)
     {
-      std::cout << "IN" << std::endl;
-      _map->addObject(new Alien((*it)->getSpeed(), (*it)->getPos(), (*it)->getSize(), (*it)->getId(), static_cast<Alien*>(*it)->getCoeff()));
+      _map->addObject(*(*it));
       updateMap();
     }
   toSend = generatePackets(aliens);

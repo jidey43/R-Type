@@ -19,7 +19,7 @@ public:
   ~MapController();
 
 
-  void		addObject(IObject*);
+  void		addObject(const IObject&);
   void		updateMap(sf::Clock const&);
   std::vector<IServerPacket<ServerUDPResponse>*>*     getMap() const;
   void		updatePlayer(IObject*, sf::Clock const&);
