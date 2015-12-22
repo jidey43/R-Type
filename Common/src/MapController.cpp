@@ -54,7 +54,7 @@ void		MapController::updateMap(sf::Clock const& clock)
   _deserializedMap->clear();
   while (it != _map.end())
     {
-      (*it)->update(_map, clock);
+      (*it)->update(clock, _map);
       checkNewObj(it, (*it));
       if (it == _map.end())
 	break;
@@ -94,7 +94,7 @@ void		MapController::checkNewObj(std::vector<IObject*>::iterator& it, IObject* o
 
 void		MapController::updatePlayer(IObject* player, sf::Clock const& clock)
 {
-  player->update(_map, clock);
+  player->update(clock, _map);
 }
 
 IObject*	MapController::getPlayer(int id)

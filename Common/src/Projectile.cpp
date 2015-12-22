@@ -12,7 +12,7 @@ bool		Projectile::update(sf::Clock const& clock)
   this->_pos.x = this->_pos.x + this->_speed.x;
 }
 
-bool		Projectile::update(std::vector<IObject*> &map, sf::Clock const& clock)
+bool		Projectile::update(sf::Clock const& clock, std::vector<IObject*> &map)
 {
   this->update(clock);
   this->collision(map);

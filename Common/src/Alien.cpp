@@ -13,14 +13,6 @@ const float		&Alien::getCoeff() const
   return _coeff;
 }
 
-bool		Alien::update(std::vector<IObject*>& map, sf::Clock const& clock)
-{
-}
-
-bool		Alien::update(sf::Clock const& clock)
-{
-}
-
 const ObjectInfo::WaveType	&Alien::getRealType() const
 {
   return _realType;

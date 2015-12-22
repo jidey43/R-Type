@@ -20,8 +20,7 @@ bool                Explosion::update(sf::Clock const& clock)
     if ((clock.getElapsedTime() - _lastUpdate) > _referential)
     {
     _lastUpdate = clock.getElapsedTime();
-    _sprite->setTextureRect(sf::IntRect(0, 0, 120 * _stage, 100));
-   // _sprite->setPosition(sf::Vector2f(_pos.x - (120 *_stage) , _pos.y));
+    _sprite->setTextureRect(sf::IntRect((120 * _stage) - 120,0 , 120, 100));
     _stage += 1;
     if (_stage == 5)
         return false;

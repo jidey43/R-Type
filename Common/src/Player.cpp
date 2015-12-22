@@ -30,7 +30,7 @@ bool		Player::update(sf::Clock const& clock)
   return true;
 }
 
-bool		Player::update(std::vector<IObject*>& map, sf::Clock const& clock)
+bool		Player::update(sf::Clock const& clock, std::vector<IObject*>& map)
 {
   _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
   _lastLoopTime = clock.getElapsedTime();

@@ -87,6 +87,6 @@ bool			Object::collision(std::vector<IObject*>& map)
   	}
     }
   if (_life <= 0)
-      _isAlive = false;
+    _isAlive = false;
   return (_isAlive);
 }
