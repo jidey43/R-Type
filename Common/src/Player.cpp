@@ -53,7 +53,6 @@ BasicPlayerProjectile		*Player::BasicShoot()
   _isShoot = false;
   pos.x = _pos.x + _size.x;
   pos.y = _pos.y + _size.y;
-  std::cout << "max ID : " << _maxId << std::endl;
   return new BasicPlayerProjectile(_speed, pos, _maxId++);
 }
 

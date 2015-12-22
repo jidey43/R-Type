@@ -30,9 +30,9 @@ void ItemController::update()
 	{
 	  it = _unlogicalItems.erase(it);
 	}
-      else    
+      else
 	++it;
-    } 
+    }
 }
 
 void ItemController::setBackground(int id)
@@ -101,10 +101,9 @@ void ItemController::deleteObject(DelItemPacket *packet)
 void ItemController::addAlien(CreIAPacket *packet)
 {
   ObjectInfo::WaveType type = packet->getData()->iatype;
-  sf::Vector2f speed(1, 1);
+  sf::Vector2f speed(packet->getData()->speed, packet->getData()->speed);
   sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
   unsigned int id = packet->getData()->id;
-
 
   switch (type)
     {
