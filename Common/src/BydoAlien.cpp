@@ -42,9 +42,6 @@ BasicAlienProjectile		*BydoAlien::BasicShoot()
   pos.x = _pos.x + _speed.x;
   pos.y = _pos.y;
   _isShoot = false;
-<<<<<<< HEAD
   std::cout << "max ID : " << _maxId << std::endl;
-=======
->>>>>>> c8476b8e9e9d0098881f1bff55e423447725fe4f
   return new BasicAlienProjectile(_speed, pos, _maxId++);
 }
