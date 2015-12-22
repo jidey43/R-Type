@@ -5,7 +5,7 @@
 extern unsigned int _maxId;
 
 DokanAlien::DokanAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
-  : Alien(speed, pos, sf::Vector2i(0, 0), id, coeff)
+  : Alien(speed, pos, sf::Vector2i(100, 100), id, coeff)
 {
   _realType = ObjectInfo::DOKAN;
   _f = 30;
@@ -21,6 +21,8 @@ bool		DokanAlien::update(sf::Clock const& clock, std::vector<IObject*>& map)
 {
   this->update(clock);
   this->collision(map);
+  if ((int)(_pos.x) % 400 == 0)
+    _isShoot = true;
   return (_isAlive);
 }
 
@@ -37,5 +39,6 @@ BasicAlienProjectile	*DokanAlien::BasicShoot()
 
   pos.x = _pos.x + _speed.x;
   pos.y = _pos.y;
+  _isShoot = false;
   return new BasicAlienProjectile(_speed, pos, _maxId++);
 }
