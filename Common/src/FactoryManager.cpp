@@ -16,7 +16,7 @@ FactoryManager::FactoryManager(MapController *map, const char *levelFileName) : 
   _factories.push_back(new AlienFactory<BydoAlien>(ObjectInfo::WaveType::BYDO));
   _factories.push_back(new AlienFactory<GlamAlien>(ObjectInfo::WaveType::GLAM));
   _factories.push_back(new AlienFactory<DokanAlien>(ObjectInfo::WaveType::DOKAN));
-  _nbFactory = 3;
+  _nbFactory = _factories.size();
 }
 
 FactoryManager::~FactoryManager()

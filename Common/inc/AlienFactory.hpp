@@ -25,8 +25,7 @@ public:
       return NULL;
     if (clock.getElapsedTime() >= _order.front()->getTime())
       {
-	_maxId = _maxId + 1;
-        obj = new T(_order.front()->getSpeed(), _order.front()->getPos(), _maxId, _order.front()->getCoeff());
+        obj = new T(_order.front()->getSpeed(), _order.front()->getPos(), _maxId++, _order.front()->getCoeff());
 	_order.front()->pop();
       }
     else

@@ -50,7 +50,7 @@ void		GameCore::updateMap()
   for (auto it = aliens->begin(); it != aliens->end(); ++it)
     {
       _map->addAlien(*it);
-      toSend->push_back(new CreIAPacket(CRE_IA, 0, _maxId++, (*it)->getPos().x, (*it)->getPos().y, static_cast<Alien*>((*it))->getRealType()));
+      toSend->push_back(new CreIAPacket(CRE_IA, 0, _maxId, (*it)->getPos().x, (*it)->getPos().y, static_cast<Alien*>((*it))->getRealType()));
     }
   _map->updateMap(_clock);
   // toSend = generatePackets(aliens);
@@ -73,7 +73,9 @@ std::vector<IServerPacket<ServerUDPResponse>*>*		GameCore::generatePackets(std::
   std::vector<IServerPacket<ServerUDPResponse>*>*	ret = new std::vector<IServerPacket<ServerUDPResponse>*>;
 
   for (std::vector<IObject*>::iterator it = aliens->begin(); it != aliens->end(); ++it)
-    ret->push_back(new CreIAPacket(CRE_IA, 0, _maxId++, (*it)->getPos().x, (*it)->getPos().y, static_cast<Alien*>((*it))->getRealType()));
+    {
+      ret->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, static_cast<Alien*>((*it))->getRealType()));
+    }
     return ret;
 }
 
