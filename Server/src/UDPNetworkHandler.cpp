@@ -78,10 +78,7 @@ IClientPacket<ClientUDPCommand>*	UDPNetworkHandler::receiveFrom(GamerInfo *clien
     return NULL;
   packet = _factory->build(header);
   if (!packet || !packet->checkHeader())
-    {
-      return NULL;
-      // throw Exceptions::BadHeaderRequest("Error, received bad Header from known client");
-    }
+    throw Exceptions::BadHeaderRequest("Error, received bad Header from known client");
   buff = new char[header->size];
   memset(buff, 0, header->size);
   if (header->size != 0)
