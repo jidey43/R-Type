@@ -122,14 +122,14 @@ bool AssetsController::loadAliens()
     _aliens.emplace_back(new sf::Texture);
   if (
       _aliens[BYDO]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
-      _aliens[GLAM]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
-      _aliens[DOKAN]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
-      _aliens[KAYBEROS]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
-      _aliens[RIOS]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
-      _aliens[SCANT]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
-      _aliens[SHELL]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
-      _aliens[YORK]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
-      _aliens[XELF16]->loadFromFile(_assetsPath + "aliens/bydo.png")
+      _aliens[GLAM]->loadFromFile(_assetsPath + "aliens/glam.png") &&
+      _aliens[DOKAN]->loadFromFile(_assetsPath + "aliens/dokan.png") &&
+      _aliens[KAYBEROS]->loadFromFile(_assetsPath + "aliens/kayberos.png") &&
+      _aliens[RIOS]->loadFromFile(_assetsPath + "aliens/rios.png") &&
+      _aliens[SCANT]->loadFromFile(_assetsPath + "aliens/scant.png") &&
+      _aliens[SHELL]->loadFromFile(_assetsPath + "aliens/shell.png") &&
+      _aliens[YORK]->loadFromFile(_assetsPath + "aliens/york.png") &&
+      _aliens[XELF16]->loadFromFile(_assetsPath + "aliens/xelf16.png")
       )
     return true;
   return false;

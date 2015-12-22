@@ -6,6 +6,7 @@
 # include <deque>
 # include <cstddef>
 # include <vector>
+# include "ObjectInfo.hpp"
 # include "Waves.hh"
 
 class	LevelLoader
@@ -26,7 +27,7 @@ private:
   std::string			 _oldName;
   std::ifstream			 _levelFile;
   std::deque<std::string>	 _lines;
-  std::string			 _compare[12];
+  std::string			 _compare[ObjectInfo::NUMBEROFWAVE + ObjectInfo::NBOBSTACLE];
   unsigned int		        _wavesCount;
 };
 
