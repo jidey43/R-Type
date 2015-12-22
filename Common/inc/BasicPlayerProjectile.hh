@@ -11,7 +11,7 @@ public:
 
 public:
   bool		update(sf::Clock const&);
-  bool		update(std::vector<IObject*>&, sf::Clock const&);
+  bool		update(sf::Clock const&, std::vector<IObject*>&);
 };
 
 # endif
