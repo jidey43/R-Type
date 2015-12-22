@@ -17,6 +17,10 @@ LevelLoader::LevelLoader()
   _compare[5] = "shell";
   _compare[6] = "york";
   _compare[7] = "xelf16";
+  _compare[8] = "wall1";
+  _compare[9] = "wall2";
+  _compare[10] = "wall3";
+  _compare[11] = "wall4";
 }
 
 LevelLoader::~LevelLoader() {}
@@ -104,9 +108,10 @@ Waves						*LevelLoader::getNextWave()
   std::istringstream			buffer;
   std::string				name;
   float					fnb;
-  int					inb;
-  int					nb;
+  int					  inb;
+  int					  nb;
   float					coeff;
+  int           obstacleType;
 
   buffer.str (str);
   buffer >> name;
@@ -127,9 +132,22 @@ Waves						*LevelLoader::getNextWave()
 
   for (inb = 0; name != _compare[inb]; inb = inb + 1);
 
+  if (inb > 12)
+  {
+    return (NULL);
+  }
+  else if (inb > 8)
+  {
+    obstacleType = inb - 8;
+    inb -= 4;
+  }
+  else {
+    obstacleType = -1;
+  }
+
   ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
   _lines.pop_front();
-  Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type);
+  Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type, (ObjectInfo::ObstacleType)obstacleType);
   return (wave);
 }
 

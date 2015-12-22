@@ -7,7 +7,7 @@ enum Type
   {
     PLAYER = 0,
     ALIEN,
-    SHOT
+    SHOT,
   };
 
 enum PlayerType
@@ -37,8 +37,17 @@ enum WaveType
     SHELL,
     YORK,
     XELF16,
-    WALL,
+    OBSTACLE,
     NUMBEROFWAVE
+  };
+
+enum ObstacleType
+  {
+    NOT_WALL = -1,
+    TYPE1,
+    TYPE2,
+    TYPE3,
+    TYPE4
   };
 };
 
