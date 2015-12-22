@@ -20,7 +20,7 @@ bool		Projectile::update(sf::Clock const& clock, std::vector<IObject*> &map)
   return true;
 }
 
-const ObjectInfo::ShotType	&Projectile::getRealType() const
+ObjectInfo::ShotType	Projectile::getRealType() const
 {
   return _realType;
 }

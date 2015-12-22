@@ -68,13 +68,18 @@ bool			Object::collision(std::vector<IObject*>& map)
   for (std::vector<IObject*>::iterator it = map.begin(); it != map.end(); it++)
     {
       // si this = player et que ennemi = shot&&alien ou alien
-      if ((this->getObjType() == ObjectInfo::PLAYER && (((*it)->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::ALIENREGULAR) || (*it)->getObjType() == ObjectInfo::ALIEN))
-	  || (this->getObjType() == ObjectInfo::ALIEN && (((*it)->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR) || (this)->getObjType() == ObjectInfo::PLAYER))
+      if ((this->getObjType() == ObjectInfo::PLAYER && (((*it)->getObjType() == ObjectInfo::SHOT
+	  && static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::ALIENREGULAR) || (*it)->getObjType() == ObjectInfo::ALIEN))
+	  || (this->getObjType() == ObjectInfo::ALIEN && (((*it)->getObjType() == ObjectInfo::SHOT
+	  && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR) || this->getObjType() == ObjectInfo::PLAYER))
 	  || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR && (*it)->getObjType() == ObjectInfo::ALIEN)
 	  || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::ALIENREGULAR && (*it)->getObjType() == ObjectInfo::PLAYER))	  
   	{
-	  // if (this->getObjType() == ObjectInfo::SHOT)
-	  //   std::cout << "START COLLISION pos shot : " << this->getPos().x << " " << this->getPos().y << "\npos alien : " << (*it)->getPos().x << " " << (*it)->getPos().y << "\n";
+	  if (this->getObjType() == ObjectInfo::ALIEN)
+	    std::cout << "ALIENNNNNN\n";
+	  if (this->getObjType() == ObjectInfo::PLAYER)
+	    std::cout << "PLAYERRRRRR\n";
+	    // std::cout << "START COLLISION pos shot : " << this->getPos().x << " " << this->getPos().y << "\npos alien : " << (*it)->getPos().x << " " << (*it)->getPos().y << "\n";
   	  if ((this != *it)
 	      && ((this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x)
 		  && (this->getPos().x + this->getSize().x >= (*it)->getPos().x)

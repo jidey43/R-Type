@@ -20,6 +20,7 @@ public:
 
 
   void		addObject(IObject*);
+  void		addAlien(IObject*);
   void		updateMap(sf::Clock const&);
   std::vector<IServerPacket<ServerUDPResponse>*>*     getMap() const;
   void		updatePlayer(IObject*, sf::Clock const&);
