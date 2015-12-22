@@ -13,12 +13,25 @@ const float		&Alien::getCoeff() const
   return _coeff;
 }
 
-bool		Alien::update(std::vector<IObject*>& map, sf::Clock const& clock)
+Alien::Alien(const IObject &obj)
 {
-}
-
-bool		Alien::update(sf::Clock const& clock)
-{
+  if (this != obj)
+    {
+      this._id = obj._id;
+      this._life = obj._life;
+      this._isAlive = obj._isAlive;
+      this._isShoot = obj._isShoot;
+      this._speed = obj._speed;
+      this._size = obj._size;
+      this._pos = obj._pos;
+      this._objType = obj._objType;
+      this._coeff = obj.coeff;
+      this._f = obj._f;
+      this._a = obj._a;
+      this._rad = obj._rad;
+      this._realType = obj._realType;
+    }
+  return (*this);
 }
 
 const ObjectInfo::WaveType	&Alien::getRealType() const
