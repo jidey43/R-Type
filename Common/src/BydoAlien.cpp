@@ -35,7 +35,7 @@ bool		BydoAlien::update(sf::Clock const& clock, std::vector<IObject*> &map)
   return (_isAlive);
 }
 
-BasicAlienProjectile		*BydoAlien::BasicShoot()
+IObject		*BydoAlien::BasicShoot()
 {
   sf::Vector2f pos;
 
