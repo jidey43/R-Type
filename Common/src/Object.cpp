@@ -69,6 +69,7 @@ bool			Object::collision(std::vector<IObject*>& map)
   //   std::cout << "BEGIN ALIENNNNNN\n";
   for (std::vector<IObject*>::iterator it = map.begin(); it != map.end(); it++)
     {
+      // std::cout << "it :" << *it << "\n";
       // std::cout << "type : " << (*it)->getObjType() << std::endl;
       // si this = player et que ennemi = shot&&alien ou alien
       if ((this->getObjType() == ObjectInfo::PLAYER && (((*it)->getObjType() == ObjectInfo::SHOT

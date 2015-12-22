@@ -80,13 +80,13 @@ void		MapController::checkNewObj(std::vector<IObject*>::iterator& it, IObject* o
       obj->setShooting(false);
       if (obj->getObjType() == ObjectInfo::PLAYER)
   	{
-	  BasicPlayerProjectile* shot = static_cast<Player*>(obj)->BasicShoot();
+	  IObject* shot = static_cast<Player*>(obj)->BasicShoot();
   	  _toAppend.push_back(shot);
 	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, _maxId - 1, shot->getPos().x, shot->getPos().y, shot->getSpeed().x, ObjectInfo::PLAYERREGULAR));
   	}
       if (obj->getObjType() == ObjectInfo::ALIEN)
   	{
-	  BasicAlienProjectile* shot = static_cast<Alien*>(obj)->BasicShoot();
+	  IObject* shot = static_cast<Alien*>(obj)->BasicShoot();
   	  _toAppend.push_back(shot);
   	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, _maxId - 1, shot->getPos().x, shot->getPos().y, shot->getSpeed().x, ObjectInfo::ALIENREGULAR));
   	}
