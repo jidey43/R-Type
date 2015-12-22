@@ -65,8 +65,6 @@ void			Object::setShooting(bool shoot)
 
 bool			Object::collision(std::vector<IObject*>& map)
 {
-  // if (this->getObjType() == ObjectInfo::ALIEN)
-  //   std::cout << "BEGIN ALIENNNNNN\n";
   for (std::vector<IObject*>::iterator it = map.begin(); it != map.end(); it++)
     {
       // std::cout << "it :" << *it << "\n";
@@ -79,9 +77,7 @@ bool			Object::collision(std::vector<IObject*>& map)
 	  || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR && (*it)->getObjType() == ObjectInfo::ALIEN)
 	  || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::ALIENREGULAR && (*it)->getObjType() == ObjectInfo::PLAYER))
   	{
-	  // std::cout << "after segfault1\n";
 	  // if (this->getObjType() == ObjectInfo::PLAYER)
-	  //   std::cout << "PLAYERRRRRR\n";
 	    // std::cout << "START COLLISION pos shot : " << this->getPos().x << " " << this->getPos().y << "\npos alien : " << (*it)->getPos().x << " " << (*it)->getPos().y << "\n";
   	  if ((this != *it)
 	      && ((this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x)
@@ -89,13 +85,10 @@ bool			Object::collision(std::vector<IObject*>& map)
 		  && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y)
 		  && (this->getPos().y + this->getSize().y >= (*it)->getPos().y)))
   	    {
-	      // std::cout << "COLLISION [" << this->getObjType() << "] !!!! entre" << this->getId() << " and " << (*it)->getId() << std::endl;
+	      std::cout << "COLLISION entre this = " << this->getId() << " and other = " << (*it)->getId() << std::endl;
   	      _life = _life - 1;
   	    }
   	}
-      // else
-      // 	std::cout << "after segfault2\n";
-
     }
   if (_life <= 0)
     _isAlive = false;

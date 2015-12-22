@@ -13,3 +13,12 @@ corriger les hitbox
 augmenter la vitesse des shots
 
 avoir des (sprite, pattern déplacement, shot) différent pour chaque alien
+
+finir les scores
+
+patch la reception des games (des game packet) + bouton refresh
+
+
+OPTIONAL :
+
+faire l'index dans le header des packets
