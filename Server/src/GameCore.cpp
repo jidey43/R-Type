@@ -50,7 +50,7 @@ void		GameCore::updateMap()
   for (auto it = aliens->begin(); it != aliens->end(); ++it)
     {
       _map->addAlien(*it);
-      toSend->push_back(new CreIAPacket(CRE_IA, 0, _maxId, (*it)->getPos().x, (*it)->getPos().y, static_cast<Alien*>((*it))->getRealType()));
+      toSend->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getRealType()));
     }
   _map->updateMap(_clock);
   // toSend = generatePackets(aliens);
@@ -74,7 +74,7 @@ std::vector<IServerPacket<ServerUDPResponse>*>*		GameCore::generatePackets(std::
 
   for (std::vector<IObject*>::iterator it = aliens->begin(); it != aliens->end(); ++it)
     {
-      ret->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, static_cast<Alien*>((*it))->getRealType()));
+      ret->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getRealType()));
     }
     return ret;
 }
@@ -142,7 +142,6 @@ void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand
       client->setName(static_cast<CAuthUDPPacket*>(packet)->getData()->data);
       client->setAuth(true);
       client->setID(_maxId++);
-      std::cout << "max ID : " << _maxId << std::endl;
       _map->addObject(new Player(sf::Vector2f(10,6), sf::Vector2f(50,50), client->getID()));
     }
    player = static_cast<Player*>(_map->getPlayer(client->getID()));

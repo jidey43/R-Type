@@ -89,7 +89,7 @@ bool			Object::collision(std::vector<IObject*>& map)
 		  && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y)
 		  && (this->getPos().y + this->getSize().y >= (*it)->getPos().y)))
   	    {
-	      std::cout << "COLLISION [" << this->getObjType() << "] !!!! entre" << this->getId() << " and " << (*it)->getId() << std::endl;
+	      // std::cout << "COLLISION [" << this->getObjType() << "] !!!! entre" << this->getId() << " and " << (*it)->getId() << std::endl;
   	      _life = _life - 1;
   	    }
   	}

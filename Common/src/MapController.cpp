@@ -93,8 +93,8 @@ void		MapController::checkNewObj(std::vector<IObject*>::iterator& it, IObject* o
     }
   if (!obj->isAlive())
     {
-      if (obj->getObjType() == ObjectInfo::ALIEN)
-	std::cout << "DELETING !!" << std::endl;
+      // if (obj->getObjType() == ObjectInfo::ALIEN)
+      // 	std::cout << "DELETING !!" << std::endl;
 
       _deserializedMap->push_back(new DelItemPacket(DEL_ITEM, 0, obj->getId()));
       delete this->getPlayer(obj->getId());
