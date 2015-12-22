@@ -69,23 +69,24 @@ bool			Object::collision(std::vector<IObject*>& map)
     {
       // si this = player et que ennemi = shot&&alien ou alien
       if ((this->getObjType() == ObjectInfo::PLAYER && (((*it)->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::ALIENREGULAR) || (*it)->getObjType() == ObjectInfo::ALIEN))
-	  ||(this->getObjType() == ObjectInfo::ALIEN && (((*it)->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::PLAYERREGULAR) || (*it)->getObjType() == ObjectInfo::PLAYER)))
+	  || (this->getObjType() == ObjectInfo::ALIEN && (((*it)->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR) || (this)->getObjType() == ObjectInfo::PLAYER))
+	  || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR && (*it)->getObjType() == ObjectInfo::ALIEN)
+	  || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::ALIENREGULAR && (*it)->getObjType() == ObjectInfo::PLAYER))	  
   	{
+	  // if (this->getObjType() == ObjectInfo::SHOT)
+	  //   std::cout << "START COLLISION pos shot : " << this->getPos().x << " " << this->getPos().y << "\npos alien : " << (*it)->getPos().x << " " << (*it)->getPos().y << "\n";
   	  if ((this != *it)
 	      && ((this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x)
 		  && (this->getPos().x + this->getSize().x >= (*it)->getPos().x)
 		  && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y)
 		  && (this->getPos().y + this->getSize().y >= (*it)->getPos().y)))
   	    {
-	      std::cout << "COLLISION !!!! entre" << this->getId() << " and " << (*it)->getId() << std::endl;
+	      std::cout << "COLLISION [" << this->getObjType() << "] !!!! entre" << this->getId() << " and " << (*it)->getId() << std::endl;
   	      _life = _life - 1;
   	    }
   	}
     }
-  if (_life == 0)
-    {
+  if (_life <= 0)
       _isAlive = false;
-      return (_isAlive);
-    }
-  return (true);
+  return (_isAlive);
 }

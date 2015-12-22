@@ -1,7 +1,7 @@
 #include "Projectile.hh"
 
 Projectile::Projectile(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, unsigned int id, ObjectInfo::ShotType realType)
-  : Object(speed, pos, size, ObjectInfo::Type::SHOT, id), _realType(realType)
+  : Object(speed, pos, size, ObjectInfo::SHOT, id), _realType(realType)
 {
 }
 

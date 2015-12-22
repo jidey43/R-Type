@@ -37,6 +37,5 @@ IObject		*DokanAlien::BasicShoot()
 
   pos.x = _pos.x + _speed.x;
   pos.y = _pos.y;
-  _maxId = _maxId + 1;
-  return new BasicAlienProjectile(_speed, pos, _maxId);
+  return new BasicAlienProjectile(_speed, pos, _maxId++);
 }
