@@ -9,8 +9,7 @@ public:
   Projectile(sf::Vector2f, sf::Vector2f, sf::Vector2i, unsigned int, ObjectInfo::ShotType);
   ~Projectile();
 
-  const ObjectInfo::ShotType	&getRealType() const;
-
+  ObjectInfo::ShotType	getRealType() const;
 
 public:
   virtual bool		update(sf::Clock const&, std::vector<IObject*>&) = 0;

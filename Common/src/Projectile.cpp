@@ -18,7 +18,7 @@ bool		Projectile::update(sf::Clock const& clock, std::vector<IObject*> &map)
   this->collision(map);
 }
 
-const ObjectInfo::ShotType	&Projectile::getRealType() const
+ObjectInfo::ShotType	Projectile::getRealType() const
 {
   return _realType;
 }

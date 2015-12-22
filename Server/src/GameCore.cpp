@@ -56,6 +56,7 @@ void		GameCore::updateMap()
   toSend = generatePackets(aliens);
   toSend->insert(std::begin(*toSend), std::begin(*(_map->getMap())), std::end(*(_map->getMap())));
   this->sendMap(NULL, toSend);
+  delete aliens;
   delete toSend;
 }
 
