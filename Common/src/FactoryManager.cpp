@@ -41,10 +41,12 @@ void		FactoryManager::initialiseLevel()
   int j			= 0;
   int nb	        = _levelLoader.getWavesCount();
   std::vector<Waves*>	waves;
-
+  
   waves.push_back(_levelLoader.getNextWave());
   for (int i = 0; j != nb; i = i + 1)
     {
+      if (waves[j] == NULL)
+	j = j + 1;
       if (i >= static_cast<int>(_nbFactory))
 	{
 	  throw Exceptions::FactoryExcept("Error this Factory type is not declare");

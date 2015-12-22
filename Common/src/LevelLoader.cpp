@@ -16,11 +16,12 @@ LevelLoader::LevelLoader()
   _compare[4] = "rios";
   _compare[5] = "shell";
   _compare[6] = "york";
-  _compare[7] = "xelf16";
-  _compare[8] = "wall1";
-  _compare[9] = "wall2";
-  _compare[10] = "wall3";
-  _compare[11] = "wall4";
+  _compare[7] = "scant";
+  _compare[8] = "xelf16";
+  _compare[9] = "wall1";
+  _compare[10] = "wall2";
+  _compare[11] = "wall3";
+  _compare[12] = "wall4";
 }
 
 LevelLoader::~LevelLoader() {}
@@ -59,7 +60,7 @@ bool		LevelLoader::verifLine(const std::string &line)
 	  t.clear();
 	}
     }
-  if (tmp.size() != 7)
+  if (tmp.size() != 8)
     return (false);
   if (verifFirst(tmp.front()) == false)
     return (false);
@@ -129,22 +130,24 @@ Waves						*LevelLoader::getNextWave()
   buffer >> fnb;
   freq = sf::seconds(fnb);
   buffer >> coeff;
+  std::cout << "c'estl le coeff" << coeff << std::endl;
 
   for (inb = 0; name != _compare[inb]; inb = inb + 1);
 
-  if (inb > 12)
+  if (inb > 13)
   {
     return (NULL);
   }
-  else if (inb > 8)
+  else if (inb > 9)
   {
-    obstacleType = inb - 8;
-    inb -= 4;
+    obstacleType = inb - 9;
+    inb = 9;
   }
   else {
     obstacleType = -1;
   }
 
+  std::cout << inb << std::endl;
   ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
   _lines.pop_front();
   Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type, (ObjectInfo::ObstacleType)obstacleType);

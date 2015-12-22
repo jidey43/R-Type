@@ -45,7 +45,8 @@ public:
 
   void			setWave(Waves *wave)
   {
-    _order.push_back(wave);
+    if (wave != NULL)
+      _order.push_back(wave);
   }
 
 public:
