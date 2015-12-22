@@ -44,18 +44,16 @@ bool		GameCore::run()
 void		GameCore::updateMap()
 {
   std::vector<IObject*>		*aliens;
-  std::vector<IServerPacket<ServerUDPResponse>*>	*toSend;
+  std::vector<IServerPacket<ServerUDPResponse>*>	*toSend = new std::vector<IServerPacket<ServerUDPResponse>*>;
 
   aliens = _factory->update(_clock);
   for (auto it = aliens->begin(); it != aliens->end(); ++it)
     {
-      if (*it != NULL)
-	_map->addAlien(*it);
-      else
-	std::cout << "POINTER NULL\n";
+      _map->addAlien(*it);
+      toSend->push_back(new CreIAPacket(CRE_IA, 0, _maxId, (*it)->getPos().x, (*it)->getPos().y, static_cast<Alien*>((*it))->getRealType()));
     }
   _map->updateMap(_clock);
-  toSend = generatePackets(aliens);
+  // toSend = generatePackets(aliens);
   toSend->insert(toSend->begin(), _map->getMap()->begin(), _map->getMap()->end());
   this->sendMap(NULL, toSend);
   delete aliens;

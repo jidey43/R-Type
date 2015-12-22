@@ -12,7 +12,7 @@ public:
 public:
   bool		update(sf::Clock const&, std::vector<IObject*>&);
   bool		update(sf::Clock const&);
-  BasicAlienProjectile	*BasicShoot();
+  IObject	*BasicShoot();
 };
 
 # endif

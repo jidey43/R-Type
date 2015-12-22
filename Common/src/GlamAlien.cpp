@@ -33,7 +33,7 @@ bool		GlamAlien::update(sf::Clock const& clock, std::vector<IObject*>& map)
   return (_isAlive);
 }
 
-BasicAlienProjectile		*GlamAlien::BasicShoot()
+IObject		*GlamAlien::BasicShoot()
 {
   sf::Vector2f pos;
 
