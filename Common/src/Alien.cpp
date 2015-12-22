@@ -25,14 +25,14 @@ Alien::Alien(const Alien &obj)
     }
 }
 
-bool		        Alien::update(sf::Clock const&, std::vector<IObject*>&)
-{
+// bool		        Alien::update(sf::Clock const&, std::vector<IObject*>&)
+// {
 
-}
+// }
 
-bool		        Alien::update(sf::Clock const&)
-{
-}
+// bool		        Alien::update(sf::Clock const&)
+// {
+// }
 
 const float		&Alien::getCoeff() const
 {

@@ -59,11 +59,13 @@ void		MapController::updateMap(sf::Clock const& clock)
   _deserializedMap->clear();
   while (it != _map.end())
     {
-      std::cout << "it : " << *it << std::endl;
-      // if (*it != NULL) // debug
-	(*it)->update(clock, _map);
-      // if (*it != NULL)
-	checkNewObj(it, (*it));
+      (*it)->update(clock, _map);
+      ++it;
+    }
+  it = _map.begin();
+  while (it != _map.end())
+    {
+      checkNewObj(it, (*it));
       if (it == _map.end())
 	break;
       ++it;
