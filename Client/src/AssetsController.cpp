@@ -121,7 +121,15 @@ bool AssetsController::loadAliens()
 	for (int i = 0; i != NUMBEROFALIEN; i++)
 		_aliens.emplace_back(new sf::Texture);
 	if (
-		_aliens[BYDO]->loadFromFile(_assetsPath + "aliens/bydo.png")
+		_aliens[BYDO]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
+		_aliens[GLAM]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
+		_aliens[DOKAN]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
+		_aliens[KAYBEROS]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
+		_aliens[RIOS]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
+		_aliens[SCANT]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
+		_aliens[SHELL]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
+		_aliens[YORK]->loadFromFile(_assetsPath + "aliens/bydo.png") &&
+		_aliens[XELF16]->loadFromFile(_assetsPath + "aliens/bydo.png")
 		)
 		return true;
 	return false;

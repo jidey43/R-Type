@@ -1,14 +1,20 @@
 #include "GameInfo.h"
 #include "GameCore.hh"
 
-void		routine(std::string const& port, std::string const& ip);
+void		routine(std::string const&, std::string const&);
+
+void		routine(std::string const& port, std::string const& ip)
+{
+	GameCore*	gameCore = new GameCore(ip, port);
+}
 
 GameInfo::GameInfo(std::string const& name, int id, int port, std::string const& ip)
-  : _name(name), _id(id), _port(port), _thread(new UThread(std::to_string(port), ip))
+	: _name(name), _id(id), _port(port), _thread(new UThread(std::to_string(port), ip))
 {
-  _thread->InitThread(&routine);
-  _thread->StartThread();
+	_thread->InitThread(&routine);
+	_thread->StartThread();
 }
+
 
 GameInfo::~GameInfo()
 {
@@ -65,9 +71,4 @@ int		GameInfo::tryJoinGame()
     return _port;
   else
     return -1;
-}
-
-void		routine(std::string const& port, std::string const& ip)
-{
-  GameCore*	gameCore = new GameCore(ip, port);
 }
