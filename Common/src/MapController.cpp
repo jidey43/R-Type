@@ -43,6 +43,7 @@ std::vector<IServerPacket<ServerUDPResponse>*>*	MapController::getMap() const
 
 void		MapController::addObject(IObject* obj)
 {
+  std::cout << "adding obj addr = "  << obj << " : type = " << obj->getObjType() << std::endl;
   _map.push_back(obj);
 }
 
@@ -54,12 +55,14 @@ void		MapController::updateMap(sf::Clock const& clock)
   _deserializedMap->clear();
   while (it != _map.end())
     {
+      std::cout << "prepare to update obj addr = " << *it << std::endl;
       (*it)->update(clock, _map);
       checkNewObj(it, (*it));
       if (it == _map.end())
 	break;
       ++it;
     }
+  std::cout << "end loop" << std::endl;
   _map.insert(std::end(_map), std::begin(_toAppend), std::end(_toAppend));
 }
 
@@ -83,9 +86,10 @@ void		MapController::checkNewObj(std::vector<IObject*>::iterator& it, IObject* o
     }
   if (!obj->isAlive())
     {
+      std::cout << "del smth" << std::endl;
       if (obj->getObjType() == ObjectInfo::ALIEN)
 	std::cout << "DELETING !!" << std::endl;
-	
+
       _deserializedMap->push_back(new DelItemPacket(DEL_ITEM, 0, obj->getId()));
       delete this->getPlayer(obj->getId());
       it = _map.erase(it);
