@@ -18,8 +18,6 @@ _tcpHand(tcpHand), _udpHand(handler)
 
     _gameName =   new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.2),
 			 sf::Vector2f(500, 50), "Enter new game name");
-
-
 }
 
 void                        GameSelectorController::initList()
@@ -128,7 +126,6 @@ void                        GameSelectorController::createGame()
       response = _tcpHand->receiveFromServer();
       *_udpHand = new CUDPNetworkHandler(((GameInfoPacket*)response)->getData()->ip, std::to_string(((GameInfoPacket*)response)->getData()->port));
       (*_udpHand)->initSocket();
-      sleep(1);
       (*_udpHand)->send(new CAuthUDPPacket(CAUTH_UDP, 0, "bite"));
       IServerPacket<ServerUDPResponse>	*packet;
       while (true)
@@ -150,7 +147,6 @@ void						GameSelectorController::joinGame(int i)
       response = _tcpHand->receiveFromServer();
       *_udpHand = new CUDPNetworkHandler(((GameInfoPacket*)response)->getData()->ip, std::to_string(((GameInfoPacket*)response)->getData()->port));
       (*_udpHand)->initSocket();
-      sleep(1);
       (*_udpHand)->send(new CAuthUDPPacket(CAUTH_UDP, 0, "bite"));
       IServerPacket<ServerUDPResponse>	*packet;
       while (true)

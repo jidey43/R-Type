@@ -25,8 +25,8 @@ public:
 
 public:
   bool					initClientSocket(std::string const &ip, std::string const &port);
-  void					recvData(void *data, int size, SOCKET, ConnectionData *addr);
-  void					sendData(void *data, int size, SOCKET, ConnectionData *addr);
+  void					recvData(void *data, int size, SOCKET, ClientDatas *addr);
+  void					sendData(void *data, int size, SOCKET, ClientDatas *addr);
   SOCKET				getFd() const;
   void					selectFD(std::vector<SOCKET>& fd, struct timeval *to);
   bool					closeConnection(SOCKET);

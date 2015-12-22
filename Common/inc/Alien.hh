@@ -1,6 +1,7 @@
 #ifndef _ALIEN_HH_
 # define _ALIEN_HH_
 
+# define _USE_MATH_DEFINES
 # include <cmath>
 # include "BasicAlienProjectile.hh"
 # include "Object.hh"
