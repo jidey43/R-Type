@@ -3,13 +3,14 @@
 
 # include "NetworkDefines.h"
 # include "ObjectInfo.hpp"
+# pragma pack (1)
 
 typedef struct
 {
   uint32_t			       magic;
   ServerTCPResponse		 command;
   uint32_t			       size;
-} __attribute__ ((packed))	ServerTCPHeader;
+} ServerTCPHeader;
 
 typedef struct
 {
@@ -17,26 +18,26 @@ typedef struct
   ServerUDPResponse		command;
   uint32_t			size;
   uint32_t			idx;
-} __attribute__ ((packed))	ServerUDPHeader;
+} ServerUDPHeader;
 
 typedef struct
 {
   uint32_t			data;
   uint32_t			magic;
-} __attribute__ ((packed))	integerData;
+} integerData;
 
 typedef struct
 {
   Bool				success;
   uint32_t			magic;
-} __attribute__ ((packed))	AuthTCPData;
+} AuthTCPData;
 
 typedef struct
 {
   char          ip[256];
   uint32_t			port;
   uint32_t			magic;
-} __attribute__ ((packed))	GameInfoData;
+} 	GameInfoData;
 
 typedef struct
 {
@@ -44,13 +45,13 @@ typedef struct
   char				gameName[256];
   char				players[256];
   uint32_t			magic;
-} __attribute__ ((packed))	DesGameData;
+} DesGameData;
 
 typedef struct
 {
   Bool				success;
   uint32_t			magic;
-}  __attribute__ ((packed))    	AuthUDPData;
+} AuthUDPData;
 
 typedef struct
 {
@@ -58,7 +59,7 @@ typedef struct
   float				x;
   float				y;
   uint32_t			magic;
-}  __attribute__ ((packed))	CrePlayData;
+} 	CrePlayData;
 
 typedef struct
 {
@@ -69,7 +70,7 @@ typedef struct
   float				speed;
   uint32_t			magic;
   ObjectInfo::ShotType		type;
-}  __attribute__ ((packed))	CreObjData;
+} 	CreObjData;
 
 typedef struct
 {
@@ -78,7 +79,7 @@ typedef struct
   float				y;
   uint32_t			magic;
   enum ObjectInfo::WaveType	iatype;
-}  __attribute__ ((packed))	   CreIAData;
+} 	   CreIAData;
 
 
 typedef integerData GameOverData;
@@ -99,5 +100,6 @@ public:
   virtual T			getCommandType() const = 0;
   virtual size_t		getPacketSize() const = 0;
 };
+# pragma pack ()
 
 #endif

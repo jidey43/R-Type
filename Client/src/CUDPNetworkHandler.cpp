@@ -37,7 +37,7 @@ IServerPacket<ServerUDPResponse>*	CUDPNetworkHandler::receive()
     {
       packet = _factory->build(_header);
       if (!packet || !packet->checkHeader())
-	throw Exceptions::BadHeaderRequest("Error, received bad Header from serv");
+		throw Exceptions::BadHeaderRequest("Error, received bad Header from serv");
       buff = new char[_header->size];
       memset(buff, 0, _header->size);
       try
@@ -78,7 +78,7 @@ bool					CUDPNetworkHandler::send(IClientPacket<ClientUDPCommand>* response)
 
 bool					CUDPNetworkHandler::selectServer(struct timeval *to)
 {
-  std::vector<int>			fdList;
+  std::vector<SOCKET>			fdList;
 
   fdList.push_back(_socket);
   _network->selectFD(fdList, to);
