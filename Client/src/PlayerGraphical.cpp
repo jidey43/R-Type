@@ -45,8 +45,11 @@ bool	PlayerGraphical::update(sf::Clock const& clock)
 		);
    if (_lastPos != _pos)
     {
+        if (_lastPos.x < _pos.x)
+            _sprite = _spriteMoving;
+        else
+            _sprite = _spriteStatic;
         _lastPos = _pos;
-        _sprite = _spriteMoving;
     }    
     else
         _sprite = _spriteStatic;
