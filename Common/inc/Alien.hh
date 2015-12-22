@@ -12,8 +12,8 @@ public:
   ~Alien();
 
 public:
-  virtual bool		        update(sf::Clock const&, std::vector<IObject*>&) = 0;
-  virtual bool		        update(sf::Clock const&) = 0;
+  virtual bool		        update(sf::Clock const&, std::vector<IObject*>&);
+  virtual bool		        update(sf::Clock const&);
   const float&			getCoeff() const;
   BasicAlienProjectile		*BasicShoot();
   const ObjectInfo::WaveType	&getRealType() const;
