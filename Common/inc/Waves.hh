@@ -8,10 +8,10 @@
 class	Waves
 {
 public:
-  Waves(int, sf::Time, sf::Time, sf::Vector2f, sf::Vector2f, float, ObjectInfo::WaveType);
+  Waves(int, sf::Time, sf::Time, sf::Vector2f, sf::Vector2f, float, ObjectInfo::WaveType, ObjectInfo::ObstacleType);
   Waves();
   ~Waves();
-  
+
 public:
   Waves				      &operator=(const Waves&);
   const int			      &getCount() const;
@@ -21,8 +21,9 @@ public:
   const sf::Vector2f		      &getSpeed() const;
   const float			      &getCoeff() const;
   const ObjectInfo::WaveType	      &getType() const;
-  void				      setCount(int);  
+  void				      setCount(int);
   void				      pop();
+  ObjectInfo::ObstacleType  getWallType() const;
 
 private:
   int			_count;
@@ -32,6 +33,7 @@ private:
   sf::Vector2f		_speed;
   float			_coeff;
   ObjectInfo::WaveType	_type;
+  ObjectInfo::ObstacleType	_obstacleType;
 };
 
 #endif

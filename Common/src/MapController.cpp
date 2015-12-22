@@ -46,6 +46,11 @@ void		MapController::addObject(IObject* obj)
   _map.push_back(obj);
 }
 
+void		MapController::addAlien(IObject* obj)
+{
+  _map.push_back(obj);
+}
+
 void		MapController::updateMap(sf::Clock const& clock)
 {
   auto it = _map.begin();
@@ -55,6 +60,11 @@ void		MapController::updateMap(sf::Clock const& clock)
   while (it != _map.end())
     {
       (*it)->update(clock, _map);
+      ++it;
+    }
+  it = _map.begin();
+  while (it != _map.end())
+    {
       checkNewObj(it, (*it));
       if (it == _map.end())
 	break;

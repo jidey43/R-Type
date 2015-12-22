@@ -20,6 +20,19 @@ typedef enum e_BackgroundType
 	NUMBEROFBACKGROUND
 }				BackgroundType;
 
+typedef enum    e_Ship
+{
+    PONE = 0,
+    PTWO,
+    PTHREE,
+    PFOUR,
+    PONEFIRE,
+    PTWOFIRE,
+    PTHREEFIRE,
+    PFOURFIRE,
+    NUMBEROFSHIP
+}               Ship;
+
 typedef enum    e_Sound
 {
     BASICSHOT = 0,
@@ -72,7 +85,7 @@ public:
 public:
 	sf::Music					*getSoundTrack();
     sf::SoundBuffer             *getSound(Sound);
-	sf::Texture					*getShipTexture(int id);
+	sf::Texture					*getShipTexture(Ship);
 	sf::Texture					*getBackground(int id);
 	sf::Texture					*getShot(Shot);
 	sf::Texture					*getButton(ButtonType, bool);

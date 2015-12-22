@@ -49,12 +49,13 @@ void		GameCore::updateMap()
   aliens = _factory->update(_clock);
   for (auto it = aliens->begin(); it != aliens->end(); ++it)
     {
-      _map->addObject(new Alien((*it)->getSpeed(), (*it)->getPos(), (*it)->getSize(), (*it)->getId(), static_cast<Alien*>(*it)->getCoeff()));
+      _map->addAlien(*it);
     }
   _map->updateMap(_clock);
   toSend = generatePackets(aliens);
   toSend->insert(toSend->begin(), _map->getMap()->begin(), _map->getMap()->end());
   this->sendMap(NULL, toSend);
+  delete aliens;
   delete toSend;
 }
 

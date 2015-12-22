@@ -19,6 +19,6 @@ bool		BasicAlienProjectile::update(sf::Clock const& clock)
   if (_pos.x + _size.x < 0 || _pos.x > MAP_SIZE_X
       || _pos.y + _size.y < 0 || _pos.y > MAP_SIZE_Y)
     _isAlive = false;
-  this->_pos.x = this->_pos.x + this->_speed.x;
+  this->_pos.x = this->_pos.x - this->_speed.x;
   return true;
 }

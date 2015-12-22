@@ -17,6 +17,12 @@ extern AssetsController *ac;
 #define SHIP_ASSET_SIZE_Y 300
 #define SHIP_ASSET_SIZE_X 300
 
+#define ALIEN_ASSET_SIZE_Y 100
+#define ALIEN_ASSET_SIZE_X 100
+
+#define BOSS_SIZE_X 500
+#define BOSS_SIZE_Y 500
+
 #define EXPLOSION_X 120
 #define EXPLOSION_Y 100 
 
