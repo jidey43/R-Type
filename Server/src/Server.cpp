@@ -124,8 +124,7 @@ bool	Server::joinGame(ClientInfo* client)
 {
   GameInfo*	game;
 
-  if ((game = _games->addClientInGame(client, dynamic_cast<JoinPacket*>(client->getPacket())->getData()->id)) != NULL)
-    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort()));
+  if ((game = _games->addClientInGame(client, dynamic_cast<JoinPacket*>(client->getPacket())->getData()->id)) != NULL)    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort()));
   else
     _network->sendToClient(client, new FailPacket(FAIL));
   return true;
@@ -144,6 +143,7 @@ bool	Server::joinGame(ClientInfo* client, int id)
 
 bool	Server::setNick(ClientInfo* client)
 {
+  std::cout << dynamic_cast<NickPacket*>(client->getPacket())->getData()->data << std::endl;
   client->setNickname(dynamic_cast<NickPacket*>(client->getPacket())->getData()->data);
   _network->sendToClient(client, new AuthTCPPacket(AUTH, SUCCESS));
   return true;

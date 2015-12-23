@@ -23,7 +23,6 @@ public:
 
     if (_order.size() <= 0)
       return (obj);
-    std::cout << "before for" << std::endl;
     for (auto it = _order.begin(); it != _order.end(); it++)
       {
 	if ((*it) != NULL)
@@ -35,7 +34,9 @@ public:
 	  else
 	    obj->push_back(NULL);
 	if ((*it)->getCount() <= 0)
-	  _order.erase(it);
+	  it = _order.erase(it);
+	if (it == _order.end())
+	  break;
       }
     return (obj);
   }

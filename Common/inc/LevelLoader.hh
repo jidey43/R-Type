@@ -27,7 +27,7 @@ private:
   std::string			 _oldName;
   std::ifstream			 _levelFile;
   std::deque<std::string>	 _lines;
-  std::string			 _compare[ObjectInfo::NUMBEROFWAVE + ObjectInfo::NBOBSTACLE];
+  std::string			 _compare[ObjectInfo::NUMBEROFWAVE];
   unsigned int		        _wavesCount;
 };
 
