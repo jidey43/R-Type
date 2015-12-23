@@ -132,7 +132,8 @@ bool AssetsController::loadAliens()
       _aliens[SCANT]->loadFromFile(_assetsPath + "aliens/scant.png") &&
       _aliens[SHELL]->loadFromFile(_assetsPath + "aliens/shell.png") &&
       _aliens[YORK]->loadFromFile(_assetsPath + "aliens/york.png") &&
-      _aliens[XELF16]->loadFromFile(_assetsPath + "aliens/xelf16.png")
+      _aliens[XELF16]->loadFromFile(_assetsPath + "aliens/xelf16.png") &&
+      _aliens[WALL1]->loadFromFile(_assetsPath + "aliens/wall1.png")
       )
     return true;
   return false;

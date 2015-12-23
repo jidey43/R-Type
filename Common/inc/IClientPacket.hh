@@ -4,6 +4,7 @@
 # include <string.h>
 # include "NetworkDefines.h"
 # pragma pack (1)
+
 typedef struct
 {
   uint32_t			magic;
@@ -43,6 +44,8 @@ typedef struct
   uint32_t			magic;
 }				FireData;
 
+# pragma pack ()
+
 typedef stringData NickData;
 typedef stringData NewGameData;
 typedef stringData CAuthUDPData;
@@ -60,7 +63,5 @@ public:
   virtual bool			checkHeader() = 0;
   virtual size_t		getPacketSize() const = 0;
 };
-
-# pragma pack ()
 
 #endif

@@ -3,6 +3,7 @@
 GameSelectorController::GameSelectorController(CUDPNetworkHandler **handler, CNetworkHandler *tcpHand) :
   _tcpHand(tcpHand), _udpHand(handler)
 {
+  // std::cout << "LOL" << std::endl;
   _background = new Backgroud;
   std::string txt("or choose an existing game, May the force be with you");
   _disclaimer = new sf::Text(txt, *(ac->getFont(STAR)));
@@ -117,14 +118,15 @@ void						GameSelectorController::drawMenuItems()
     }
 }
 
-
 void                        GameSelectorController::createGame()
 {
   IServerPacket<ServerTCPResponse> *response;
 
   _tcpHand->sendToServer(new NewGamePacket(ADD_GAME, _gameName->getText()));
   response = _tcpHand->receiveFromServer();
-  *_udpHand = new CUDPNetworkHandler(((GameInfoPacket*)response)->getData()->ip, std::to_string(((GameInfoPacket*)response)->getData()->port));
+  *_udpHand = new CUDPNetworkHandler((
+				      (GameInfoPacket*)response)->getData()->ip,
+				     std::to_string(((GameInfoPacket*)response)->getData()->port));
   sf::sleep(sf::milliseconds(500));
   (*_udpHand)->initSocket();
   (*_udpHand)->send(new CAuthUDPPacket(CAUTH_UDP, 0, "bite"));

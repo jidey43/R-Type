@@ -41,27 +41,31 @@ void		FactoryManager::initialiseLevel()
   int j			= 0;
   int nb	        = _levelLoader.getWavesCount();
   std::vector<Waves*>	waves;
-  
+
   waves.push_back(_levelLoader.getNextWave());
   for (int i = 0; j != nb; i = i + 1)
     {
-      if (waves[j] == NULL)
-	j = j + 1;
       if (i >= static_cast<int>(_nbFactory))
 	{
-	  throw Exceptions::FactoryExcept("Error this Factory type is not declare");
+	  throw Exceptions::FactoryExcept("Error this Factory type is not declared");
 	  break;
 	}
-      if (waves[j]->getType() == _factories[i]->getType())
+      if (waves[j] != NULL)
 	{
-	  _factories[i]->setWave(waves[j]);
-	  j = j + 1;
-	  i = -1;
-	  if (j < nb)
-	    {
-	      waves.push_back(_levelLoader.getNextWave());
+	  if (waves[j]->getType() == _factories[i]->getType())
+	    {	      
+	      _factories[i]->setWave(waves[j]);
+	      j = j + 1;
+	      i = -1;
+	      if (j < nb)
+		{
+		  waves.push_back(_levelLoader.getNextWave());
+		}
 	    }
 	}
+      else
+	waves.push_back(_levelLoader.getNextWave());
+	
     }
 }
 

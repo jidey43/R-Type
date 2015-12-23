@@ -9,9 +9,9 @@ YorkAlien::YorkAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, floa
 {
   _realType = ObjectInfo::YORK;
   _life = 2;
-  _f = 50;
+  _f = 3;
   _rad = 6;
-  _a = 10;
+  _a = 7;
 }
 
 YorkAlien::~YorkAlien()
@@ -19,8 +19,13 @@ YorkAlien::~YorkAlien()
 
 bool	        YorkAlien::update(sf::Clock const& clock)
 {
+  if (_pos.x + _size.x < 0 || _pos.x > MAP_SIZE_X
+      || _pos.y + _size.y < 0 || _pos.y > MAP_SIZE_Y)
+    _isAlive = false;
   this->_pos.x = this->_pos.x - this->_speed.x;
-  this->_pos.y = _a * sin((2 * _f * clock.getElapsedTime().asMicroseconds() * M_PI) + _rad);
+  this->_pos.y = _pos.y - (_a * cos((0.23 * _f * (this->_pos.x / 150) * M_PI) + _rad));
+  if ((int)(_pos.x) % 400 == 0)
+    _isShoot = true;
   return true;
 }
 
@@ -29,17 +34,18 @@ bool	        YorkAlien::update(sf::Clock const& clock, std::vector<IObject*>& ma
 {
   this->update(clock);
   this->collision(map);
-  if ((int)(_pos.x) % 400 == 0)
-    _isShoot = true;
   return (_isAlive);
 }
 
 IObject		*YorkAlien::BasicShoot()
 {
   sf::Vector2f pos;
+  sf::Vector2f speed;
 
-  pos.x = _pos.x + _speed.x;
-  pos.y = _pos.y;
+  pos.x = _pos.x  - (_size.x / 2);
+  pos.y = _pos.y - (_size.y / 2);
   _isShoot = false;
-  return new BasicAlienProjectile(_speed, pos, _maxId++);
+  speed.x = _speed.y + (_speed.y / 3);
+  speed.y = speed.x;
+  return new BasicAlienProjectile(speed, pos, _maxId++);
 }

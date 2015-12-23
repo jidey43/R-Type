@@ -25,7 +25,7 @@ public:
 	sf::Time 			getElapsedTimeSinceLoop();
 	void				treatEventsFromKeyboard();
 	void				treatEventsFromNetwork();
-	void 				treatPacket(IServerPacket<ServerUDPResponse>* res);
+	void				treatPacket(IServerPacket<ServerUDPResponse>* res);
 
 private:
 	sf::Clock			_clock;
@@ -34,5 +34,5 @@ private:
 private:
 	keyboardStatus		_keyboardStatus;
 	ItemController		*_itemCtrl;
-	CUDPNetworkHandler *_udpHand;
+	CUDPNetworkHandler	*_udpHand;
 };

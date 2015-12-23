@@ -131,14 +131,18 @@ Waves						*LevelLoader::getNextWave()
   freq = sf::seconds(fnb);
   buffer >> coeff;
 
-  for (inb = 0; name != _compare[inb] && inb < 14; inb = inb + 1);
+  for (inb = 0; name != _compare[inb]; inb = inb + 1)
+    if (inb == 12)
+      return (NULL);
 
-  if (inb >= 13)
+  if (inb > 13)
   {
+    std::cout << "NULLLLLLLLLL comme GFROUT" << std::endl;
     return (NULL);
   }
   else if (inb > 9)
   {
+    std::cout << "bizare" << std::endl;
     obstacleType = inb - 9;
     inb = 9;
   }
@@ -147,6 +151,7 @@ Waves						*LevelLoader::getNextWave()
   }
 
   std::cout << inb << std::endl;
+
   ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
   _lines.pop_front();
   Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type, (ObjectInfo::ObstacleType)obstacleType);

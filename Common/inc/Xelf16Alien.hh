@@ -13,6 +13,9 @@ public:
   bool		update(sf::Clock const&, std::vector<IObject*>&);
   bool		update(sf::Clock const&);
   IObject	*BasicShoot();
+
+private:
+  float		_bossFactor;
 };
 
 # endif

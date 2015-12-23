@@ -18,10 +18,13 @@ void ItemController::draw()
     vc->draw(i->getDrawable());
   for (GraphicalItem *i : _unlogicalItems)
     vc->draw(i->getDrawable());
+  for (int i = 0; i != 4; i++)
+    vc->draw(_scoreCtrl.getScoreDrawable(i));
 }
 
 void ItemController::update()
 {
+    _scoreCtrl.update();
   for (GraphicalItem* i : _items)
     i->update(_clock);
   for (std::vector<GraphicalItem*>::iterator it = _unlogicalItems.begin(); it != _unlogicalItems.end();)
@@ -47,14 +50,14 @@ void ItemController::addShip(CrePlayPacket *packet)
   _items.emplace_back(new PlayerGraphical(sf::Vector2f(0,0), sf::Vector2f(data->x, data->y), data->id));
 }
 
-void ItemController::addObj(CreObjPacket *packet)
+void ItemController::addObj(CreObjPacket *packet, int idPlayer)
 {
   int id = packet->getData()->id;
   sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
   float speed = packet->getData()->speed;
 
   if (packet->getData()->type == ObjectInfo::PLAYERREGULAR)
-    _items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
+    _items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id, idPlayer));
   if (packet->getData()->type == ObjectInfo::ALIENREGULAR)
     _items.emplace_back(new BasicAlienProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
 }

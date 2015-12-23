@@ -1,15 +1,15 @@
 #include "BasicPlayerProjectileGraphical.h"
 
-BasicPlayerProjectileGrapical::BasicPlayerProjectileGrapical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id) :
-	BasicPlayerProjectile(speed, pos, id), GraphicalItem()
+BasicPlayerProjectileGrapical::BasicPlayerProjectileGrapical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, unsigned int idPlayer) :
+  BasicPlayerProjectile(speed, pos, id, idPlayer), GraphicalItem()
 {
     _sound.setBuffer(*(ac->getSound(BASICSHOT)));
     _sound.play();
-	_sprite->setTexture(*(ac->getShot(BASICPLAYERSHOT)));
-	_sprite->setPosition(
-		_pos.x,
-		_pos.y
-		);
+    _sprite->setTexture(*(ac->getShot(BASICPLAYERSHOT)));
+    _sprite->setPosition(
+			 _pos.x,
+			 _pos.y
+			 );
 
 }
 
