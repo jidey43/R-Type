@@ -135,7 +135,6 @@ Waves						*LevelLoader::getNextWave()
     if (inb == 12)
       return (NULL);
 
-  std::cout << "nb : " << inb << std::endl;
   if (inb > 13)
   {
     std::cout << "NULLLLLLLLLL comme GFROUT" << std::endl;
