@@ -19,8 +19,13 @@ BydoAlien::~BydoAlien()
 
 bool		BydoAlien::update(sf::Clock const& clock)
 {
+  if (_pos.x + _size.x < 0 || _pos.x > MAP_SIZE_X
+      || _pos.y + _size.y < 0 || _pos.y > MAP_SIZE_Y)
+    _isAlive = false;
   this->_pos.x = this->_pos.x - this->_speed.x;
-  this->_pos.y = _pos.y - (_a * cos((0.23 * _f * clock.getElapsedTime().asSeconds() * M_PI) + _rad));
+  this->_pos.y = _pos.y - (_a * cos((0.23 * _f * this->_pos.x * M_PI) + _rad));
+  // this->_pos.y = _pos.y - (_a * cos((0.23 * _f * clock.getElapsedTime().asSeconds() * M_PI) + _rad));
+  std::cout << "pos = (" << _pos.x << ";" << _pos.y << ')' << std::endl;
   if ((int)(_pos.x) % 400 == 0)
     _isShoot = true;
   return true;
@@ -40,6 +45,5 @@ IObject		*BydoAlien::BasicShoot()
   pos.x = _pos.x  + (_size.x / 2);
   pos.y = _pos.y + (_size.y / 2);
   _isShoot = false;
-  std::cout << "max ID : " << _maxId << std::endl;
   return new BasicAlienProjectile(_speed, pos, _maxId++);
 }

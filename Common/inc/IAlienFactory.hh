@@ -10,7 +10,7 @@ class IAlienFactory
 {
 public:
   virtual ~IAlienFactory() {};
-  virtual IObject			   *getNextEnemy(const sf::Clock&) = 0;
+  virtual std::vector<IObject*>		   *getNextEnemy(const sf::Clock&) = 0;
   virtual const ObjectInfo::WaveType	   &getType() const = 0;
   virtual void				   setWave(Waves*) = 0;
 };

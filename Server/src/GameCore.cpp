@@ -50,11 +50,12 @@ void		GameCore::updateMap()
   std::vector<IServerPacket<ServerUDPResponse>*>	*toSend = new std::vector<IServerPacket<ServerUDPResponse>*>;
 
   aliens = _factory->update(_clock);
-  for (auto it = aliens->begin(); it != aliens->end(); ++it)
-    {
-      _map->addAlien(*it);
-      toSend->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getRealType()));
-    }
+  if (aliens->size() > 0)
+    for (auto it = aliens->begin(); it != aliens->end(); ++it)
+      {
+	_map->addAlien(*it);
+	toSend->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getRealType()));
+      }
   _map->updateMap(_clock);
   // toSend = generatePackets(aliens);
   toSend->insert(toSend->begin(), _map->getMap()->begin(), _map->getMap()->end());
@@ -145,11 +146,11 @@ void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand
       client->setName(static_cast<CAuthUDPPacket*>(packet)->getData()->data);
       client->setAuth(true);
       client->setID(_maxId++);
-      _map->addObject(new Player(sf::Vector2f(10,6), sf::Vector2f(50,50), client->getID()));
+      _map->addObject(new Player(sf::Vector2f(10,10), sf::Vector2f(50,50), client->getID()));
     }
    player = static_cast<Player*>(_map->getPlayer(client->getID()));
    _map->generatePacketsMap(player);
-   _network->sendTo(client, new AuthUDPPacket(AUTH_UDP, 0, SUCCESS));
+   _network->sendTo(client, new AuthUDPPacket(AUTH_UDP, 0, SUCCESS, _clock.getElapsedTime().asSeconds()));
    this->sendMap(client, _map->getMap());
    _network->broadcast(new CrePlayPacket(CRE_PLAY, 0, player->getId(), player->getPos().x, player->getPos().y));
 }

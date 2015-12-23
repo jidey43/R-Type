@@ -6,7 +6,7 @@
 class AuthUDPPacket : public AServerPacket<ServerUDPResponse>
 {
  public:
-  AuthUDPPacket(ServerUDPResponse, int, Bool);
+  AuthUDPPacket(ServerUDPResponse, int, Bool, float);
   AuthUDPPacket(ServerUDPHeader*);
   ~AuthUDPPacket();
 
