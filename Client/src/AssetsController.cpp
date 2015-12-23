@@ -71,7 +71,10 @@ bool AssetsController::loadBackground()
   if (
       _rtypeLogo->loadFromFile(_assetsPath + "rtypelogo.png") &&
       _backgrounds[MENU_BACKGROUND]->loadFromFile(_assetsPath + "background/menu_background.png") &&
-      _backgrounds[BACKGROUND_ONE]->loadFromFile(_assetsPath + "background/background1.png")
+      _backgrounds[BACKGROUND_ONE]->loadFromFile(_assetsPath + "background/background1.png") &&
+      _backgrounds[BACKGROUND_TWO]->loadFromFile(_assetsPath + "background/background2.png") &&
+      _backgrounds[BACKGROUND_THREE]->loadFromFile(_assetsPath + "background/background3.png") &&
+      _backgrounds[BACKGROUND_FOUR]->loadFromFile(_assetsPath + "background/background4.png")
       )
     return true;
   return false;
@@ -145,7 +148,7 @@ sf::Texture* AssetsController::getShipTexture(Ship id)
   return _ships[id];
 }
 
-sf::Texture* AssetsController::getBackground(int id)
+sf::Texture* AssetsController::getBackground(BackgroundType id)
 {
   return _backgrounds[id];
 }
