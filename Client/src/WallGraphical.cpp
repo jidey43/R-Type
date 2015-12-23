@@ -8,6 +8,8 @@ WallGraphical::WallGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int 
 	_pos.x / SCREENRATIO,
 	_pos.y / SCREENRATIO
 	);
+    if (pos.y > (RES_Y /2))
+       _sprite->rotate(180);
 }
 
 WallGraphical::~WallGraphical()
