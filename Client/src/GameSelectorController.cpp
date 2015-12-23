@@ -83,13 +83,11 @@ void						GameSelectorController::treatEvents()
         {
 	  if (i.first->getIsHigh())
             {
-	      std::cout << "JOIN Game" << std::endl;
 	      joinGame(i.second);
 	      return;
             }
         }
       if (_createGameButton->getIsHigh())
-	std::cout << "Create Game" << std::endl;
 	createGame();
     }
 }
@@ -125,9 +123,7 @@ void                        GameSelectorController::createGame()
   IServerPacket<ServerTCPResponse> *response;
 
   _tcpHand->sendToServer(new NewGamePacket(ADD_GAME, _gameName->getText()));
-  std::cout << "sent new game" << std::endl;
   response = _tcpHand->receiveFromServer();
-  std::cout << "->" << ((GameInfoPacket*)response)->getData()->port<< std::endl;
   *_udpHand = new CUDPNetworkHandler((
 				      (GameInfoPacket*)response)->getData()->ip,
 				     std::to_string(((GameInfoPacket*)response)->getData()->port));
