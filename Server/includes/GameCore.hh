@@ -28,6 +28,8 @@ private :
   sf::Time	getElapsedTimeSinceLoop();
   std::vector<IServerPacket<ServerUDPResponse>*>*		generatePackets(std::vector<IObject*>* aliens);
   void		updateMap();
+  void		setAlive(GamerInfo*, IClientPacket<ClientUDPCommand>*);
+  void		updateAliveClients(sf::Time const&);
 
 private :
   std::vector<GamerInfo*>*	_clients;
@@ -35,6 +37,7 @@ private :
   MapController*		_map;
   FactoryManager*		_factory;
   sf::Clock			_clock;
+  sf::Clock			_clockAlive;
   sf::Time			_referential;
   bool				_running;
 };

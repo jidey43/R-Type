@@ -76,6 +76,9 @@ IClientPacket<ClientUDPCommand>*		PacketFactory::build(ClientUDPHeader *header)
     case SEND_MOVE:
       return new SendMovePacket(header);
       break;
+    case ALIVE:
+      return new AlivePacket(header);
+      break;
     case DISCONNECT:
       return new DisconnectPacket(header);
       break;

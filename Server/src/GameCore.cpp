@@ -6,7 +6,7 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
     _network(new UDPNetworkHandler(ip, port, _clients)),
     _map(new MapController()),
     _factory(new FactoryManager(_map, "../../level/Level1.lvl")),
-    _referential(sf::Time(sf::microseconds(16666))),
+    _referential(sf::Time(sf::microseconds(20000))),
     _running(true)
 {
   _factory->initialiseLevel();
@@ -36,12 +36,31 @@ bool		GameCore::run()
   _clock.restart();
   while (_running)
     {
+      _clockAlive.restart();
       this->updateMap();
-
       while (_running && ((elapsed = getElapsedTimeSinceLoop()) > sf::microseconds(0)))
-      	{
+       	{
 	  receivePacket();
 	}
+      this->updateAliveClients(_clockAlive.getElapsedTime());
+    }
+}
+
+void		GameCore::updateAliveClients(sf::Time const& count)
+{
+  std::vector<GamerInfo*>::iterator	it = _clients->begin();
+  std::vector<GamerInfo*>::iterator	itTmp;
+
+  while (it != _clients->end())
+    {
+      if (!((*it)->updateAlive(count)))
+	{
+	  std::cout << "UDP: Client disconnected" << std::endl;
+	  delete (*it);
+	  _clients->erase(it);
+	  return ;
+	}
+      it = it + 1;
     }
 }
 
@@ -135,6 +154,9 @@ bool					GameCore::processPacket(GamerInfo* client,
     case SEND_MOVE:
       gamerMove(client, packet);
       break;
+    case ALIVE:
+      setAlive(client, packet);
+      break;
     case DISCONNECT:
       std::cout << "recv disconnect" << std::endl;
       gamerDisconnect(client, packet);
@@ -144,7 +166,6 @@ bool					GameCore::processPacket(GamerInfo* client,
     }
   return true;
 }
-
 
 void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
@@ -174,7 +195,6 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
     }
 }
 
-
 void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
   Player*				player = static_cast<Player*>(_map->getPlayer(client->getID()));
@@ -192,4 +212,10 @@ void					GameCore::gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCom
   _map->deletePlayer(client->getID());
   _clients->erase(std::find(_clients->begin(), _clients->end(), client));
   delete (client);
+}
+
+void					GameCore::setAlive(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
+{
+  std::cout << "Received Alive" << std::endl;
+  client->resetAlive();
 }

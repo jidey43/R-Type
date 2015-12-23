@@ -22,8 +22,6 @@ AlivePacket::AlivePacket(ClientUDPHeader* header)
 
 AlivePacket::~AlivePacket()
 {
-  delete _data;
-  delete _header;
 }
 
 void		AlivePacket::setRawData(char* data)
