@@ -25,6 +25,7 @@ public:
   std::vector<IServerPacket<ServerUDPResponse>*>*     getMap() const;
   void		updatePlayer(IObject*, sf::Clock const&);
   IObject*	getPlayer(int id);
+  void		resetClockPlayer();
   void		deletePlayer(int id);
   void		generatePacketsMap(IObject *);
   void		checkNewObj(std::vector<IObject*>::iterator& it, IObject* obj);
@@ -34,7 +35,7 @@ private:
   std::vector<IObject*>					_map;
   std::vector<IServerPacket<ServerUDPResponse>*>	*_deserializedMap;
   std::vector<IObject*>					_toAppend;
-  int                          _alienCount;                                   
+  int                          _alienCount;
 };
 
 #endif

@@ -63,6 +63,13 @@ void		MapController::addAlien(IObject* obj)
   _map.push_back(obj);
 }
 
+void		MapController::resetClockPlayer()
+{
+  for (auto it = _map.begin(); it != _map.end(); ++it)
+    if ((*it)->getObjType() == ObjectInfo::PLAYER)
+      static_cast<Player*>(*it)->resetLoopTime();
+}
+
 void		MapController::updateMap(sf::Clock const& clock)
 {
   auto it = _map.begin();

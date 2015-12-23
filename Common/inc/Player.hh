@@ -15,6 +15,7 @@ public:
   bool				update(sf::Clock const&, std::vector<IObject*>&);
   bool				update(sf::Clock const&);
   BasicPlayerProjectile		*BasicShoot();
+  void				resetLoopTime();
   bool				tryShoot();
   void				setDirection(const Direction &dir);
   const ObjectInfo::PlayerType	&getRealType() const;
