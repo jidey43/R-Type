@@ -225,9 +225,14 @@ void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>*
 
 void					GameCore::gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
-  _map->deletePlayer(client->getID());
-  _clients->erase(std::find(_clients->begin(), _clients->end(), client));
-  delete (client);
+  auto it = std::find(_clients->begin(), _clients->end(), client);
+
+  if (it != _clients->end())
+    {
+      _map->deletePlayer(client->getID());
+      _clients->erase(it);
+      delete (client);
+    }
 }
 
 void					GameCore::setAlive(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
