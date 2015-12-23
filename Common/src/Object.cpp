@@ -53,7 +53,6 @@ void			Object::damage()
 {
   _damage = true;
 }
-
 bool			Object::isAlive() const
 {
   return _isAlive;
