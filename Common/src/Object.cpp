@@ -101,7 +101,7 @@ bool			Object::collision(std::vector<IObject*>& map)
 	      {
 		_life = _life - 1;
 		std::cout << "COLLISION entre" << this->getId() << " [" << this->getPos().x << ";" <<  this->getPos().y << "](" << this->getSize().x << ';' << this->getSize().y <<  ") and " << (*it)->getId()<< " [" << (*it)->getPos().x << ";" <<  (*it)->getPos().y << "]("<< (*it)->getSize().x << ';' << (*it)->getSize().y << ')' << std::endl;
-		// static_cast<Object*>(*it)->damage();
+		static_cast<Object*>(*it)->damage();
 	      }
 	  }
       }
