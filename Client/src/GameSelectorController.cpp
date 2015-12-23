@@ -3,6 +3,7 @@
 GameSelectorController::GameSelectorController(CUDPNetworkHandler **handler, CNetworkHandler *tcpHand) :
   _tcpHand(tcpHand), _udpHand(handler)
 {
+  // std::cout << "LOL" << std::endl;
   _background = new Backgroud;
   std::string txt("or choose an existing game, May the force be with you");
   _disclaimer = new sf::Text(txt, *(ac->getFont(STAR)));
@@ -82,11 +83,13 @@ void						GameSelectorController::treatEvents()
         {
 	  if (i.first->getIsHigh())
             {
+	      std::cout << "JOIN Game" << std::endl;
 	      joinGame(i.second);
 	      return;
             }
         }
       if (_createGameButton->getIsHigh())
+	std::cout << "Create Game" << std::endl;
 	createGame();
     }
 }

@@ -4,7 +4,7 @@
 extern unsigned int _maxId;
 
 Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
-  : Object(speed, pos, sf::Vector2i(270, 100), ObjectInfo::PLAYER, id),
+  : Object(speed, pos, sf::Vector2i(220, 80), ObjectInfo::PLAYER, id),
     _canShoot(true),
     _pauseShotDelay(sf::milliseconds(150)),
     _lastLoopTime(sf::milliseconds(0))
@@ -56,7 +56,7 @@ BasicPlayerProjectile		*Player::BasicShoot()
   pos.y = _pos.y + _size.y;
   speed.x = _speed.y + (_speed.y / 3);
   speed.y = speed.x;
-  return new BasicPlayerProjectile(speed, pos, _maxId++);
+  return new BasicPlayerProjectile(speed, pos, _maxId++, _id);
 }
 
 bool		Player::tryShoot()

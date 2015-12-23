@@ -9,7 +9,7 @@ ScantAlien::ScantAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, fl
 {
   _life = 3;
   _realType = ObjectInfo::SCANT;
-  _f = 3;
+  _f = 1;
   _rad = 3;
   _a = 3;
 }

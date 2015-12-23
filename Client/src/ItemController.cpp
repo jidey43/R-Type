@@ -47,14 +47,14 @@ void ItemController::addShip(CrePlayPacket *packet)
   _items.emplace_back(new PlayerGraphical(sf::Vector2f(0,0), sf::Vector2f(data->x, data->y), data->id));
 }
 
-void ItemController::addObj(CreObjPacket *packet)
+void ItemController::addObj(CreObjPacket *packet, int idPlayer)
 {
   int id = packet->getData()->id;
   sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
   float speed = packet->getData()->speed;
 
   if (packet->getData()->type == ObjectInfo::PLAYERREGULAR)
-    _items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
+    _items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id, idPlayer));
   if (packet->getData()->type == ObjectInfo::ALIENREGULAR)
     _items.emplace_back(new BasicAlienProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
 }

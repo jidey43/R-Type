@@ -3,7 +3,7 @@
 
 ViewController::ViewController()
 {
-	_mainWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "RType" ,sf::Style::Fullscreen);
+	_mainWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "RType" ,sf::Style::Default);
 	_mainWindow->setKeyRepeatEnabled(false);
 	_soundTrack = ac->getSoundTrack();
 }

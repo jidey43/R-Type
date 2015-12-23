@@ -26,6 +26,7 @@ public:
     std::cout << "before for" << std::endl;
     for (auto it = _order.begin(); it != _order.end(); it++)
       {
+<<<<<<< HEAD
 	if ((*it) != NULL)
 	  if (clock.getElapsedTime() >= (*it)->getTime())
 	    {
@@ -35,6 +36,15 @@ public:
 	    }
 	  else
 	    obj->push_back(NULL);
+=======
+	if (clock.getElapsedTime() >= (*it)->getTime())
+	  {
+	    obj->push_back(new T((*it)->getSpeed(), (*it)->getPos(), _maxId++, (*it)->getCoeff()));
+	    (*it)->pop();
+	  }
+	else
+	  obj->push_back(NULL);
+>>>>>>> 9f4c930443187ce4f752b39a66559cea67703229
 	if ((*it)->getCount() <= 0)
 	  _order.erase(it);
       }

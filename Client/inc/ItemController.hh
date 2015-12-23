@@ -38,10 +38,10 @@ public:
 
 public:
   void						addShip(CrePlayPacket *packet);
-  void						addObj(CreObjPacket *packet);
+  void						addObj(CreObjPacket *packet, int idPlayer = -1);
   void						moveShip(MovePacket *packet);
   void						deleteObject(DelItemPacket *packet);
-  void                      addExplosion(sf::Vector2f);
+  void						addExplosion(sf::Vector2f);
 
 public:
   void						addAlien(CreIAPacket *packet);
@@ -52,7 +52,7 @@ public:
 private:
   sf::Clock					_clock;
   std::vector<GraphicalItem*>			 _items;
-  std::vector<GraphicalItem*>			 _unlogicalItems;  
+  std::vector<GraphicalItem*>			 _unlogicalItems;
   sf::Sprite*					_background;
   int						_playerCount;
 };
