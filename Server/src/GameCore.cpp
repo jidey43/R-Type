@@ -55,10 +55,10 @@ void		GameCore::updateAliveClients(sf::Time const& count)
     {
       if (!((*it)->updateAlive(count)))
 	{
-	  std::cout << "UDP: Client disconnected" << std::endl;
-	  delete (*it);
-	  _clients->erase(it);
-	  return ;
+	  itTmp = it + 1;
+	  this->gamerDisconnect(*it, NULL);
+	  it = itTmp;
+	  continue ;
 	}
       it = it + 1;
     }
@@ -158,7 +158,6 @@ bool					GameCore::processPacket(GamerInfo* client,
       setAlive(client, packet);
       break;
     case DISCONNECT:
-      std::cout << "recv disconnect" << std::endl;
       gamerDisconnect(client, packet);
       break;
     default:
@@ -216,6 +215,5 @@ void					GameCore::gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCom
 
 void					GameCore::setAlive(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
-  std::cout << "Received Alive" << std::endl;
   client->resetAlive();
 }

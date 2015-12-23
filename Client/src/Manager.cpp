@@ -52,7 +52,6 @@ void	Manager::sendAlive(sf::Time const& count)
     {
       _lastAliveSent = sf::Time(sf::milliseconds(500));
       _udpHand->send(new AlivePacket(ALIVE, 0, true));
-      std::cout << "alive sent" << std::endl;
     }
 }
 
