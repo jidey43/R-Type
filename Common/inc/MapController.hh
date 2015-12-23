@@ -30,9 +30,9 @@ public:
   void		checkNewObj(std::vector<IObject*>::iterator& it, IObject* obj);
 
 private:
-  std::vector<IObject*>		_map;
+  std::vector<IObject*>					_map;
   std::vector<IServerPacket<ServerUDPResponse>*>	*_deserializedMap;
-  std::vector<IObject*>		_toAppend;
+  std::vector<IObject*>					_toAppend;
 };
 
 #endif
