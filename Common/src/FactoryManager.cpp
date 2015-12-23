@@ -12,9 +12,8 @@
 #include "Obstacle.hh"
 #include "ShellAlien.hh"
 
-FactoryManager::FactoryManager(MapController *map, const char *levelFileName) : _map(map)
+FactoryManager::FactoryManager(MapController *map) : _map(map)
 {
-  _levelLoader.parseLevel(levelFileName);
   _factories.push_back(new AlienFactory<BydoAlien>(ObjectInfo::WaveType::BYDO));
   _factories.push_back(new AlienFactory<GlamAlien>(ObjectInfo::WaveType::GLAM));
   _factories.push_back(new AlienFactory<DokanAlien>(ObjectInfo::WaveType::DOKAN));
@@ -26,12 +25,16 @@ FactoryManager::FactoryManager(MapController *map, const char *levelFileName) : 
   _factories.push_back(new AlienFactory<Xelf16Alien>(ObjectInfo::WaveType::XELF16));
   //  _factories.push_back(new AlienFactory<Obstacle>(ObjectInfo::WaveType::OBSTACLE));
   _nbFactory = _factories.size();
+  _levelFiles.push_back("../../level/Level1.lvl");
+  _levelFiles.push_back("../../level/Level2.lvl");
+  _levelFiles.push_back("../../level/Level3.lvl");
+  _levelFiles.push_back("../../level/Level4.lvl");
 }
 
 FactoryManager::~FactoryManager()
 {}
 
-void		FactoryManager::changeLevel(char *level)
+void		FactoryManager::changeLevel(int level)
 {
   try
     {
@@ -60,7 +63,7 @@ void		FactoryManager::initialiseLevel()
       if (waves[j] != NULL)
 	{
 	  if (waves[j]->getType() == _factories[i]->getType())
-	    {	      
+	    {
 	      _factories[i]->setWave(waves[j]);
 	      j = j + 1;
 	      i = -1;
@@ -72,7 +75,7 @@ void		FactoryManager::initialiseLevel()
 	}
       else
 	waves.push_back(_levelLoader.getNextWave());
-	
+
     }
 }
 
