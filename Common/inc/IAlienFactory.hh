@@ -12,6 +12,7 @@ public:
   virtual ~IAlienFactory() {};
   virtual std::vector<IObject*>		   *getNextEnemy(const sf::Clock&) = 0;
   virtual const ObjectInfo::WaveType	   &getType() const = 0;
+  virtual bool				   isOver() = 0;
   virtual void				   setWave(Waves*) = 0;
 };
 

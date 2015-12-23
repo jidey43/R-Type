@@ -38,13 +38,15 @@ void		FactoryManager::changeLevel(int level)
 {
   try
     {
-      _levelLoader.parseLevel(level);
+      _levelLoader.parseLevel(_levelFiles[level].c_str());
+      this->initialiseLevel();
     }
   catch (Exceptions::FactoryExcept e)
     {
       std::cerr << e.what() << std::endl;
     }
 }
+
 
 void		FactoryManager::initialiseLevel()
 {
@@ -77,6 +79,16 @@ void		FactoryManager::initialiseLevel()
 	waves.push_back(_levelLoader.getNextWave());
 
     }
+}
+
+bool				FactoryManager::remainingAliens()
+{
+  for (std::vector<IAlienFactory*>::iterator it = _factories.begin(); it != _factories.end(); it++)
+    {
+      if (!(*it)->isOver())
+	return false;
+    }
+  return true;
 }
 
 std::vector<IObject*>		*FactoryManager::update(const sf::Clock &clock)

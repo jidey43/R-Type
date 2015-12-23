@@ -15,6 +15,7 @@ public:
   std::vector<IObject*>		*update(const sf::Clock&);
   void				initialiseLevel();
   void				changeLevel(int);
+  bool				remainingAliens();
 
 private:
   unsigned int			_nbFactory;

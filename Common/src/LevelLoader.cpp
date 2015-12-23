@@ -77,6 +77,7 @@ void		LevelLoader::parseLevel(const char *name)
   _levelFile.open(name);
   if (_levelFile.is_open())
     {
+      std::cout << "SUCCESS" << std::endl;
       std::string	  line;
 
       while (getline(_levelFile, line, '\n'))

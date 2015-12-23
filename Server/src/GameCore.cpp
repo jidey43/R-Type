@@ -6,11 +6,10 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
     _network(new UDPNetworkHandler(ip, port, _clients)),
     _map(new MapController()),
     _factory(new FactoryManager(_map)),
-    _factory->changeLevel(0);
     _referential(sf::Time(sf::microseconds(16666))),
     _running(true)
 {
-  _factory->initialiseLevel();
+  _factory->changeLevel(0);
   _currentLevel = 0;
   this->run();
 }
@@ -71,12 +70,13 @@ void		GameCore::updateMap()
   std::vector<IObject*>		*aliens;
   std::vector<IServerPacket<ServerUDPResponse>*>	*toSend = new std::vector<IServerPacket<ServerUDPResponse>*>;
 
-if (_map->getAlienCount() == 0)
-{
-    if (_currentLevel == 3)
+  if (_map->getAlienCount() == 0
+      && _factory->remainingAliens())
+    {
+      if (_currentLevel == 3)
         std::cout << "FIN DE LA PARTIE" << std::endl;
-    _factory->changeLevel(_currentLevel + 1)
-}
+      _factory->changeLevel(_currentLevel + 1);
+    }
   try
     {
       aliens = _factory->update(_clock);
