@@ -9,9 +9,9 @@ YorkAlien::YorkAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, floa
 {
   _realType = ObjectInfo::YORK;
   _life = 2;
-  _f = 50;
+  _f = 3;
   _rad = 6;
-  _a = 10;
+  _a = 7;
 }
 
 YorkAlien::~YorkAlien()

@@ -7,8 +7,9 @@ extern unsigned int _maxId;
 DokanAlien::DokanAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
   : Alien(speed, pos, sf::Vector2i(100, 100), id, coeff)
 {
+  _life = 3;
   _realType = ObjectInfo::DOKAN;
-  _f = 30;
+  _f = 7;
   _rad = 2;
   _a = 3;
 }
@@ -20,6 +21,7 @@ DokanAlien::~DokanAlien()
 bool		DokanAlien::update(sf::Clock const& clock, std::vector<IObject*>& map)
 {
   this->update(clock);
+  this->collision(map);
   return (_isAlive);
 }
 
