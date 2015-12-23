@@ -10,6 +10,7 @@
 #include "CreObjPacket.h"
 #include "CreIAPacket.h"
 #include "MovePacket.h"
+#include "AlivePacket.hh"
 
 extern ViewController *vc;
 extern AssetsController *ac;
@@ -25,11 +26,14 @@ public:
 	sf::Time 			getElapsedTimeSinceLoop();
 	void				treatEventsFromKeyboard();
 	void				treatEventsFromNetwork();
+	void				sendAlive(sf::Time const&);
 	void				treatPacket(IServerPacket<ServerUDPResponse>* res);
 
 private:
 	sf::Clock			_clock;
 	sf::Time			_referential;
+	sf::Time			_lastAliveSent;
+  	sf::Time			_refAlive;
 
 private:
 	keyboardStatus		_keyboardStatus;
