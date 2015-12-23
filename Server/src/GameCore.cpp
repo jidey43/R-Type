@@ -90,7 +90,8 @@ void		GameCore::updateMap()
         std::cout << "FIN DE LA PARTIE" << std::endl;
       _clock.restart();
       _map->resetClockPlayer();
-      _factory->changeLevel(++_currentLevel);
+      _network->broadcast(new NextLvlPacket(NEXT_LVL, 0, ++_currentLevel));
+      _factory->changeLevel(_currentLevel);
     }
   try
     {
@@ -231,9 +232,14 @@ void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>*
 
 void					GameCore::gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
-  _map->deletePlayer(client->getID());
-  _clients->erase(std::find(_clients->begin(), _clients->end(), client));
-  delete (client);
+  auto it = std::find(_clients->begin(), _clients->end(), client);
+
+  if (it != _clients->end())
+    {
+      _map->deletePlayer(client->getID());
+      _clients->erase(it);
+      delete (client);
+    }
 }
 
 void					GameCore::setAlive(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)

@@ -1,17 +1,18 @@
 # include <string.h>
 # include "NextLvlPacket.hh"
 
-NextLvlPacket::NextLvlPacket(ServerTCPResponse resp, int data) : AServerPacket<ServerTCPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _header(new ServerTCPHeader), _data(new NextLvlData)
+NextLvlPacket::NextLvlPacket(ServerUDPResponse resp, int idx, int data) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _header(new ServerUDPHeader), _data(new NextLvlData)
 {
   _header->magic = MAGIC;
   _header->command = resp;
+  _header->idx = idx;
   _header->size = sizeof(*_data);
   _data->data = data;
   _data->magic = MAGIC;
 }
 
-NextLvlPacket::NextLvlPacket(ServerTCPHeader* header)
-  : AServerPacket<ServerTCPResponse>(header->command, header->size + sizeof(*_header)), _data(new NextLvlData), _header(header)
+NextLvlPacket::NextLvlPacket(ServerUDPHeader* header)
+  : AServerPacket<ServerUDPResponse>(header->command, header->size + sizeof(*_header)), _data(new NextLvlData), _header(header)
 {
 }
 
@@ -32,7 +33,7 @@ bool				NextLvlPacket::checkHeader()
 {
   if (_header->magic != MAGIC)
     return false;
-  else if (_header->command < AUTH || _header->command > FAIL)
+  else if (_header->command < AUTH_UDP || _header->command > MOVE)
     return false;
   else if (_header->size < 0)
     return false;

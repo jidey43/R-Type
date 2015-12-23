@@ -25,6 +25,9 @@ IServerPacket<ServerUDPResponse>*	PacketFactory::build(ServerUDPHeader *header)
     case DEL_ITEM:
       return new DelItemPacket(header);
       break;
+    case NEXT_LVL:
+      return new NextLvlPacket(header);
+      break;
     case MOVE:
       return new MovePacket(header);
       break;
