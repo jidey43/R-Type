@@ -146,7 +146,7 @@ void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand
     }
    player = static_cast<Player*>(_map->getPlayer(client->getID()));
    _map->generatePacketsMap(player);
-   _network->sendTo(client, new AuthUDPPacket(AUTH_UDP, 0, SUCCESS));
+   _network->sendTo(client, new AuthUDPPacket(AUTH_UDP, 0, SUCCESS, _clock.getElapsedTime().asMicroseconds()));
    this->sendMap(client, _map->getMap());
    _network->broadcast(new CrePlayPacket(CRE_PLAY, 0, player->getId(), player->getPos().x, player->getPos().y));
 }

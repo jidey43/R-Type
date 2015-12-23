@@ -1,13 +1,14 @@
 # include <string.h>
 # include "AuthUDPPacket.h"
 
-AuthUDPPacket::AuthUDPPacket(ServerUDPResponse resp, int idx, Bool success) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new AuthUDPData), _header(new ServerUDPHeader)
+AuthUDPPacket::AuthUDPPacket(ServerUDPResponse resp, int idx, Bool success, uint64_t timestamp) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new AuthUDPData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;
   _header->size = sizeof(*_data);
   _header->idx = idx;
   _data->success = success;
+  _data->timestamp = timestamp;
   _data->magic = MAGIC;
 }
 
