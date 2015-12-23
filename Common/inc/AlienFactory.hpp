@@ -17,22 +17,24 @@ public:
   ~AlienFactory() {};
 
 public:
-  IObject	*getNextEnemy(const sf::Clock &clock)
+  std::vector<IObject*>		*getNextEnemy(const sf::Clock &clock)
   {
-    IObject	*obj;
+    std::vector<IObject*>	*obj = new std::vector<IObject*>;
 
     if (_order.size() <= 0)
-      return NULL;
-    if (clock.getElapsedTime() >= _order.front()->getTime())
+      return (obj);
+    for (auto it = _order.begin(); it != _order.end(); it++)
       {
-	std::cout << "max ID : " << _maxId<< std::endl;
-        obj = new T(_order.front()->getSpeed(), _order.front()->getPos(), _maxId++, _order.front()->getCoeff());
-	_order.front()->pop();
+	if (clock.getElapsedTime() >= (*it)->getTime())
+	  {
+	    obj->push_back(new T((*it)->getSpeed(), (*it)->getPos(), _maxId++, (*it)->getCoeff()));
+	    (*it)->pop();
+	  }
+	else
+	  obj->push_back(NULL);
+	if ((*it)->getCount() <= 0)
+	  _order.erase(it);
       }
-    else
-      obj = NULL;
-    if (_order.front()->getCount() == 0)
-      _order.pop_front();
     return (obj);
   }
 
@@ -43,7 +45,8 @@ public:
 
   void			setWave(Waves *wave)
   {
-    _order.push_back(wave);
+    if (wave != NULL)
+      _order.push_back(wave);
   }
 
 public:

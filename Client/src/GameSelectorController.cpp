@@ -82,6 +82,7 @@ void						GameSelectorController::treatEvents()
         {
 	  if (i.first->getIsHigh())
             {
+	      std::cout << "Create Game" << std::endl;
 	      joinGame(i.second);
 	      return;
             }

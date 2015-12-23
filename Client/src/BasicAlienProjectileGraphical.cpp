@@ -5,8 +5,8 @@ BasicAlienProjectileGrapical::BasicAlienProjectileGrapical(sf::Vector2f speed, s
 {
 	_sprite->setTexture(*(ac->getShot(BASICALIENSHOT)));
 	_sprite->setPosition(
-		(_pos.x / SCREENRATIO) - (SHOT_ASSET_SIZE_X / 2),
-		(_pos.y / SCREENRATIO) - (SHOT_ASSET_SIZE_Y / 2)
+    _pos.x,
+    _pos.y
 		);
 
 }
@@ -17,8 +17,8 @@ bool BasicAlienProjectileGrapical::update(sf::Clock const& clock)
 
   ret = BasicAlienProjectile::update(clock);
 	_sprite->setPosition(
-		(_pos.x / SCREENRATIO) - (SHOT_ASSET_SIZE_X / 2),
-		(_pos.y / SCREENRATIO) - (SHOT_ASSET_SIZE_Y / 2)
+		_pos.x,
+		_pos.y
 		);
 	return (ret);
 }

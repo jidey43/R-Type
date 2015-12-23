@@ -108,7 +108,7 @@ void MenuController::joinGame()
 {
   std::string ip = _ipArea->getText();
   std::string port = _portArea->getText();
-IServerPacket<ServerTCPResponse>* response;
+  IServerPacket<ServerTCPResponse>* response;
 
   *_tcpHandAddr = new CNetworkHandler(ip, port);
   CNetworkHandler* _tcpHand = *_tcpHandAddr;

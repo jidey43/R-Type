@@ -4,7 +4,7 @@
 extern unsigned int _maxId;
 
 Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
-  : Object(speed, pos, sf::Vector2i(100,30), ObjectInfo::PLAYER, id),
+  : Object(speed, pos, sf::Vector2i(270, 100), ObjectInfo::PLAYER, id),
     _canShoot(true),
     _pauseShotDelay(sf::milliseconds(150)),
     _lastLoopTime(sf::milliseconds(0))
@@ -53,7 +53,6 @@ BasicPlayerProjectile		*Player::BasicShoot()
   _isShoot = false;
   pos.x = _pos.x + _size.x;
   pos.y = _pos.y + _size.y / 2;
-  std::cout << "max ID : " << _maxId << std::endl;
   return new BasicPlayerProjectile(_speed, pos, _maxId++, _id);
 }
 

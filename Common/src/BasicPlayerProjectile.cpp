@@ -4,7 +4,8 @@ BasicPlayerProjectile::BasicPlayerProjectile(sf::Vector2f speed,
 					     sf::Vector2f pos,
 					     unsigned int id,
 					     unsigned int idPlayer)
-  : Projectile(speed, pos, sf::Vector2i(10,10), id, ObjectInfo::PLAYERREGULAR), _idPlayer(idPlayer)
+  : Projectile(speed, pos, sf::Vector2i(10,10), id, ObjectInfo::PLAYERREGULAR),
+    _idPlayer(idPlayer)
 {
 }
 
@@ -20,8 +21,7 @@ bool		BasicPlayerProjectile::update(sf::Clock const& clock)
     }
   this->_pos.x = this->_pos.x + this->_speed.x;
   return true;
-
- }
+}
 
 bool		BasicPlayerProjectile::update(sf::Clock const& clock, std::vector<IObject*>& map)
 {
