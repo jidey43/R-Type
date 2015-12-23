@@ -15,6 +15,11 @@ Player::~Player()
 {
 }
 
+void		Player::resetLoopTime()
+{
+  _lastLoopTime = sf::milliseconds(0);
+}
+
 bool		Player::update(sf::Clock const& clock)
 {
   _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);

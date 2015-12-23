@@ -6,7 +6,7 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
     _network(new UDPNetworkHandler(ip, port, _clients)),
     _map(new MapController()),
     _factory(new FactoryManager(_map)),
-    _referential(sf::Time(sf::microseconds(16666))),
+    _referential(sf::Time(sf::microseconds(20000))),
     _running(true)
 {
   _factory->changeLevel(0);
@@ -75,7 +75,9 @@ void		GameCore::updateMap()
     {
       if (_currentLevel == 3)
         std::cout << "FIN DE LA PARTIE" << std::endl;
-      _factory->changeLevel(_currentLevel++);
+      _clock.restart();
+      _map->resetClockPlayer();
+      _factory->changeLevel(++_currentLevel);
     }
   try
     {

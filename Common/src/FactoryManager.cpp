@@ -77,7 +77,6 @@ void		FactoryManager::initialiseLevel()
 	}
       else
 	waves.push_back(_levelLoader.getNextWave());
-
     }
 }
 
