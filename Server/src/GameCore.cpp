@@ -83,7 +83,8 @@ void		GameCore::updateMap()
         std::cout << "FIN DE LA PARTIE" << std::endl;
       _clock.restart();
       _map->resetClockPlayer();
-      _factory->changeLevel(++_currentLevel);
+      _network->broadcast(new NextLvlPacket(NEXT_LVL, 0, ++_currentLevel));
+      _factory->changeLevel(_currentLevel);
     }
   try
     {

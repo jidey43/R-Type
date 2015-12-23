@@ -19,7 +19,7 @@ void					Manager::loop()
   sf::Time lastTime;
 
   //	vc->startSoundtrack();
-  _itemCtrl->setBackground(BACKGROUND_FOUR);
+  _itemCtrl->setBackground(BACKGROUND_ONE);
   _clock.restart();
   while (1)
     {
@@ -99,6 +99,10 @@ void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
       break;
     case MOVE:
       _itemCtrl->moveShip(static_cast<MovePacket*>(res));
+      break;
+    case NEXT_LVL:
+      _clock.restart();
+      _itemCtrl->setBackground(BACKGROUND_ONE);
       break;
     default:
       break;

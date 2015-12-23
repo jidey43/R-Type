@@ -14,6 +14,7 @@
 #include "FailPacket.h"
 #include "GameOverPacket.h"
 #include "AuthUDPPacket.h"
+#include "NextLvlPacket.hh"
 #include "CrePlayPacket.h"
 #include "CreObjPacket.h"
 #include "CreIAPacket.h"

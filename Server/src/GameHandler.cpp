@@ -49,7 +49,6 @@ void		GameHandler::tryJoinGames()
 
   while (it != _gameList.end())
     {
-      std::cout << (*it)->tryJoinGame() << std::endl;
       if ((port = (*it)->tryJoinGame()) != -1)
 	{
 	  std::cout << "tototototototo" << std::endl;

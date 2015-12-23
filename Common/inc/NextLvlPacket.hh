@@ -3,11 +3,11 @@
 
 # include "AServerPacket.hh"
 
-class NextLvlPacket : public AServerPacket<ServerTCPResponse>
+class NextLvlPacket : public AServerPacket<ServerUDPResponse>
 {
  public:
-  NextLvlPacket(ServerTCPResponse, int);
-  NextLvlPacket(ServerTCPHeader*);
+  NextLvlPacket(ServerUDPResponse, int, int);
+  NextLvlPacket(ServerUDPHeader*);
   ~NextLvlPacket();
 
   char*				deserialize();
@@ -16,7 +16,7 @@ class NextLvlPacket : public AServerPacket<ServerTCPResponse>
   NextLvlData*			getData() const;
 
  private:
-  ServerTCPHeader*		_header;
+  ServerUDPHeader*		_header;
   NextLvlData*			_data;
 };
 
