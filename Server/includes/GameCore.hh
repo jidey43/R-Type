@@ -40,7 +40,8 @@ private :
   sf::Clock			_clockAlive;
   sf::Time			_referential;
   bool				_running;
-  int               _currentLevel;     
+  bool				_firstClient;
+  int				_currentLevel;
 };
 
 #endif /* !GAMECORE_H_ */

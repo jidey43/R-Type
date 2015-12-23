@@ -15,7 +15,7 @@ class		Server
  private:
   NetworkHandler*			_network;
   GameHandler*				_games;
-  std::string         _ip;
+  std::string				_ip;
 
 private:
   void					start();

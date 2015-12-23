@@ -7,7 +7,8 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
     _map(new MapController()),
     _factory(new FactoryManager(_map)),
     _referential(sf::Time(sf::microseconds(20000))),
-    _running(true)
+    _running(true),
+    _firstClient(false)
 {
   _factory->changeLevel(0);
   _currentLevel = 0;
@@ -43,8 +44,11 @@ bool		GameCore::run()
        	{
 	  receivePacket();
 	}
-      this->updateAliveClients(_clockAlive.getElapsedTime());
+      if (_firstClient)
+	this->updateAliveClients(_clockAlive.getElapsedTime());
     }
+  std::cout << "END THREAD" << std::endl;
+  return true;
 }
 
 void		GameCore::updateAliveClients(sf::Time const& count)
@@ -63,6 +67,8 @@ void		GameCore::updateAliveClients(sf::Time const& count)
 	}
       it = it + 1;
     }
+  if (_clients->empty())
+    _running = false;
 }
 
 void		GameCore::updateMap()
@@ -142,6 +148,7 @@ bool					GameCore::receivePacket()
 
   if ((client = _network->selectClient()))
     {
+      _firstClient = true;
       packet = _network->receiveFrom(client);
       if (packet)
 	processPacket(client, packet);
