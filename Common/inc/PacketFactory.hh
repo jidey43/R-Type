@@ -24,6 +24,7 @@
 #include "DelItemPacket.h"
 #include "CAuthUDPPacket.h"
 #include "NetworkDefines.h"
+#include "AlivePacket.hh"
 
 class PacketFactory
 {

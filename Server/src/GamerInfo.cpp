@@ -1,7 +1,12 @@
 #include "GamerInfo.hh"
 
 GamerInfo::GamerInfo(ClientDatas* datas)
-  : _clientInfo(datas), _header(NULL), _name(""), _isAuth(false), _id(-1)
+  : _clientInfo(datas),
+    _header(NULL),
+    _name(""),
+    _isAuth(false),
+    _id(-1),
+    _timeout(sf::Time(sf::seconds(3)))
 {
 }
 
@@ -53,4 +58,15 @@ int			GamerInfo::getID() const
 void			GamerInfo::setID(int id)
 {
   _id = id;
+}
+
+bool			GamerInfo::updateAlive(sf::Time const& count)
+{
+  _timeout -= count;
+  return (_timeout <= sf::Time(sf::milliseconds(0)) ? false : true);
+}
+
+void			GamerInfo::resetAlive()
+{
+  _timeout = sf::Time(sf::seconds(3));
 }

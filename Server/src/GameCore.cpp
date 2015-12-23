@@ -36,10 +36,26 @@ bool		GameCore::run()
   while (_running)
     {
       this->updateMap();
-
+      this->updateAliveClients(getElapsedTimeSinceLoop());
       while (_running && ((elapsed = getElapsedTimeSinceLoop()) > sf::microseconds(0)))
       	{
 	  receivePacket();
+	}
+    }
+}
+
+void		GameCore::updateAliveClients(sf::Time const& count)
+{
+  std::vector<GamerInfo*>::iterator	it;
+
+  for (it = _clients->begin(); it != _clients->end(); ++it)
+    {
+      if (!(*it)->updateAlive(count))
+	{
+	  std::cout << "UDP: Client disconnected" << std::endl;
+	  delete (*it);
+	  if ((it = _clients->erase(it)) == _clients->end())
+	    break ;
 	}
     }
 }
@@ -134,6 +150,9 @@ bool					GameCore::processPacket(GamerInfo* client,
     case SEND_MOVE:
       gamerMove(client, packet);
       break;
+    case ALIVE:
+      setAlive(client, packet);
+      break;
     case DISCONNECT:
       gamerDisconnect(client, packet);
       break;
@@ -142,7 +161,6 @@ bool					GameCore::processPacket(GamerInfo* client,
     }
   return true;
 }
-
 
 void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
@@ -172,7 +190,6 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
     }
 }
 
-
 void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
   Player*				player = static_cast<Player*>(_map->getPlayer(client->getID()));
@@ -188,4 +205,10 @@ void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>*
 void					GameCore::gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
   _map->deletePlayer(client->getID());
+}
+
+void					GameCore::setAlive(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
+{
+  std::cout << "Received Alive" << std::endl;
+  client->resetAlive();
 }

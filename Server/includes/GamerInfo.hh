@@ -2,6 +2,7 @@
 # define GAMERINFO_H_
 
 # include <string>
+# include <SFML/System/Time.hpp>
 # include "NetworkDefines.h"
 # include "IClientPacket.hh"
 
@@ -13,6 +14,7 @@ private:
   std::string		_name;
   bool			_isAuth;
   int			_id;
+  sf::Time		_timeout;
 
 public:
   GamerInfo(ClientDatas*);
@@ -26,6 +28,8 @@ public:
   void			setAuth(bool auth);
   int			getID() const;
   void			setID(int id);
+  bool			updateAlive(sf::Time const&);
+  void			resetAlive();
 
 private:
   GamerInfo(const GamerInfo &);
