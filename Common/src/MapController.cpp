@@ -28,7 +28,10 @@ void			MapController::generatePacketsMap(IObject* player)
 	  _deserializedMap->push_back(new CrePlayPacket(CRE_PLAY, 0, (*it)->getId(), (*it)->getPos().x + (*it)->getSize().x, (*it)->getPos().y));
 	  break ;
 	case ObjectInfo::SHOT :
-	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, ObjectInfo::PLAYERREGULAR));
+	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, (static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::PLAYERREGULAR ? ObjectInfo::PLAYERREGULAR : ObjectInfo::ALIENREGULAR)));
+	  break ;
+	case ObjectInfo::BYDO || ObjectInfo::GLAM || ObjectInfo::DOKAN || ObjectInfo::KAYBEROS || ObjectInfo::RIOS || ObjectInfo::SCANT || ObjectInfo::SHELL || ObjectInfo::YORK || ObjectInfo::XELF16 :
+	  _deserializedMap->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getRealType()));
 	  break ;
 	default :
 	  break ;
