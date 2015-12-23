@@ -117,7 +117,6 @@ void						GameSelectorController::drawMenuItems()
     }
 }
 
-
 void                        GameSelectorController::createGame()
 {
   IServerPacket<ServerTCPResponse> *response;

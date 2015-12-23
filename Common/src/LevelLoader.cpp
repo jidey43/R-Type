@@ -131,9 +131,8 @@ Waves						*LevelLoader::getNextWave()
   freq = sf::seconds(fnb);
   buffer >> coeff;
 
-  for (inb = 0; name != _compare[inb] && inb < 14; inb = inb + 1);
-
-  if (inb >= 13)
+  for (inb = 0; name != _compare[inb] && inb < 13; inb = inb + 1);
+  if (inb >= 13 || inb < 0)
   {
     return (NULL);
   }
@@ -147,6 +146,7 @@ Waves						*LevelLoader::getNextWave()
   }
 
   std::cout << inb << std::endl;
+
   ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
   _lines.pop_front();
   Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type, (ObjectInfo::ObstacleType)obstacleType);

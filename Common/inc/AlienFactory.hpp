@@ -27,6 +27,7 @@ public:
       {
 	if (clock.getElapsedTime() >= (*it)->getTime())
 	  {
+	    std::cout << "PUSH" << std::endl;
 	    obj->push_back(new T((*it)->getSpeed(), (*it)->getPos(), _maxId++, (*it)->getCoeff()));
 	    (*it)->pop();
 	  }

@@ -31,12 +31,15 @@ public:
   bool						selectServer(struct timeval *to = NULL);
   IServerPacket<ServerUDPResponse>*		receive();
   bool						send(IClientPacket<ClientUDPCommand>*);
+  float						getStartTime() const;
+  void						setStartTime(float time);
 
 private:
   std::string					_ip;
   std::string					_port;
   CINetwork<CUDPSocket>*			_network;
   PacketFactory*				_factory;
+  float						_startTime;
   SOCKET					_socket;
   ClientDatas					_serveraddr;
   ServerUDPHeader*				_header;
