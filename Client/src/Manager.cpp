@@ -6,7 +6,7 @@ Manager::Manager(CUDPNetworkHandler *udpHand)
     _lastAliveSent(_refAlive)
 {
   _itemCtrl = new ItemController;
-  _referential = sf::Time(sf::microseconds(16666));
+  _referential = sf::Time(sf::microseconds(20000));
 }
 
 Manager::~Manager()

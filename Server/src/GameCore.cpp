@@ -5,7 +5,7 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
     _network(new UDPNetworkHandler(ip, port, _clients)),
     _map(new MapController()),
     _factory(new FactoryManager(_map, "../../level/Level1.lvl")),
-    _referential(sf::Time(sf::microseconds(16666))),
+    _referential(sf::Time(sf::microseconds(20000))),
     _running(true)
 {
   _factory->initialiseLevel();
@@ -38,7 +38,7 @@ bool		GameCore::run()
       _clockAlive.restart();
       this->updateMap();
       while (_running && ((elapsed = getElapsedTimeSinceLoop()) > sf::microseconds(0)))
-      	{
+       	{
 	  receivePacket();
 	}
       this->updateAliveClients(_clockAlive.getElapsedTime());
