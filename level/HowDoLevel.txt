@@ -1,1 +1,1 @@
-AlienName nb posx posy speedx speedy coeff time
+AlienName nb posx posy speedx speedy time freq coeff

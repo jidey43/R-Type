@@ -21,6 +21,7 @@ public:
   void					setShooting(bool);
   void					setPos(const sf::Vector2f &pos);
   void					setSpeed(const sf::Vector2f &speed);
+  void					touch();
   virtual bool				update(sf::Clock const&, std::vector<IObject*>&) = 0;
   virtual bool				update(sf::Clock const&) = 0;
 
