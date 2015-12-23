@@ -149,6 +149,10 @@ GamerInfo*				UDPNetworkHandler::selectClient()
 	  std::cerr << e.what() << std::endl;
 	  return NULL;
 	}
+      catch (Exceptions::ConnectionExcept e)
+	{
+	  return NULL;
+	}
       if ((client = this->getClient(clientDatas)))
 	{
 	  client->setHeader(header);

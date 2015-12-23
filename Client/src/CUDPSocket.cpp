@@ -40,11 +40,14 @@ void			CUDPSocket::sendData(const void *buffer, int size, SOCKET sock, ClientDat
     throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
   if (res == 0)
     throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
-  res = sendto(_listen, (char*)buffer + sizeof(ClientUDPHeader), size - sizeof(ClientUDPHeader), 0, (sockaddr *)addr, addr_len);
-  if (res == -1)
-    throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
-  if (res == 0)
-    throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
+  if (size > sizeof(ClientUDPHeader))
+    {
+      res = sendto(_listen, (char*)buffer + sizeof(ClientUDPHeader), size - sizeof(ClientUDPHeader), 0, (sockaddr *)addr, addr_len);
+      if (res == -1)
+	throw Exceptions::NetworkExcept("SENDTO ERROR", errno);
+      if (res == 0)
+	throw Exceptions::ConnectionExcept("DISCONNECTED CLIENT");
+    }
 }
 
 void			CUDPSocket::rcvData(void* buffer, int size, SOCKET sock, ClientDatas *addr)

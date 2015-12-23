@@ -109,8 +109,7 @@ void		MapController::checkNewObj(std::vector<IObject*>::iterator& it, IObject* o
             && static_cast<Alien*>(obj)->getRealType() != ObjectInfo::OBSTACLE)
                 _alienCount -= 1;
       _deserializedMap->push_back(new DelItemPacket(DEL_ITEM, 0, obj->getId()));
-      delete this->getPlayer(obj->getId());
-      it = _map.erase(it);
+      this->deletePlayer(obj->getId());
     }
 }
 
@@ -133,8 +132,12 @@ IObject*	MapController::getPlayer(int id)
 
 void		MapController::deletePlayer(int id)
 {
-  delete (this->getPlayer(id));
-  _map.erase(std::find(_map.begin(), _map.end(), this->getPlayer(id)));
+  IObject*	player = this->getPlayer(id);
+
+  if (player == NULL)
+    return ;
+  _map.erase(std::find(_map.begin(), _map.end(), player));
+  delete (player);
 }
 
 int       MapController::getAlienCount() const

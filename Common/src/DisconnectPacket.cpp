@@ -1,7 +1,7 @@
 # include <string.h>
 # include "DisconnectPacket.h"
 
-DisconnectPacket::DisconnectPacket(ClientUDPCommand resp, int idx) : AClientPacket<ClientUDPCommand>(resp, sizeof(*_header))
+DisconnectPacket::DisconnectPacket(ClientUDPCommand resp, int idx) : AClientPacket<ClientUDPCommand>(resp, sizeof(*_header)), _header(new ClientUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;

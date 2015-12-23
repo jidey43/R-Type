@@ -6,7 +6,7 @@ Manager::Manager(CUDPNetworkHandler *udpHand)
     _lastAliveSent(_refAlive)
 {
   _itemCtrl = new ItemController;
-  _referential = sf::Time(sf::microseconds(16666));
+  _referential = sf::Time(sf::microseconds(20000));
 }
 
 Manager::~Manager()
@@ -52,7 +52,6 @@ void	Manager::sendAlive(sf::Time const& count)
     {
       _lastAliveSent = sf::Time(sf::milliseconds(500));
       _udpHand->send(new AlivePacket(ALIVE, 0, true));
-      std::cout << "alive sent" << std::endl;
     }
 }
 
@@ -76,6 +75,11 @@ void Manager::treatEventsFromKeyboard()
     _udpHand->send(new SendMovePacket(SEND_MOVE, 0, RIGHT));
   if (_keyboardStatus.ctrl)
     _udpHand->send(new FirePacket(FIRE, 0, 0, 0));
+  if (_keyboardStatus.echap)
+    {
+      _udpHand->send(new DisconnectPacket(DISCONNECT, 0));
+      exit(0);
+    }
 }
 
 void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
