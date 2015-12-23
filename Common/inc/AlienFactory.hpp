@@ -23,16 +23,18 @@ public:
 
     if (_order.size() <= 0)
       return (obj);
+    std::cout << "before for" << std::endl;
     for (auto it = _order.begin(); it != _order.end(); it++)
       {
-	if (clock.getElapsedTime() >= (*it)->getTime())
-	  {
-	    std::cout << "PUSH" << std::endl;
-	    obj->push_back(new T((*it)->getSpeed(), (*it)->getPos(), _maxId++, (*it)->getCoeff()));
-	    (*it)->pop();
-	  }
-	else
-	  obj->push_back(NULL);
+	if ((*it) != NULL)
+	  if (clock.getElapsedTime() >= (*it)->getTime())
+	    {
+	      std::cout << "PUSH" << std::endl;
+	      obj->push_back(new T((*it)->getSpeed(), (*it)->getPos(), _maxId++, (*it)->getCoeff()));
+	      (*it)->pop();
+	    }
+	  else
+	    obj->push_back(NULL);
 	if ((*it)->getCount() <= 0)
 	  _order.erase(it);
       }
