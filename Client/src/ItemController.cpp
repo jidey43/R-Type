@@ -35,7 +35,7 @@ void ItemController::update()
     }
 }
 
-void ItemController::setBackground(int id)
+void ItemController::setBackground(BackgroundType id)
 {
   _background->setTexture(*(ac->getBackground(id)));
 }

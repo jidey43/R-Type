@@ -41,8 +41,12 @@ void		FactoryManager::initialiseLevel()
   int j			= 0;
   int nb	        = _levelLoader.getWavesCount();
   std::vector<Waves*>	waves;
-  
-  waves.push_back(_levelLoader.getNextWave());
+  Waves			*tmp;
+
+  tmp = _levelLoader.getNextWave();
+  if (tmp != NULL)
+    waves.push_back(tmp);
+  delete tmp;
   for (int i = 0; j != nb; i = i + 1)
     {
       if (waves[j] == NULL)
@@ -59,7 +63,9 @@ void		FactoryManager::initialiseLevel()
 	  i = -1;
 	  if (j < nb)
 	    {
-	      waves.push_back(_levelLoader.getNextWave());
+	      tmp = _levelLoader.getNextWave();
+	      if (tmp != NULL)
+		waves.push_back(tmp);
 	    }
 	}
     }

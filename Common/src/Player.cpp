@@ -49,10 +49,13 @@ bool		Player::update(sf::Clock const& clock, std::vector<IObject*>& map)
 BasicPlayerProjectile		*Player::BasicShoot()
 {
   sf::Vector2f pos;
+  sf::Vector2f speed;
 
   _isShoot = false;
   pos.x = _pos.x + _size.x;
-  pos.y = _pos.y + _size.y / 2;
+  pos.y = _pos.y + _size.y;
+  speed.x = _speed.y + (_speed.y / 3);
+  speed.y = speed.x;
   return new BasicPlayerProjectile(_speed, pos, _maxId++, _id);
 }
 
