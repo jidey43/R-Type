@@ -27,6 +27,7 @@ void                        GameSelectorController::initList()
   ServerTCPResponse type;
   std::string name;
   unsigned int         id;
+  float                posy = 0.6;
 
   _tcpHand->sendToServer(new ReqGamePacket(REQ_GAME));
   while (true)
@@ -39,10 +40,11 @@ void                        GameSelectorController::initList()
 	  id = static_cast<DesGamePacket*>(response)->getData()->id;
 	  _games.emplace_back(
 			      std::pair<MenuButton*, int>(
-							  new MenuButton(name , sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.6), sf::Vector2f(500 , 50), STAR)
+							  new MenuButton(name , sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * posy), sf::Vector2f(500 , 50), STAR)
 							  , id
 							  )
 			      );
+       posy += 0.1;
 	}
       if (type == END_GAME_LIST) {
 	return; }
