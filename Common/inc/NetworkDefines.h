@@ -46,6 +46,7 @@ typedef enum
   START_GAME_LIST,
   DES_GAME,
   END_GAME_LIST,
+  NEXT_LVL,
   FAIL
 }		ServerTCPResponse;
 
