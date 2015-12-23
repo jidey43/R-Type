@@ -74,7 +74,7 @@ void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
       _itemCtrl->addShip(static_cast<CrePlayPacket*>(res));
       break;
     case CRE_OBJ:
-      _itemCtrl->addObj(static_cast<CreObjPacket*>(res));
+      _itemCtrl->addObj(static_cast<CreObjPacket*>(res), -1);
       break;
     case CRE_IA:
       _itemCtrl->addAlien(static_cast<CreIAPacket*>(res));

@@ -53,7 +53,7 @@ void		FactoryManager::initialiseLevel()
 	j = j + 1;
       if (i >= static_cast<int>(_nbFactory))
 	{
-	  throw Exceptions::FactoryExcept("Error this Factory type is not declare");
+	  throw Exceptions::FactoryExcept("Error this Factory type is not declared");
 	  break;
 	}
       if (waves[j]->getType() == _factories[i]->getType())

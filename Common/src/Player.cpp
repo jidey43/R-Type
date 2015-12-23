@@ -56,7 +56,7 @@ BasicPlayerProjectile		*Player::BasicShoot()
   pos.y = _pos.y + _size.y;
   speed.x = _speed.y + (_speed.y / 3);
   speed.y = speed.x;
-  return new BasicPlayerProjectile(speed, pos, _maxId++);
+  return new BasicPlayerProjectile(_speed, pos, _maxId++, _id);
 }
 
 bool		Player::tryShoot()
