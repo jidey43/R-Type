@@ -54,13 +54,17 @@ bool GameInfo::addClient(ClientInfo * client)
   return true;
 }
 
-std::string const& GameInfo::getClients() const
+std::string const& GameInfo::getClients()
 {
   static std::string	buffer = "";
 
   for (std::vector<ClientInfo*>::const_iterator it = _clients.begin(); it != _clients.end(); ++it)
     {
-      buffer += (*it)->getNickname() + "\n";
+      std::cout << "segv sur client = " << *it << std::endl;
+      if (*it == NULL)
+	it = _clients.erase(it);
+      else
+	buffer += (*it)->getNickname() + "\n";
     }
   return buffer;
 }

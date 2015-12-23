@@ -2,7 +2,7 @@
 # define GAMEINFO_H_
 
 # include <string>
-# include <vector> 
+# include <vector>
 # include "UThread.h"
 # include "ClientInfo.h"
 
@@ -26,7 +26,7 @@ class GameInfo
   int				getPort() const;
   int				getPlayerNb() const;
   bool				addClient(ClientInfo* client);
-  std::string const&		getClients() const;
+  std::string const&		getClients();
   int				tryJoinGame();
 };
 

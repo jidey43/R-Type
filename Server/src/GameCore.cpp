@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "GameCore.hh"
 
 GameCore::GameCore(std::string const&ip, std::string const& port)
@@ -135,6 +136,7 @@ bool					GameCore::processPacket(GamerInfo* client,
       gamerMove(client, packet);
       break;
     case DISCONNECT:
+      std::cout << "recv disconnect" << std::endl;
       gamerDisconnect(client, packet);
       break;
     default:
@@ -188,4 +190,6 @@ void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>*
 void					GameCore::gamerDisconnect(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
   _map->deletePlayer(client->getID());
+  _clients->erase(std::find(_clients->begin(), _clients->end(), client));
+  delete (client);
 }

@@ -27,7 +27,7 @@ void                        GameSelectorController::initList()
   ServerTCPResponse type;
   std::string name;
   unsigned int         id;
-  float                posy = 0.6;
+  float                posy = 0.4;
 
   _tcpHand->sendToServer(new ReqGamePacket(REQ_GAME));
   while (true)

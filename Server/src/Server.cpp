@@ -15,7 +15,7 @@
 
 Server::Server(std::string const & ip, std::string const & port)
  : _network(new NetworkHandler(ip, port)),
-	  _games(new GameHandler(ip)),
+   _games(new GameHandler(ip)),
     _ip(ip)
 {
   if (_network->initSocket())
@@ -95,7 +95,7 @@ bool Server::describeGame(ClientInfo * client)
   _network->sendToClient(client, new GameListPacket(START_GAME_LIST));
   for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
     {
-      _network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), (*it)->getClients()));
+      _network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), ""));
     }
   _network->sendToClient(client, new GameListPacket(END_GAME_LIST));
   return true;
@@ -142,5 +142,6 @@ bool	Server::setNick(ClientInfo* client)
   std::cout << dynamic_cast<NickPacket*>(client->getPacket())->getData()->data << std::endl;
   client->setNickname(dynamic_cast<NickPacket*>(client->getPacket())->getData()->data);
   _network->sendToClient(client, new AuthTCPPacket(AUTH, SUCCESS));
+  std::cout << "new client" << std::endl;
   return true;
 }

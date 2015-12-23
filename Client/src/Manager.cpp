@@ -62,6 +62,11 @@ void Manager::treatEventsFromKeyboard()
     _udpHand->send(new SendMovePacket(SEND_MOVE, 0, RIGHT));
   if (_keyboardStatus.ctrl)
     _udpHand->send(new FirePacket(FIRE, 0, 0, 0));
+  if (_keyboardStatus.echap)
+    {
+      _udpHand->send(new DisconnectPacket(DISCONNECT, 0));
+      exit(0);
+    }
 }
 
 void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)

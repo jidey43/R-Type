@@ -45,7 +45,6 @@ void                ScoreController::update()
     _scoresDrawable[1]->setColor(_color);
     _scoresDrawable[2]->setColor(_color);
     _scoresDrawable[3]->setColor(_color);
-    std::cout << "lel = " << std::to_string(_scoreValue[0]) << std::endl;
     _scoresDrawable[0]->setString(sf::String("P1: " + std::to_string(_scoreValue[0])));
     _scoresDrawable[1]->setString(sf::String("P2: " + std::to_string(_scoreValue[1])));
     _scoresDrawable[2]->setString(sf::String("P3: " + std::to_string(_scoreValue[2])));
