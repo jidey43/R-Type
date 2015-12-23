@@ -14,9 +14,9 @@ LevelLoader::LevelLoader()
   _compare[2] = "dokan";
   _compare[3] = "kayberos";
   _compare[4] = "rios";
-  _compare[5] = "shell";
-  _compare[6] = "york";
-  _compare[7] = "scant";
+  _compare[5] = "scant";
+  _compare[6] = "shell";
+  _compare[7] = "york";
   _compare[8] = "xelf16";
   _compare[9] = "wall1";
   _compare[10] = "wall2";
@@ -102,17 +102,17 @@ Waves						*LevelLoader::getNextWave()
     return NULL;
 
   std::string				str = _lines.front();
-  sf::Time					time;
-  sf::Time					freq;
+  sf::Time			        time;
+  sf::Time			        freq;
   sf::Vector2f				pos;
   sf::Vector2f				speed;
   std::istringstream			buffer;
   std::string				name;
   float					fnb;
-  int					  inb;
-  int					  nb;
+  int					inb;
+  int					nb;
   float					coeff;
-  int           obstacleType;
+  int					obstacleType;
 
   buffer.str (str);
   buffer >> name;
@@ -130,11 +130,10 @@ Waves						*LevelLoader::getNextWave()
   buffer >> fnb;
   freq = sf::seconds(fnb);
   buffer >> coeff;
-  std::cout << "c'estl le coeff" << coeff << std::endl;
 
-  for (inb = 0; name != _compare[inb]; inb = inb + 1);
+  for (inb = 0; name != _compare[inb] && inb < 14; inb = inb + 1);
 
-  if (inb > 13)
+  if (inb >= 13)
   {
     return (NULL);
   }

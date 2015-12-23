@@ -14,6 +14,7 @@ bool DokanAlienGraphical::update(sf::Clock const& clock)
 {
   bool	ret;
 
+  _sprite->setRotation(_sprite->getRotation() + 1);
   ret = DokanAlien::update(clock);
   _sprite->setPosition(
 		_pos.x,
