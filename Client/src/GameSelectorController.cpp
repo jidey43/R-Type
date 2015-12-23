@@ -28,7 +28,6 @@ void                        GameSelectorController::initList()
   std::string name;
   unsigned int         id;
 
-
   _tcpHand->sendToServer(new ReqGamePacket(REQ_GAME));
   while (true)
     {
@@ -45,8 +44,9 @@ void                        GameSelectorController::initList()
 							  )
 			      );
 	}
-      if (type == END_GAME_LIST)
-	return;
+      if (type == END_GAME_LIST) {
+	return; }
+      delete response;
     }
 
 }
