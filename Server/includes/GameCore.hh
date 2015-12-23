@@ -7,11 +7,12 @@
 # include "GamerInfo.hh"
 # include "FactoryManager.hh"
 # include "MapController.hh"
+# include "UMutex.h"
 
 class GameCore
 {
 public :
-  GameCore(std::string const&, std::string const&);
+  GameCore(std::string const&, std::string const&, CUMutex*, bool*);
   virtual ~GameCore();
   bool		run();
 
@@ -42,6 +43,8 @@ private :
   bool				_running;
   bool				_firstClient;
   int				_currentLevel;
+  CUMutex*			_mutex;
+  bool*				_end;
 };
 
 #endif /* !GAMECORE_H_ */

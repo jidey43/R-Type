@@ -1,8 +1,6 @@
 #ifndef UMUTEX_H_
 # define UMUTEX_H_
 
-# ifndef _WIN32
-
 # include <mutex>
 # include "IMutex.h"
 
@@ -22,7 +20,5 @@ public:
 	bool				TrylockMutex();
 	void				UnlockMutex();
 };
-
-# endif
 
 #endif

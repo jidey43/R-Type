@@ -36,7 +36,7 @@ void Server::start()
     {
       if (_network->selectClient())
 	{
-	  _games->tryJoinGames();
+	  _games->checkEndGames();
 	  answerClients();
 	}
     }

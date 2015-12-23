@@ -5,6 +5,7 @@
 # include <vector>
 # include "UThread.h"
 # include "ClientInfo.h"
+# include "UMutex.h"
 
 class GameInfo
 {
@@ -16,9 +17,10 @@ class GameInfo
   std::string	       		_name;
   int				_id;
   int				_port;
-  IThread*			_thread;
   std::vector<ClientInfo*>	_clients;
-
+  bool				_endGame;
+  CUMutex			_mutex;
+  IThread*			_thread;
 
  public:
   std::string const&		getName() const;
@@ -27,7 +29,8 @@ class GameInfo
   int				getPlayerNb() const;
   bool				addClient(ClientInfo* client);
   std::string const&		getClients();
-  int				tryJoinGame();
+  bool				isFinished() const;
+  bool				joinGameThread();
 };
 
 #endif

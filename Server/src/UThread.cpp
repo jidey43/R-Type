@@ -1,9 +1,10 @@
-// #ifdef __linux__
-
 #include "UThread.h"
 
-UThread::UThread(std::string const& port, std::string const& ip)
-  : _port(port), _ip(ip)
+UThread::UThread(std::string const& port, std::string const& ip, CUMutex* mutex, bool* endGame)
+  : _port(port),
+    _ip(ip),
+    _mutex(mutex),
+    _endGame(endGame)
 {
 }
 
@@ -13,7 +14,7 @@ UThread::~UThread()
   DestroyThread();
 }
 
-bool UThread::InitThread(void routine(std::string const& port, std::string const& ip))
+bool UThread::InitThread(void routine(std::string const& port, std::string const& ip, CUMutex* mutex, bool* endGame))
 {
   _routine = routine;
   return true;
@@ -21,29 +22,17 @@ bool UThread::InitThread(void routine(std::string const& port, std::string const
 
 bool UThread::StartThread()
 {
-  _thread = new std::thread(_routine, _port, _ip);
+  _thread = new std::thread(_routine, _port, _ip, _mutex, _endGame);
   return true;
 }
 
-bool UThread::TryWaitThread()
+bool UThread::WaitThread()
 {
-  if (!_thread->joinable())
-    {
-      _thread->join();
-      return true;
-    }
-  else
-    return false;
+  _thread->join();
+  return true;
 }
 
 void UThread::DestroyThread()
 {
   delete _thread;
 }
-
-// IThread*				getThreadInstance(SafeQueue* queue)
-// {
-//   return new UThread(queue);
-// }
-
-// #endif

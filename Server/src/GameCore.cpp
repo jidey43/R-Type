@@ -1,14 +1,16 @@
 #include <algorithm>
 #include "GameCore.hh"
 
-GameCore::GameCore(std::string const&ip, std::string const& port)
+GameCore::GameCore(std::string const&ip, std::string const& port, CUMutex* mutex, bool* endGame)
   : _clients(new std::vector<GamerInfo*>()),
     _network(new UDPNetworkHandler(ip, port, _clients)),
     _map(new MapController()),
     _factory(new FactoryManager(_map)),
     _referential(sf::Time(sf::microseconds(20000))),
     _running(true),
-    _firstClient(false)
+    _firstClient(false),
+    _mutex(mutex),
+    _end(endGame)
 {
   _factory->changeLevel(0);
   _currentLevel = 0;
@@ -47,6 +49,9 @@ bool		GameCore::run()
       if (_firstClient)
 	this->updateAliveClients(_clockAlive.getElapsedTime());
     }
+  _mutex->LockMutex();
+  *_end = true;
+  _mutex->UnlockMutex();
   std::cout << "END THREAD" << std::endl;
   return true;
 }

@@ -1,20 +1,23 @@
 #include "GameInfo.h"
 #include "GameCore.hh"
 
-void		routine(std::string const&, std::string const&);
+void		routine(std::string const&, std::string const&, CUMutex*, bool*);
 
-void		routine(std::string const& port, std::string const& ip)
+void		routine(std::string const& port, std::string const& ip, CUMutex* mutex, bool* endGame)
 {
-	GameCore*	gameCore = new GameCore(ip, port);
+  GameCore*	gameCore = new GameCore(ip, port, mutex, endGame);
 }
 
 GameInfo::GameInfo(std::string const& name, int id, int port, std::string const& ip)
-	: _name(name), _id(id), _port(port), _thread(new UThread(std::to_string(port), ip))
+	: _name(name),
+	  _id(id),
+	  _port(port),
+	  _endGame(false),
+	  _thread(new UThread(std::to_string(port), ip, &_mutex, &_endGame))
 {
 	_thread->InitThread(&routine);
 	_thread->StartThread();
 }
-
 
 GameInfo::~GameInfo()
 {
@@ -69,10 +72,12 @@ std::string const& GameInfo::getClients()
   return buffer;
 }
 
-int		GameInfo::tryJoinGame()
+bool		GameInfo::isFinished() const
 {
-  if (_thread->TryWaitThread())
-    return _port;
-  else
-    return -1;
+  return _endGame;
+}
+
+bool		GameInfo::joinGameThread()
+{
+  return (_thread->WaitThread());
 }
