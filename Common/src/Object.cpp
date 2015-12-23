@@ -46,6 +46,10 @@ void                    Object::setSpeed(const sf::Vector2f &speed)
   this->_speed = speed;
 }
 
+void			Object::touch()
+{
+  _life = _life - 1;
+}
 
 bool			Object::isAlive() const
 {
@@ -65,6 +69,11 @@ void			Object::setShooting(bool shoot)
 
 bool			Object::collision(std::vector<IObject*>& map)
 {
+  if (_life <= 0)
+    {
+      _isAlive =false;
+      return (_isAlive);
+    }
   for (std::vector<IObject*>::iterator it = map.begin(); it != map.end(); it++)
     {
       // std::cout << "it :" << *it << "\n";
@@ -77,15 +86,17 @@ bool			Object::collision(std::vector<IObject*>& map)
 	  || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR && (*it)->getObjType() == ObjectInfo::ALIEN)
 	  || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::ALIENREGULAR && (*it)->getObjType() == ObjectInfo::PLAYER))
   	{
-  	   if ((this != *it)
-	       && ((this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x)
-	   	  && (this->getPos().x + this->getSize().x >= (*it)->getPos().x)
-	   	  && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y)
-	   	  && (this->getPos().y + this->getSize().y >= (*it)->getPos().y)))
-  	  {
-
-	      std::cout << "COLLISION entre this = " << this->getId() << " and other = " << (*it)->getId() << std::endl;
+	  if ((this != *it)
+	      && ((this->getPos().x >= (*it)->getPos().x)
+		  && (this->getPos().x < ((*it)->getPos().x + (*it)->getSize().x))
+		  && (this->getPos().y >= (*it)->getPos().y)
+		  && (this->getPos().y < ((*it)->getPos().y + (*it)->getSize().y))))
+	    {
+	    // d/g/b/h
+	      std::cout << "COLLISION entre this = " << this->getId() << "pos : " << this->getPos().x
+			<< " " << this->getPos().y << " and other = " << (*it)->getId() << "pos: " << (*it)->getPos().x << " " << (*it)->getPos().y << std::endl;
   	      _life = _life - 1;
+	      (*it)->touch();
   	    }
   	}
     }

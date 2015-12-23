@@ -47,11 +47,12 @@ void		GameCore::updateMap()
   std::vector<IServerPacket<ServerUDPResponse>*>	*toSend = new std::vector<IServerPacket<ServerUDPResponse>*>;
 
   aliens = _factory->update(_clock);
-  for (auto it = aliens->begin(); it != aliens->end(); ++it)
-    {
-      _map->addAlien(*it);
-      toSend->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getRealType()));
-    }
+  if (aliens->size() > 0)
+    for (auto it = aliens->begin(); it != aliens->end(); ++it)
+      {
+	_map->addAlien(*it);
+	toSend->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getRealType()));
+      }
   _map->updateMap(_clock);
   // toSend = generatePackets(aliens);
   toSend->insert(toSend->begin(), _map->getMap()->begin(), _map->getMap()->end());
