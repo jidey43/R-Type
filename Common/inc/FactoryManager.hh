@@ -9,17 +9,19 @@
 class FactoryManager
 {
 public:
-  FactoryManager(MapController* , const char*);
+  FactoryManager(MapController*);
   ~FactoryManager();
 
   std::vector<IObject*>		*update(const sf::Clock&);
   void				initialiseLevel();
-  void				changeLevel(char *);
+  void				changeLevel(int);
+  bool				remainingAliens();
 
 private:
   unsigned int			_nbFactory;
   MapController			*_map;
   LevelLoader			_levelLoader;
+  std::vector<std::string>	_levelFiles;
   std::vector<IAlienFactory*>	_factories;
 };
 

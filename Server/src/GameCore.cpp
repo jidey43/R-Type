@@ -5,12 +5,13 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
   : _clients(new std::vector<GamerInfo*>()),
     _network(new UDPNetworkHandler(ip, port, _clients)),
     _map(new MapController()),
-    _factory(new FactoryManager(_map, "../../level/Level1.lvl")),
+    _factory(new FactoryManager(_map)),
     _referential(sf::Time(sf::microseconds(20000))),
     _running(true),
     _firstClient(false)
 {
-  _factory->initialiseLevel();
+  _factory->changeLevel(0);
+  _currentLevel = 0;
   this->run();
 }
 
@@ -75,6 +76,13 @@ void		GameCore::updateMap()
   std::vector<IObject*>		*aliens;
   std::vector<IServerPacket<ServerUDPResponse>*>	*toSend = new std::vector<IServerPacket<ServerUDPResponse>*>;
 
+  if (_map->getAlienCount() == 0
+      && _factory->remainingAliens())
+    {
+      if (_currentLevel == 3)
+        std::cout << "FIN DE LA PARTIE" << std::endl;
+      _factory->changeLevel(_currentLevel + 1);
+    }
   try
     {
       aliens = _factory->update(_clock);
@@ -90,7 +98,6 @@ void		GameCore::updateMap()
 	toSend->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getRealType()));
       }
   _map->updateMap(_clock);
-  // toSend = generatePackets(aliens);
   toSend->insert(toSend->begin(), _map->getMap()->begin(), _map->getMap()->end());
   this->sendMap(NULL, toSend);
   delete aliens;

@@ -52,6 +52,11 @@ public:
       _order.push_back(wave);
   }
 
+  bool			isOver()
+  {
+    return (_order.size() == 0);
+  }
+
 public:
   std::deque<Waves*>	_order;
   ObjectInfo::WaveType	_type;

@@ -41,6 +41,7 @@ private :
   sf::Time			_referential;
   bool				_running;
   bool				_firstClient;
+  int				_currentLevel;
 };
 
 #endif /* !GAMECORE_H_ */
