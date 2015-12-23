@@ -27,6 +27,12 @@ typedef struct
 
 typedef struct
 {
+  bool		isAlive;
+  uint32_t	magic;
+} AliveData;
+
+typedef struct
+{
   char				data[BUFF_LEN];
   uint32_t			magic;
 } stringData;

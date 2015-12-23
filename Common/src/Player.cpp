@@ -41,6 +41,9 @@ bool		Player::update(sf::Clock const& clock, std::vector<IObject*>& map)
       _pauseShotDelay = sf::milliseconds(150);
     }
   _pos += _move;
+  if (_pos.x < 0 || _pos.x + _size.x > MAP_SIZE_X
+      || _pos.y < 0 || _pos.y + _size.y > MAP_SIZE_Y)
+    _pos -= _move;
   _move = sf::Vector2f(0,0);
   this->collision(map);
   return true;

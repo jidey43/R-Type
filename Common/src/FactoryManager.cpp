@@ -33,7 +33,14 @@ FactoryManager::~FactoryManager()
 
 void		FactoryManager::changeLevel(char *level)
 {
-  _levelLoader.parseLevel(level);
+  try
+    {
+      _levelLoader.parseLevel(level);
+    }
+  catch (Exceptions::FactoryExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+    }
 }
 
 void		FactoryManager::initialiseLevel()

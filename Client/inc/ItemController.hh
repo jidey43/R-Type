@@ -23,6 +23,7 @@
     #include "ShellAlienGraphical.hh"
     #include "YorkAlienGraphical.hh"
     #include "Xelf16AlienGraphical.hh"
+    #include "WallGraphical.hh"
     #include "ScoreController.hh"
     
     extern ViewController *vc;

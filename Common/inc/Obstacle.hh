@@ -5,9 +5,6 @@
 
 class Obstacle : public Alien
 {
-private:
-  ObjectInfo::ObstacleType _obstacleType;
-
 public:
   Obstacle(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff);
   ~Obstacle();
@@ -16,8 +13,6 @@ public:
   bool				update(sf::Clock const&, std::vector<IObject*>&);
   bool				update(sf::Clock const&);
   IObject			*BasicShoot();
-  ObjectInfo::ObstacleType	getObstacleType() const;
-  void				setObstacleType(ObjectInfo::ObstacleType);
 };
 
 # endif

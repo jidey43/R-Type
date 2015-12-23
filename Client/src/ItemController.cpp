@@ -136,6 +136,9 @@ void ItemController::addAlien(CreIAPacket *packet)
     case ObjectInfo::WaveType::XELF16 :
       _items.emplace_back(new Xelf16AlienGraphical(speed, pos, id, 1));
       break;
+    case ObjectInfo::WaveType::OBSTACLE :
+      _items.emplace_back(new WallGraphical(speed, pos, id, 1));
+      break;
     default:
       break;
     }

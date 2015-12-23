@@ -43,7 +43,7 @@ bool			SendMovePacket::checkHeader()
 
 char*				SendMovePacket::deserialize()
 {
-  char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
+  char*				buff = new char[sizeof(*_header) + sizeof(*_data)];
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));

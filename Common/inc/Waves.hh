@@ -8,7 +8,7 @@
 class	Waves
 {
 public:
-  Waves(int, sf::Time, sf::Time, sf::Vector2f, sf::Vector2f, float, ObjectInfo::WaveType, ObjectInfo::ObstacleType);
+  Waves(int, sf::Time, sf::Time, sf::Vector2f, sf::Vector2f, float, ObjectInfo::WaveType);
   Waves();
   ~Waves();
 
@@ -23,7 +23,6 @@ public:
   const ObjectInfo::WaveType	      &getType() const;
   void				      setCount(int);
   void				      pop();
-  ObjectInfo::ObstacleType  getWallType() const;
 
 private:
   int			_count;
@@ -33,7 +32,6 @@ private:
   sf::Vector2f		_speed;
   float			_coeff;
   ObjectInfo::WaveType	_type;
-  ObjectInfo::ObstacleType	_obstacleType;
 };
 
 #endif

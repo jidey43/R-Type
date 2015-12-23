@@ -18,10 +18,7 @@ LevelLoader::LevelLoader()
   _compare[6] = "shell";
   _compare[7] = "york";
   _compare[8] = "xelf16";
-  _compare[9] = "wall1";
-  _compare[10] = "wall2";
-  _compare[11] = "wall3";
-  _compare[12] = "wall4";
+  _compare[9] = "obstacle";
 }
 
 LevelLoader::~LevelLoader() {}
@@ -112,7 +109,6 @@ Waves						*LevelLoader::getNextWave()
   int					inb;
   int					nb;
   float					coeff;
-  int					obstacleType;
 
   buffer.str (str);
   buffer >> name;
@@ -136,25 +132,11 @@ Waves						*LevelLoader::getNextWave()
       return (NULL);
 
   if (inb > 13)
-  {
-    std::cout << "NULLLLLLLLLL comme GFROUT" << std::endl;
     return (NULL);
-  }
-  else if (inb > 9)
-  {
-    std::cout << "bizare" << std::endl;
-    obstacleType = inb - 9;
-    inb = 9;
-  }
-  else {
-    obstacleType = -1;
-  }
-
-  std::cout << inb << std::endl;
 
   ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
   _lines.pop_front();
-  Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type, (ObjectInfo::ObstacleType)obstacleType);
+  Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type);
   return (wave);
 }
 

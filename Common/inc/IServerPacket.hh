@@ -7,9 +7,9 @@
 
 typedef struct
 {
-  uint32_t			       magic;
-  ServerTCPResponse		 command;
-  uint32_t			       size;
+  uint32_t				magic;
+  ServerTCPResponse			command;
+  uint32_t				size;
 } ServerTCPHeader;
 
 typedef struct
@@ -88,6 +88,7 @@ typedef integerData GameOverData;
 typedef integerData GameListData;
 typedef integerData DelItemData;
 typedef CrePlayData MoveData;
+typedef integerData NextLvlData;
 
 template <typename T>
 class IServerPacket
