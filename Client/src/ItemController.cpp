@@ -18,10 +18,13 @@ void ItemController::draw()
     vc->draw(i->getDrawable());
   for (GraphicalItem *i : _unlogicalItems)
     vc->draw(i->getDrawable());
+  for (int i = 0; i != 4; i++)
+    vc->draw(_scoreCtrl.getScoreDrawable(i));
 }
 
 void ItemController::update()
 {
+    _scoreCtrl.update();
   for (GraphicalItem* i : _items)
     i->update(_clock);
   for (std::vector<GraphicalItem*>::iterator it = _unlogicalItems.begin(); it != _unlogicalItems.end();)
