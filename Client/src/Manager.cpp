@@ -19,7 +19,7 @@ void					Manager::loop()
      //STARTING GAME
 
 //	vc->startSoundtrack();
-  _itemCtrl->setBackground(1);
+  _itemCtrl->setBackground(BACKGROUND_FOUR);
   //GAME LOOP
   _clock.restart();
   while (1)

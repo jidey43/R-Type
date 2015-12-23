@@ -17,6 +17,9 @@ typedef enum e_BackgroundType
 {
 	MENU_BACKGROUND = 0,
 	BACKGROUND_ONE,
+	BACKGROUND_TWO,
+	BACKGROUND_THREE,
+	BACKGROUND_FOUR,
 	NUMBEROFBACKGROUND
 }				BackgroundType;
 
@@ -86,7 +89,7 @@ public:
 	sf::Music					*getSoundTrack();
     sf::SoundBuffer             *getSound(Sound);
 	sf::Texture					*getShipTexture(Ship);
-	sf::Texture					*getBackground(int id);
+	sf::Texture					*getBackground(BackgroundType);
 	sf::Texture					*getShot(Shot);
 	sf::Texture					*getButton(ButtonType, bool);
 	sf::Texture					*getLogo();
