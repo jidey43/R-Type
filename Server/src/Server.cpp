@@ -98,8 +98,8 @@ bool Server::describeGame(ClientInfo * client)
     {
       if (!_network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), (*it)->getClients())))
       	return false;
+      // rien a foutre la
       _network->sendToClient(client, new GameListPacket(END_GAME_LIST));
-
     }
   _network->sendToClient(client, new GameListPacket(END_GAME_LIST));
   return true;
