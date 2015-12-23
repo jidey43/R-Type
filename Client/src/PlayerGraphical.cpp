@@ -52,7 +52,7 @@ bool	PlayerGraphical::update(sf::Clock const& clock)
         _lastPos = _pos;
     }    
     else
-        _sprite = _spriteStatic;
+        _sprite = _spriteMoving;
    
    
 	return (ret);
