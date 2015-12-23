@@ -1,23 +1,24 @@
-obstacles sur les bords de la map + collisions avec obstacles
+obstacles sur les bords de la map + collisions avec obstacles TETRA + ARTHUR
 
-fin de jeu (end game packet)
+fin de jeu (end game packet) ROMAN
 
-menu de fin de jeu
+menu de fin de jeu ROMAN
 
-plusieurs fichiers de niveaux
+plusieurs fichiers de niveaux ROMAN
 
 classes de boss à qui pop à chaque fin de niveau
 
-corriger les hitbox
-
 avoir des (sprite OK, pattern déplacement, shot) différent pour chaque alien
 
-finir les scores
+finir les scores POULPY
 
-patch la reception des games (des game packet) + bouton refresh AUREL
-
-patch la reconnexion à une game en cours
+patch la reception des games (des game packet) + bouton refresh SIMON
 
 OPTIONAL :
 
 faire l'index dans le header des packets
+
+next level packet
+integerData
+
+rfc

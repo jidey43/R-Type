@@ -51,7 +51,6 @@ void			CTCPSocket::rcvData(void* buffer, int size, SOCKET socket, ClientDatas *a
   int			res;
 
   res = recv(socket, (char*)buffer, size, 0);
-
   if (res == -1)
     throw Exceptions::NetworkExcept("RECEIVE FAILED", errno);
   if (res == 0)
