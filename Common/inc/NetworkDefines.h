@@ -64,7 +64,8 @@ typedef enum
     CAUTH_UDP = 1,
     FIRE,
     SEND_MOVE,
-    DISCONNECT
+    DISCONNECT,
+    ALIVE
   }		ClientUDPCommand;
 
 typedef enum
