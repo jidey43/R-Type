@@ -5,7 +5,7 @@ GameCore::GameCore(std::string const&ip, std::string const& port)
   : _clients(new std::vector<GamerInfo*>()),
     _network(new UDPNetworkHandler(ip, port, _clients)),
     _map(new MapController()),
-    _factory(new FactoryManager),
+    _factory(new FactoryManager(_map)),
     _factory->changeLevel(0);
     _referential(sf::Time(sf::microseconds(16666))),
     _running(true)
