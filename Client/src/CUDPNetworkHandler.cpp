@@ -37,7 +37,7 @@ IServerPacket<ServerUDPResponse>*	CUDPNetworkHandler::receive()
     {
       packet = _factory->build(_header);
       if (!packet || !packet->checkHeader())
-		throw Exceptions::BadHeaderRequest("Error, received bad Header from serv");
+	return NULL;
       buff = new char[_header->size];
       memset(buff, 0, _header->size);
       try
