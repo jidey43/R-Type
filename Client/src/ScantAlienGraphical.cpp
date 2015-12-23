@@ -14,6 +14,7 @@ bool ScantAlienGraphical::update(sf::Clock const& clock)
 {
   bool	ret;
 
+_sprite->setRotation(_sprite->getRotation() + 1);
   ret = ScantAlien::update(clock);
   _sprite->setPosition(
 		_pos.x,
