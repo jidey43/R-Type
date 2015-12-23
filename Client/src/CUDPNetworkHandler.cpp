@@ -111,12 +111,12 @@ bool		operator==(ClientDatas left, ClientDatas right)
   return false;
 }
 
-float						getStartTime() const
+float						CUDPNetworkHandler::getStartTime() const
 {
   return _startTime;
 }
 
-void						setStartTime(float time)
+void						CUDPNetworkHandler::setStartTime(float time)
 {
   _startTime = time;
 }

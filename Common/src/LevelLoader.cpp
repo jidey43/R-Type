@@ -131,9 +131,10 @@ Waves						*LevelLoader::getNextWave()
   freq = sf::seconds(fnb);
   buffer >> coeff;
 
-  for (inb = 0; name != _compare[inb] && inb < 14; inb = inb + 1);
+  for (inb = 0; name != _compare[inb] || inb < 14; inb = inb + 1);
 
-  if (inb >= 13)
+  std::cout << inb << std::endl;
+  if (inb >= 13 || inb < 0)
   {
     return (NULL);
   }
