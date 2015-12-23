@@ -49,7 +49,14 @@ void		GameCore::updateMap()
   std::vector<IObject*>		*aliens;
   std::vector<IServerPacket<ServerUDPResponse>*>	*toSend = new std::vector<IServerPacket<ServerUDPResponse>*>;
 
-  aliens = _factory->update(_clock);
+  try
+    {
+      aliens = _factory->update(_clock);
+    }
+  catch (Exceptions::FactoryExcept e)
+    {
+      std::cerr << e.what() << std::endl;
+    }
   if (aliens->size() > 0)
     for (auto it = aliens->begin(); it != aliens->end(); ++it)
       {

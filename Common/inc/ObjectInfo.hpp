@@ -40,16 +40,6 @@ enum WaveType
     OBSTACLE,
     NUMBEROFWAVE
   };
-
-enum ObstacleType
-  {
-    NOT_WALL = -1,
-    TYPE1,
-    TYPE2,
-    TYPE3,
-    TYPE4,
-    NBOBSTACLE
-  };
 };
 
 #endif
