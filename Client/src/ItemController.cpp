@@ -2,8 +2,8 @@
 
 ItemController::ItemController()
 {
-	_background = new sf::Sprite;
-	_playerCount = 1;
+  _background = new sf::Sprite;
+  _playerCount = 1;
 }
 
 ItemController::~ItemController()
@@ -12,12 +12,12 @@ ItemController::~ItemController()
 
 void ItemController::draw()
 {
-	if (_background->getTexture() != NULL)
-		vc->draw(_background);
-	for (GraphicalItem *i : _items)
-		vc->draw(i->getDrawable());
-	for (GraphicalItem *i : _unlogicalItems)
-		vc->draw(i->getDrawable());
+  if (_background->getTexture() != NULL)
+    vc->draw(_background);
+  for (GraphicalItem *i : _items)
+    vc->draw(i->getDrawable());
+  for (GraphicalItem *i : _unlogicalItems)
+    vc->draw(i->getDrawable());
 }
 
 void ItemController::update()
@@ -25,19 +25,19 @@ void ItemController::update()
   for (GraphicalItem* i : _items)
     i->update(_clock);
   for (std::vector<GraphicalItem*>::iterator it = _unlogicalItems.begin(); it != _unlogicalItems.end();)
-  {
-    if (!((*it)->update(_clock)))
     {
-        it = _unlogicalItems.erase(it);
+      if (!((*it)->update(_clock)))
+	{
+	  it = _unlogicalItems.erase(it);
+	}
+      else
+	++it;
     }
-    else    
-    ++it;
-  } 
 }
 
 void ItemController::setBackground(int id)
 {
-	_background->setTexture(*(ac->getBackground(id)));
+  _background->setTexture(*(ac->getBackground(id)));
 }
 
 void ItemController::addShip(CrePlayPacket *packet)
@@ -76,9 +76,9 @@ void ItemController::moveShip(MovePacket *packet)
 
 void ItemController::addExplosion(sf::Vector2f pos)
 {
-    Explosion *expl = new Explosion(pos);
+  Explosion *expl = new Explosion(pos);
 
-    _unlogicalItems.push_back(expl);
+  _unlogicalItems.push_back(expl);
 }
 
 void ItemController::deleteObject(DelItemPacket *packet)
@@ -93,7 +93,6 @@ void ItemController::deleteObject(DelItemPacket *packet)
     }
   if (i == _items.size())
     return;
-//  addExplosion(dynamic_cast<IObject*>(_items[i])->getPos());
   addExplosion(static_cast<sf::Sprite*>(_items[i]->getDrawable())->getPosition());
   _items.erase(_items.begin() + i);
 }
@@ -101,15 +100,38 @@ void ItemController::deleteObject(DelItemPacket *packet)
 void ItemController::addAlien(CreIAPacket *packet)
 {
   ObjectInfo::WaveType type = packet->getData()->iatype;
-  sf::Vector2f speed(1, 1);
+  sf::Vector2f speed(packet->getData()->speed, packet->getData()->speed);
   sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
   unsigned int id = packet->getData()->id;
-
 
   switch (type)
     {
     case ObjectInfo::WaveType::BYDO :
       _items.emplace_back(new BydoAlienGraphical(speed, pos, id, 1));
+      break;
+    case ObjectInfo::WaveType::GLAM :
+      _items.emplace_back(new GlamAlienGraphical(speed, pos, id, 1));
+      break;
+    case ObjectInfo::WaveType::DOKAN :
+      _items.emplace_back(new DokanAlienGraphical(speed, pos, id, 1));
+      break;
+    case ObjectInfo::WaveType::KAYBEROS :
+      _items.emplace_back(new KayberosAlienGraphical(speed, pos, id, 1));
+      break;
+    case ObjectInfo::WaveType::RIOS :
+      _items.emplace_back(new RiosAlienGraphical(speed, pos, id, 1));
+      break;
+    case ObjectInfo::WaveType::SCANT :
+      _items.emplace_back(new ScantAlienGraphical(speed, pos, id, 1));
+      break;
+    case ObjectInfo::WaveType::SHELL :
+      _items.emplace_back(new ShellAlienGraphical(speed, pos, id, 1));
+      break;
+    case ObjectInfo::WaveType::YORK :
+      _items.emplace_back(new YorkAlienGraphical(speed, pos, id, 1));
+      break;
+    case ObjectInfo::WaveType::XELF16 :
+      _items.emplace_back(new Xelf16AlienGraphical(speed, pos, id, 1));
       break;
     default:
       break;

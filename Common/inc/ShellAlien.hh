@@ -6,13 +6,13 @@
 class ShellAlien : public Alien
 {
 public:
-  ShellAlien(sf::Vector2f speed, sf::Vector2i pos, unsigned int id, float coeff);
+  ShellAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff);
   ~ShellAlien();
 
 public:
   bool		update(sf::Clock const&, std::vector<IObject*>&);
   bool		update(sf::Clock const&);
-  IObject	*Basicshoot();
-}
+  IObject	*BasicShoot();
+};
 
 # endif

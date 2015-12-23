@@ -43,11 +43,13 @@ std::vector<IServerPacket<ServerUDPResponse>*>*	MapController::getMap() const
 
 void		MapController::addObject(IObject* obj)
 {
+  std::cout << "cre player id = " << obj->getId() << std::endl;
   _map.push_back(obj);
 }
 
 void		MapController::addAlien(IObject* obj)
 {
+  std::cout << "cre alien id = " << obj->getId() << std::endl;
   _map.push_back(obj);
 }
 
@@ -59,11 +61,13 @@ void		MapController::updateMap(sf::Clock const& clock)
   _deserializedMap->clear();
   while (it != _map.end())
     {
-      std::cout << "it : " << *it << std::endl;
-      // if (*it != NULL) // debug
-	(*it)->update(clock, _map);
-      // if (*it != NULL)
-	checkNewObj(it, (*it));
+      (*it)->update(clock, _map);
+      ++it;
+    }
+  it = _map.begin();
+  while (it != _map.end())
+    {
+      checkNewObj(it, (*it));
       if (it == _map.end())
 	break;
       ++it;
@@ -78,22 +82,21 @@ void		MapController::checkNewObj(std::vector<IObject*>::iterator& it, IObject* o
       obj->setShooting(false);
       if (obj->getObjType() == ObjectInfo::PLAYER)
   	{
-	  BasicPlayerProjectile* shot = static_cast<Player*>(obj)->BasicShoot();
+	  IObject* shot = static_cast<Player*>(obj)->BasicShoot();
   	  _toAppend.push_back(shot);
 	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, _maxId - 1, shot->getPos().x, shot->getPos().y, shot->getSpeed().x, ObjectInfo::PLAYERREGULAR));
   	}
       if (obj->getObjType() == ObjectInfo::ALIEN)
   	{
-	  BasicAlienProjectile* shot = static_cast<Alien*>(obj)->BasicShoot();
+	  IObject* shot = static_cast<Alien*>(obj)->BasicShoot();
   	  _toAppend.push_back(shot);
   	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, _maxId - 1, shot->getPos().x, shot->getPos().y, shot->getSpeed().x, ObjectInfo::ALIENREGULAR));
   	}
     }
   if (!obj->isAlive())
     {
-      if (obj->getObjType() == ObjectInfo::ALIEN)
-	std::cout << "DELETING !!" << std::endl;
-
+      // if (obj->getObjType() == ObjectInfo::ALIEN)
+      // 	std::cout << "DELETING !!" << std::endl;
       _deserializedMap->push_back(new DelItemPacket(DEL_ITEM, 0, obj->getId()));
       delete this->getPlayer(obj->getId());
       it = _map.erase(it);

@@ -5,7 +5,7 @@
 extern unsigned int _maxId;
 
 GlamAlien::GlamAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
-  : Alien(speed, pos, sf::Vector2i(0, 0), id, coeff)
+  : Alien(speed, pos, sf::Vector2i(100, 100), id, coeff)
 {
   _realType = ObjectInfo::GLAM;
   _f = 50;
@@ -20,6 +20,8 @@ bool		GlamAlien::update(sf::Clock const& clock)
 {
   this->_pos.x = this->_pos.x - this->_speed.x;
   this->_pos.y = _a * sin((2 * _f * clock.getElapsedTime().asMicroseconds() * M_PI) + _rad);
+  if ((int)(_pos.x) % 400 == 0)
+    _isShoot = true;
   return true;
 }
 
@@ -37,5 +39,6 @@ IObject		*GlamAlien::BasicShoot()
 
   pos.x = _pos.x + _speed.x;
   pos.y = _pos.y;
+  _isShoot = false;
   return new BasicAlienProjectile(_speed, pos, _maxId++);
 }

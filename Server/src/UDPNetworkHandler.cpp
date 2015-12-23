@@ -1,8 +1,5 @@
 #include "UDPNetworkHandler.hh"
 #include "PacketFactory.hh"
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 
 UDPNetworkHandler::UDPNetworkHandler(std::string const& ip,
 				     std::string const& port,
@@ -129,7 +126,7 @@ void					UDPNetworkHandler::broadcast(IServerPacket<ServerUDPResponse>* msg)
 
 GamerInfo*				UDPNetworkHandler::selectClient()
 {
-  std::vector<int>			fdList;
+  std::vector<SOCKET>			fdList;
   GamerInfo*				client;
 
   fdList.push_back(_socket);

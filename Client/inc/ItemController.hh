@@ -15,6 +15,14 @@
 #include "DelItemPacket.h"
 #include "CreIAPacket.h"
 #include "IServerPacket.hh"
+#include "GlamAlienGraphical.hh"
+#include "DokanAlienGraphical.hh"
+#include "KayberosAlienGraphical.hh"
+#include "RiosAlienGraphical.hh"
+#include "ScantAlienGraphical.hh"
+#include "ShellAlienGraphical.hh"
+#include "YorkAlienGraphical.hh"
+#include "Xelf16AlienGraphical.hh"
 
 extern ViewController *vc;
 

@@ -12,13 +12,13 @@ PlayerGraphical::PlayerGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned 
         playerSkinId = 0;
 	_spriteStatic->setTexture(*(ac->getShipTexture((Ship)playerSkinId)));
 	_spriteStatic->setPosition(
-		(_pos.x / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2),
-		(_pos.y / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2)
+		_pos.x ,
+		_pos.y
 		);
 	_spriteMoving->setTexture(*(ac->getShipTexture((Ship)(playerSkinId + 4))));
 	_spriteMoving->setPosition(
-		(_pos.x / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2),
-		(_pos.y / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2)
+		pos.x,
+		_pos.y
 		);
     _lastPos = pos;
 }
@@ -36,12 +36,12 @@ bool	PlayerGraphical::update(sf::Clock const& clock)
 
   ret = Player::update(clock);
 	_spriteStatic->setPosition(
-		(_pos.x / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2),
-		(_pos.y / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2)
+		_pos.x,
+		_pos.y
 		);
 	_spriteMoving->setPosition(
-		(_pos.x / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2),
-		(_pos.y / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2)
+		_pos.x,
+		_pos.y
 		);
    if (_lastPos != _pos)
     {

@@ -71,19 +71,19 @@ void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
   switch (packetType)
     {
     case CRE_PLAY:
-      _itemCtrl->addShip(dynamic_cast<CrePlayPacket*>(res));
+      _itemCtrl->addShip(static_cast<CrePlayPacket*>(res));
       break;
     case CRE_OBJ:
-      _itemCtrl->addObj(dynamic_cast<CreObjPacket*>(res));
+      _itemCtrl->addObj(static_cast<CreObjPacket*>(res));
       break;
     case CRE_IA:
-      _itemCtrl->addAlien(dynamic_cast<CreIAPacket*>(res));
+      _itemCtrl->addAlien(static_cast<CreIAPacket*>(res));
       break;
     case DEL_ITEM:
-      _itemCtrl->deleteObject(dynamic_cast<DelItemPacket*>(res));
+      _itemCtrl->deleteObject(static_cast<DelItemPacket*>(res));
       break;
     case MOVE:
-      _itemCtrl->moveShip(dynamic_cast<MovePacket*>(res));
+      _itemCtrl->moveShip(static_cast<MovePacket*>(res));
       break;
     default:
       break;

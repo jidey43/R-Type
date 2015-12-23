@@ -1,4 +1,6 @@
 # include "UMutex.h"
+# ifndef _WIN32
+
 
 CUMutex::CUMutex()
 {
@@ -35,3 +37,5 @@ IMutex*				getMutexInstance()
 {
 	return new CUMutex;
 }
+
+#endif // !_WIN32

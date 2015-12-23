@@ -19,6 +19,7 @@ public:
   bool					isAlive() const;
   bool					isShooting();
   void					setShooting(bool);
+  void					damage();
   void					setPos(const sf::Vector2f &pos);
   void					setSpeed(const sf::Vector2f &speed);
   virtual bool				update(sf::Clock const&, std::vector<IObject*>&) = 0;
@@ -28,6 +29,7 @@ protected:
   bool					collision(std::vector<IObject*>&);
 
 protected:
+  bool				_damage;
   unsigned int			_id;
   int				_life;
   bool				_isAlive;

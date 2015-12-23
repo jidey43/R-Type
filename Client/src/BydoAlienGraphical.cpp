@@ -5,8 +5,8 @@ BydoAlienGraphical::BydoAlienGraphical(sf::Vector2f speed, sf::Vector2f pos, uns
 {
 	_sprite->setTexture(*(ac->getAlien(BYDO)));
 	_sprite->setPosition(
-	(_pos.x / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2),
-	(_pos.y / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2)
+	_pos.x / SCREENRATIO,
+	_pos.y / SCREENRATIO
 	);
 }
 
@@ -16,8 +16,8 @@ bool BydoAlienGraphical::update(sf::Clock const& clock)
 
   ret = BydoAlien::update(clock);
   _sprite->setPosition(
-		(_pos.x / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2),
-		(_pos.y / SCREENRATIO) - (SHIP_ASSET_SIZE_Y / 2)
+		_pos.x,
+		_pos.y
 		);
 	return (ret);
 }
