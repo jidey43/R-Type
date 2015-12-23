@@ -40,6 +40,7 @@ private :
   sf::Clock			_clockAlive;
   sf::Time			_referential;
   bool				_running;
+  bool				_firstClient;
 };
 
 #endif /* !GAMECORE_H_ */
