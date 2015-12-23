@@ -1,5 +1,5 @@
 # include <string.h>
-# include "NextLvlPacket.h"
+# include "NextLvlPacket.hh"
 
 NextLvlPacket::NextLvlPacket(ServerTCPResponse resp, int data) : AServerPacket<ServerTCPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _header(new ServerTCPHeader), _data(new NextLvlData)
 {
