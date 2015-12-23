@@ -8,7 +8,7 @@ ShellAlien::ShellAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, fl
   : Alien(speed, pos, sf::Vector2i(100, 100), id, coeff)
 {
   _realType = ObjectInfo::SHELL;
-  _f = 50;
+  _f = 20;
   _rad = 6;
   _a = 10;
 }

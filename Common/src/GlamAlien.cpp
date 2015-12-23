@@ -8,7 +8,7 @@ GlamAlien::GlamAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, floa
   : Alien(speed, pos, sf::Vector2i(100, 100), id, coeff)
 {
   _realType = ObjectInfo::GLAM;
-  _f = 50;
+  _f = 10;
   _rad = 6;
   _a = 10;
 }
