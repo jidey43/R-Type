@@ -110,3 +110,13 @@ bool		operator==(ClientDatas left, ClientDatas right)
     return true;
   return false;
 }
+
+float						getStartTime() const
+{
+  return _startTime;
+}
+
+void						setStartTime(float time)
+{
+  _startTime = time;
+}

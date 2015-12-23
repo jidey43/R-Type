@@ -18,7 +18,10 @@ GameCore::~GameCore()
     {
       delete client;
     }
+  delete _network;
+  delete _map;
   delete _clients;
+  delete _factory;
 }
 
 bool		GameCore::run()

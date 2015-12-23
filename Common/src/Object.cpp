@@ -72,8 +72,9 @@ bool			Object::collision(std::vector<IObject*>& map)
       // std::cout << "it :" << *it << "\n";
       // std::cout << "type : " << (*it)->getObjType() << std::endl;
       // si this = player et que ennemi = shot&&alien ou alien
-      if ((this->getObjType() == ObjectInfo::PLAYER && (((*it)->getObjType() == ObjectInfo::SHOT
-	  && static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::ALIENREGULAR) || (*it)->getObjType() == ObjectInfo::ALIEN))
+      if ((this->getObjType() == ObjectInfo::PLAYER
+	   && (((*it)->getObjType() == ObjectInfo::SHOT
+	&& static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::ALIENREGULAR) || (*it)->getObjType() == ObjectInfo::ALIEN))
 	  || (this->getObjType() == ObjectInfo::ALIEN && (((*it)->getObjType() == ObjectInfo::SHOT
           && static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::PLAYERREGULAR) || (*it)->getObjType() == ObjectInfo::PLAYER))
 	  || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR && (*it)->getObjType() == ObjectInfo::ALIEN)
