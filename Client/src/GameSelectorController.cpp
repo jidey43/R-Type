@@ -125,7 +125,9 @@ void                        GameSelectorController::createGame()
   IServerPacket<ServerTCPResponse> *response;
 
   _tcpHand->sendToServer(new NewGamePacket(ADD_GAME, _gameName->getText()));
+  std::cout << "sent new game" << std::endl;
   response = _tcpHand->receiveFromServer();
+  std::cout << "->" << ((GameInfoPacket*)response)->getData()->port<< std::endl;
   *_udpHand = new CUDPNetworkHandler((
 				      (GameInfoPacket*)response)->getData()->ip,
 				     std::to_string(((GameInfoPacket*)response)->getData()->port));
