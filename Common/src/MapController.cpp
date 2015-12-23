@@ -9,7 +9,9 @@ unsigned int _maxId;
 
 MapController::MapController()
   : _deserializedMap(new std::vector<IServerPacket<ServerUDPResponse>*>)
-{}
+{
+    _alienCount = 0;
+}
 
 MapController::~MapController()
 {
@@ -51,6 +53,13 @@ void		MapController::addObject(IObject* obj)
 
 void		MapController::addAlien(IObject* obj)
 {
+    if (static_cast<Alien*>(obj)->getRealType() != ObjectInfo::OBSTACLE)
+    {
+        if (_alienCount == -1)
+            _alienCount = 1;
+        else
+            _alienCount += 1;
+    }
   _map.push_back(obj);
 }
 
@@ -96,8 +105,9 @@ void		MapController::checkNewObj(std::vector<IObject*>::iterator& it, IObject* o
     }
   if (!obj->isAlive())
     {
-      // if (obj->getObjType() == ObjectInfo::ALIEN)
-      // 	std::cout << "DELETING !!" << std::endl;
+        if (obj->getObjType() == ObjectInfo::ALIEN
+            && static_cast<Alien*>(obj)->getRealType() != ObjectInfo::OBSTACLE)
+                _alienCount -= 1;
       _deserializedMap->push_back(new DelItemPacket(DEL_ITEM, 0, obj->getId()));
       delete this->getPlayer(obj->getId());
       it = _map.erase(it);
@@ -125,4 +135,9 @@ void		MapController::deletePlayer(int id)
 {
   delete (this->getPlayer(id));
   _map.erase(std::find(_map.begin(), _map.end(), this->getPlayer(id)));
+}
+
+int       MapController::getAlienCount() const
+{
+    return _alienCount;
 }

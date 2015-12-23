@@ -7,7 +7,7 @@
 # include "UDPNetworkHandler.hh"
 # include "GamerInfo.hh"
 # include "IServerPacket.hh"
-# include "../../SFML-2.3.2-uni/include/SFML/System/Clock.hpp"
+# include <Clock.hpp>
 
 # define MAP_SIZE_X 1920
 # define MAP_SIZE_Y 1080
@@ -28,11 +28,13 @@ public:
   void		deletePlayer(int id);
   void		generatePacketsMap(IObject *);
   void		checkNewObj(std::vector<IObject*>::iterator& it, IObject* obj);
+  int       getAlienCount() const;
 
 private:
   std::vector<IObject*>					_map;
   std::vector<IServerPacket<ServerUDPResponse>*>	*_deserializedMap;
   std::vector<IObject*>					_toAppend;
+  int                          _alienCount;                                   
 };
 
 #endif
