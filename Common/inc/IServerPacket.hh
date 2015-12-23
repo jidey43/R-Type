@@ -50,6 +50,7 @@ typedef struct
 typedef struct
 {
   Bool				success;
+  uint64_t			timestamp;
   uint32_t			magic;
 } AuthUDPData;
 
