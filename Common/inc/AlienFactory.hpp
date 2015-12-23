@@ -23,7 +23,6 @@ public:
 
     if (_order.size() <= 0)
       return (obj);
-    std::cout << "before for" << std::endl;
     for (auto it = _order.begin(); it != _order.end(); it++)
       {
 	if ((*it) != NULL)
