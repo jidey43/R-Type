@@ -37,6 +37,7 @@ private :
   MapController*		_map;
   FactoryManager*		_factory;
   sf::Clock			_clock;
+  sf::Clock			_clockAlive;
   sf::Time			_referential;
   bool				_running;
 };

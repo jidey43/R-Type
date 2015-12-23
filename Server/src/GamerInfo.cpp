@@ -63,7 +63,8 @@ void			GamerInfo::setID(int id)
 bool			GamerInfo::updateAlive(sf::Time const& count)
 {
   _timeout -= count;
-  return (_timeout <= sf::Time(sf::milliseconds(0)) ? false : true);
+  //std::cout << _timeout.asMilliseconds() << std::endl;
+  return (_timeout.asMilliseconds() <= sf::milliseconds(0).asMilliseconds() ? false : true);
 }
 
 void			GamerInfo::resetAlive()

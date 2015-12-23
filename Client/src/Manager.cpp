@@ -2,7 +2,7 @@
 
 Manager::Manager(CUDPNetworkHandler *udpHand)
   : _udpHand(udpHand),
-    _refAlive(sf::Time(sf::seconds(1))),
+    _refAlive(sf::Time(sf::milliseconds(500))),
     _lastAliveSent(_refAlive)
 {
   _itemCtrl = new ItemController;
@@ -32,11 +32,11 @@ void					Manager::loop()
 
       _itemCtrl->update();
       _keyboardStatus =  vc->getKeyboardStatus();
+      sendAlive(_referential);
       treatEventsFromKeyboard();
 
       lastTime = sf::microseconds(0);
 
-      sendAlive(getElapsedTimeSinceLoop());
       while ((elapsed = getElapsedTimeSinceLoop()) > lastTime)
 	{
 	  lastTime = elapsed;
@@ -50,7 +50,7 @@ void	Manager::sendAlive(sf::Time const& count)
   _lastAliveSent -= count;
   if (_lastAliveSent <= sf::Time(sf::milliseconds(0)))
     {
-      _lastAliveSent = sf::Time(sf::seconds(1));
+      _lastAliveSent = sf::Time(sf::milliseconds(500));
       _udpHand->send(new AlivePacket(ALIVE, 0, true));
       std::cout << "alive sent" << std::endl;
     }

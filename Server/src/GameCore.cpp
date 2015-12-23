@@ -35,28 +35,31 @@ bool		GameCore::run()
   _clock.restart();
   while (_running)
     {
+      _clockAlive.restart();
       this->updateMap();
-      this->updateAliveClients(getElapsedTimeSinceLoop());
       while (_running && ((elapsed = getElapsedTimeSinceLoop()) > sf::microseconds(0)))
       	{
 	  receivePacket();
 	}
+      this->updateAliveClients(_clockAlive.getElapsedTime());
     }
 }
 
 void		GameCore::updateAliveClients(sf::Time const& count)
 {
-  std::vector<GamerInfo*>::iterator	it;
+  std::vector<GamerInfo*>::iterator	it = _clients->begin();
+  std::vector<GamerInfo*>::iterator	itTmp;
 
-  for (it = _clients->begin(); it != _clients->end(); ++it)
+  while (it != _clients->end())
     {
-      if (!(*it)->updateAlive(count))
+      if (!((*it)->updateAlive(count)))
 	{
 	  std::cout << "UDP: Client disconnected" << std::endl;
 	  delete (*it);
-	  if ((it = _clients->erase(it)) == _clients->end())
-	    break ;
+	  _clients->erase(it);
+	  return ;
 	}
+      it = it + 1;
     }
 }
 
