@@ -43,13 +43,11 @@ std::vector<IServerPacket<ServerUDPResponse>*>*	MapController::getMap() const
 
 void		MapController::addObject(IObject* obj)
 {
-  std::cout << "cre player id = " << obj->getId() << std::endl;
   _map.push_back(obj);
 }
 
 void		MapController::addAlien(IObject* obj)
 {
-  std::cout << "cre alien id = " << obj->getId() << std::endl;
   _map.push_back(obj);
 }
 

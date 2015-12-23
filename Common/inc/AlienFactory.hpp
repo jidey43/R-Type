@@ -25,7 +25,6 @@ public:
       return (obj);
     for (auto it = _order.begin(); it != _order.end(); it++)
       {
-	std::cout << "addr it = " << *it << std::endl;
 	if (clock.getElapsedTime() >= (*it)->getTime())
 	  {
 	    obj->push_back(new T((*it)->getSpeed(), (*it)->getPos(), _maxId++, (*it)->getCoeff()));
