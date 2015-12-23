@@ -66,6 +66,7 @@ typedef enum e_AlienType
 	SHELL,
 	YORK,
 	XELF16,
+    WALL1,
 	NUMBEROFALIEN
 }			AlienType;
 
