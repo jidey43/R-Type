@@ -65,12 +65,14 @@ void		GameCore::updateAliveClients(sf::Time const& count)
     {
       if (!((*it)->updateAlive(count)))
 	{
-	  itTmp = it + 1;
-	  this->gamerDisconnect(*it, NULL);
-	  it = itTmp;
+	  itTmp = it;
+	  _map->deletePlayer((*it)->getID());
+	  ++it;
+	  delete (*itTmp);
+	  _clients->erase(itTmp);
 	  continue ;
 	}
-      it = it + 1;
+      ++it;
     }
   if (_clients->empty())
     _running = false;
