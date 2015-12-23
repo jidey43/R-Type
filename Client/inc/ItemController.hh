@@ -47,7 +47,7 @@ public:
   void						addAlien(CreIAPacket *packet);
 
 public:
-  void						setBackground(int id);
+  void						setBackground(BackgroundType id);
 
 private:
   sf::Clock					_clock;
