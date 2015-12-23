@@ -144,6 +144,7 @@ bool	Server::joinGame(ClientInfo* client, int id)
 
 bool	Server::setNick(ClientInfo* client)
 {
+  std::cout << dynamic_cast<NickPacket*>(client->getPacket())->getData()->data << std::endl;
   client->setNickname(dynamic_cast<NickPacket*>(client->getPacket())->getData()->data);
   _network->sendToClient(client, new AuthTCPPacket(AUTH, SUCCESS));
   return true;
