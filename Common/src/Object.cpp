@@ -4,9 +4,6 @@
 Object::Object(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, ObjectInfo::Type type, unsigned int id)
   : _damage(false), _speed(speed), _pos(pos), _size(size), _objType(type), _id(id)
 {
-  // if (type != ObjectInfo::SHOT)
-  //   _life = 10000;
-  // else
   _life = 1;
   _isAlive = true;
   _isShoot = false;
