@@ -1,7 +1,7 @@
 #include "BasicPlayerProjectileGraphical.h"
 
-BasicPlayerProjectileGrapical::BasicPlayerProjectileGrapical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, unsigned int idPlayer) :
-  BasicPlayerProjectile(speed, pos, id, idPlayer), GraphicalItem()
+BasicPlayerProjectileGrapical::BasicPlayerProjectileGrapical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, uint32_t* score) :
+  BasicPlayerProjectile(speed, pos, id, score), GraphicalItem()
 {
     _sound.setBuffer(*(ac->getSound(BASICSHOT)));
     _sound.play();

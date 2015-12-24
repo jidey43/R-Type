@@ -41,13 +41,11 @@ void					GameHandler::checkEndGames()
   std::vector<GameInfo*>::iterator	it = _gameList.begin();
   std::vector<GameInfo*>::iterator	itTmp;
 
-  std::cout << "SIZE : " << _gameList.size() << std::endl;
   while (it != _gameList.end() && _gameList.size() > 0)
     {
       if ((*it)->isFinished())
 	{
 	  (*it)->joinGameThread();
-	  std::cout << "FINISHED" << std::endl;
 	  delete (*it);
 	  itTmp = it;
 	  ++it;

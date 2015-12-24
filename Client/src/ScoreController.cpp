@@ -39,8 +39,6 @@ void                ScoreController::update()
         _color.g -= 1;
         _color.b += 1;
     }
-
-
     _scoresDrawable[0]->setColor(_color);
     _scoresDrawable[1]->setColor(_color);
     _scoresDrawable[2]->setColor(_color);

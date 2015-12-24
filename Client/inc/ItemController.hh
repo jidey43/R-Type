@@ -39,7 +39,7 @@ public:
 
 public:
   void						addShip(CrePlayPacket *packet);
-  void						addObj(CreObjPacket *packet, int idPlayer = -1);
+  void						addObj(CreObjPacket *packet);
   void						moveShip(MovePacket *packet);
   void						deleteObject(DelItemPacket *packet);
   void						addExplosion(sf::Vector2f);

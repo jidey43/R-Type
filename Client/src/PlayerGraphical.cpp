@@ -35,36 +35,26 @@ bool	PlayerGraphical::update(sf::Clock const& clock)
   bool	ret;
 
   ret = Player::update(clock);
-	_spriteStatic->setPosition(
-		_pos.x,
-		_pos.y
-		);
-	_spriteMoving->setPosition(
-		_pos.x,
-		_pos.y
-		);
-   if (_lastPos != _pos)
+  _spriteStatic->setPosition(_pos.x, _pos.y);
+  _spriteMoving->setPosition(_pos.x, _pos.y);
+  if (_lastPos != _pos)
     {
-        if (_lastPos.x < _pos.x)
-            _sprite = _spriteMoving;
-        else
-            _sprite = _spriteStatic;
-        _lastPos = _pos;
-    }    
-    else
-        _sprite = _spriteMoving;
-   
-   
-	return (ret);
-
-  return (true);
+      if (_lastPos.x < _pos.x)
+	_sprite = _spriteMoving;
+      else
+	_sprite = _spriteStatic;
+      _lastPos = _pos;
+    }
+  else
+    _sprite = _spriteMoving;
+  return (ret);
 }
 
 sf::Drawable*           PlayerGraphical::getDrawable()
 {
-   if (_lastPos != _pos)
+  if (_lastPos != _pos)
     {
-        _lastPos = _pos;
-        return _spriteMoving;
-    }    
+      _lastPos = _pos;
+      return _spriteMoving;
+    }
 }

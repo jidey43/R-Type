@@ -52,25 +52,21 @@ bool		GameCore::run()
   _mutex->LockMutex();
   *_end = true;
   _mutex->UnlockMutex();
-  std::cout << "END THREAD" << std::endl;
   return true;
 }
 
 void		GameCore::updateAliveClients(sf::Time const& count)
 {
   std::vector<GamerInfo*>::iterator	it = _clients->begin();
-  std::vector<GamerInfo*>::iterator	itTmp;
 
   while (it != _clients->end())
     {
-      if (!((*it)->updateAlive(count)))
+      bool res = (*it)->updateAlive(count);
+      if (!res)
 	{
-	  itTmp = it;
 	  _map->deletePlayer((*it)->getID());
-	  ++it;
-	  delete (*itTmp);
-	  _clients->erase(itTmp);
-	  continue ;
+	  _clients->erase(it);
+	  break ;
 	}
       ++it;
     }
@@ -226,7 +222,7 @@ void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>*
     {
       player->setDirection(static_cast<SendMovePacket*>(packet)->getData()->dir);
       _map->updatePlayer(player, _clock);
-      _network->broadcast(new MovePacket(MOVE, 0, client->getID(), player->getPos().x, player->getPos().y));
+      _network->broadcast(new MovePacket(MOVE, 0, client->getID(), player->getPos().x, player->getPos().y, player->getScore()));
     }
 }
 

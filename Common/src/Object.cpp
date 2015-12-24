@@ -1,5 +1,6 @@
 #include "Object.hh"
 #include "Projectile.hh"
+#include "BasicPlayerProjectile.hh"
 
 Object::Object(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, ObjectInfo::Type type, unsigned int id)
   : _damage(false), _speed(speed), _pos(pos), _size(size), _objType(type), _id(id)
@@ -83,18 +84,26 @@ bool			Object::collision(std::vector<IObject*>& map)
 	    || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR && (*it)->getObjType() == ObjectInfo::ALIEN)
 	    || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::ALIENREGULAR && (*it)->getObjType() == ObjectInfo::PLAYER))
 	  {
-	      if ((this != *it)
-	        && ((this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x)
-	    	  && (this->getPos().x + this->getSize().x >= (*it)->getPos().x)
-	    	  && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y)
-	    	  && (this->getPos().y + this->getSize().y >= (*it)->getPos().y)))
+	    if (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR && (*it)->getObjType() == ObjectInfo::ALIEN)
+	      {
+		static_cast<BasicPlayerProjectile*>(this)->increaseScore();
+	      }
+	    if (this->getObjType() == ObjectInfo::ALIEN && (*it)->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::PLAYERREGULAR)
+	      {
+		static_cast<BasicPlayerProjectile*>(*it)->increaseScore();
+	      }
+	    if ((this != *it)
+		&& ((this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x)
+		    && (this->getPos().x + this->getSize().x >= (*it)->getPos().x)
+		    && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y)
+		    && (this->getPos().y + this->getSize().y >= (*it)->getPos().y)))
 	      // {
-	    // std::cout << "COLLISION [" << this->getObjType() << "] !!!! entre" << this->getId() << " and " << (*it)->getId() << std::endl;
-	    // if ((this != *it)
-	    // 	&& (((this->getPos().x >= (*it)->getPos().x) && (this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x) && (this->getPos().y >= (*it)->getPos().y) && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y))
-	    // 	    || ((this->getPos().y + this->getSize().y >= (*it)->getPos().y) && (this->getPos().y + this->getSize().y <= (*it)->getPos().y + (*it)->getSize().y) && (this->getPos().x >= (*it)->getPos().x) && (this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x))
-	    // 	    || ((this->getPos().y + this->getSize().y >= (*it)->getPos().y) && (this->getPos().y + this->getSize().y <= (*it)->getPos().y + (*it)->getSize().y) && (this->getPos().x + this->getSize().x >= (*it)->getPos().x) && (this->getPos().x + this->getSize().x <= (*it)->getPos().x + (*it)->getSize().x))
-	    // 	    || ((this->getPos().y >= (*it)->getPos().y) && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y) && (this->getPos().x + this->getSize().x >= (*it)->getPos().x) && (this->getPos().x + this->getSize().x <= (*it)->getPos().x + (*it)->getSize().x))))
+	      // std::cout << "COLLISION [" << this->getObjType() << "] !!!! entre" << this->getId() << " and " << (*it)->getId() << std::endl;
+	      // if ((this != *it)
+	      // 	&& (((this->getPos().x >= (*it)->getPos().x) && (this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x) && (this->getPos().y >= (*it)->getPos().y) && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y))
+	      // 	    || ((this->getPos().y + this->getSize().y >= (*it)->getPos().y) && (this->getPos().y + this->getSize().y <= (*it)->getPos().y + (*it)->getSize().y) && (this->getPos().x >= (*it)->getPos().x) && (this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x))
+	      // 	    || ((this->getPos().y + this->getSize().y >= (*it)->getPos().y) && (this->getPos().y + this->getSize().y <= (*it)->getPos().y + (*it)->getSize().y) && (this->getPos().x + this->getSize().x >= (*it)->getPos().x) && (this->getPos().x + this->getSize().x <= (*it)->getPos().x + (*it)->getSize().x))
+	      // 	    || ((this->getPos().y >= (*it)->getPos().y) && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y) && (this->getPos().x + this->getSize().x >= (*it)->getPos().x) && (this->getPos().x + this->getSize().x <= (*it)->getPos().x + (*it)->getSize().x))))
 	      {
 		_life = _life - 1;
 		// std::cout << "COLLISION entre" << this->getId() << " [" << this->getPos().x << ";" <<  this->getPos().y << "](" << this->getSize().x << ';' << this->getSize().y <<  ") and " << (*it)->getId()<< " [" << (*it)->getPos().x << ";" <<  (*it)->getPos().y << "]("<< (*it)->getSize().x << ';' << (*it)->getSize().y << ')' << std::endl;

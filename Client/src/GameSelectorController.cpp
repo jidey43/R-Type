@@ -150,6 +150,7 @@ void						GameSelectorController::joinGame(int i)
 
   _tcpHand->sendToServer(new JoinPacket(JOIN_GAME, i));
   response = _tcpHand->receiveFromServer();
+  std::cout << ((GameInfoPacket*)response)->getData()->port << std::endl;
   *_udpHand = new CUDPNetworkHandler(((GameInfoPacket*)response)->getData()->ip, std::to_string(((GameInfoPacket*)response)->getData()->port));
   (*_udpHand)->initSocket();
   (*_udpHand)->send(new CAuthUDPPacket(CAUTH_UDP, 0, "bite"));
