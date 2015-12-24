@@ -11,7 +11,7 @@ KayberosAlien::KayberosAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int 
   _f = 50;
   _life = 3;
   _rad = 6;
-  _a = 10;
+  _a = 6;
 }
 
 KayberosAlien::~KayberosAlien()
@@ -19,6 +19,9 @@ KayberosAlien::~KayberosAlien()
 
 bool		KayberosAlien::update(sf::Clock const& clock)
 {
+  if (_pos.x + _size.x < 0 || _pos.x > MAP_SIZE_X
+      || _pos.y + _size.y < 0 || _pos.y > MAP_SIZE_Y)
+    _isAlive = false;
   this->_pos.x = this->_pos.x - this->_speed.x;
   this->_pos.y = _a * sin((2 * _f * clock.getElapsedTime().asMicroseconds() * M_PI) + _rad);
   if ((int)(_pos.x) % 400 == 0)
