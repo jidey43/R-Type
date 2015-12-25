@@ -3,9 +3,9 @@
 BasicPlayerProjectile::BasicPlayerProjectile(sf::Vector2f speed,
 					     sf::Vector2f pos,
 					     unsigned int id,
-					     unsigned int idPlayer)
+					     uint32_t* score)
   : Projectile(speed, pos, sf::Vector2i(10,10), id, ObjectInfo::PLAYERREGULAR),
-    _idPlayer(idPlayer)
+    _score(score)
 {
 }
 
@@ -28,4 +28,11 @@ bool		BasicPlayerProjectile::update(sf::Clock const& clock, std::vector<IObject*
   this->update(clock);
   this->collision(map);
   return true;
+}
+
+void		BasicPlayerProjectile::increaseScore()
+{
+  std::cout << "increase SCORE" << std::endl;
+  if (_score)
+    *_score += 10;
 }

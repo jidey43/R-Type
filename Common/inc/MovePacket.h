@@ -6,7 +6,7 @@
 class MovePacket : public AServerPacket<ServerUDPResponse>
 {
  public:
-  MovePacket(ServerUDPResponse, int, int, float, float);
+  MovePacket(ServerUDPResponse, int, int, float, float, uint32_t);
   MovePacket(ServerUDPHeader*);
   ~MovePacket();
 

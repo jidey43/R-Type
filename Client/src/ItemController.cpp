@@ -50,14 +50,14 @@ void ItemController::addShip(CrePlayPacket *packet)
   _items.emplace_back(new PlayerGraphical(sf::Vector2f(0,0), sf::Vector2f(data->x, data->y), data->id));
 }
 
-void ItemController::addObj(CreObjPacket *packet, int idPlayer)
+void ItemController::addObj(CreObjPacket *packet)
 {
   int id = packet->getData()->id;
   sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
   float speed = packet->getData()->speed;
 
   if (packet->getData()->type == ObjectInfo::PLAYERREGULAR)
-    _items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id, idPlayer));
+    _items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id, NULL));
   if (packet->getData()->type == ObjectInfo::ALIENREGULAR)
     _items.emplace_back(new BasicAlienProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
 }
@@ -66,11 +66,14 @@ void ItemController::moveShip(MovePacket *packet)
 {
   int id = packet->getData()->id;
   sf::Vector2f newPos(packet->getData()->x ,packet->getData()->y);
+  uint32_t	score = packet->getData()->score;
 
   for (unsigned int i = 0; i != _items.size(); ++i)
     {
       if (dynamic_cast<IObject*>(_items[i])->getId() == id)
 	{
+	  static_cast<PlayerGraphical*>(_items[i])->setScore(score);
+	  _scoreCtrl.setScore(id, score);
 	  static_cast<PlayerGraphical*>(_items[i])->setPos(newPos);
 	  break;
 	}

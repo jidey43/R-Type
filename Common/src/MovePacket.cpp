@@ -1,7 +1,7 @@
 # include <string.h>
 # include "MovePacket.h"
 
-MovePacket::MovePacket(ServerUDPResponse resp, int idx, int id, float x, float y) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new MoveData), _header(new ServerUDPHeader)
+MovePacket::MovePacket(ServerUDPResponse resp, int idx, int id, float x, float y, uint32_t score) : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new MoveData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
   _header->command = resp;
@@ -10,6 +10,7 @@ MovePacket::MovePacket(ServerUDPResponse resp, int idx, int id, float x, float y
   _data->id = id;
   _data->x = x;
   _data->y = y;
+  _data->score = score;
   _data->magic = MAGIC;
 }
 

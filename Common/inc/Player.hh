@@ -19,8 +19,11 @@ public:
   bool				tryShoot();
   void				setDirection(const Direction &dir);
   const ObjectInfo::PlayerType	&getRealType() const;
+  uint32_t			getScore() const;
+  void				setScore(uint32_t);
 
 private:
+  uint32_t			_score;
   bool				_canShoot;
   int				_id;
   sf::Vector2f			_move;

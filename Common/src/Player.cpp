@@ -5,6 +5,7 @@ extern unsigned int _maxId;
 
 Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
   : Object(speed, pos, sf::Vector2i(220, 80), ObjectInfo::PLAYER, id),
+    _score(0),
     _canShoot(true),
     _pauseShotDelay(sf::milliseconds(150)),
     _lastLoopTime(sf::milliseconds(0))
@@ -64,7 +65,7 @@ BasicPlayerProjectile		*Player::BasicShoot()
   pos.y = _pos.y + _size.y;
   speed.x = _speed.y + (_speed.y / 3);
   speed.y = speed.x;
-  return new BasicPlayerProjectile(speed, pos, _maxId++, _id);
+  return new BasicPlayerProjectile(speed, pos, _maxId++, &_score);
 }
 
 bool		Player::tryShoot()
@@ -86,4 +87,14 @@ void		Player::setDirection(const Direction &dir)
 const ObjectInfo::PlayerType	&Player::getRealType() const
 {
   return _realType;
+}
+
+uint32_t			Player::getScore() const
+{
+  return _score;
+}
+
+void				Player::setScore(uint32_t score)
+{
+  _score = score;
 }

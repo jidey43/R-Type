@@ -64,14 +64,23 @@ typedef struct
 
 typedef struct
 {
+  int				id;
+  float				x;
+  float				y;
+  uint32_t			score;
+  uint32_t			magic;
+}				MoveData;
+
+typedef struct
+{
 
   int				id;
   float				x;
   float				y;
   float				speed;
-  uint32_t			magic;
   ObjectInfo::ShotType		type;
-} 	CreObjData;
+  uint32_t			magic;
+}				CreObjData;
 
 typedef struct
 {
@@ -79,15 +88,14 @@ typedef struct
   float				x;
   float				y;
   float				speed;
-  uint32_t			magic;
   enum ObjectInfo::WaveType	iatype;
-} 	   CreIAData;
+  uint32_t			magic;
+}				CreIAData;
 
 
 typedef integerData GameOverData;
 typedef integerData GameListData;
 typedef integerData DelItemData;
-typedef CrePlayData MoveData;
 typedef integerData NextLvlData;
 
 template <typename T>
