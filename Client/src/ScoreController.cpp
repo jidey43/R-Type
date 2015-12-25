@@ -15,7 +15,6 @@ ScoreController::ScoreController()
     for (int i = 0; i != 4; i++ )
     _scoreValue.emplace_back(0);
     _color = sf::Color(1,0,255);
-
 }
 
 ScoreController::~ScoreController()

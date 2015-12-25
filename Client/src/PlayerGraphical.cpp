@@ -2,8 +2,11 @@
 
 int playerSkinId = -1;
 
-PlayerGraphical::PlayerGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id) :
-  Player(speed, pos, id), GraphicalItem()
+PlayerGraphical::PlayerGraphical(sf::Vector2f speed,
+				 sf::Vector2f pos,
+				 unsigned int idObj,
+				 unsigned int nbPlayer)
+  : Player(speed, pos, idObj, nbPlayer), GraphicalItem()
 {
     _spriteMoving = new sf::Sprite;
     _spriteStatic = new sf::Sprite;

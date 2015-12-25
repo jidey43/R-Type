@@ -4,6 +4,10 @@ ItemController::ItemController()
 {
   _background = new sf::Sprite;
   _playerCount = 1;
+  for (unsigned int i = 0; i < 4; ++i)
+    {
+      _availableNbPlayer.push_back(true);
+    }
 }
 
 ItemController::~ItemController()
@@ -47,7 +51,15 @@ void ItemController::addShip(CrePlayPacket *packet)
 {
   CrePlayData *data = packet->getData();
 
-  _items.emplace_back(new PlayerGraphical(sf::Vector2f(0,0), sf::Vector2f(data->x, data->y), data->id));
+  for (size_t i = 0; i < 4; ++i)
+    {
+      if (_availableNbPlayer[i])
+	{
+	  _availableNbPlayer[i] = false;
+	  _items.emplace_back(new PlayerGraphical(sf::Vector2f(0,0), sf::Vector2f(data->x, data->y), data->id, i));
+	  break ;
+	}
+    }
 }
 
 void ItemController::addObj(CreObjPacket *packet)
@@ -73,7 +85,7 @@ void ItemController::moveShip(MovePacket *packet)
       if (dynamic_cast<IObject*>(_items[i])->getId() == id)
 	{
 	  static_cast<PlayerGraphical*>(_items[i])->setScore(score);
-	  _scoreCtrl.setScore(id, score);
+	  _scoreCtrl.setScore(static_cast<PlayerGraphical*>(_items[i])->getNbPlayer(), score);
 	  static_cast<PlayerGraphical*>(_items[i])->setPos(newPos);
 	  break;
 	}
@@ -99,6 +111,10 @@ void ItemController::deleteObject(DelItemPacket *packet)
     }
   if (i == _items.size())
     return;
+  if (dynamic_cast<IObject*>(_items[i])->getObjType() == ObjectInfo::PLAYER)
+    {
+      _availableNbPlayer[static_cast<PlayerGraphical*>(_items[i])->getNbPlayer()] = true;
+    }
   addExplosion(static_cast<sf::Sprite*>(_items[i]->getDrawable())->getPosition());
   _items.erase(_items.begin() + i);
 }

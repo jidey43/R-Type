@@ -3,10 +3,11 @@
 
 extern unsigned int _maxId;
 
-Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
+Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, unsigned int nbPlayer)
   : Object(speed, pos, sf::Vector2i(220, 80), ObjectInfo::PLAYER, id),
     _score(0),
     _canShoot(true),
+    _nbPlayer(nbPlayer),
     _pauseShotDelay(sf::milliseconds(150)),
     _lastLoopTime(sf::milliseconds(0))
 {
@@ -97,4 +98,9 @@ uint32_t			Player::getScore() const
 void				Player::setScore(uint32_t score)
 {
   _score = score;
+}
+
+unsigned int			Player::getNbPlayer() const
+{
+  return _nbPlayer;
 }

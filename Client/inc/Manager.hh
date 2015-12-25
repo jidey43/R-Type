@@ -18,25 +18,25 @@ extern AssetsController *ac;
 class					Manager
 {
 public:
-	Manager(CUDPNetworkHandler*);
-	~Manager();
+  Manager(CUDPNetworkHandler*);
+  ~Manager();
 
 public:
-	void				loop();
-	sf::Time 			getElapsedTimeSinceLoop();
-	void				treatEventsFromKeyboard();
-	void				treatEventsFromNetwork();
-	void				sendAlive(sf::Time const&);
-	void				treatPacket(IServerPacket<ServerUDPResponse>* res);
+  void				loop();
+  sf::Time 			getElapsedTimeSinceLoop();
+  void				treatEventsFromKeyboard();
+  void				treatEventsFromNetwork();
+  void				sendAlive(sf::Time const&);
+  void				treatPacket(IServerPacket<ServerUDPResponse>* res);
 
 private:
-	sf::Clock			_clock;
-	sf::Time			_referential;
-	sf::Time			_lastAliveSent;
-  	sf::Time			_refAlive;
+  sf::Clock			_clock;
+  sf::Time			_referential;
+  sf::Time			_lastAliveSent;
+  sf::Time			_refAlive;
 
 private:
-	keyboardStatus		_keyboardStatus;
-	ItemController		*_itemCtrl;
-	CUDPNetworkHandler	*_udpHand;
+  keyboardStatus		_keyboardStatus;
+  ItemController		*_itemCtrl;
+  CUDPNetworkHandler		*_udpHand;
 };

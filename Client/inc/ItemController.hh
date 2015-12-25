@@ -51,10 +51,12 @@ public:
   void						setBackground(BackgroundType id);
 
 private:
-  sf::Clock					         _clock;
-  std::vector<GraphicalItem*>			 _items;
-  std::vector<GraphicalItem*>			 _unlogicalItems;
-  sf::Sprite*					         _background;
-  int						             _playerCount;
-  ScoreController                      _scoreCtrl;
+  sf::Clock					_clock;
+  std::vector<GraphicalItem*>			_items;
+  std::vector<GraphicalItem*>			_unlogicalItems;
+  sf::Sprite*					_background;
+  int						_playerCount;
+  ScoreController				_scoreCtrl;
+  // Needed To handle score
+  std::vector<bool>				_availableNbPlayer;
 };
