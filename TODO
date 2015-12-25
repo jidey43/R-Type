@@ -1,9 +1,6 @@
-
 obstacles sur les bords de la map + collisions avec obstacles TETRA + ARTHUR
 
 fin de jeu (end game packet) + menu ROMAN
-
-nextLevel packet
 
 avoir des (pattern déplacement, shot) différent pour chaque alien
 
@@ -14,5 +11,7 @@ compat windows
 OPTIONAL :
 
 faire l'index dans le header des packets
+
+rendre le code propre
 
 rfc
