@@ -3,9 +3,9 @@
 
 ViewController::ViewController()
 {
-	_mainWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "RType" ,sf::Style::Default);
-	_mainWindow->setKeyRepeatEnabled(false);
-	_soundTrack = ac->getSoundTrack();
+  _mainWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "RType" ,sf::Style::Default);
+  _mainWindow->setKeyRepeatEnabled(false);
+  _soundTrack = ac->getSoundTrack();
 }
 
 ViewController::~ViewController()
@@ -15,22 +15,22 @@ ViewController::~ViewController()
 
 void							ViewController::clear()
 {
-	_mainWindow->clear();
+  _mainWindow->clear();
 }
 
 void ViewController::operator<<(GraphicalItem *item)
 {
-	draw(item->getDrawable());
+  draw(item->getDrawable());
 }
 
 void							ViewController::refresh()
 {
-	_mainWindow->display();
+  _mainWindow->display();
 }
 
 void							ViewController::draw(sf::Drawable* drawable)
 {
-	_mainWindow->draw(*drawable);
+  _mainWindow->draw(*drawable);
 }
 
 keyboardStatus					ViewController::getKeyboardStatus()

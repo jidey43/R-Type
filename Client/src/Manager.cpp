@@ -31,8 +31,8 @@ void					Manager::loop()
       _itemCtrl->update();
       _keyboardStatus =  vc->getKeyboardStatus();
       sendAlive(_referential);
-      treatEventsFromKeyboard();
-
+      if (treatEventsFromKeyboard() == 1)
+	return ;
       lastTime = sf::microseconds(0);
 
       while ((elapsed = getElapsedTimeSinceLoop()) > lastTime)
@@ -61,7 +61,7 @@ sf::Time Manager::getElapsedTimeSinceLoop()
   return ret;
 }
 
-void Manager::treatEventsFromKeyboard()
+int Manager::treatEventsFromKeyboard()
 {
   if (_keyboardStatus.up)
     _udpHand->send(new SendMovePacket(SEND_MOVE, 0, UP));
@@ -76,8 +76,9 @@ void Manager::treatEventsFromKeyboard()
   if (_keyboardStatus.echap)
     {
       _udpHand->send(new DisconnectPacket(DISCONNECT, 0));
-      exit(0);
+      return 1;
     }
+  return 0;
 }
 
 void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)

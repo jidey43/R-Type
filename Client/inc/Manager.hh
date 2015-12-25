@@ -19,15 +19,15 @@ class					Manager
 {
 public:
 	Manager(CUDPNetworkHandler*);
-	~Manager();
+  ~Manager();
 
 public:
-	void				loop();
-	sf::Time 			getElapsedTimeSinceLoop();
-	void				treatEventsFromKeyboard();
-	void				treatEventsFromNetwork();
-	void				sendAlive(sf::Time const&);
-	void				treatPacket(IServerPacket<ServerUDPResponse>* res);
+  void				loop();
+  sf::Time 			getElapsedTimeSinceLoop();
+  int				treatEventsFromKeyboard();
+  void				treatEventsFromNetwork();
+  void				sendAlive(sf::Time const&);
+  void				treatPacket(IServerPacket<ServerUDPResponse>* res);
 
 private:
   sf::Clock			_clock;
