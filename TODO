@@ -1,14 +1,13 @@
+
 obstacles sur les bords de la map + collisions avec obstacles TETRA + ARTHUR
 
 fin de jeu (end game packet) + menu ROMAN
 
-classes de boss à qui pop à chaque fin de niveau + nextLevel packet
+nextLevel packet
 
-avoir des (sprite OK, pattern déplacement, shot) différent pour chaque alien
+avoir des (pattern déplacement, shot) différent pour chaque alien
 
 finir les scores POULPY
-
-detruire la game quand vide
 
 compat windows
 

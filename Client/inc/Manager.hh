@@ -30,10 +30,11 @@ public:
 	void				treatPacket(IServerPacket<ServerUDPResponse>* res);
 
 private:
-	sf::Clock			_clock;
-	sf::Time			_referential;
-	sf::Time			_lastAliveSent;
-  	sf::Time			_refAlive;
+  sf::Clock			_clock;
+  sf::Time			_referential;
+  sf::Time			_lastAliveSent;
+  sf::Time			_refAlive;
+  unsigned int			_lvl;
 
 private:
 	keyboardStatus		_keyboardStatus;

@@ -3,7 +3,8 @@
 Manager::Manager(CUDPNetworkHandler *udpHand)
   : _udpHand(udpHand),
     _refAlive(sf::Time(sf::milliseconds(500))),
-    _lastAliveSent(_refAlive)
+    _lastAliveSent(_refAlive),
+    _lvl(1)
 {
   _itemCtrl = new ItemController;
   _referential = sf::Time(sf::microseconds(20000));
@@ -101,10 +102,13 @@ void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
       _itemCtrl->moveShip(static_cast<MovePacket*>(res));
       break;
     case NEXT_LVL:
-      _clock.restart();
-      _itemCtrl->setBackground(BACKGROUND_ONE);
-      break;
-    default:
+      {
+	_clock.restart();
+	++_lvl;
+	_itemCtrl->setBackground(static_cast<BackgroundType>(_lvl));
+	break;
+      }
+      default:
       break;
     }
 }

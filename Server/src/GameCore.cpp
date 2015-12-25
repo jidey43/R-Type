@@ -46,8 +46,8 @@ bool		GameCore::run()
        	{
 	  receivePacket();
 	}
-      // if (_firstClient)
-      // 	this->updateAliveClients(_clockAlive.getElapsedTime());
+      if (_firstClient)
+      	this->updateAliveClients(_clockAlive.getElapsedTime());
     }
   _mutex->LockMutex();
   *_end = true;
@@ -79,7 +79,6 @@ void		GameCore::updateMap()
   std::vector<IObject*>		*aliens;
   std::vector<IServerPacket<ServerUDPResponse>*>	*toSend = new std::vector<IServerPacket<ServerUDPResponse>*>;
 
-  std::cout << "remaining aliens = " << _map->getAlienCount() << std::endl;
   if (_map->getAlienCount() == 0
       && _factory->remainingAliens())
     {
