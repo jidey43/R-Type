@@ -83,7 +83,10 @@ void		GameCore::updateMap()
       && _factory->remainingAliens())
     {
       if (_currentLevel == 3)
-        std::cout << "FIN DE LA PARTIE" << std::endl;
+	{
+	  std::cout << "FIN DE LA PARTIE" << std::endl;
+	  exit(0);
+	}
       _clock.restart();
       _map->resetClockPlayer();
       _network->broadcast(new NextLvlPacket(NEXT_LVL, 0, ++_currentLevel));
