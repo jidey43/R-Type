@@ -101,7 +101,7 @@ void ItemController::addExplosion(sf::Vector2f pos)
 
 void ItemController::addSplash(std::string msg)
 {
-//    _unlogicalItems.push_back(new SplashMessage(msg));
+    _unlogicalItems.push_back(new SplashMessage(msg));
 }
 
 void ItemController::deleteObject(DelItemPacket *packet)

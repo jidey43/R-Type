@@ -21,6 +21,7 @@ void					Manager::loop()
 
   //vc->startSoundtrack();
   _itemCtrl->setBackground(BACKGROUND_ONE);
+  _itemCtrl->addSplash("GOOOOO !!!");
   _clock.restart();
   while (1)
     {
