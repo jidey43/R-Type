@@ -21,6 +21,11 @@ class                   BonusSpeedGraphical : public BonusSpeed, public Graphica
   public:
   	bool				update(sf::Clock const&);
 
+private:
+    sf::Time        _referential;
+    sf::Time        _lastUpdate;
+    bool            _incr;
+    float           _angle;
 
 };
 

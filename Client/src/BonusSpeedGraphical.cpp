@@ -7,7 +7,15 @@ BonusSpeedGraphical::BonusSpeedGraphical(sf::Vector2f const& speed,
 		       unsigned int id) :
                BonusSpeed(speed, pos, size, type, id), GraphicalItem()
 {
-    
+  	_sprite->setTexture(*(ac->getBonus(SPEED)));
+	_sprite->setPosition(
+	_pos.x,
+	_pos.y
+	);  
+    _referential = sf::milliseconds(100);
+    _lastUpdate = sf::seconds(0);
+    _incr = false;
+    _angle = 0;
 }
 
 BonusSpeedGraphical::~BonusSpeedGraphical()
@@ -15,7 +23,24 @@ BonusSpeedGraphical::~BonusSpeedGraphical()
     
 }
 
-bool                BonusSpeedGraphical::update(sf::Clock const&)
+bool                BonusSpeedGraphical::update(sf::Clock const& clock)
 {
-    
+        if ((clock.getElapsedTime() - _lastUpdate) > _referential)
+    {
+        if (_incr)
+        {
+            if (_angle >= 30)
+                _incr = !_incr;
+            _angle++;
+        }
+        else
+        {
+            if (_angle <= -30)
+                _incr = !_incr;
+            _angle--;            
+        }
+        _sprite->setRotation(_angle);
+    _lastUpdate = clock.getElapsedTime();
+    }
+
 }
