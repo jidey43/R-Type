@@ -103,13 +103,9 @@ void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
       _itemCtrl->moveShip(static_cast<MovePacket*>(res));
       break;
     case NEXT_LVL:
-      {
-	// _clock.restart();
-	++_lvl;
-	_itemCtrl->setBackground(static_cast<BackgroundType>(_lvl));
-	break;
-      }
-      default:
+      _itemCtrl->levelUp(++_lvl);
+      break;
+    default:
       break;
     }
 }

@@ -3,10 +3,11 @@
 ScantAlienGraphical::ScantAlienGraphical(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff)
   : ScantAlien(speed, pos, id, coeff), GraphicalItem()
 {
-	_sprite->setTexture(*(ac->getAlien(SCANT)));
-	_sprite->setPosition(
-	_pos.x / SCREENRATIO,
-	_pos.y / SCREENRATIO
+  _sprite->setTexture(*(ac->getAlien(SCANT)));
+  _sprite->setOrigin(_size.x / 2, _size.y / 2);
+  _sprite->setPosition(
+		       _pos.x / SCREENRATIO,
+		       _pos.y / SCREENRATIO
 	);
 }
 
@@ -14,7 +15,7 @@ bool ScantAlienGraphical::update(sf::Clock const& clock)
 {
   bool	ret;
 
-_sprite->setRotation(_sprite->getRotation() + 1);
+  _sprite->setRotation(_sprite->getRotation() + 1);
   ret = ScantAlien::update(clock);
   _sprite->setPosition(
 		_pos.x,
