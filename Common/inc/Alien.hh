@@ -19,6 +19,7 @@ public:
   const float&			getCoeff() const;
   virtual IObject		*BasicShoot() = 0;
   const ObjectInfo::WaveType	&getRealType() const;
+  void				upPattern();
 
 protected:
   float			_coeff;
@@ -26,6 +27,8 @@ protected:
   int			_a;
   float			_rad;
   ObjectInfo::WaveType	_realType;
+  unsigned int		_patternPos;
+  unsigned int		_pauseShoot;
 };
 
 # endif

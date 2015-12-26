@@ -24,7 +24,7 @@ bool		KayberosAlien::update(sf::Clock const& clock)
     _isAlive = false;
   this->_pos.x = this->_pos.x - this->_speed.x;
   this->_pos.y = _a * sin((2 * _f * clock.getElapsedTime().asMicroseconds() * M_PI) + _rad);
-  if ((int)(_pos.x) % 400 == 0)
+  if (static_cast<int>(_pos.x + _pauseShoot) % 320 == 0)
     _isShoot = true;
   return true;
 }

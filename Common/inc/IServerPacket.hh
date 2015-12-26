@@ -88,6 +88,7 @@ typedef struct
   float				x;
   float				y;
   float				speed;
+  float				coeff;
   enum ObjectInfo::WaveType	iatype;
   uint32_t			magic;
 }				CreIAData;

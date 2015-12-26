@@ -6,7 +6,7 @@
 class CreIAPacket : public AServerPacket<ServerUDPResponse>
 {
  public:
-  CreIAPacket(ServerUDPResponse, int, int, float, float, float, ObjectInfo::WaveType);
+  CreIAPacket(ServerUDPResponse, int, int, float, float, float, float, ObjectInfo::WaveType);
   CreIAPacket(ServerUDPHeader*);
   ~CreIAPacket();
 

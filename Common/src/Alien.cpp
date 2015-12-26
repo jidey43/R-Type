@@ -1,10 +1,16 @@
 #include "Alien.hh"
+#include <iostream>
+#include <ctime>
 
 extern unsigned int _maxId;
 
 Alien::Alien(sf::Vector2f const& speed, sf::Vector2f const& pos, sf::Vector2i const& size, unsigned int id, float coeff)
-  : Object(speed, pos, size, ObjectInfo::Type::ALIEN, id), _coeff(coeff)
-{}
+  : Object(speed, pos, size, ObjectInfo::Type::ALIEN, id), _coeff(coeff), _patternPos(0)
+{
+  std::srand(std::time(0));
+  _pauseShoot = std::rand() % 300;
+  _pauseShoot -= _pauseShoot % static_cast<int>(_speed.x);
+}
 
 Alien::~Alien() {}
 
@@ -33,4 +39,9 @@ const float		&Alien::getCoeff() const
 const ObjectInfo::WaveType	&Alien::getRealType() const
 {
   return _realType;
+}
+
+void			Alien::upPattern()
+{
+  ++_patternPos;
 }

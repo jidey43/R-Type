@@ -9,14 +9,14 @@ void		routine(std::string const& port, std::string const& ip, CUMutex* mutex, bo
 }
 
 GameInfo::GameInfo(std::string const& name, int id, int port, std::string const& ip)
-	: _name(name),
-	  _id(id),
-	  _port(port),
-	  _endGame(false),
-	  _thread(new UThread(std::to_string(port), ip, &_mutex, &_endGame))
+  : _name(name),
+    _id(id),
+    _port(port),
+    _endGame(false),
+    _thread(new UThread(std::to_string(port), ip, &_mutex, &_endGame))
 {
-	_thread->InitThread(&routine);
-	_thread->StartThread();
+  _thread->InitThread(&routine);
+  _thread->StartThread();
 }
 
 GameInfo::~GameInfo()
@@ -61,7 +61,7 @@ std::string const&		GameInfo::getClients()
 {
   static std::string	buffer = "";
 
-  for (std::vector<ClientInfo*>::const_iterator it = _clients.begin(); it != _clients.end(); ++it)
+  for (std::vector<ClientInfo*>::iterator it = _clients.begin(); it != _clients.end(); ++it)
     {
       if (*it == NULL)
 	it = _clients.erase(it);

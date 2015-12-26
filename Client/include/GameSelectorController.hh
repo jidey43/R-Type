@@ -33,6 +33,7 @@ private:
   std::vector<std::pair<MenuButton*, int>>	_games;
   MenuButton					*_createGameButton;
   TextArea					*_gameName;
+  MenuButton                *_refresh;
 
 private:
   CNetworkHandler				*_tcpHand;

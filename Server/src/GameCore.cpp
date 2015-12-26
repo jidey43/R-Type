@@ -45,6 +45,7 @@ void				GameCore::run()
        	{
 	  receivePacket();
 	}
+      // std::cout << "fps : " << _clock.getElapsedTime().asMilliseconds() / _referential.asMilliseconds() << std::endl;
       if (_firstClient)
       	this->updateAliveClients(_clockAlive.getElapsedTime());
     }
@@ -62,10 +63,9 @@ void				GameCore::updateAliveClients(sf::Time const& count)
       bool res = (*it)->updateAlive(count);
       if (!res)
 	{
-	  std::cout << "INACTIVE CLIENT ERASED" << std::endl;
-	  // _map->deletePlayer((*it)->getID());
-	  // _clients->erase(it);
-	  // break ;
+	  _map->deletePlayer((*it)->getID());
+	  _clients->erase(it);
+	  break ;
 	}
       ++it;
     }
@@ -102,7 +102,7 @@ void				GameCore::updateMap()
     for (auto it = aliens->begin(); it != aliens->end(); ++it)
       {
 	_map->addAlien(*it);
-	toSend->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getRealType()));
+	toSend->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getCoeff(), static_cast<Alien*>((*it))->getRealType()));
       }
   _map->updateMap(_clock);
   toSend->insert(toSend->begin(), _map->getMap()->begin(), _map->getMap()->end());
@@ -125,7 +125,7 @@ std::vector<IServerPacket<ServerUDPResponse>*>*		GameCore::generatePackets(std::
 
   for (std::vector<IObject*>::iterator it = aliens->begin(); it != aliens->end(); ++it)
     {
-      ret->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getRealType()));
+      ret->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>(*it)->getCoeff(), static_cast<Alien*>((*it))->getRealType()));
     }
     return ret;
 }
@@ -194,7 +194,7 @@ void					GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>*
       client->setName(static_cast<CAuthUDPPacket*>(packet)->getData()->data);
       client->setAuth(true);
       client->setID(_maxId++);
-      _map->addObject(new Player(sf::Vector2f(10,10), sf::Vector2f(50, 50), client->getID()));
+      _map->addObject(new Player(sf::Vector2f(10,10), sf::Vector2f(100, 400), client->getID()));
     }
    player = static_cast<Player*>(_map->getPlayer(client->getID()));
    _map->generatePacketsMap(player);

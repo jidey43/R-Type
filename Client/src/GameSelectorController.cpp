@@ -7,14 +7,16 @@ GameSelectorController::GameSelectorController(CUDPNetworkHandler **handler, CNe
   std::string txt("or choose an existing game, May the force be with you");
   _disclaimer = new sf::Text(txt, *(ac->getFont(STAR)));
 
+  std::cout << "DUMP : " << _disclaimer->getCharacterSize() << "  " << txt.size() << std::endl; 
   _disclaimer->setPosition(
-			   (RES_X / 2) - (((_disclaimer->getCharacterSize() * txt.size()) / 2))
+			   (1920 ) - 1590//((_disclaimer->getCharacterSize() * txt.size()) / 2)
 			   , RES_Y * 0.4
 			   );
 
   _join = false;
 
   _createGameButton = new MenuButton("Create a game", sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.3), sf::Vector2f(500 , 50), STAR);
+  _refresh = new MenuButton("Refresh game list", sf::Vector2f(RES_X - (LOGO_SIZE_X + 100), RES_Y * 0.5), sf::Vector2f(500 , 50), STAR);
 
   _gameName =   new TextArea(STAR, sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * 0.2),
 			     sf::Vector2f(500, 50), "Enter new game name");
@@ -26,8 +28,9 @@ void                        GameSelectorController::initList()
   ServerTCPResponse type;
   std::string name;
   unsigned int         id;
-  float                posy = 0.4;
+  float                posy = 0.45;
 
+    _games.clear();
   _tcpHand->sendToServer(new ReqGamePacket(REQ_GAME));
   while (true)
     {
@@ -38,12 +41,12 @@ void                        GameSelectorController::initList()
 	  name = static_cast<DesGamePacket*>(response)->getData()->gameName;
 	  id = static_cast<DesGamePacket*>(response)->getData()->id;
 	  _games.emplace_back(
-			      std::pair<MenuButton*, int>(
-							  new MenuButton(name , sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * posy), sf::Vector2f(500 , 50), STAR)
-							  , id
-							  )
+	  std::pair<MenuButton*, int>(
+	  new MenuButton(name , sf::Vector2f((RES_X / 2) - (LOGO_SIZE_X / 2), RES_Y * posy), sf::Vector2f(500 , 50), STAR)
+      , id
+		)
 			      );
-       posy += 0.1;
+       posy += 0.05;
 	}
       if (type == END_GAME_LIST) {
 	return; }
@@ -90,6 +93,8 @@ void						GameSelectorController::treatEvents()
         }
       if (_createGameButton->getIsHigh())
 	createGame();
+      if (_refresh->getIsHigh())
+    initList();
     }
 }
 
@@ -97,6 +102,7 @@ void						GameSelectorController::update()
 {
   _background->update();
   _createGameButton->update(_keyboardStatus.mousePos);
+  _refresh->update(_keyboardStatus.mousePos);
   for (auto i : _games)
     {
       i.first->update(_keyboardStatus.mousePos);
@@ -110,6 +116,8 @@ void						GameSelectorController::drawMenuItems()
   vc->draw(_disclaimer);
   vc->draw(_createGameButton->getBackground());
   vc->draw(_createGameButton->getDrawableText());
+  vc->draw(_refresh->getBackground());
+  vc->draw(_refresh->getDrawableText());
   vc->draw(_gameName->getTextArea());
   vc->draw(_gameName->getDrawableText());
   for (auto i : _games)
@@ -149,7 +157,11 @@ void						GameSelectorController::joinGame(int i)
 
   _tcpHand->sendToServer(new JoinPacket(JOIN_GAME, i));
   response = _tcpHand->receiveFromServer();
-  std::cout << ((GameInfoPacket*)response)->getData()->port << std::endl;
+  if (response->getCommandType() != GAME_INFO)
+  {
+    initList();
+    return;
+  }
   *_udpHand = new CUDPNetworkHandler(((GameInfoPacket*)response)->getData()->ip, std::to_string(((GameInfoPacket*)response)->getData()->port));
   (*_udpHand)->initSocket();
   (*_udpHand)->send(new CAuthUDPPacket(CAUTH_UDP, 0, "bite"));

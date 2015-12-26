@@ -25,6 +25,7 @@
 #include "Xelf16AlienGraphical.hh"
 #include "WallGraphical.hh"
 #include "ScoreController.hh"
+#include "SplashMessage.hh"
 
 extern ViewController *vc;
 class                           ItemController
@@ -36,20 +37,15 @@ public:
 public:
   void						draw();
   void						update();
-
-public:
   void						addShip(CrePlayPacket *packet);
   void						addObj(CreObjPacket *packet);
   void						moveShip(MovePacket *packet);
   void						deleteObject(DelItemPacket *packet);
   void						addExplosion(sf::Vector2f);
-
-public:
+  void						addSplash(std::string);
   void						addAlien(CreIAPacket *packet);
-
-public:
   void						setBackground(BackgroundType id);
-
+  void						levelUp(unsigned int);
 private:
   sf::Clock					_clock;
   std::vector<GraphicalItem*>			_items;
