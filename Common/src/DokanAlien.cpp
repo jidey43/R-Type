@@ -9,9 +9,9 @@ DokanAlien::DokanAlien(sf::Vector2f const& speed, sf::Vector2f const& pos, unsig
 {
   _life = 3;
   _realType = ObjectInfo::DOKAN;
-  _f = 7;
-  _rad = 2;
-  _a = 3;
+  _f = 1;
+  _rad = M_PI / 4;
+  _a = 5;
 }
 
 DokanAlien::~DokanAlien()
