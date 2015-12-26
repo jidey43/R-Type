@@ -124,5 +124,5 @@ void MenuController::joinGame()
 	;
     }
   else
-    std::cout << "failed\n";
+    std::cerr << "FAILED TO JOIN GAME" << std::endl;
 }

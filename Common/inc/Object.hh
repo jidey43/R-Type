@@ -7,7 +7,7 @@
 class Object : public IObject
 {
 public:
-  Object(sf::Vector2f, sf::Vector2f, sf::Vector2i, ObjectInfo::Type, unsigned int);
+  Object(sf::Vector2f const&, sf::Vector2f const&, sf::Vector2i const& , ObjectInfo::Type, unsigned int);
   ~Object();
 
 public:

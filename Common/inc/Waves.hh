@@ -8,7 +8,7 @@
 class	Waves
 {
 public:
-  Waves(int, sf::Time, sf::Time, sf::Vector2f, sf::Vector2f, float, ObjectInfo::WaveType);
+  Waves(int, sf::Time const&, sf::Time const&, sf::Vector2f const&, sf::Vector2f const&, float, ObjectInfo::WaveType);
   Waves();
   ~Waves();
 

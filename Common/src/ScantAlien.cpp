@@ -4,7 +4,7 @@
 
 extern unsigned int _maxId;
 
-ScantAlien::ScantAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
+ScantAlien::ScantAlien(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff)
   : Alien(speed, pos, sf::Vector2i(100, 100), id, coeff)
 {
   _life = 3;

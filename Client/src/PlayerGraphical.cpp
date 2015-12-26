@@ -10,19 +10,19 @@ PlayerGraphical::PlayerGraphical(sf::Vector2f speed,
 {
     _spriteMoving = new sf::Sprite;
     _spriteStatic = new sf::Sprite;
-        playerSkinId += 1;
+    playerSkinId += 1;
     if (playerSkinId >= 5)
-        playerSkinId = 0;
-	_spriteStatic->setTexture(*(ac->getShipTexture((Ship)playerSkinId)));
-	_spriteStatic->setPosition(
-		_pos.x ,
-		_pos.y
-		);
-	_spriteMoving->setTexture(*(ac->getShipTexture((Ship)(playerSkinId + 4))));
-	_spriteMoving->setPosition(
-		pos.x,
-		_pos.y
-		);
+      playerSkinId = 0;
+    _spriteStatic->setTexture(*(ac->getShipTexture((Ship)playerSkinId)));
+    _spriteStatic->setPosition(
+			       _pos.x ,
+			       _pos.y
+			       );
+    _spriteMoving->setTexture(*(ac->getShipTexture((Ship)(playerSkinId + 4))));
+    _spriteMoving->setPosition(
+			       pos.x,
+			       _pos.y
+			       );
     _lastPos = pos;
 }
 

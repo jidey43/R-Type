@@ -9,11 +9,11 @@ GameCore::GameCore(std::string const&ip, std::string const& port, CUMutex* mutex
     _referential(sf::Time(sf::microseconds(20000))),
     _running(true),
     _firstClient(false),
+    _currentLevel(0),
     _mutex(mutex),
     _end(endGame)
 {
   _factory->changeLevel(0);
-  _currentLevel = 0;
   this->run();
 }
 
@@ -29,13 +29,12 @@ GameCore::~GameCore()
   delete _factory;
 }
 
-bool		GameCore::run()
+void				GameCore::run()
 {
-  int count;
-  sf::Time elapsed;
+  sf::Time			elapsed;
 
   if (!_network->initSocket())
-    return false;
+    return ;
 
   _clock.restart();
   while (_running)
@@ -47,15 +46,14 @@ bool		GameCore::run()
 	  receivePacket();
 	}
       if (_firstClient)
-	this->updateAliveClients(_clockAlive.getElapsedTime());
+      	this->updateAliveClients(_clockAlive.getElapsedTime());
     }
   _mutex->LockMutex();
   *_end = true;
   _mutex->UnlockMutex();
-  return true;
 }
 
-void		GameCore::updateAliveClients(sf::Time const& count)
+void				GameCore::updateAliveClients(sf::Time const& count)
 {
   std::vector<GamerInfo*>::iterator	it = _clients->begin();
 
@@ -64,9 +62,10 @@ void		GameCore::updateAliveClients(sf::Time const& count)
       bool res = (*it)->updateAlive(count);
       if (!res)
 	{
-	  _map->deletePlayer((*it)->getID());
-	  _clients->erase(it);
-	  break ;
+	  std::cout << "INACTIVE CLIENT ERASED" << std::endl;
+	  // _map->deletePlayer((*it)->getID());
+	  // _clients->erase(it);
+	  // break ;
 	}
       ++it;
     }
@@ -74,7 +73,7 @@ void		GameCore::updateAliveClients(sf::Time const& count)
     _running = false;
 }
 
-void		GameCore::updateMap()
+void				GameCore::updateMap()
 {
   std::vector<IObject*>		*aliens;
   std::vector<IServerPacket<ServerUDPResponse>*>	*toSend = new std::vector<IServerPacket<ServerUDPResponse>*>;
@@ -83,7 +82,9 @@ void		GameCore::updateMap()
       && _factory->remainingAliens())
     {
       if (_currentLevel == 3)
-        std::cout << "FIN DE LA PARTIE" << std::endl;
+	{
+	  exit(0);
+	}
       _clock.restart();
       _map->resetClockPlayer();
       _network->broadcast(new NextLvlPacket(NEXT_LVL, 0, ++_currentLevel));
@@ -110,9 +111,9 @@ void		GameCore::updateMap()
   delete toSend;
 }
 
-sf::Time	GameCore::getElapsedTimeSinceLoop()
+sf::Time			GameCore::getElapsedTimeSinceLoop()
 {
-  sf::Time ret;
+  sf::Time			ret;
 
   ret = sf::microseconds(_clock.getElapsedTime().asMicroseconds() % _referential.asMicroseconds());
   return ret;
@@ -129,9 +130,9 @@ std::vector<IServerPacket<ServerUDPResponse>*>*		GameCore::generatePackets(std::
     return ret;
 }
 
-void							GameCore::sendMap(GamerInfo* client, std::vector<IServerPacket<ServerUDPResponse>*> *toSendMap)
+void				GameCore::sendMap(GamerInfo* client, std::vector<IServerPacket<ServerUDPResponse>*> *toSendMap)
 {
-  IServerPacket<ServerUDPResponse>*			packetToSend;
+  IServerPacket<ServerUDPResponse>*	packetToSend;
 
   while (!toSendMap->empty())
     {
@@ -145,7 +146,7 @@ void							GameCore::sendMap(GamerInfo* client, std::vector<IServerPacket<Server
     }
 }
 
-bool					GameCore::receivePacket()
+void					GameCore::receivePacket()
 {
   GamerInfo*				client;
   IClientPacket<ClientUDPCommand>*	packet;
@@ -157,10 +158,9 @@ bool					GameCore::receivePacket()
       if (packet)
 	processPacket(client, packet);
     }
-  return true;
 }
 
-bool					GameCore::processPacket(GamerInfo* client,
+void					GameCore::processPacket(GamerInfo* client,
 								IClientPacket<ClientUDPCommand>* packet)
 {
   switch (packet->getCommandType())
@@ -183,12 +183,11 @@ bool					GameCore::processPacket(GamerInfo* client,
     default:
       break;
     }
-  return true;
 }
 
-void							GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
+void					GameCore::authGamer(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)
 {
-  Player*						player;
+  Player*				player;
 
   if (!client->isAuth())
     {
@@ -209,9 +208,7 @@ void					GameCore::gamerTryShoot(GamerInfo* client, IClientPacket<ClientUDPComma
   Player*				player = static_cast<Player*>(_map->getPlayer(client->getID()));
 
   if (player && client->isAuth())
-    {
-      player->tryShoot();
-    }
+    player->tryShoot();
 }
 
 void					GameCore::gamerMove(GamerInfo* client, IClientPacket<ClientUDPCommand>* packet)

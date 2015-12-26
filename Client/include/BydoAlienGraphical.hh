@@ -5,7 +5,7 @@
 class BydoAlienGraphical : public BydoAlien, public GraphicalItem
 {
 public:
-  BydoAlienGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int, float coeff);
+  BydoAlienGraphical(sf::Vector2f const& speed, sf::Vector2f const&  pos, unsigned int, float coeff);
 
 public:
 	bool				update(sf::Clock const&);

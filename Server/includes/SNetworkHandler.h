@@ -14,26 +14,16 @@
 # include "IServerPacket.hh"
 # include "IClientPacket.hh"
 
-extern	SOCKET				_listen;
-extern  std::vector<ClientInfo*>	_clientList;
-template class				SINetwork<STCPSocket>;
+extern	SOCKET					_listen;
+extern  std::vector<ClientInfo*>		_clientList;
+template class					SINetwork<STCPSocket>;
 
-class NetworkHandler
+class						NetworkHandler
 {
  public:
   NetworkHandler(std::string const& ip, std::string const& port);
   ~NetworkHandler();
-
- private:
-  std::string					_ip;
-  std::string					_port;
-  SINetwork<STCPSocket>*				_network;
-  std::vector<ClientInfo*>			_activeClients;
-  PacketFactory*				_factory;
-  struct timeval				_to;
-
- public:
-  void						broadcast(IServerPacket<ServerTCPResponse>*);
+ void						broadcast(IServerPacket<ServerTCPResponse>*);
   void						broadcast(IServerPacket<ServerUDPResponse>*);
   bool						sendToClient(ClientInfo *, IServerPacket<ServerTCPResponse> *);
   bool						receiveFromClient(ClientInfo *);
@@ -45,6 +35,15 @@ class NetworkHandler
  private:
   bool						acceptNewClient();
   void						closeConnection(ClientInfo *);
+
+ private:
+  std::string					_ip;
+  std::string					_port;
+  SINetwork<STCPSocket>*				_network;
+  std::vector<ClientInfo*>			_activeClients;
+  PacketFactory*				_factory;
+  struct timeval				_to;
+
 };
 
 #endif

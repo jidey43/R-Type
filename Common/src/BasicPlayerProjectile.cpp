@@ -1,7 +1,7 @@
 #include "BasicPlayerProjectile.hh"
 
-BasicPlayerProjectile::BasicPlayerProjectile(sf::Vector2f speed,
-					     sf::Vector2f pos,
+BasicPlayerProjectile::BasicPlayerProjectile(sf::Vector2f const& speed,
+					     sf::Vector2f const& pos,
 					     unsigned int id,
 					     uint32_t* score)
   : Projectile(speed, pos, sf::Vector2i(10,10), id, ObjectInfo::PLAYERREGULAR),

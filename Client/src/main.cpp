@@ -34,29 +34,6 @@ int main(int argc, char **av)
       menu->loop();
       menu2 = new GameSelectorController(&udpHand, tcpHand);
       menu2->loop();
-      
-      // INIT DU UDP A LA MAIN
-    //   IServerPacket<ServerTCPResponse> *response;
-    //   if (av[1])
-    // 	tcpHand->sendToServer(new NewGamePacket(ADD_GAME, "Game de l'espace"));
-    //   else
-    //  	tcpHand->sendToServer(new JoinPacket(JOIN_GAME, 13));
-    //   response = tcpHand->receiveFromServer();
-    //   CUDPNetworkHandler* udpHand = new CUDPNetworkHandler(((GameInfoPacket*)response)->getData()->ip, std::to_string(((GameInfoPacket*)response)->getData()->port));
-    //   udpHand->initSocket();
-    //   sleep(1);
-    //   udpHand->send(new CAuthUDPPacket(CAUTH_UDP, 0, "bite"));
-    //   IServerPacket<ServerUDPResponse>	*packet;
-    //   while (true)
-	// {
-	//   if (udpHand->selectServer(NULL)
-	//       && (packet = udpHand->receive())
-	//       && packet->getCommandType() == AUTH_UDP
-	//       && static_cast<AuthUDPPacket*>(packet)->getData()->success == SUCCESS)
-	//     break;
-	// }
-      // END
-
       m = new Manager(udpHand);
       m->loop();
       delete m;

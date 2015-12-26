@@ -6,7 +6,7 @@
 class BasicAlienProjectile : public Projectile
 {
 public:
-  BasicAlienProjectile(sf::Vector2f speed, sf::Vector2f pos, unsigned int id);
+  BasicAlienProjectile(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id);
   ~BasicAlienProjectile();
 
 public:

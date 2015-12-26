@@ -5,7 +5,7 @@
 class RiosAlienGraphical : public RiosAlien, public GraphicalItem
 {
 public:
-  RiosAlienGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int, float coeff);
+  RiosAlienGraphical(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int, float coeff);
 
 public:
 	bool				update(sf::Clock const&);

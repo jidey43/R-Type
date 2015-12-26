@@ -1,7 +1,7 @@
 #include "Waves.hh"
 #include <iostream>
 
-Waves::Waves(int count, sf::Time time, sf::Time freq, sf::Vector2f pos, sf::Vector2f speed, float coeff, ObjectInfo::WaveType type)
+Waves::Waves(int count, sf::Time const& time, sf::Time const& freq, sf::Vector2f const& pos, sf::Vector2f const& speed, float coeff, ObjectInfo::WaveType type)
   : _count(count), _time(time), _frequency(freq), _pos(pos), _speed(speed), _coeff(coeff), _type(type)
 {
 }

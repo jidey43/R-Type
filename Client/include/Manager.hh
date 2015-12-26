@@ -24,7 +24,7 @@ public:
 public:
   void				loop();
   sf::Time 			getElapsedTimeSinceLoop();
-  void				treatEventsFromKeyboard();
+  int				treatEventsFromKeyboard();
   void				treatEventsFromNetwork();
   void				sendAlive(sf::Time const&);
   void				treatPacket(IServerPacket<ServerUDPResponse>* res);
@@ -34,6 +34,7 @@ private:
   sf::Time			_referential;
   sf::Time			_lastAliveSent;
   sf::Time			_refAlive;
+  unsigned int			_lvl;
 
 private:
   keyboardStatus		_keyboardStatus;

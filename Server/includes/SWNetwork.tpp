@@ -35,7 +35,7 @@ bool SWNetwork<T>::initServerSocket(std::string const &ip, std::string const &po
   result = WSAStartup(MAKEWORD(2, 2), &wsaData);
   if (result != 0)
     {
-      printf("WSAStartup failed: %d\n", result);
+      std::cerr << "WSAStartup failed: " << result << std::endl;;
       return false;
     }
   ZeroMemory(hints, sizeof(*hints));
@@ -52,11 +52,13 @@ void		SWNetwork<T>::selectClients(std::vector<SOCKET>& fd, struct timeval *to)
 {
   std::vector<SOCKET> buffer;
   FD_ZERO(_readSet);
+
   for (std::vector<SOCKET>::iterator it = fd.begin(); it != fd.end(); ++it)
     {
       FD_SET((*it), _readSet);
     }
-  if (select(_listen + 1, _readSet, NULL, NULL, to) == -1) {
+  if (select(_listen + 1, _readSet, NULL, NULL, to) == -1)
+    {
     perror("select error");
     fd.clear();
     return;

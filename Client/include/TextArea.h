@@ -9,12 +9,12 @@ extern ViewController *vc;
 class TextArea
 {
 public:
-	TextArea(Font font, sf::Vector2f pos, sf::Vector2f size, std::string defaultText);
+	TextArea(Font const& font, sf::Vector2f const& pos, sf::Vector2f const& size, std::string const& defaultText);
 	void			update(keyboardStatus status);
 	sf::Drawable*	getTextArea();
 	std::string	getText();
 	sf::Text*		getDrawableText();
-	bool			cursorOnIt(sf::Vector2i);
+	bool			cursorOnIt(sf::Vector2i const&);
 
 private:
 	sf::Font		*_font;

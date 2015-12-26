@@ -16,7 +16,7 @@
 
 template class					SINetwork<SUDPSocket>;
 
-class UDPNetworkHandler
+class						UDPNetworkHandler
 {
 public:
   UDPNetworkHandler(std::string const&, std::string const&, std::vector<GamerInfo*>*);
@@ -24,8 +24,8 @@ public:
 
 private:
   UDPNetworkHandler(const UDPNetworkHandler &);
-  UDPNetworkHandler	&operator=(const UDPNetworkHandler &);
-  GamerInfo*		getClient(ClientDatas*);
+  UDPNetworkHandler				&operator=(const UDPNetworkHandler &);
+  GamerInfo*					getClient(ClientDatas*);
 
 public:
   bool						initSocket();
@@ -45,6 +45,6 @@ private:
   struct timeval				_tv;
 };
 
-bool		operator==(ClientDatas left, ClientDatas right);
+bool						operator==(ClientDatas left, ClientDatas right);
 
 #endif /* !UDPNETWORKHANDLER_H_ */

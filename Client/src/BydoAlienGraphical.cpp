@@ -1,6 +1,6 @@
 #include "BydoAlienGraphical.hh"
 
-BydoAlienGraphical::BydoAlienGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
+BydoAlienGraphical::BydoAlienGraphical(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff)
   : BydoAlien(speed, pos, id, coeff), GraphicalItem()
 {
 	_sprite->setTexture(*(ac->getAlien(BYDO)));

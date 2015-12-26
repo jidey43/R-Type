@@ -6,7 +6,7 @@
 class RiosAlien : public Alien
 {
 public:
-  RiosAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff);
+  RiosAlien(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff);
   ~RiosAlien();
 
 public:

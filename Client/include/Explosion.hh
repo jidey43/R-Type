@@ -7,11 +7,11 @@
 class           Explosion : public GraphicalItem
 {
     public:
-    Explosion(sf::Vector2f pos);
+    Explosion(sf::Vector2f const& pos);
     ~Explosion();
     public:
     bool            update(sf::Clock const&);
-     
+
     private:
     sf::Vector2f    _pos;
     sf::Time        _referential;

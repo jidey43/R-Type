@@ -19,14 +19,12 @@ UDPNetworkHandler::~UDPNetworkHandler()
   std::vector<GamerInfo*>::iterator it;
 
   for (it = _clients->begin(); it != _clients->end(); ++it)
-    {
-      delete (*it);
-    }
+    delete (*it);
   delete _network;
   delete _factory;
 }
 
-bool		UDPNetworkHandler::initSocket()
+bool			UDPNetworkHandler::initSocket()
 {
   if (_network->initServerSocket(_ip, _port))
     {
@@ -49,7 +47,6 @@ GamerInfo*		UDPNetworkHandler::getClient(ClientDatas* datas)
   if (_clients->size() < 4)
     {
       GamerInfo*	newPlayer = new GamerInfo(datas);
-
       _clients->push_back(newPlayer);
       return newPlayer;
     }

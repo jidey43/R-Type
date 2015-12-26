@@ -23,7 +23,7 @@ FactoryManager::FactoryManager(MapController *map) : _map(map)
   _factories.push_back(new AlienFactory<ShellAlien>(ObjectInfo::WaveType::SHELL));
   _factories.push_back(new AlienFactory<YorkAlien>(ObjectInfo::WaveType::YORK));
   _factories.push_back(new AlienFactory<Xelf16Alien>(ObjectInfo::WaveType::XELF16));
-  //  _factories.push_back(new AlienFactory<Obstacle>(ObjectInfo::WaveType::OBSTACLE));
+  _factories.push_back(new AlienFactory<Obstacle>(ObjectInfo::WaveType::OBSTACLE));
   _nbFactory = _factories.size();
   _levelFiles.push_back("../../level/Level1.lvl");
   _levelFiles.push_back("../../level/Level2.lvl");
@@ -58,10 +58,7 @@ void		FactoryManager::initialiseLevel()
   for (int i = 0; j != nb; i = i + 1)
     {
       if (i >= static_cast<int>(_nbFactory))
-	{
-	  // throw Exceptions::FactoryExcept("Error this Factory type is not declared");
-	  break;
-	}
+	break;
       if (waves[j] != NULL)
 	{
 	  if (waves[j]->getType() == _factories[i]->getType())

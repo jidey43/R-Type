@@ -3,7 +3,8 @@
 Manager::Manager(CUDPNetworkHandler *udpHand)
   : _udpHand(udpHand),
     _refAlive(sf::Time(sf::milliseconds(500))),
-    _lastAliveSent(_refAlive)
+    _lastAliveSent(_refAlive),
+    _lvl(1)
 {
   _itemCtrl = new ItemController;
   _referential = sf::Time(sf::microseconds(20000));
@@ -30,8 +31,8 @@ void					Manager::loop()
       _itemCtrl->update();
       _keyboardStatus =  vc->getKeyboardStatus();
       sendAlive(_referential);
-      treatEventsFromKeyboard();
-
+      if (treatEventsFromKeyboard() == 1)
+	return ;
       lastTime = sf::microseconds(0);
 
       while ((elapsed = getElapsedTimeSinceLoop()) > lastTime)
@@ -60,7 +61,7 @@ sf::Time Manager::getElapsedTimeSinceLoop()
   return ret;
 }
 
-void Manager::treatEventsFromKeyboard()
+int Manager::treatEventsFromKeyboard()
 {
   if (_keyboardStatus.up)
     _udpHand->send(new SendMovePacket(SEND_MOVE, 0, UP));
@@ -75,8 +76,9 @@ void Manager::treatEventsFromKeyboard()
   if (_keyboardStatus.echap)
     {
       _udpHand->send(new DisconnectPacket(DISCONNECT, 0));
-      exit(0);
+      return 1;
     }
+  return 0;
 }
 
 void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
@@ -101,10 +103,13 @@ void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
       _itemCtrl->moveShip(static_cast<MovePacket*>(res));
       break;
     case NEXT_LVL:
-      _clock.restart();
-      _itemCtrl->setBackground(BACKGROUND_ONE);
-      break;
-    default:
+      {
+	// _clock.restart();
+	++_lvl;
+	_itemCtrl->setBackground(static_cast<BackgroundType>(_lvl));
+	break;
+      }
+      default:
       break;
     }
 }

@@ -10,7 +10,7 @@ typedef struct
   uint32_t			magic;
   ClientTCPCommand		command;
   int				size;
-} ClientTCPHeader;
+}				ClientTCPHeader;
 
 typedef struct
 {
@@ -18,30 +18,30 @@ typedef struct
   ClientUDPCommand		command;
   uint32_t			size;
   uint32_t			idx;
-} ClientUDPHeader;
+}				ClientUDPHeader;
 
 typedef struct
 {
-  int		id;
-} JoinData;
+  uint32_t			id;
+}				JoinData;
 
 typedef struct
 {
-  bool		isAlive;
-  uint32_t	magic;
-} AliveData;
+  bool				isAlive;
+  uint32_t			magic;
+}				AliveData;
 
 typedef struct
 {
   char				data[BUFF_LEN];
   uint32_t			magic;
-} stringData;
+}				stringData;
 
 typedef struct
 {
   Direction			dir;
   uint32_t			magic;
-} SendMoveData;
+}				SendMoveData;
 
 typedef struct
 {
@@ -52,12 +52,12 @@ typedef struct
 
 # pragma pack ()
 
-typedef stringData NickData;
-typedef stringData NewGameData;
-typedef stringData CAuthUDPData;
+typedef stringData		NickData;
+typedef stringData		NewGameData;
+typedef stringData		CAuthUDPData;
 
 template <typename T>
-class IClientPacket
+class				IClientPacket
 {
 public:
   virtual ~IClientPacket() {};

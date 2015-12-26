@@ -5,7 +5,7 @@
 class KayberosAlienGraphical : public KayberosAlien, public GraphicalItem
 {
 public:
-  KayberosAlienGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int, float coeff);
+  KayberosAlienGraphical(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int, float coeff);
 
 public:
 	bool				update(sf::Clock const&);

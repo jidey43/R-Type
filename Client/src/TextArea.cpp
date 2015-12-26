@@ -1,6 +1,6 @@
 #include "TextArea.h"
 
-TextArea::TextArea(Font font, sf::Vector2f pos, sf::Vector2f size, std::string defaultText)
+TextArea::TextArea(Font const& font, sf::Vector2f const& pos, sf::Vector2f const& size, std::string const& defaultText)
 {
 	_font = ac->getFont(font);
 	_pos = pos;
@@ -55,7 +55,7 @@ sf::Text * TextArea::getDrawableText()
 	return _drawableText;
 }
 
-bool TextArea::cursorOnIt(sf::Vector2i mousepos)
+bool TextArea::cursorOnIt(sf::Vector2i const& mousepos)
 {
 	if (
 		mousepos.x > _pos.x &&

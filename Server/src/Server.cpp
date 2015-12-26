@@ -19,9 +19,7 @@ Server::Server(std::string const & ip, std::string const & port)
     _ip(ip)
 {
   if (_network->initSocket())
-    {
-      start();
-    }
+    start();
 }
 
 Server::~Server()
@@ -30,7 +28,7 @@ Server::~Server()
   delete _network;
 }
 
-void Server::start()
+void			Server::start()
 {
   while (1)
     {
@@ -42,9 +40,9 @@ void Server::start()
     }
 }
 
-void Server::answerClients()
+void			Server::answerClients()
 {
-  ClientInfo*			client;
+  ClientInfo*		client;
 
   while ((client = _network->getActiveClient()))
     {
@@ -52,7 +50,7 @@ void Server::answerClients()
     }
 }
 
-void Server::parser(ClientInfo * client)
+void			Server::parser(ClientInfo* client)
 {
   if (!client->isInGame())
     switch (client->getPacket()->getCommandType())
@@ -79,18 +77,18 @@ void Server::parser(ClientInfo * client)
 	}
       default:
 	{
-	  std::cout << "no match..." << std::endl;
+	  std::cerr << "no match..." << std::endl;
 	  break;
 	}
       }
   else
     {
-      std::cout << "fail" << std::endl;
+      std::cerr << "unknown command" << std::endl;
       _network->sendToClient(client, new FailPacket(FAIL));
     }
 }
 
-bool Server::describeGame(ClientInfo * client)
+void			Server::describeGame(ClientInfo* client)
 {
   _network->sendToClient(client, new GameListPacket(START_GAME_LIST));
   for (std::vector<GameInfo*>::iterator it = _games->getGameList().begin(); it != _games->getGameList().end(); ++it)
@@ -98,12 +96,11 @@ bool Server::describeGame(ClientInfo * client)
       _network->sendToClient(client, new DesGamePacket(DES_GAME, (*it)->getID(), (*it)->getName(), ""));
     }
   _network->sendToClient(client, new GameListPacket(END_GAME_LIST));
-  return true;
 }
 
-bool Server::createGame(ClientInfo * client)
+void			Server::createGame(ClientInfo* client)
 {
-  int		id;
+  int			id;
 
   if (client->isInGame() || (id = _games->startNewGame(dynamic_cast<NewGamePacket*>(client->getPacket())->getData()->data)) == -1)
     {
@@ -113,35 +110,30 @@ bool Server::createGame(ClientInfo * client)
     {
       joinGame(client, id);
     }
-  return true;
 }
 
-bool	Server::joinGame(ClientInfo* client)
+void			Server::joinGame(ClientInfo* client)
 {
-  GameInfo*	game;
+  GameInfo*		game;
 
   if ((game = _games->addClientInGame(client, dynamic_cast<JoinPacket*>(client->getPacket())->getData()->id)) != NULL)    _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort()));
   else
     _network->sendToClient(client, new FailPacket(FAIL));
-  return true;
 }
 
-bool	Server::joinGame(ClientInfo* client, int id)
+void			Server::joinGame(ClientInfo* client, int id)
 {
-  GameInfo*	game;
+  GameInfo*		game;
 
   if ((game = _games->addClientInGame(client, id)) != NULL)
     _network->sendToClient(client, new GameInfoPacket(GAME_INFO, _ip, game->getPort()));
   else
     _network->sendToClient(client, new FailPacket(FAIL));
-  return true;
 }
 
-bool	Server::setNick(ClientInfo* client)
+void			Server::setNick(ClientInfo* client)
 {
   std::cout << dynamic_cast<NickPacket*>(client->getPacket())->getData()->data << std::endl;
   client->setNickname(dynamic_cast<NickPacket*>(client->getPacket())->getData()->data);
   _network->sendToClient(client, new AuthTCPPacket(AUTH, SUCCESS));
-  std::cout << "new client" << std::endl;
-  return true;
 }
