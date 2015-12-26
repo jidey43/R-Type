@@ -130,38 +130,39 @@ void ItemController::addAlien(CreIAPacket *packet)
   sf::Vector2f speed(packet->getData()->speed, packet->getData()->speed);
   sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
   unsigned int id = packet->getData()->id;
+  float coeff = packet->getData()->coeff;
 
   switch (type)
     {
     case ObjectInfo::WaveType::BYDO :
-      _items.emplace_back(new BydoAlienGraphical(speed, pos, id, 1));
+      _items.emplace_back(new BydoAlienGraphical(speed, pos, id, coeff));
       break;
     case ObjectInfo::WaveType::GLAM :
-      _items.emplace_back(new GlamAlienGraphical(speed, pos, id, 1));
+      _items.emplace_back(new GlamAlienGraphical(speed, pos, id, coeff));
       break;
     case ObjectInfo::WaveType::DOKAN :
-      _items.emplace_back(new DokanAlienGraphical(speed, pos, id, 1));
+      _items.emplace_back(new DokanAlienGraphical(speed, pos, id, coeff));
       break;
     case ObjectInfo::WaveType::KAYBEROS :
-      _items.emplace_back(new KayberosAlienGraphical(speed, pos, id, 1));
+      _items.emplace_back(new KayberosAlienGraphical(speed, pos, id, coeff));
       break;
     case ObjectInfo::WaveType::RIOS :
-      _items.emplace_back(new RiosAlienGraphical(speed, pos, id, 1));
+      _items.emplace_back(new RiosAlienGraphical(speed, pos, id, coeff));
       break;
     case ObjectInfo::WaveType::SCANT :
-      _items.emplace_back(new ScantAlienGraphical(speed, pos, id, 1));
+      _items.emplace_back(new ScantAlienGraphical(speed, pos, id, coeff));
       break;
     case ObjectInfo::WaveType::SHELL :
-      _items.emplace_back(new ShellAlienGraphical(speed, pos, id, 1));
+      _items.emplace_back(new ShellAlienGraphical(speed, pos, id, coeff));
       break;
     case ObjectInfo::WaveType::YORK :
-      _items.emplace_back(new YorkAlienGraphical(speed, pos, id, 1));
+      _items.emplace_back(new YorkAlienGraphical(speed, pos, id, coeff));
       break;
     case ObjectInfo::WaveType::XELF16 :
-      _items.emplace_back(new Xelf16AlienGraphical(speed, pos, id, 1));
+      _items.emplace_back(new Xelf16AlienGraphical(speed, pos, id, coeff));
       break;
     case ObjectInfo::WaveType::OBSTACLE :
-      _items.emplace_back(new WallGraphical(speed, pos, id, 1));
+      _items.emplace_back(new WallGraphical(speed, pos, id, coeff));
       break;
     default:
       break;

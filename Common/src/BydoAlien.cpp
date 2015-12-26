@@ -8,7 +8,7 @@ BydoAlien::BydoAlien(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigne
   : Alien(speed, pos, sf::Vector2i(100, 100), id, coeff)
 {
   _realType = ObjectInfo::BYDO;
-  _f = 3;
+  _f = 1;
   _rad = 3;
   _a = 3;
 }
@@ -19,12 +19,11 @@ BydoAlien::~BydoAlien()
 
 bool		BydoAlien::update(sf::Clock const& clock)
 {
-  upPattern();
   if (_pos.x + _size.x < 0 || _pos.x > MAP_SIZE_X
       || _pos.y + _size.y < 0 || _pos.y > MAP_SIZE_Y)
     _isAlive = false;
   this->_pos.x = this->_pos.x - this->_speed.x;
-  this->_pos.y = _pos.y - (_a * cos((0.23 * _f * (this->_pos.x / 150) * M_PI) + _rad));
+  this->_pos.y = _pos.y - (_a * cos((0.23 * _f * (this->_pos.x / 150) * M_PI) + _rad + M_PI * _coeff));
   if (static_cast<int>(_pos.x + _pauseShoot) % 320 == 0)
     _isShoot = true;
   return true;

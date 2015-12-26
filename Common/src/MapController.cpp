@@ -32,7 +32,7 @@ void			MapController::generatePacketsMap(IObject* player)
 	case ObjectInfo::SHOT :
 	  if (static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::PLAYERREGULAR)
 	    {
-	    _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, ObjectInfo::PLAYERREGULAR));
+	      _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, ObjectInfo::PLAYERREGULAR));
 	    }
 	  else
 	    {
@@ -40,7 +40,7 @@ void			MapController::generatePacketsMap(IObject* player)
 	    }
 	  break ;
 	case ObjectInfo::BYDO || ObjectInfo::GLAM || ObjectInfo::DOKAN || ObjectInfo::KAYBEROS || ObjectInfo::RIOS || ObjectInfo::SCANT || ObjectInfo::SHELL || ObjectInfo::YORK || ObjectInfo::XELF16 :
-	  _deserializedMap->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getRealType()));
+	  _deserializedMap->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getCoeff(), static_cast<Alien*>((*it))->getRealType()));
 	  break ;
 	default :
 	  break ;

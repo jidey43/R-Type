@@ -10,7 +10,7 @@ Alien::Alien(sf::Vector2f const& speed, sf::Vector2f const& pos, sf::Vector2i co
   std::srand(std::time(0));
   _pauseShoot = std::rand() % 300;
   _pauseShoot -= _pauseShoot % static_cast<int>(_speed.x);
-  std::cout << "pause shoot : " << _pauseShoot << std::endl;
+  std::cout << "pause shoot : " << coeff <<  _coeff << std::endl;
 }
 
 Alien::~Alien() {}

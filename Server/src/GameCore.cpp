@@ -103,7 +103,7 @@ void				GameCore::updateMap()
     for (auto it = aliens->begin(); it != aliens->end(); ++it)
       {
 	_map->addAlien(*it);
-	toSend->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getRealType()));
+	toSend->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getCoeff(), static_cast<Alien*>((*it))->getRealType()));
       }
   _map->updateMap(_clock);
   toSend->insert(toSend->begin(), _map->getMap()->begin(), _map->getMap()->end());
@@ -126,7 +126,7 @@ std::vector<IServerPacket<ServerUDPResponse>*>*		GameCore::generatePackets(std::
 
   for (std::vector<IObject*>::iterator it = aliens->begin(); it != aliens->end(); ++it)
     {
-      ret->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getRealType()));
+      ret->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>(*it)->getCoeff(), static_cast<Alien*>((*it))->getRealType()));
     }
     return ret;
 }
