@@ -7,8 +7,9 @@ GameSelectorController::GameSelectorController(CUDPNetworkHandler **handler, CNe
   std::string txt("or choose an existing game, May the force be with you");
   _disclaimer = new sf::Text(txt, *(ac->getFont(STAR)));
 
+  std::cout << "DUMP : " << _disclaimer->getCharacterSize() << "  " << txt.size() << std::endl; 
   _disclaimer->setPosition(
-			   (1920 / 2) - (((_disclaimer->getCharacterSize() * txt.size()) / 2))
+			   (1920 / 2) - 795//((_disclaimer->getCharacterSize() * txt.size()) / 2)
 			   , RES_Y * 0.4
 			   );
 

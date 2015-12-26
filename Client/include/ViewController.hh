@@ -61,4 +61,5 @@ public:
 private:
 	sf::RenderWindow	*_mainWindow;
 	sf::Music			*_soundTrack;
+    bool                _focus;
 };

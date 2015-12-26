@@ -6,6 +6,7 @@ ViewController::ViewController()
   _mainWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "RType" ,sf::Style::Default);
   _mainWindow->setKeyRepeatEnabled(false);
   _soundTrack = ac->getSoundTrack();
+  _focus = true;
 }
 
 ViewController::~ViewController()
@@ -35,14 +36,15 @@ void							ViewController::draw(sf::Drawable* drawable)
 
 keyboardStatus					ViewController::getKeyboardStatus()
 {
-  keyboardStatus		state = {sf::Vector2i(), false, false, false, false, false};
+  keyboardStatus		state = {sf::Vector2i(0,0), -1, false, false, false, false, false, false, false};
 
-
+  state.textEntered = getTextEntered();
+  if (!_focus)
+    return state;
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     state.echap = true;
 
   state.mousePos = sf::Mouse::getPosition(*_mainWindow);
-  state.textEntered = getTextEntered();
 
   if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     state.leftClick = true;
@@ -64,6 +66,10 @@ char ViewController::getTextEntered()
 	sf::Event e;
 	if (_mainWindow->pollEvent(e))
 	  {
+        if (e.type == sf::Event::LostFocus)
+            _focus = false;
+        if (e.type == sf::Event::GainedFocus)
+            _focus = true;            
 	    if (e.type == sf::Event::TextEntered)
 	      {
 		if (e.text.unicode < 128)
