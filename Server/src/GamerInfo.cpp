@@ -15,12 +15,12 @@ GamerInfo::~GamerInfo()
   delete _clientInfo;
 }
 
-ClientDatas*	GamerInfo::getClientInfos() const
+ClientDatas*		GamerInfo::getClientInfos() const
 {
   return _clientInfo;
 }
 
-void		GamerInfo::setHeader(ClientUDPHeader* header)
+void			GamerInfo::setHeader(ClientUDPHeader* header)
 {
   _header = header;
 }
@@ -63,7 +63,6 @@ void			GamerInfo::setID(int id)
 bool			GamerInfo::updateAlive(sf::Time const& count)
 {
   _timeout -= count;
-  //std::cout << _timeout.asMilliseconds() << std::endl;
   return (_timeout.asMilliseconds() <= sf::milliseconds(0).asMilliseconds() ? false : true);
 }
 

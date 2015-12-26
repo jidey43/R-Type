@@ -17,17 +17,17 @@ ClientInfo::~ClientInfo()
 {
 }
 
-bool ClientInfo::isInGame() const
+bool					ClientInfo::isInGame() const
 {
   return _isInGame;
 }
 
-void ClientInfo::setInGame(bool inGame)
+void					ClientInfo::setInGame(bool inGame)
 {
   _isInGame = inGame;
 }
 
-void ClientInfo::setPacket(IClientPacket<ClientTCPCommand>* packet)
+void					ClientInfo::setPacket(IClientPacket<ClientTCPCommand>* packet)
 {
   if (!_packet)
     delete (_packet);
@@ -39,27 +39,27 @@ IClientPacket<ClientTCPCommand>*	ClientInfo::getPacket() const
   return _packet;
 }
 
-SOCKET ClientInfo::getSocket() const
+SOCKET					ClientInfo::getSocket() const
 {
   return _socket;
 }
 
-void	ClientInfo::setDisconnected(bool disc)
+void					ClientInfo::setDisconnected(bool disc)
 {
   _disconnected = disc;
 }
 
-bool	ClientInfo::getDisconnected() const
+bool					ClientInfo::getDisconnected() const
 {
   return _disconnected;
 }
 
-std::string ClientInfo::getNickname() const
+std::string				ClientInfo::getNickname() const
 {
   return _nickname;
 }
 
-void ClientInfo::setNickname(std::string const& nick)
+void					ClientInfo::setNickname(std::string const& nick)
 {
   if (nick.size() > 19)
     _nickname = nick.substr(0, 19);

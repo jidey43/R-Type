@@ -10,7 +10,7 @@ GameHandler::~GameHandler()
 {
 }
 
-GameInfo* GameHandler::addClientInGame(ClientInfo * client, int id)
+GameInfo*				GameHandler::addClientInGame(ClientInfo* client, int id)
 {
   for (std::vector<GameInfo*>::iterator it = _gameList.begin(); it != _gameList.end(); ++it)
     {
@@ -22,7 +22,7 @@ GameInfo* GameHandler::addClientInGame(ClientInfo * client, int id)
   return NULL;
 }
 
-int GameHandler::startNewGame(std::string const &name)
+int					GameHandler::startNewGame(std::string const &name)
 {
   if (_gameList.size() >= MAX_GAME)
     return -1;
@@ -30,7 +30,7 @@ int GameHandler::startNewGame(std::string const &name)
   return _maxID - 1;
 }
 
-std::vector<GameInfo*>& GameHandler::getGameList()
+std::vector<GameInfo*>&			GameHandler::getGameList()
 {
   checkEndGames();
   return _gameList;
@@ -50,7 +50,6 @@ void					GameHandler::checkEndGames()
 	  itTmp = it;
 	  ++it;
 	  _gameList.erase(itTmp);
-	  std::cout << "ERASED GAME : " << _gameList.size() << std::endl;
 	}
       else
 	++it;

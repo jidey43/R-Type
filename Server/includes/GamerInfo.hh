@@ -6,17 +6,9 @@
 # include "NetworkDefines.h"
 # include "IClientPacket.hh"
 
-class GamerInfo
+class			GamerInfo
 {
-private:
-  ClientDatas*		_clientInfo;
-  ClientUDPHeader*	_header;
-  std::string		_name;
-  bool			_isAuth;
-  int			_id;
-  sf::Time		_timeout;
-
-public:
+  public:
   GamerInfo(ClientDatas*);
   virtual ~GamerInfo();
   ClientDatas*		getClientInfos() const;
@@ -34,6 +26,14 @@ public:
 private:
   GamerInfo(const GamerInfo &);
   GamerInfo &operator=(const GamerInfo &);
+
+private:
+  ClientDatas*		_clientInfo;
+  ClientUDPHeader*	_header;
+  std::string		_name;
+  bool			_isAuth;
+  int			_id;
+  sf::Time		_timeout;
 };
 
 

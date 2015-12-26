@@ -6,7 +6,7 @@
 # include "SNetworkHandler.h"
 # include "GameHandler.h"
 
-class		Server
+class					Server
 {
  public:
   Server(std::string const& ip, std::string const& port);
@@ -21,11 +21,11 @@ private:
   void					start();
   void					answerClients();
   void					parser(ClientInfo* client);
-  bool					describeGame(ClientInfo* client);
-  bool					createGame(ClientInfo* client);
-  bool					setNick(ClientInfo* client);
-  bool					joinGame(ClientInfo* client);
-  bool					joinGame(ClientInfo* client, int id);
+  void					describeGame(ClientInfo* client);
+  void					createGame(ClientInfo* client);
+  void					setNick(ClientInfo* client);
+  void					joinGame(ClientInfo* client);
+  void					joinGame(ClientInfo* client, int id);
 };
 
 #endif

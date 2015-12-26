@@ -14,13 +14,6 @@ class ClientInfo
   ClientInfo(SOCKET socket, std::string const& nick);
   ~ClientInfo();
 
- private:
-  bool					_isInGame;
-  bool					_disconnected;
-  SOCKET				_socket;
-  std::string				_nickname;
-  IClientPacket<ClientTCPCommand>*	_packet;
-
  public:
   bool					isInGame() const;
   void					setInGame(bool inGame);
@@ -31,6 +24,13 @@ class ClientInfo
   void					setNickname(std::string const& nick);
   bool					getDisconnected() const;
   void					setDisconnected(bool);
+
+ private:
+  bool					_isInGame;
+  bool					_disconnected;
+  SOCKET				_socket;
+  std::string				_nickname;
+  IClientPacket<ClientTCPCommand>*	_packet;
 };
 
 #endif
