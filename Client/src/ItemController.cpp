@@ -45,7 +45,7 @@ void		ItemController::update()
 void		ItemController::levelUp(unsigned int lvl)
 {
   this->setBackground(static_cast<BackgroundType>(lvl));
-  this->addSplash("LEVEL UP !!!");
+  this->addSplash("NEXT LEVEL !!!");
 }
 
 void		ItemController::setBackground(BackgroundType id)
