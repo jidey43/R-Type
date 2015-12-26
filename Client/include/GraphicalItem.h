@@ -10,7 +10,7 @@ class GraphicalItem
 {
 public:
 	GraphicalItem();
-	virtual sf::Drawable*		getDrawable();
+	sf::Drawable*		getDrawable();
 	virtual bool	        update(sf::Clock const&) = 0;
 
 protected:
