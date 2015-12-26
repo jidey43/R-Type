@@ -19,7 +19,6 @@ ScoreController::ScoreController()
 
 ScoreController::~ScoreController()
 {
-
 }
 
 void                ScoreController::update()

@@ -32,7 +32,6 @@ bool		BasicPlayerProjectile::update(sf::Clock const& clock, std::vector<IObject*
 
 void		BasicPlayerProjectile::increaseScore()
 {
-  std::cout << "increase SCORE" << std::endl;
   if (_score)
     *_score += 10;
 }
