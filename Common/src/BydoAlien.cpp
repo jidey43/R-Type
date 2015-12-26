@@ -1,6 +1,6 @@
+#include <stdlib.h>
 #include "BydoAlien.hh"
 #include "BasicAlienProjectile.hh"
-#include <stdlib.h>
 
 extern unsigned int _maxId;
 

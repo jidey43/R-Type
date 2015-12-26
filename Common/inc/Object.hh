@@ -7,7 +7,11 @@
 class Object : public IObject
 {
 public:
-  Object(sf::Vector2f const&, sf::Vector2f const&, sf::Vector2i const& , ObjectInfo::Type, unsigned int);
+  Object(sf::Vector2f const&,
+	 sf::Vector2f const&,
+	 sf::Vector2i const&,
+	 ObjectInfo::Type,
+	 unsigned int);
   ~Object();
 
 public:
@@ -24,6 +28,11 @@ public:
   void					setSpeed(const sf::Vector2f &speed);
   virtual bool				update(sf::Clock const&, std::vector<IObject*>&) = 0;
   virtual bool				update(sf::Clock const&) = 0;
+
+private :
+  bool					isCaseToCheck(IObject*);
+  void					changeScores(IObject*);
+  void					handleBonuses(IObject*);
 
 protected:
   bool					collision(std::vector<IObject*>&);

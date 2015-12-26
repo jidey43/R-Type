@@ -25,20 +25,6 @@ Alien::Alien(const Alien &obj)
     }
 }
 
-bool		        Alien::update(sf::Clock const&)
-{
-  return true;
-}
-
-// bool		        Alien::update(sf::Clock const&, std::vector<IObject*>&)
-// {
-
-// }
-
-// bool		        Alien::update(sf::Clock const&)
-// {
-// }
-
 const float		&Alien::getCoeff() const
 {
   return _coeff;
@@ -48,13 +34,3 @@ const ObjectInfo::WaveType	&Alien::getRealType() const
 {
   return _realType;
 }
-
-// BasicAlienProjectile		*Alien::BasicShoot()
-// {
-//   sf::Vector2f pos;
-
-//   pos.x = _pos.x + _size.x;
-//   pos.y = _pos.y + _size.y;
-//   _isShoot = false;
-//   return new BasicAlienProjectile(_speed, pos, _maxId++);
-// }
