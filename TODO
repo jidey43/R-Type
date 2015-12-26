@@ -1,5 +1,3 @@
-rendre le code propre (const&, ...) --> déja pas mal fait dans server/ et client/, il reste common/
-
 obstacles sur les bords de la map + collisions avec obstacles
 
 faire des bonus de vitesse / freq de tir / invincibilité ?
