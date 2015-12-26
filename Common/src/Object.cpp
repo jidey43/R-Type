@@ -61,7 +61,6 @@ bool			Object::isShooting()
   return _isShoot;
 }
 
-
 void			Object::setShooting(bool shoot)
 {
   _isShoot = shoot;
