@@ -1,6 +1,7 @@
 #include "Object.hh"
 #include "Projectile.hh"
 #include "BasicPlayerProjectile.hh"
+#include "ABonus.hh"
 #include "Player.hh"
 
 Object::Object(sf::Vector2f const& speed, sf::Vector2f const& pos, sf::Vector2i const& size, ObjectInfo::Type type, unsigned int id)
@@ -67,6 +68,32 @@ void			Object::setShooting(bool shoot)
   _isShoot = shoot;
 }
 
+bool			Object::isCaseToCheck(IObject* obj)
+{
+  return ((this->getObjType() == ObjectInfo::PLAYER && ((obj->getObjType() == ObjectInfo::SHOT
+							 && static_cast<Projectile*>(obj)->getRealType() == ObjectInfo::ALIENREGULAR) || obj->getObjType() == ObjectInfo::ALIEN))
+	  || (this->getObjType() == ObjectInfo::ALIEN && ((obj->getObjType() == ObjectInfo::SHOT
+							   && static_cast<Projectile*>(obj)->getRealType() == ObjectInfo::PLAYERREGULAR) || obj->getObjType() == ObjectInfo::PLAYER))
+	  || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR && obj->getObjType() == ObjectInfo::ALIEN)
+	  || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::ALIENREGULAR && obj->getObjType() == ObjectInfo::PLAYER));
+}
+
+void			Object::changeScores(IObject* obj)
+{
+  if (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR && obj->getObjType() == ObjectInfo::ALIEN)
+    static_cast<BasicPlayerProjectile*>(this)->increaseScore();
+  if (this->getObjType() == ObjectInfo::ALIEN && obj->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(obj)->getRealType() == ObjectInfo::PLAYERREGULAR)
+    static_cast<BasicPlayerProjectile*>(obj)->increaseScore();
+}
+
+void			Object::handleBonuses(IObject *obj)
+{
+  if (this->getObjType() == ObjectInfo::PLAYER && obj->getObjType() == ObjectInfo::BONUS)
+    static_cast<ABonus*>(obj)->actionBonus(this);
+  if (this->getObjType() == ObjectInfo::BONUS && obj->getObjType() == ObjectInfo::PLAYER)
+    static_cast<ABonus*>(this)->actionBonus(static_cast<Object*>(obj));
+}
+
 bool			Object::collision(std::vector<IObject*>& map)
 {
   if (_damage)
@@ -77,38 +104,19 @@ bool			Object::collision(std::vector<IObject*>& map)
   else
     for (std::vector<IObject*>::iterator it = map.begin(); it != map.end(); it++)
       {
-	if ((this->getObjType() == ObjectInfo::PLAYER && (((*it)->getObjType() == ObjectInfo::SHOT
-							   && static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::ALIENREGULAR) || (*it)->getObjType() == ObjectInfo::ALIEN))
-	    || (this->getObjType() == ObjectInfo::ALIEN && (((*it)->getObjType() == ObjectInfo::SHOT
-							     && static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::PLAYERREGULAR) || (*it)->getObjType() == ObjectInfo::PLAYER))
-	    || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR && (*it)->getObjType() == ObjectInfo::ALIEN)
-	    || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::ALIENREGULAR && (*it)->getObjType() == ObjectInfo::PLAYER))
+	if (this->isCaseToCheck(*it))
 	  {
 	    if ((this != *it)
 		&& ((this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x)
 		    && (this->getPos().x + this->getSize().x >= (*it)->getPos().x)
 		    && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y)
 		    && (this->getPos().y + this->getSize().y >= (*it)->getPos().y)))
-	      // {
-	      // std::cout << "COLLISION [" << this->getObjType() << "] !!!! entre" << this->getId() << " and " << (*it)->getId() << std::endl;
-	      // if ((this != *it)
-	      // 	&& (((this->getPos().x >= (*it)->getPos().x) && (this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x) && (this->getPos().y >= (*it)->getPos().y) && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y))
-	      // 	    || ((this->getPos().y + this->getSize().y >= (*it)->getPos().y) && (this->getPos().y + this->getSize().y <= (*it)->getPos().y + (*it)->getSize().y) && (this->getPos().x >= (*it)->getPos().x) && (this->getPos().x <= (*it)->getPos().x + (*it)->getSize().x))
-	      // 	    || ((this->getPos().y + this->getSize().y >= (*it)->getPos().y) && (this->getPos().y + this->getSize().y <= (*it)->getPos().y + (*it)->getSize().y) && (this->getPos().x + this->getSize().x >= (*it)->getPos().x) && (this->getPos().x + this->getSize().x <= (*it)->getPos().x + (*it)->getSize().x))
-	      // 	    || ((this->getPos().y >= (*it)->getPos().y) && (this->getPos().y <= (*it)->getPos().y + (*it)->getSize().y) && (this->getPos().x + this->getSize().x >= (*it)->getPos().x) && (this->getPos().x + this->getSize().x <= (*it)->getPos().x + (*it)->getSize().x))))
+
 	      {
 		_life = _life - 1;
-		// std::cout << "COLLISION entre" << this->getId() << " [" << this->getPos().x << ";" <<  this->getPos().y << "](" << this->getSize().x << ';' << this->getSize().y <<  ") and " << (*it)->getId()<< " [" << (*it)->getPos().x << ";" <<  (*it)->getPos().y << "]("<< (*it)->getSize().x << ';' << (*it)->getSize().y << ')' << std::endl;
 		static_cast<Object*>(*it)->damage();
-
-		if (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR && (*it)->getObjType() == ObjectInfo::ALIEN)
-		  {
-		    static_cast<BasicPlayerProjectile*>(this)->increaseScore();
-		  }
-		if (this->getObjType() == ObjectInfo::ALIEN && (*it)->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::PLAYERREGULAR)
-		  {
-		    static_cast<BasicPlayerProjectile*>(*it)->increaseScore();
-		  }
+		changeScores(*it);
+		handleBonuses(*it);
 	      }
 	  }
       }

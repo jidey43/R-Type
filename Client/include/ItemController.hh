@@ -26,6 +26,7 @@
 #include "WallGraphical.hh"
 #include "ScoreController.hh"
 #include "SplashMessage.hh"
+#include "BonusSpeedGraphical.hh"
 
 extern ViewController *vc;
 class                           ItemController

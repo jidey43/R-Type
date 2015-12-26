@@ -42,6 +42,12 @@ typedef enum    e_Sound
     NUMBEROFSOUND   
 }               Sound;
 
+typedef enum   e_Bonus
+{
+    SPEED = 0,
+    NUMBEROFBONUS
+}               Bonus;
+
 typedef enum e_Fonts
 {
 	STAR = 0,
@@ -86,6 +92,7 @@ public:
 	bool						loadButtons();
 	bool						loadFonts();
 	bool						loadAliens();
+    bool                        loadBonus();
 
 public:
 	sf::Music					*getSoundTrack();
@@ -98,6 +105,7 @@ public:
 	sf::Font					*getFont(Font);
 	sf::Texture					*getAlien(AlienType);
 	sf::Texture					*getExplosion();
+    sf::Texture                 *getBonus(Bonus);
 
 private:
 	std::string					_assetsPath;
@@ -112,8 +120,10 @@ private:
 	std::vector<sf::Texture*>	_buttons;
 	std::vector<sf::Texture*>	_buttonsHigh;
 	std::vector<sf::Texture*>	_shots;
+    std::vector<sf::Texture*>   _bonus;
 	std::vector<sf::Font*>		_fonts;
     std::vector<sf::SoundBuffer*> _sounds;
 	sf::Texture*				_rtypeLogo;
     sf::Texture*                _explosion;
+    
 };

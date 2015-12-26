@@ -7,7 +7,8 @@ enum Type
   {
     PLAYER = 0,
     ALIEN,
-    SHOT,
+    BONUS,
+    SHOT
   };
 
 enum PlayerType
@@ -38,6 +39,7 @@ enum WaveType
     YORK,
     XELF16,
     OBSTACLE,
+    SPEEDBONUS,
     NUMBEROFWAVE
   };
 };

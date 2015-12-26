@@ -1,7 +1,7 @@
 #include "Alien.hh"
 #include <iostream>
 #include <ctime>
- 
+
 extern unsigned int _maxId;
 
 Alien::Alien(sf::Vector2f const& speed, sf::Vector2f const& pos, sf::Vector2i const& size, unsigned int id, float coeff)

@@ -20,7 +20,8 @@ bool AssetsController::loadAssets()
       loadShots() &&
       loadButtons() &&
       loadFonts() &&
-      loadAliens()
+      loadAliens() &&
+      loadBonus()
       )
     return (true);
   return (false);
@@ -140,6 +141,16 @@ bool AssetsController::loadAliens()
   return false;
 }
 
+bool AssetsController::loadBonus()
+{
+  for (int i = 0; i != NUMBEROFBONUS; i++)
+    _bonus.emplace_back(new sf::Texture);
+  if (_bonus[SPEED]->loadFromFile(_assetsPath + "powerup.png") 
+      )
+    return true;
+  return false;
+}
+
 sf::Music * AssetsController::getSoundTrack()
 {
   return _soundTrack;
@@ -185,6 +196,11 @@ sf::Texture * AssetsController::getAlien(AlienType type)
 sf::Texture*					AssetsController::getExplosion()
 {
   return _explosion;
+}
+
+sf::Texture*					AssetsController::getBonus(Bonus type)
+{
+  return _bonus[type];
 }
 
 sf::SoundBuffer* AssetsController::getSound(Sound sound)

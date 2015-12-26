@@ -32,7 +32,6 @@ bool		Xelf16Alien::update(sf::Clock const& clock)
   return true;
 }
 
-
 bool	        Xelf16Alien::update(sf::Clock const& clock, std::vector<IObject*>& map)
 {
   this->update(clock);

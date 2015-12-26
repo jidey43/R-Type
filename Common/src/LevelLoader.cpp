@@ -19,6 +19,7 @@ LevelLoader::LevelLoader()
   _compare[7] = "york";
   _compare[8] = "xelf16";
   _compare[9] = "obstacle";
+  _compare[10] = "speedBonus";
 }
 
 LevelLoader::~LevelLoader() {}

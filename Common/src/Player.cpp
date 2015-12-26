@@ -8,8 +8,11 @@ Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, unsigned i
     _score(0),
     _canShoot(true),
     _nbPlayer(nbPlayer),
-    _pauseShotDelay(sf::milliseconds(150)),
-    _lastLoopTime(sf::milliseconds(0))
+    _pauseShotDelayTemp(sf::milliseconds(500)),
+    _pauseShotDelay(_pauseShotDelayTemp),
+    _lastLoopTime(sf::milliseconds(0)),
+    _bonusSpeedTaken(false),
+    _bonusSpeed(sf::seconds(0))
 {
 }
 
@@ -22,15 +25,57 @@ void		Player::resetLoopTime()
   _lastLoopTime = sf::milliseconds(0);
 }
 
+void		Player::setBackDelay()
+{
+  _pauseShotDelayTemp = sf::milliseconds(500);
+}
+
+void		Player::speedUp()
+{
+  _bonusSpeedTaken = true;
+}
+
+void		Player::handleBonusSpeed(sf::Clock const& clock)
+{
+  _bonusSpeed -= (clock.getElapsedTime() - _lastLoopTime);
+  if (_bonusSpeed <= sf::milliseconds(0))
+    {
+      _bonusSpeed = sf::milliseconds(0);
+      this->setBackDelay();
+      _actions.erase(std::find(_actions.begin(), _actions.end(), &Player::handleBonusSpeed));
+    }
+}
+
+void		Player::checkBonus()
+{
+  if (_bonusSpeedTaken)
+    {
+      _pauseShotDelayTemp = sf::milliseconds(250);
+      _bonusSpeed += sf::seconds(5);
+      _bonusSpeedTaken = false;
+      if (std::find(_actions.begin(), _actions.end(), &Player::handleBonusSpeed) == _actions.end())
+	_actions.push_back(&Player::handleBonusSpeed);
+    }
+}
+
 bool		Player::update(sf::Clock const& clock)
 {
+  checkBonus();
+  if (!_actions.empty())
+    {
+      for (auto& action : _actions)
+	{
+	  (this->*action)(clock);
+	}
+    }
+
   _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
   _lastLoopTime = clock.getElapsedTime();
   if (_pauseShotDelay <= sf::milliseconds(0))
     {
       _isShoot = false;
       _canShoot = true;
-      _pauseShotDelay = sf::milliseconds(150);
+      _pauseShotDelay = _pauseShotDelayTemp;
     }
   _pos += _move;
   _move = sf::Vector2f(0,0);
@@ -45,7 +90,7 @@ bool		Player::update(sf::Clock const& clock, std::vector<IObject*>& map)
     {
       _isShoot = false;
       _canShoot = true;
-      _pauseShotDelay = sf::milliseconds(150);
+      _pauseShotDelay = _pauseShotDelayTemp;
     }
   _pos += _move;
   if (_pos.x < 0 || _pos.x + _size.x > MAP_SIZE_X
