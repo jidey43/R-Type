@@ -1,4 +1,4 @@
-#include "../inc/MenuButton.h"
+#include "MenuButton.h"
 
 MenuButton::MenuButton(std::string text, sf::Vector2f pos, sf::Vector2f size, Font font) :
 _text(text), _position(pos), _size(size)
@@ -19,7 +19,7 @@ _text(text), _position(pos), _size(size)
 
 sf::Drawable* MenuButton::getBackground()
 {
-	return _background;	
+	return _background;
 }
 
 sf::Drawable* MenuButton::getDrawableText()
