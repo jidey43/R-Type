@@ -32,7 +32,7 @@ bool		DokanAlien::update(sf::Clock const& clock)
     _isAlive = false;
   this->_pos.x = this->_pos.x - this->_speed.x;
   this->_pos.y = _pos.y - (_a * cos((0.23 * _f * (this->_pos.x / 150) * M_PI) + _rad));
-  if ((int)(_pos.x) % 400 == 0)
+  if (static_cast<int>(_pos.x + _pauseShoot) % 320 == 0)
     _isShoot = true;
   return true;
 }
@@ -42,8 +42,8 @@ IObject		*DokanAlien::BasicShoot()
   sf::Vector2f pos;
   sf::Vector2f speed;
 
-  pos.x = _pos.x  - (_size.x / 2);
-  pos.y = _pos.y - (_size.y / 2);
+  pos.x = _pos.x;
+  pos.y = _pos.y + (_size.y / 2);
   _isShoot = false;
   speed.x = _speed.y + (_speed.y / 3);
   speed.y = speed.x;

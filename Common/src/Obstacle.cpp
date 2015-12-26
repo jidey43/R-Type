@@ -1,7 +1,7 @@
 #include "Obstacle.hh"
 
 Obstacle::Obstacle(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff)
-  : Alien(speed, pos, sf::Vector2i(800, 200), id, coeff)
+  : Alien(speed, pos, sf::Vector2i(1200, 100), id, coeff)
 {
   _realType = ObjectInfo::OBSTACLE;
 }
