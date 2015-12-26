@@ -45,6 +45,7 @@ typedef enum    e_Sound
 typedef enum e_Fonts
 {
 	STAR = 0,
+    SPLASH,
 	NUMBEROFFONTS
 }			Font;
 

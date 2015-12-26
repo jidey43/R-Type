@@ -19,7 +19,7 @@ void					Manager::loop()
   sf::Time elapsed;
   sf::Time lastTime;
 
-  //	vc->startSoundtrack();
+  //vc->startSoundtrack();
   _itemCtrl->setBackground(BACKGROUND_ONE);
   _clock.restart();
   while (1)
@@ -106,6 +106,7 @@ void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
       {
 	// _clock.restart();
 	++_lvl;
+    _itemCtrl->addSplash("NEXT LEVEL");
 	_itemCtrl->setBackground(static_cast<BackgroundType>(_lvl));
 	break;
       }
