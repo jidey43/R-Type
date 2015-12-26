@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BONUSSPEEDGRAPHICAL_H_
+# define BONUSSPEEDGRAPHICAL_H_
 
 #include "AssetsController.hh"
 #include "ViewController.hh"
@@ -9,16 +10,18 @@ class                   BonusSpeedGraphical : public BonusSpeed, public Graphica
 {
   public:
     BonusSpeedGraphical(
-        sf::Vector2f const& speed,
-		       sf::Vector2f const& pos,
-		       sf::Vector2i const& size,
-		       ObjectInfo::Type type,
-		       unsigned int id);
-              
+			sf::Vector2f const& speed,
+			sf::Vector2f const& pos,
+			sf::Vector2i const& size,
+			ObjectInfo::Type type,
+			unsigned int id);
+
     ~BonusSpeedGraphical();
-  
+
   public:
   	bool				update(sf::Clock const&);
 
-     
+
 };
+
+#endif /* !BONUSSPEEDGRAPHICAL_H_ */
