@@ -113,7 +113,8 @@ bool AssetsController::loadFonts()
   for (int i = 0; i != NUMBEROFFONTS; i++)
     _fonts.emplace_back(new sf::Font);
   if (
-      _fonts[STAR]->loadFromFile(_assetsPath + "jedi.ttf")
+      _fonts[STAR]->loadFromFile(_assetsPath + "jedi.ttf") &&
+      _fonts[SPLASH]->loadFromFile(_assetsPath + "splash.ttf")
       )
     return true;
   return false;

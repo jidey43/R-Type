@@ -45,6 +45,7 @@ void		ItemController::update()
 void		ItemController::levelUp(unsigned int lvl)
 {
   this->setBackground(static_cast<BackgroundType>(lvl));
+  this->addSplash("LEVEL UP !!!");
 }
 
 void		ItemController::setBackground(BackgroundType id)
@@ -102,6 +103,11 @@ void ItemController::addExplosion(sf::Vector2f pos)
   Explosion *expl = new Explosion(pos);
 
   _unlogicalItems.push_back(expl);
+}
+
+void ItemController::addSplash(std::string msg)
+{
+    _unlogicalItems.push_back(new SplashMessage(msg));
 }
 
 void ItemController::deleteObject(DelItemPacket *packet)
