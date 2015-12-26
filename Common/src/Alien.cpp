@@ -1,10 +1,17 @@
 #include "Alien.hh"
-
+#include <iostream>
+#include <ctime>
+ 
 extern unsigned int _maxId;
 
 Alien::Alien(sf::Vector2f const& speed, sf::Vector2f const& pos, sf::Vector2i const& size, unsigned int id, float coeff)
-  : Object(speed, pos, size, ObjectInfo::Type::ALIEN, id), _coeff(coeff)
-{}
+  : Object(speed, pos, size, ObjectInfo::Type::ALIEN, id), _coeff(coeff), _patternPos(0)
+{
+  std::srand(std::time(0));
+  _pauseShoot = std::rand() % 300;
+  _pauseShoot -= _pauseShoot % static_cast<int>(_speed.x);
+  std::cout << "pause shoot : " << _pauseShoot << std::endl;
+}
 
 Alien::~Alien() {}
 
@@ -25,20 +32,6 @@ Alien::Alien(const Alien &obj)
     }
 }
 
-bool		        Alien::update(sf::Clock const&)
-{
-  return true;
-}
-
-// bool		        Alien::update(sf::Clock const&, std::vector<IObject*>&)
-// {
-
-// }
-
-// bool		        Alien::update(sf::Clock const&)
-// {
-// }
-
 const float		&Alien::getCoeff() const
 {
   return _coeff;
@@ -49,12 +42,7 @@ const ObjectInfo::WaveType	&Alien::getRealType() const
   return _realType;
 }
 
-// BasicAlienProjectile		*Alien::BasicShoot()
-// {
-//   sf::Vector2f pos;
-
-//   pos.x = _pos.x + _size.x;
-//   pos.y = _pos.y + _size.y;
-//   _isShoot = false;
-//   return new BasicAlienProjectile(_speed, pos, _maxId++);
-// }
+void			Alien::upPattern()
+{
+  ++_patternPos;
+}
