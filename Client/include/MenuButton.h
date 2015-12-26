@@ -6,22 +6,20 @@
 class    MenuButton
 {
 public:
-	MenuButton(std::string, sf::Vector2f, sf::Vector2f, Font);
+	MenuButton(std::string const&, sf::Vector2f const&, sf::Vector2f const&, Font const&);
 	sf::Drawable*		getBackground();
 	sf::Drawable*		getDrawableText();
 	sf::Vector2f		getPosition();
-	void				update(sf::Vector2i);
-	bool				cursorOnIt(sf::Vector2i);
+	void				update(sf::Vector2i const&);
+	bool				cursorOnIt(sf::Vector2i const&);
 
 public:
 	bool				getIsHigh();
 
 protected:
 	std::string			_text;
-	sf::Text*			_drawableText;		
+	sf::Text*			_drawableText;
 	sf::RectangleShape*	_background;
-	// sf::Sprite			*_spriteReg;
-	// sf::Sprite			*_spriteHigh;
 	bool				_isHigh;
 	sf::Vector2f		_position;
 	sf::Vector2f		_size;

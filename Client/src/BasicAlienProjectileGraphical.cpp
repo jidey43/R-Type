@@ -1,6 +1,6 @@
 #include "BasicAlienProjectileGraphical.h"
 
-BasicAlienProjectileGrapical::BasicAlienProjectileGrapical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id) :
+BasicAlienProjectileGrapical::BasicAlienProjectileGrapical(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id) :
 	BasicAlienProjectile(speed, pos, id), GraphicalItem()
 {
 	_sprite->setTexture(*(ac->getShot(BASICALIENSHOT)));

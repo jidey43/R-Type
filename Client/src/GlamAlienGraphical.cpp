@@ -1,6 +1,6 @@
 #include "GlamAlienGraphical.hh"
 
-GlamAlienGraphical::GlamAlienGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
+GlamAlienGraphical::GlamAlienGraphical(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff)
   : GlamAlien(speed, pos, id, coeff), GraphicalItem()
 {
 	_sprite->setTexture(*(ac->getAlien(GLAM)));

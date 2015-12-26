@@ -3,7 +3,6 @@
 GameSelectorController::GameSelectorController(CUDPNetworkHandler **handler, CNetworkHandler *tcpHand) :
   _tcpHand(tcpHand), _udpHand(handler)
 {
-  // std::cout << "LOL" << std::endl;
   _background = new Backgroud;
   std::string txt("or choose an existing game, May the force be with you");
   _disclaimer = new sf::Text(txt, *(ac->getFont(STAR)));

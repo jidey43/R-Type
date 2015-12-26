@@ -5,7 +5,7 @@
 class YorkAlienGraphical : public YorkAlien, public GraphicalItem
 {
 public:
-  YorkAlienGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int, float coeff);
+  YorkAlienGraphical(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int, float coeff);
 
 public:
 	bool				update(sf::Clock const&);

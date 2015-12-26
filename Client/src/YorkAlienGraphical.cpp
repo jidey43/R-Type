@@ -1,6 +1,6 @@
 #include "YorkAlienGraphical.hh"
 
-YorkAlienGraphical::YorkAlienGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
+YorkAlienGraphical::YorkAlienGraphical(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff)
   : YorkAlien(speed, pos, id, coeff), GraphicalItem()
 {
 	_sprite->setTexture(*(ac->getAlien(YORK)));

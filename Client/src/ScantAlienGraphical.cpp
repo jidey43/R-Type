@@ -1,6 +1,6 @@
 #include "ScantAlienGraphical.hh"
 
-ScantAlienGraphical::ScantAlienGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
+ScantAlienGraphical::ScantAlienGraphical(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff)
   : ScantAlien(speed, pos, id, coeff), GraphicalItem()
 {
 	_sprite->setTexture(*(ac->getAlien(SCANT)));

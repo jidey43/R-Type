@@ -1,6 +1,6 @@
 #include "MenuButton.h"
 
-MenuButton::MenuButton(std::string text, sf::Vector2f pos, sf::Vector2f size, Font font) :
+MenuButton::MenuButton(std::string const& text, sf::Vector2f const& pos, sf::Vector2f const& size, Font const& font) :
 _text(text), _position(pos), _size(size)
 {
 	_font = ac->getFont(font);
@@ -32,7 +32,7 @@ sf::Vector2f MenuButton::getPosition()
 	return _position;
 }
 
-void MenuButton::update(sf::Vector2i mousepos)
+void MenuButton::update(sf::Vector2i const& mousepos)
 {
 	_isHigh = cursorOnIt(mousepos);
 	if (_isHigh)
@@ -42,7 +42,7 @@ void MenuButton::update(sf::Vector2i mousepos)
 
 }
 
-bool MenuButton::cursorOnIt(sf::Vector2i mousepos)
+bool MenuButton::cursorOnIt(sf::Vector2i const& mousepos)
 {
 	if (
 		mousepos.x > _position.x &&
