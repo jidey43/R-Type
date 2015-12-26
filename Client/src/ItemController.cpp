@@ -14,7 +14,7 @@ ItemController::~ItemController()
 {
 }
 
-void ItemController::draw()
+void		ItemController::draw()
 {
   if (_background->getTexture() != NULL)
     vc->draw(_background);
@@ -26,7 +26,7 @@ void ItemController::draw()
     vc->draw(_scoreCtrl.getScoreDrawable(i));
 }
 
-void ItemController::update()
+void		ItemController::update()
 {
     _scoreCtrl.update();
   for (GraphicalItem* i : _items)
@@ -42,7 +42,13 @@ void ItemController::update()
     }
 }
 
-void ItemController::setBackground(BackgroundType id)
+void		ItemController::levelUp(unsigned int lvl)
+{
+  this->setBackground(static_cast<BackgroundType>(lvl));
+  this->addSplash("LEVEL UP !!!");
+}
+
+void		ItemController::setBackground(BackgroundType id)
 {
   _background->setTexture(*(ac->getBackground(id)));
 }
@@ -101,7 +107,7 @@ void ItemController::addExplosion(sf::Vector2f pos)
 
 void ItemController::addSplash(std::string msg)
 {
-//    _unlogicalItems.push_back(new SplashMessage(msg));
+    _unlogicalItems.push_back(new SplashMessage(msg));
 }
 
 void ItemController::deleteObject(DelItemPacket *packet)

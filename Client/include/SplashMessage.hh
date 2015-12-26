@@ -11,11 +11,12 @@ class                   SplashMessage : public GraphicalItem
         ~SplashMessage();
    
    public:
-        sf::Drawable*               getDrawable();
         bool                        update(sf::Clock const&);
         
    private:
-        sf::Text                    *_messageDrawable;
         std::string                 _message;
         float                       _moveCoeff;
+        sf::Time                    _referential;
+        sf::Time                    _lastUpdate;
+
 };
