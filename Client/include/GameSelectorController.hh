@@ -12,8 +12,8 @@
 
 class			GameSelectorController
 {
-public :
 
+public:
   GameSelectorController(CUDPNetworkHandler **handler, CNetworkHandler *tcpHand);
   void						loop();
   void						treatEvents();
@@ -24,12 +24,12 @@ public :
   void                        createGame();
 
 private:
-  sf::Clock					_clock;
+  sf::Clock					    _clock;
   keyboardStatus				_keyboardStatus;
   Backgroud*					_background;
-  sf::Time					_loopTime;
-  bool						_join;
-  sf::Text*					_disclaimer;
+  sf::Time					    _loopTime;
+  bool						    _join;
+  sf::Text*					    _disclaimer;
   std::vector<std::pair<MenuButton*, int>>	_games;
   MenuButton					*_createGameButton;
   TextArea					*_gameName;
