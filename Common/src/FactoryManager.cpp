@@ -11,6 +11,8 @@
 #include "DokanAlien.hh"
 #include "Obstacle.hh"
 #include "ShellAlien.hh"
+#include "BonusSpeed.hh"
+
 
 FactoryManager::FactoryManager(MapController *map) : _map(map)
 {
@@ -24,6 +26,7 @@ FactoryManager::FactoryManager(MapController *map) : _map(map)
   _factories.push_back(new AlienFactory<YorkAlien>(ObjectInfo::WaveType::YORK));
   _factories.push_back(new AlienFactory<Xelf16Alien>(ObjectInfo::WaveType::XELF16));
   _factories.push_back(new AlienFactory<Obstacle>(ObjectInfo::WaveType::OBSTACLE));
+  _factories.push_back(new AlienFactory<BonusSpeed>(ObjectInfo::SPEEDBONUS));
   _nbFactory = _factories.size();
   _levelFiles.push_back("../../level/Level1.lvl");
   _levelFiles.push_back("../../level/Level2.lvl");

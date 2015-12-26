@@ -8,7 +8,7 @@
 class BonusSpeed : public ABonus
 {
 public:
-  BonusSpeed(sf::Vector2f const&, sf::Vector2f const&, sf::Vector2i const& , ObjectInfo::Type, unsigned int);
+  BonusSpeed(sf::Vector2f const&, sf::Vector2f const&, unsigned int, float);
   virtual ~BonusSpeed();
   bool	update(sf::Clock const&, std::vector<IObject*>&);
   bool	update(sf::Clock const&);

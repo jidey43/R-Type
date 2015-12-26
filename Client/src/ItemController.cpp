@@ -8,14 +8,13 @@ ItemController::ItemController()
     {
       _availableNbPlayer.push_back(true);
     }
-    
+
     //debug
     _items.emplace_back(new BonusSpeedGraphical(
         sf::Vector2f(10, 10),
         sf::Vector2f(50, 50),
-        sf::Vector2i(50, 50),
-        ObjectInfo::Type::BONUS,
-        12
+        12,
+	12
     ));
 }
 
