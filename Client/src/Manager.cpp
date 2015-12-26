@@ -104,7 +104,7 @@ void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
       break;
     case NEXT_LVL:
       {
-	_clock.restart();
+	// _clock.restart();
 	++_lvl;
 	_itemCtrl->setBackground(static_cast<BackgroundType>(_lvl));
 	break;
