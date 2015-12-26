@@ -99,6 +99,11 @@ void ItemController::addExplosion(sf::Vector2f pos)
   _unlogicalItems.push_back(expl);
 }
 
+void ItemController::addSplash(std::string msg)
+{
+    return;
+}
+
 void ItemController::deleteObject(DelItemPacket *packet)
 {
   int  id = packet->getData()->data;

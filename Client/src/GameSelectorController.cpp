@@ -9,7 +9,7 @@ GameSelectorController::GameSelectorController(CUDPNetworkHandler **handler, CNe
 
   std::cout << "DUMP : " << _disclaimer->getCharacterSize() << "  " << txt.size() << std::endl; 
   _disclaimer->setPosition(
-			   (1920 / 2) - 795//((_disclaimer->getCharacterSize() * txt.size()) / 2)
+			   (1920 ) - 795//((_disclaimer->getCharacterSize() * txt.size()) / 2)
 			   , RES_Y * 0.4
 			   );
 

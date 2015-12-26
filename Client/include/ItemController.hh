@@ -43,6 +43,7 @@ public:
   void						moveShip(MovePacket *packet);
   void						deleteObject(DelItemPacket *packet);
   void						addExplosion(sf::Vector2f);
+  void                      addSplash(std::string);
 
 public:
   void						addAlien(CreIAPacket *packet);
