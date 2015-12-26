@@ -62,9 +62,10 @@ void				GameCore::updateAliveClients(sf::Time const& count)
       bool res = (*it)->updateAlive(count);
       if (!res)
 	{
-	  _map->deletePlayer((*it)->getID());
-	  _clients->erase(it);
-	  break ;
+	  std::cout << "INACTIVE CLIENT ERASED" << std::endl;
+	  // _map->deletePlayer((*it)->getID());
+	  // _clients->erase(it);
+	  // break ;
 	}
       ++it;
     }
