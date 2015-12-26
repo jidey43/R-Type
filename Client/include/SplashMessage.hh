@@ -7,7 +7,7 @@
 class                   SplashMessage : public GraphicalItem
 {
     public:
-        SplashMessage();
+        SplashMessage(std::string);
         ~SplashMessage();
    
    public:
@@ -15,5 +15,7 @@ class                   SplashMessage : public GraphicalItem
         bool                        update(sf::Clock const&);
         
    private:
-        sf::Text                    *_message;
+        sf::Text                    *_messageDrawable;
+        std::string                 _message;
+        float                       _moveCoeff;
 };

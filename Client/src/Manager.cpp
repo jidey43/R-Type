@@ -106,6 +106,7 @@ void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
       {
 	// _clock.restart();
 	++_lvl;
+    _itemCtrl->addSplash("NEXT LEVEL");
 	_itemCtrl->setBackground(static_cast<BackgroundType>(_lvl));
 	break;
       }

@@ -19,7 +19,7 @@ void ItemController::draw()
   if (_background->getTexture() != NULL)
     vc->draw(_background);
   for (GraphicalItem *i : _items)
-    vc->draw(i->getDrawable());
+    vc->draw(i->getDrawable()); 
   for (GraphicalItem *i : _unlogicalItems)
     vc->draw(i->getDrawable());
   for (int i = 0; i != 4; i++)
@@ -101,7 +101,7 @@ void ItemController::addExplosion(sf::Vector2f pos)
 
 void ItemController::addSplash(std::string msg)
 {
-    return;
+    _unlogicalItems.push_back(new SplashMessage(msg));
 }
 
 void ItemController::deleteObject(DelItemPacket *packet)
