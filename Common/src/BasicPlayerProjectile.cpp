@@ -1,7 +1,7 @@
 #include "BasicPlayerProjectile.hh"
 
-BasicPlayerProjectile::BasicPlayerProjectile(sf::Vector2f speed,
-					     sf::Vector2f pos,
+BasicPlayerProjectile::BasicPlayerProjectile(sf::Vector2f const& speed,
+					     sf::Vector2f const& pos,
 					     unsigned int id,
 					     uint32_t* score)
   : Projectile(speed, pos, sf::Vector2i(10,10), id, ObjectInfo::PLAYERREGULAR),
@@ -32,7 +32,6 @@ bool		BasicPlayerProjectile::update(sf::Clock const& clock, std::vector<IObject*
 
 void		BasicPlayerProjectile::increaseScore()
 {
-  // std::cout << "increase SCORE" << std::endl;
   if (_score)
     *_score += 10;
 }

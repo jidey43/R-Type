@@ -7,10 +7,10 @@
 
 typedef struct
 {
-  uint32_t				magic;
-  ServerTCPResponse			command;
-  uint32_t				size;
-} ServerTCPHeader;
+  uint32_t			magic;
+  ServerTCPResponse		command;
+  uint32_t			size;
+}				ServerTCPHeader;
 
 typedef struct
 {
@@ -18,26 +18,26 @@ typedef struct
   ServerUDPResponse		command;
   uint32_t			size;
   uint32_t			idx;
-} ServerUDPHeader;
+}				ServerUDPHeader;
 
 typedef struct
 {
   uint32_t			data;
   uint32_t			magic;
-} integerData;
+}				integerData;
 
 typedef struct
 {
   Bool				success;
   uint32_t			magic;
-} AuthTCPData;
+}				AuthTCPData;
 
 typedef struct
 {
-  char          ip[256];
+  char				ip[256];
   uint32_t			port;
   uint32_t			magic;
-} 	GameInfoData;
+}			 	GameInfoData;
 
 typedef struct
 {
@@ -45,14 +45,14 @@ typedef struct
   char				gameName[256];
   char				players[256];
   uint32_t			magic;
-} DesGameData;
+}				DesGameData;
 
 typedef struct
 {
   Bool				success;
   float				timestamp;
   uint32_t			magic;
-} AuthUDPData;
+}				AuthUDPData;
 
 typedef struct
 {
@@ -60,7 +60,7 @@ typedef struct
   float				x;
   float				y;
   uint32_t			magic;
-} 	CrePlayData;
+}				CrePlayData;
 
 typedef struct
 {
@@ -93,13 +93,13 @@ typedef struct
 }				CreIAData;
 
 
-typedef integerData GameOverData;
-typedef integerData GameListData;
-typedef integerData DelItemData;
-typedef integerData NextLvlData;
+typedef integerData		GameOverData;
+typedef integerData		GameListData;
+typedef integerData		DelItemData;
+typedef integerData		NextLvlData;
 
 template <typename T>
-class IServerPacket
+class				IServerPacket
 {
 public:
   virtual ~IServerPacket() {};

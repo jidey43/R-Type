@@ -1,6 +1,6 @@
 #include "Projectile.hh"
 
-Projectile::Projectile(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, unsigned int id, ObjectInfo::ShotType realType)
+Projectile::Projectile(sf::Vector2f const& speed, sf::Vector2f const& pos, sf::Vector2i const& size, unsigned int id, ObjectInfo::ShotType realType)
   : Object(speed, pos, size, ObjectInfo::SHOT, id), _realType(realType)
 {
 }

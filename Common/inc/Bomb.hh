@@ -6,7 +6,7 @@
 class Bomb : public Projectile
 {
 public:
-  Bomb(ObjectInfo::Type, sf::Vector2f, sf::Vector2i, unsigned int);
+  Bomb(ObjectInfo::Type, sf::Vector2f const&, sf::Vector2i const&, unsigned int);
   ~Bomb();
 
 public:

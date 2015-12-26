@@ -6,7 +6,7 @@
 class BydoAlien : public Alien
 {
 public:
-  BydoAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff);
+  BydoAlien(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff);
   ~BydoAlien();
 
 public:

@@ -3,7 +3,7 @@
 
 extern unsigned int _maxId;
 
-Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
+Player::Player(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id)
   : Object(speed, pos, sf::Vector2i(220, 80), ObjectInfo::PLAYER, id),
     _score(0),
     _canShoot(true),

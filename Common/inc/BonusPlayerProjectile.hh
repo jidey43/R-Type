@@ -6,7 +6,7 @@
 class Projectile : public Object
 {
 public:
-  Projectile(Object::Type , sf::Vector2i);
+  Projectile(Object::Type , sf::Vector2i const&);
   ~Projectile();
 
 public:

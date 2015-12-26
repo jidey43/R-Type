@@ -6,7 +6,7 @@
 class YorkAlien : public Alien
 {
 public:
-  YorkAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff);
+  YorkAlien(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff);
   ~YorkAlien();
 
 public:

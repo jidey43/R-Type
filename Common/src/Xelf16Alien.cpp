@@ -4,7 +4,7 @@
 
 extern unsigned int _maxId;
 
-Xelf16Alien::Xelf16Alien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
+Xelf16Alien::Xelf16Alien(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff)
   : Alien(speed, pos, sf::Vector2i(500, 500), id, coeff)
 {
   _bossFactor = _pos.x;

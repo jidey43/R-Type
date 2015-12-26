@@ -6,7 +6,7 @@
 class ShellAlien : public Alien
 {
 public:
-  ShellAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff);
+  ShellAlien(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff);
   ~ShellAlien();
 
 public:

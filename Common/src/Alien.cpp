@@ -2,7 +2,7 @@
 
 extern unsigned int _maxId;
 
-Alien::Alien(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, unsigned int id, float coeff)
+Alien::Alien(sf::Vector2f const& speed, sf::Vector2f const& pos, sf::Vector2i const& size, unsigned int id, float coeff)
   : Object(speed, pos, size, ObjectInfo::Type::ALIEN, id), _coeff(coeff)
 {}
 

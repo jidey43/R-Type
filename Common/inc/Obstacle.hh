@@ -6,7 +6,7 @@
 class Obstacle : public Alien
 {
 public:
-  Obstacle(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff);
+  Obstacle(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff);
   ~Obstacle();
 
 public:

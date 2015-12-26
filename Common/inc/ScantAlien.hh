@@ -6,7 +6,7 @@
 class ScantAlien : public Alien
 {
 public:
-  ScantAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff);
+  ScantAlien(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff);
   ~ScantAlien();
 
 public:

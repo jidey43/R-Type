@@ -1,6 +1,6 @@
 #include "Xelf16AlienGraphical.hh"
 
-Xelf16AlienGraphical::Xelf16AlienGraphical(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff)
+Xelf16AlienGraphical::Xelf16AlienGraphical(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff)
   : Xelf16Alien(speed, pos, id, coeff), GraphicalItem()
 {
 	_sprite->setTexture(*(ac->getAlien(XELF16)));

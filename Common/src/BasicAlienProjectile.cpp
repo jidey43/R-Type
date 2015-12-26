@@ -1,6 +1,6 @@
 # include "BasicAlienProjectile.hh"
 
-BasicAlienProjectile::BasicAlienProjectile(sf::Vector2f speed, sf::Vector2f pos, unsigned int id)
+BasicAlienProjectile::BasicAlienProjectile(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id)
   : Projectile(speed, pos, sf::Vector2i(50,20), id, ObjectInfo::ALIENREGULAR)
 {}
 

@@ -6,7 +6,7 @@
 class BasicPlayerProjectile : public Projectile
 {
 public:
-  BasicPlayerProjectile(sf::Vector2f, sf::Vector2f, unsigned int, uint32_t* score);
+  BasicPlayerProjectile(sf::Vector2f const&, sf::Vector2f const&, unsigned int, uint32_t* score);
   ~BasicPlayerProjectile();
 
 public:

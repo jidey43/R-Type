@@ -2,7 +2,7 @@
 #include "Projectile.hh"
 #include "BasicPlayerProjectile.hh"
 
-Object::Object(sf::Vector2f speed, sf::Vector2f pos, sf::Vector2i size, ObjectInfo::Type type, unsigned int id)
+Object::Object(sf::Vector2f const& speed, sf::Vector2f const& pos, sf::Vector2i const& size, ObjectInfo::Type type, unsigned int id)
   : _damage(false), _speed(speed), _pos(pos), _size(size), _objType(type), _id(id)
 {
   _life = 1;

@@ -6,7 +6,7 @@
 class DokanAlien : public Alien
 {
 public:
-  DokanAlien(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, float coeff);
+  DokanAlien(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigned int id, float coeff);
   ~DokanAlien();
 
 public:
