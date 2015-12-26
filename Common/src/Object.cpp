@@ -1,6 +1,7 @@
 #include "Object.hh"
 #include "Projectile.hh"
 #include "BasicPlayerProjectile.hh"
+#include "Player.hh"
 
 Object::Object(sf::Vector2f const& speed, sf::Vector2f const& pos, sf::Vector2i const& size, ObjectInfo::Type type, unsigned int id)
   : _damage(false), _speed(speed), _pos(pos), _size(size), _objType(type), _id(id)

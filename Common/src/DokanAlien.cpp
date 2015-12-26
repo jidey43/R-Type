@@ -11,7 +11,7 @@ DokanAlien::DokanAlien(sf::Vector2f const& speed, sf::Vector2f const& pos, unsig
   _realType = ObjectInfo::DOKAN;
   _f = 1;
   _rad = M_PI / 4;
-  _a = 5;
+  _a = 6;
 }
 
 DokanAlien::~DokanAlien()
@@ -31,7 +31,7 @@ bool		DokanAlien::update(sf::Clock const& clock)
       || _pos.y + _size.y < 0 || _pos.y > MAP_SIZE_Y)
     _isAlive = false;
   this->_pos.x = this->_pos.x - this->_speed.x;
-  this->_pos.y = _pos.y - (_a * cos((0.23 * _f * (this->_pos.x / 150) * M_PI) + _rad));
+  this->_pos.y = _pos.y - (_a * cos((0.23 * _f * (this->_pos.x / (150 * _coeff)) * M_PI) + M_PI * _coeff + _rad));
   if (static_cast<int>(_pos.x + _pauseShoot) % 320 == 0)
     _isShoot = true;
   return true;
