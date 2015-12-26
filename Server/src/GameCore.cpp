@@ -82,7 +82,6 @@ void				GameCore::updateMap()
     {
       if (_currentLevel == 3)
 	{
-	  std::cout << "FIN DE LA PARTIE" << std::endl;
 	  exit(0);
 	}
       _clock.restart();

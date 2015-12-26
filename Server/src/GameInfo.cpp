@@ -27,27 +27,27 @@ GameInfo::~GameInfo()
     (*it)->setInGame(false);
 }
 
-std::string const& GameInfo::getName() const
+std::string const&		GameInfo::getName() const
 {
   return _name;
 }
 
-int GameInfo::getPort() const
+int				GameInfo::getPort() const
 {
   return _port;
 }
 
-int GameInfo::getPlayerNb() const
+int				GameInfo::getPlayerNb() const
 {
   return _clients.size();
 }
 
-int	GameInfo::getID() const
+int				GameInfo::getID() const
 {
   return _id;
 }
 
-bool GameInfo::addClient(ClientInfo * client)
+bool				GameInfo::addClient(ClientInfo * client)
 {
   if (_clients.size() < MAX_PLAYERS)
     _clients.push_back(client);
@@ -57,13 +57,12 @@ bool GameInfo::addClient(ClientInfo * client)
   return true;
 }
 
-std::string const& GameInfo::getClients()
+std::string const&		GameInfo::getClients()
 {
   static std::string	buffer = "";
 
   for (std::vector<ClientInfo*>::const_iterator it = _clients.begin(); it != _clients.end(); ++it)
     {
-      std::cout << "segv sur client = " << *it << std::endl;
       if (*it == NULL)
 	it = _clients.erase(it);
       else
@@ -72,12 +71,12 @@ std::string const& GameInfo::getClients()
   return buffer;
 }
 
-bool		GameInfo::isFinished() const
+bool				GameInfo::isFinished() const
 {
   return _endGame;
 }
 
-bool		GameInfo::joinGameThread()
+bool				GameInfo::joinGameThread()
 {
   return (_thread->WaitThread());
 }
