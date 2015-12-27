@@ -6,7 +6,20 @@ avoir des (pattern déplacement, shot) différent pour chaque alien
 
 compat windows
 
+quand on lance 5 game d'affilé sans quitter le client on segfault parce qu'il n'y a que 4 vaisseau
+
+les scant aliens tirent un peu trop.......
+
+faire du level design
+
+les cliens sont déconnectés par updateAliveClient quand on connecte plusieurs clients ?????
+
+ajouter collisions entre aliens et wall
+
 FAIRE UN MAX DE DEBUG
+
+
+
 
 OPTIONAL :
 
