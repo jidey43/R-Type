@@ -4,7 +4,7 @@
 extern unsigned int _maxId;
 
 Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, unsigned int nbPlayer)
-  : Object(speed, pos, sf::Vector2i(220, 80), ObjectInfo::PLAYER, id),
+  : Object(speed, pos, sf::Vector2i(220, 80), ObjectInfo::PLAYER, id), _multiShoot(false),
     _score(0),
     _canShoot(true),
     _nbPlayer(nbPlayer),
@@ -139,4 +139,25 @@ void				Player::setScore(uint32_t score)
 unsigned int			Player::getNbPlayer() const
 {
   return _nbPlayer;
+}
+
+std::vector<IObject*>*	Player::MultiShoot()
+{
+  std::vector<IObject*> *shots = new std::vector<IObject*>();
+
+  _isShoot = false;
+  if (_multiShoot)
+    {
+      shots->push_back(new BasicPlayerProjectile(sf::Vector2f(_speed.x, 1), sf::Vector2f(_pos.x + _size.x, _pos.y + _size.y), _maxId++, &_score));
+      shots->push_back(new BasicPlayerProjectile(sf::Vector2f(_speed.x, 0), sf::Vector2f(_pos.x + _size.x, _pos.y + _size.y), _maxId++, &_score));
+      shots->push_back(new BasicPlayerProjectile(sf::Vector2f(_speed.x, -1), sf::Vector2f(_pos.x + _size.x, _pos.y + _size.y), _maxId++, &_score));
+    }
+  else
+    shots->push_back(new BasicPlayerProjectile(sf::Vector2f(_speed.x, 0), sf::Vector2f(_pos.x + _size.x, _pos.y + _size.y), _maxId++, &_score));
+    return shots;
+}
+
+void			Player::setMultiShoot()
+{
+  _multiShoot = true;
 }
