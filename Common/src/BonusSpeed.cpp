@@ -24,12 +24,12 @@ bool		BonusSpeed::update(const sf::Clock& clock)
   if (_pos.x + _size.x < 0 || _pos.x > MAP_SIZE_X
       || _pos.y + _size.y < 0 || _pos.y > MAP_SIZE_Y)
     _isAlive = false;
-  if (this->_pos.x <= MAP_SIZE_X / 3)
+  if (this->_pos.x <= MAP_SIZE_X / 5)
     {
       _fact *= -1;
       _stay = true;
     }
-  if (_stay && this->_pos.x >= 2 * MAP_SIZE_X / 3)
+  if (_stay && this->_pos.x >= 4 * MAP_SIZE_X / 5)
     _fact *= -1;
   this->_pos.x = this->_pos.x + _fact * this->_speed.x;
   this->_pos.y -= 1;

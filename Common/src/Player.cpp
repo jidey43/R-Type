@@ -100,8 +100,8 @@ BasicPlayerProjectile		*Player::BasicShoot()
   _isShoot = false;
   pos.x = _pos.x + _size.x;
   pos.y = _pos.y + _size.y;
-  speed.x = _speed.y + (_speed.y / 3);
-  speed.y = speed.x;
+  speed.x = _speed.x + (_speed.x / 3);
+  speed.y = 0;
   return new BasicPlayerProjectile(speed, pos, _maxId++, &_score);
 }
 
