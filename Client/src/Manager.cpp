@@ -2,7 +2,7 @@
 
 Manager::Manager(CUDPNetworkHandler *udpHand)
   : _udpHand(udpHand),
-    _refAlive(sf::Time(sf::milliseconds(500))),
+    _refAlive(sf::Time(sf::milliseconds(50))),
     _lastAliveSent(_refAlive),
     _lvl(1)
 {
