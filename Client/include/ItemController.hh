@@ -54,6 +54,7 @@ private:
   sf::Sprite*					_background;
   int						_playerCount;
   ScoreController				_scoreCtrl;
+  sf::Sound                     _buffer;
   // Needed To handle score
   std::vector<bool>				_availableNbPlayer;
 };
