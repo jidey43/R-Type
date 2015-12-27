@@ -136,7 +136,6 @@ Waves						*LevelLoader::getNextWave()
   ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
   _lines.pop_front();
   Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type);
-  std::cout << coeff << std::endl;
   return (wave);
 }
 

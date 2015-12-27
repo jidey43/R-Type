@@ -33,7 +33,6 @@ public:
 	    obj->push_back(NULL);
 	if ((*it)->getCount() <= 0)
 	  {
-	    std::cout << "delete waves" << std::endl;
 	    it = _order.erase(it);
 	  }
 	if (it == _order.end())
