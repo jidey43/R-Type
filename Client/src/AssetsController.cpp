@@ -34,7 +34,8 @@ bool AssetsController::loadSoundAssets()
   for (int i = 0; i != NUMBEROFSOUND; i++)
     _sounds.emplace_back(new sf::SoundBuffer);
   if (
-      _sounds[BASICALIENSHOT]->loadFromFile(_assetsPath + "audio/shot.wav")
+      _sounds[BASICALIENSHOT]->loadFromFile(_assetsPath + "audio/shot.wav") && 
+      _sounds[NEXTLEVEL]->loadFromFile(_assetsPath + "audio/level.wav")
       )
     return true;
   return false;

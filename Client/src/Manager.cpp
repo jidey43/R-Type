@@ -19,7 +19,7 @@ void					Manager::loop()
   sf::Time elapsed;
   sf::Time lastTime;
 
-  //vc->startSoundtrack();
+  vc->startSoundtrack();
   _itemCtrl->setBackground(BACKGROUND_ONE);
   _itemCtrl->addSplash("GOOOOO !!!");
   _clock.restart();

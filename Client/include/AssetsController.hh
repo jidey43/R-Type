@@ -39,6 +39,7 @@ typedef enum    e_Ship
 typedef enum    e_Sound
 {
     BASICSHOT = 0,
+    NEXTLEVEL,
     NUMBEROFSOUND   
 }               Sound;
 
