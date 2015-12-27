@@ -1,11 +1,10 @@
 #include "BonusSpeedGraphical.hh"
 
 BonusSpeedGraphical::BonusSpeedGraphical(sf::Vector2f const& speed,
-		       sf::Vector2f const& pos,
-		       sf::Vector2i const& size,
-		       ObjectInfo::Type type,
-		       unsigned int id) :
-               BonusSpeed(speed, pos, size, type, id), GraphicalItem()
+					 sf::Vector2f const& pos,
+					 unsigned int id,
+					 float f) :
+  BonusSpeed(speed, pos, id, f), GraphicalItem()
 {
   	_sprite->setTexture(*(ac->getBonus(SPEED)));
 	_sprite->setPosition(

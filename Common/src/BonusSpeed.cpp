@@ -2,10 +2,9 @@
 
 BonusSpeed::BonusSpeed(sf::Vector2f const& speed,
 		       sf::Vector2f const& pos,
-		       sf::Vector2i const& size,
-		       ObjectInfo::Type type,
-		       unsigned int id)
-  : ABonus(speed, pos, size, type, id)
+		       unsigned int id,
+		       float coeff)
+  : ABonus(speed, pos, sf::Vector2i(50, 50), id)
 {
 }
 

@@ -44,6 +44,7 @@ enum WaveType
     YORK,
     XELF16,
     OBSTACLE,
+    SPEEDBONUS,
     NUMBEROFWAVE
   };
 };

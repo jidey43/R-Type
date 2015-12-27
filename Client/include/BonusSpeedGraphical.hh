@@ -12,20 +12,19 @@ public:
   BonusSpeedGraphical(
 		      sf::Vector2f const&,
 		      sf::Vector2f const&,
-		      sf::Vector2i const&,
-		      ObjectInfo::Type,
-		      unsigned int);
+		      unsigned int,
+		      float);
 
   ~BonusSpeedGraphical();
 
 public:
-  bool				update(sf::Clock const&);
+  bool		update(sf::Clock const&);
 
 private:
-  sf::Time        _referential;
-  sf::Time        _lastUpdate;
-  bool            _incr;
-  float           _angle;
+  sf::Time	_referential;
+  sf::Time	_lastUpdate;
+  bool		_incr;
+  float		_angle;
 
 };
 
