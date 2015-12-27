@@ -39,7 +39,6 @@ std::vector<GameInfo*>&			GameHandler::getGameList()
 void					GameHandler::checkEndGames()
 {
   std::vector<GameInfo*>::iterator	it = _gameList.begin();
-  std::vector<GameInfo*>::iterator	itTmp;
 
   while (it != _gameList.end() && _gameList.size() > 0)
     {
@@ -47,9 +46,8 @@ void					GameHandler::checkEndGames()
 	{
 	  (*it)->joinGameThread();
 	  delete (*it);
-	  itTmp = it;
-	  ++it;
-	  _gameList.erase(itTmp);
+	  _gameList.erase(it);
+	  return ;
 	}
       else
 	++it;
