@@ -20,6 +20,11 @@ enum PlayerType
     NUMBERPLAYER
   };
 
+enum BonusType
+  {
+    SPEED = 1
+  };
+
 enum ShotType
 {
   PLAYERREGULAR = 1,

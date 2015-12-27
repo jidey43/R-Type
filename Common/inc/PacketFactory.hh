@@ -26,6 +26,7 @@
 #include "CAuthUDPPacket.h"
 #include "NetworkDefines.h"
 #include "AlivePacket.hh"
+#include "BonusPacket.hh"
 
 class PacketFactory
 {
