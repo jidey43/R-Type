@@ -6,7 +6,7 @@ GamerInfo::GamerInfo(ClientDatas* datas)
     _name(""),
     _isAuth(false),
     _id(-1),
-    _timeout(sf::Time(sf::seconds(3)))
+    _timeout(sf::Time(sf::seconds(10)))
 {
 }
 
@@ -68,5 +68,5 @@ bool			GamerInfo::updateAlive(sf::Time const& count)
 
 void			GamerInfo::resetAlive()
 {
-  _timeout = sf::Time(sf::seconds(3));
+  _timeout = sf::Time(sf::seconds(10));
 }

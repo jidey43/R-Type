@@ -2,7 +2,7 @@
 
 Manager::Manager(CUDPNetworkHandler *udpHand)
   : _udpHand(udpHand),
-    _refAlive(sf::Time(sf::milliseconds(500))),
+    _refAlive(sf::Time(sf::milliseconds(50))),
     _lastAliveSent(_refAlive),
     _lvl(1)
 {
@@ -46,6 +46,7 @@ void					Manager::loop()
 
 void	Manager::sendAlive(sf::Time const& count)
 {
+  std::cout << "last alive : " << _lastAliveSent.asMilliseconds() << std::endl;
   _lastAliveSent -= count;
   if (_lastAliveSent <= sf::Time(sf::milliseconds(0)))
     {
