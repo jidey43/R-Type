@@ -74,12 +74,13 @@ void ItemController::addObj(CreObjPacket *packet)
 {
   int id = packet->getData()->id;
   sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
-  float speed = packet->getData()->speed;
+  float speedX = packet->getData()->speedX;
+  float speedY = packet->getData()->speedY;
 
   if (packet->getData()->type == ObjectInfo::PLAYERREGULAR)
-    _items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id, NULL));
+    _items.emplace_back(new BasicPlayerProjectileGrapical(sf::Vector2f(speedX, speedY), pos, (unsigned int)id, NULL));
   if (packet->getData()->type == ObjectInfo::ALIENREGULAR)
-    _items.emplace_back(new BasicAlienProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
+    _items.emplace_back(new BasicAlienProjectileGrapical(sf::Vector2f(speedX, speedY), pos, (unsigned int)id));
 }
 
 void ItemController::addObj(BonusPacket *packet)
