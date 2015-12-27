@@ -58,7 +58,6 @@ bool		LevelLoader::verifLine(const std::string &line)
 	  t.clear();
 	}
     }
-  std::cout << tmp.size() << std::endl;
   if (tmp.size() != 9)
     return (false);
   if (verifFirst(tmp.front()) == false)
@@ -136,7 +135,6 @@ Waves						*LevelLoader::getNextWave()
   ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
   _lines.pop_front();
   Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type);
-  std::cout << "inb = " << inb << std::endl;
   return (wave);
 }
 
