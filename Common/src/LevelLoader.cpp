@@ -128,13 +128,14 @@ Waves						*LevelLoader::getNextWave()
   freq = sf::seconds(fnb);
   buffer >> coeff;
 
+  _lines.pop_front();
   for (inb = 0; name != _compare[inb]; inb = inb + 1)
-    if (inb == ObjectInfo::NUMBEROFWAVE)
+    if (inb == ObjectInfo::NUMBEROFWAVE - 1)
       return (NULL);
 
   ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
-  _lines.pop_front();
   Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type);
+  std::cout << name << std::endl;
   return (wave);
 }
 

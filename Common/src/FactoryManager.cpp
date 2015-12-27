@@ -50,7 +50,6 @@ void		FactoryManager::changeLevel(int level)
     }
 }
 
-
 void		FactoryManager::initialiseLevel()
 {
   int j			= 0;
