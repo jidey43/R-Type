@@ -8,7 +8,7 @@ Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, unsigned i
     _score(0),
     _canShoot(true),
     _nbPlayer(nbPlayer),
-    _pauseShotDelayTemp(sf::milliseconds(250)),
+    _pauseShotDelayTemp(sf::milliseconds(400)),
     _pauseShotDelay(_pauseShotDelayTemp),
     _lastLoopTime(sf::milliseconds(0)),
     _bonusSpeedTaken(false),
@@ -27,12 +27,13 @@ void		Player::resetLoopTime()
 
 void		Player::setBackDelay()
 {
-  _pauseShotDelayTemp = sf::milliseconds(250);
+  _pauseShotDelayTemp = sf::milliseconds(400);
 }
 
 void		Player::speedUp()
 {
   _bonusSpeedTaken = true;
+  std::cout << _bonusSpeedTaken << " SPEEDUP" << std::endl;
 }
 
 void		Player::handleBonusSpeed(sf::Clock const& clock)
@@ -50,7 +51,7 @@ void		Player::checkBonus()
 {
   if (_bonusSpeedTaken)
     {
-      _pauseShotDelayTemp = sf::milliseconds(125);
+      _pauseShotDelayTemp = sf::milliseconds(100);
       _bonusSpeed += sf::seconds(5);
       _bonusSpeedTaken = false;
       if (std::find(_actions.begin(), _actions.end(), &Player::handleBonusSpeed) == _actions.end())
@@ -68,22 +69,6 @@ bool		Player::update(sf::Clock const& clock)
 	  (this->*action)(clock);
 	}
     }
-
-  _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
-  _lastLoopTime = clock.getElapsedTime();
-  if (_pauseShotDelay <= sf::milliseconds(0))
-    {
-      _isShoot = false;
-      _canShoot = true;
-      _pauseShotDelay = _pauseShotDelayTemp;
-    }
-  _pos += _move;
-  _move = sf::Vector2f(0,0);
-  return true;
-}
-
-bool		Player::update(sf::Clock const& clock, std::vector<IObject*>& map)
-{
   _pauseShotDelay -= (clock.getElapsedTime() - _lastLoopTime);
   _lastLoopTime = clock.getElapsedTime();
   if (_pauseShotDelay <= sf::milliseconds(0))
@@ -97,6 +82,12 @@ bool		Player::update(sf::Clock const& clock, std::vector<IObject*>& map)
       || _pos.y < 0 || _pos.y + _size.y > MAP_SIZE_Y)
     _pos -= _move;
   _move = sf::Vector2f(0,0);
+  return true;
+}
+
+bool		Player::update(sf::Clock const& clock, std::vector<IObject*>& map)
+{
+  this->update(clock);
   this->collision(map);
   return true;
 }
