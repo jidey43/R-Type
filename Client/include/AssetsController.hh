@@ -40,12 +40,13 @@ typedef enum    e_Sound
 {
     BASICSHOT = 0,
     NEXTLEVEL,
-    NUMBEROFSOUND   
+    NUMBEROFSOUND
 }               Sound;
 
 typedef enum   e_Bonus
 {
     SPEED = 0,
+    MULTISHOOT,
     NUMBEROFBONUS
 }               Bonus;
 
@@ -126,5 +127,5 @@ private:
     std::vector<sf::SoundBuffer*> _sounds;
 	sf::Texture*				_rtypeLogo;
     sf::Texture*                _explosion;
-    
+
 };

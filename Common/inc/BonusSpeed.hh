@@ -13,6 +13,7 @@ public:
   bool	update(sf::Clock const&, std::vector<IObject*>&);
   bool	update(sf::Clock const&);
   void	actionBonus(Object*);
+  ObjectInfo::WaveType	getBonusType() const;
 
 private:
   BonusSpeed(const BonusSpeed &);

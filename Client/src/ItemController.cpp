@@ -88,13 +88,17 @@ void ItemController::addObj(BonusPacket *packet)
   std::cout << "AddObj BonusPacket" << std::endl;
   int id = packet->getData()->id;
   sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
-  ObjectInfo::BonusType type = packet->getData()->type;
+  ObjectInfo::WaveType type = packet->getData()->type;
   sf::Vector2f speed(packet->getData()->speed, packet->getData()->speed);
 
   switch (type)
     {
-    case ObjectInfo::SPEED :
+    case ObjectInfo::SPEEDBONUS :
       _items.emplace_back(new BonusSpeedGraphical(speed, pos, id, 0));
+      break;
+    case ObjectInfo::MULTISHOOTBONUS :
+      _items.emplace_back(new MultiShootGraphical(speed, pos, id, 0));
+      std::cout << "receive multishoot" << std::endl;
       break;
     default :
       break;

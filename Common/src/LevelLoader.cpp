@@ -20,6 +20,7 @@ LevelLoader::LevelLoader()
   _compare[8] = "xelf16";
   _compare[9] = "obstacle";
   _compare[10] = "speedbonus";
+  _compare[11] = "multishootbonus";
 }
 
 LevelLoader::~LevelLoader() {}

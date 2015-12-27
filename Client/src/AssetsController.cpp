@@ -34,7 +34,7 @@ bool AssetsController::loadSoundAssets()
   for (int i = 0; i != NUMBEROFSOUND; i++)
     _sounds.emplace_back(new sf::SoundBuffer);
   if (
-      _sounds[BASICALIENSHOT]->loadFromFile(_assetsPath + "audio/shot.wav") && 
+      _sounds[BASICALIENSHOT]->loadFromFile(_assetsPath + "audio/shot.wav") &&
       _sounds[NEXTLEVEL]->loadFromFile(_assetsPath + "audio/level.wav")
       )
     return true;
@@ -146,8 +146,8 @@ bool AssetsController::loadBonus()
 {
   for (int i = 0; i != NUMBEROFBONUS; i++)
     _bonus.emplace_back(new sf::Texture);
-  if (_bonus[SPEED]->loadFromFile(_assetsPath + "powerup.png") 
-      )
+  if (_bonus[SPEED]->loadFromFile(_assetsPath + "powerup.png")
+      && _bonus[MULTISHOOT]->loadFromFile(_assetsPath + "multishoot.png"))
     return true;
   return false;
 }

@@ -32,13 +32,14 @@ public:
 private:
   void				checkBonus();
   void				handleBonusSpeed(sf::Clock const&);
+  void				handleMultiShoot(sf::Clock const&);
   void				setBackDelay();
 
 private:
   uint32_t			_score;
   bool				_canShoot;
-  bool				_multiShoot;
   int				_id;
+  bool				_multishoot;
 
   // Number form 0 to 3 of the player : needed for score
   unsigned int			_nbPlayer;
@@ -49,7 +50,7 @@ private:
   sf::Time			_unblockShot;
 
   /*
-  ** Handle Shots Time Delay
+  ** Handle Bonuses Time Delay
   */
   sf::Time			_pauseShotDelayTemp;
   sf::Time			_pauseShotDelay;
@@ -60,6 +61,8 @@ private:
   */
   bool				_bonusSpeedTaken;
   sf::Time			_bonusSpeed;
+  bool				_bonusMultiShootTaken;
+  sf::Time			_bonusMultiShoot;
 
   /*
   ** Bonus action to handle

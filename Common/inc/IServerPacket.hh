@@ -66,7 +66,7 @@ typedef struct
 {
   int				id;
   float				speed;
-  ObjectInfo::BonusType		type;
+  ObjectInfo::WaveType		type;
   float				x;
   float				y;
   uint32_t			magic;

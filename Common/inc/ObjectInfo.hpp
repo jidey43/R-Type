@@ -22,7 +22,8 @@ enum PlayerType
 
 enum BonusType
   {
-    SPEED = 1
+    SPEED = 1,
+    MULTISHOOT
   };
 
 enum ShotType
@@ -45,6 +46,7 @@ enum WaveType
     XELF16,
     OBSTACLE,
     SPEEDBONUS,
+    MULTISHOOTBONUS,
     NUMBEROFWAVE
   };
 };
