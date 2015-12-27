@@ -21,12 +21,14 @@ bool	        RiosAlien::update(sf::Clock const& clock)
   if (_pos.x + _size.x < 0 || _pos.x > MAP_SIZE_X
       || _pos.y + _size.y < 0 || _pos.y > MAP_SIZE_Y)
     _isAlive = false;
-  if (_)
-  this->_pos.x = this->_pos.x - this->_speed.x;
-  //std::cout << _id << "  ---  " << _pos.y << " ---  x = " << _pos.x << std::endl;
-  //this->_pos.y = _pos.y - (_a * cos((0.23 * _f * (this->_pos.x / 150) * M_PI) + _rad));
-  if (static_cast<int>(_pos.x + _pauseShoot) % 320 == 0)
-    _isShoot = true;
+  if ((static_cast<int>(_pos.x) % 200) == 0)
+    {
+      _pos.y = _pos.y - _speed.y;
+      if ((static_cast<int>(_pos.y) % 100) == 0)
+	_isShoot = true;
+    }
+  if ((static_cast<int>(_pos.y) % 200) == 0)
+    _pos.x = _pos.x - _speed.x;
   return true;
 }
 
