@@ -16,13 +16,13 @@ PlayerGraphical::PlayerGraphical(sf::Vector2f speed,
       std::cout << playerSkinId << std::endl;
     _spriteStatic->setTexture(*(ac->getShipTexture((Ship)playerSkinId)));
     _spriteStatic->setPosition(
-			       _pos.x ,
-			       _pos.y
+			       _pos.x - (270 / 6),
+			       _pos.y - (110 / 6)
 			       );
     _spriteMoving->setTexture(*(ac->getShipTexture((Ship)(playerSkinId + 4))));
     _spriteMoving->setPosition(
-			       pos.x,
-			       _pos.y
+			       pos.x - (270 / 6),
+			       _pos.y - (270 / 6)
 			       );
     _lastPos = pos;
 }
