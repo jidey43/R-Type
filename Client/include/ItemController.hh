@@ -28,6 +28,7 @@
 #include "SplashMessage.hh"
 #include "BonusSpeedGraphical.hh"
 #include "BonusPacket.hh"
+#include "MultiShootGraphical.hh"
 
 extern ViewController *vc;
 class                           ItemController

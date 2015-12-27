@@ -8,6 +8,7 @@
 # include "FactoryManager.hh"
 # include "MapController.hh"
 # include "UMutex.h"
+# include "ABonus.hh"
 
 class GameCore
 {

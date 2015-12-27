@@ -4,16 +4,20 @@
 extern unsigned int _maxId;
 
 Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, unsigned int nbPlayer)
-  : Object(speed, pos, sf::Vector2i(200, 70), ObjectInfo::PLAYER, id), _multiShoot(true),
+  : Object(speed, pos, sf::Vector2i(200, 70), ObjectInfo::PLAYER, id),
     _score(0),
     _canShoot(true),
+    _multishoot(false),
     _nbPlayer(nbPlayer),
     _pauseShotDelayTemp(sf::milliseconds(400)),
     _pauseShotDelay(_pauseShotDelayTemp),
     _lastLoopTime(sf::milliseconds(0)),
     _bonusSpeedTaken(false),
-    _bonusSpeed(sf::seconds(0))
-{}
+    _bonusSpeed(sf::seconds(0)),
+    _bonusMultiShootTaken(false),
+    _bonusMultiShoot(sf::seconds(0))
+{
+}
 
 Player::~Player()
 {
@@ -32,7 +36,6 @@ void		Player::setBackDelay()
 void		Player::speedUp()
 {
   _bonusSpeedTaken = true;
-  std::cout << _bonusSpeedTaken << " SPEEDUP" << std::endl;
 }
 
 void		Player::handleBonusSpeed(sf::Clock const& clock)
@@ -46,6 +49,17 @@ void		Player::handleBonusSpeed(sf::Clock const& clock)
     }
 }
 
+void		Player::handleMultiShoot(sf::Clock const& clock)
+{
+  _bonusMultiShoot -= (clock.getElapsedTime() - _lastLoopTime);
+  if (_bonusMultiShoot <= sf::milliseconds(0))
+    {
+      _multishoot = false;
+      _bonusMultiShoot = sf::milliseconds(0);
+      _actions.erase(std::find(_actions.begin(), _actions.end(), &Player::handleMultiShoot));
+    }
+}
+
 void		Player::checkBonus()
 {
   if (_bonusSpeedTaken)
@@ -55,6 +69,14 @@ void		Player::checkBonus()
       _bonusSpeedTaken = false;
       if (std::find(_actions.begin(), _actions.end(), &Player::handleBonusSpeed) == _actions.end())
 	_actions.push_back(&Player::handleBonusSpeed);
+    }
+  if (_bonusMultiShootTaken)
+    {
+      _bonusMultiShootTaken = false;
+      _multishoot = true;
+      _bonusMultiShoot += sf::seconds(5);
+      if (std::find(_actions.begin(), _actions.end(), &Player::handleMultiShoot) == _actions.end())
+	_actions.push_back(&Player::handleMultiShoot);
     }
 }
 
@@ -145,7 +167,7 @@ std::vector<IObject*>*	Player::MultiShoot()
   std::vector<IObject*> *shots = new std::vector<IObject*>();
 
   _isShoot = false;
-  if (_multiShoot)
+  if (_multishoot)
     {
       shots->push_back(new BasicPlayerProjectile(sf::Vector2f(_speed.x, 1), sf::Vector2f(_pos.x + _size.x, _pos.y + _size.y), _maxId++, &_score));
       shots->push_back(new BasicPlayerProjectile(sf::Vector2f(_speed.x, 0), sf::Vector2f(_pos.x + _size.x, _pos.y + _size.y), _maxId++, &_score));
@@ -158,5 +180,5 @@ std::vector<IObject*>*	Player::MultiShoot()
 
 void			Player::setMultiShoot()
 {
-  _multiShoot = true;
+  _bonusMultiShootTaken = true;
 }

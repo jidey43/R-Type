@@ -64,7 +64,7 @@ void ItemController::addShip(CrePlayPacket *packet)
       if (_availableNbPlayer[i])
 	{
 	  _availableNbPlayer[i] = false;
-	  _items.emplace_back(new PlayerGraphical(sf::Vector2f(0,0), sf::Vector2f(data->x, data->y), data->id, i));
+	  _items.emplace_back(new PlayerGraphical(sf::Vector2f(0,0), sf::Vector2f(data->x - (1 / 4) * data->x, data->y - (1 / 4) * data->y), data->id, i));
 	  break ;
 	}
     }
@@ -85,16 +85,18 @@ void ItemController::addObj(CreObjPacket *packet)
 
 void ItemController::addObj(BonusPacket *packet)
 {
-  std::cout << "AddObj BonusPacket" << std::endl;
   int id = packet->getData()->id;
   sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
-  ObjectInfo::BonusType type = packet->getData()->type;
+  ObjectInfo::WaveType type = packet->getData()->type;
   sf::Vector2f speed(packet->getData()->speed, packet->getData()->speed);
 
   switch (type)
     {
-    case ObjectInfo::SPEED :
+    case ObjectInfo::SPEEDBONUS :
       _items.emplace_back(new BonusSpeedGraphical(speed, pos, id, 0));
+      break;
+    case ObjectInfo::MULTISHOOTBONUS :
+      _items.emplace_back(new MultiShootGraphical(speed, pos, id, 0));
       break;
     default :
       break;

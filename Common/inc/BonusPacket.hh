@@ -6,7 +6,7 @@
 class BonusPacket : public AServerPacket<ServerUDPResponse>
 {
  public:
-  BonusPacket(ServerUDPResponse, ObjectInfo::BonusType, int, int, float, float, float);
+  BonusPacket(ServerUDPResponse, ObjectInfo::WaveType, int, int, float, float, float);
   BonusPacket(ServerUDPHeader*);
   ~BonusPacket();
 

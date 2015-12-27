@@ -2,7 +2,7 @@
 # include "BonusPacket.hh"
 
 BonusPacket::BonusPacket(ServerUDPResponse resp,
-			 ObjectInfo::BonusType bonusType,
+			 ObjectInfo::WaveType bonusType,
 			 int idx,
 			 int id,
 			 float x,

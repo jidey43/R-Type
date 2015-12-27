@@ -20,6 +20,7 @@ LevelLoader::LevelLoader()
   _compare[8] = "xelf16";
   _compare[9] = "obstacle";
   _compare[10] = "speedbonus";
+  _compare[11] = "multishootbonus";
 }
 
 LevelLoader::~LevelLoader() {}
@@ -135,7 +136,6 @@ Waves						*LevelLoader::getNextWave()
 
   ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
   Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type);
-  std::cout << name << std::endl;
   return (wave);
 }
 

@@ -45,7 +45,6 @@ void				GameCore::run()
        	{
 	  receivePacket();
 	}
-      // std::cout << "fps : " << _clock.getElapsedTime().asMilliseconds() / _referential.asMilliseconds() << std::endl;
       if (_firstClient)
       	this->updateAliveClients(_clockAlive.getElapsedTime());
     }
@@ -63,7 +62,6 @@ void				GameCore::updateAliveClients(sf::Time const& count)
       bool res = (*it)->updateAlive(count);
       if (!res)
 	{
-	  std::cout << "delete client for inactivity" << std::endl;
 	  _map->deletePlayer((*it)->getID());
 	  _clients->erase(it);
 	  break ;
@@ -105,7 +103,7 @@ void				GameCore::updateMap()
 	if ((*it)->getObjType() == ObjectInfo::BONUS)
 	  {
 	    _map->addObject(*it);
-	    toSend->push_back(new BonusPacket(BONUS_PACKET, ObjectInfo::SPEED, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x));
+	    toSend->push_back(new BonusPacket(BONUS_PACKET, static_cast<ABonus*>(*it)->getBonusType(), 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x));
 	  }
 	else
 	  {
@@ -146,8 +144,6 @@ void				GameCore::sendMap(GamerInfo* client, std::vector<IServerPacket<ServerUDP
   while (!toSendMap->empty())
     {
       packetToSend = toSendMap->back();
-      if (packetToSend->getCommandType() == BONUS_PACKET)
-	std::cout << "SENT SENT SENT" << std::endl;
       if (client)
 	_network->sendTo(client, packetToSend);
       else

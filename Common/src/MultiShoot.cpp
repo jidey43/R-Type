@@ -1,6 +1,6 @@
-# include "BonusSpeed.hh"
+# include "MultiShoot.hh"
 
-BonusSpeed::BonusSpeed(sf::Vector2f const& speed,
+MultiShoot::MultiShoot(sf::Vector2f const& speed,
 		       sf::Vector2f const& pos,
 		       unsigned int id,
 		       float coeff)
@@ -10,16 +10,16 @@ BonusSpeed::BonusSpeed(sf::Vector2f const& speed,
 {
 }
 
-BonusSpeed::~BonusSpeed()
+MultiShoot::~MultiShoot()
 {
 }
 
-void		BonusSpeed::actionBonus(Object* player)
+void		MultiShoot::actionBonus(Object* player)
 {
-  static_cast<Player*>(player)->speedUp();
+  static_cast<Player*>(player)->setMultiShoot();
 }
 
-bool		BonusSpeed::update(const sf::Clock& clock)
+bool		MultiShoot::update(const sf::Clock& clock)
 {
   if (_pos.x + _size.x < 0 || _pos.x > MAP_SIZE_X
       || _pos.y + _size.y < 0 || _pos.y > MAP_SIZE_Y)
@@ -32,19 +32,18 @@ bool		BonusSpeed::update(const sf::Clock& clock)
   if (_stay && this->_pos.x >= 4 * MAP_SIZE_X / 5)
     _fact *= -1;
   this->_pos.x = this->_pos.x + _fact * this->_speed.x;
-  this->_pos.y -= 1;
+  this->_pos.y += 1;
   return true;
 }
 
-bool		BonusSpeed::update(const sf::Clock& clock, std::vector<IObject*>& map)
+bool		MultiShoot::update(const sf::Clock& clock, std::vector<IObject*>& map)
 {
   this->update(clock);
   this->collision(map);
   return _isAlive;
 }
 
-
-ObjectInfo::WaveType	BonusSpeed::getBonusType() const
+ObjectInfo::WaveType	MultiShoot::getBonusType() const
 {
-  return ObjectInfo::SPEEDBONUS;
+  return ObjectInfo::MULTISHOOTBONUS;
 }
