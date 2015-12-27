@@ -17,6 +17,8 @@ public:
 private:
   BonusSpeed(const BonusSpeed &);
   BonusSpeed &operator=(const BonusSpeed &);
+  bool		_stay;
+  int		_fact;
 };
 
 #endif /* !BONUSSPEED_H_ */

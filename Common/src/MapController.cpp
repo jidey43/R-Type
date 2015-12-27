@@ -32,11 +32,11 @@ void			MapController::generatePacketsMap(IObject* player)
 	case ObjectInfo::SHOT :
 	  if (static_cast<Projectile*>(*it)->getRealType() == ObjectInfo::PLAYERREGULAR)
 	    {
-	      _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, ObjectInfo::PLAYERREGULAR));
+	      _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, (*it)->getSpeed().y, ObjectInfo::PLAYERREGULAR));
 	    }
 	  else
 	    {
-	      _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, ObjectInfo::ALIENREGULAR));
+	      _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, (*it)->getSpeed().y, ObjectInfo::ALIENREGULAR));
 	    }
 	  break ;
 	case ObjectInfo::BYDO || ObjectInfo::GLAM || ObjectInfo::DOKAN || ObjectInfo::KAYBEROS || ObjectInfo::RIOS || ObjectInfo::SCANT || ObjectInfo::SHELL || ObjectInfo::YORK || ObjectInfo::XELF16 :
@@ -106,15 +106,22 @@ void		MapController::checkNewObj(std::vector<IObject*>::iterator& it, IObject* o
       obj->setShooting(false);
       if (obj->getObjType() == ObjectInfo::PLAYER)
   	{
-	  IObject* shot = static_cast<Player*>(obj)->BasicShoot();
-  	  _toAppend.push_back(shot);
-	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, _maxId - 1, shot->getPos().x, shot->getPos().y, shot->getSpeed().x, ObjectInfo::PLAYERREGULAR));
+	  std::vector<IObject*> *shots = static_cast<Player*>(obj)->MultiShoot();
+	  IObject* shot;
+	  while (!shots->empty())
+	    {
+	      shot = shots->back();
+	      shots->pop_back();
+	      _toAppend.push_back(shot);
+	      _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, _maxId - 1, shot->getPos().x, shot->getPos().y, shot->getSpeed().x, shot->getSpeed().y, ObjectInfo::PLAYERREGULAR));
+	    }
+	  delete shots;
   	}
       if (obj->getObjType() == ObjectInfo::ALIEN)
   	{
 	  IObject* shot = static_cast<Alien*>(obj)->BasicShoot();
   	  _toAppend.push_back(shot);
-  	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, _maxId - 1, shot->getPos().x, shot->getPos().y, shot->getSpeed().x, ObjectInfo::ALIENREGULAR));
+  	  _deserializedMap->push_back(new CreObjPacket(CRE_OBJ, 0, _maxId - 1, shot->getPos().x, shot->getPos().y, shot->getSpeed().x, shot->getSpeed().y, ObjectInfo::ALIENREGULAR));
   	}
     }
   if (!obj->isAlive())

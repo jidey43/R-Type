@@ -20,6 +20,7 @@ bool		BasicPlayerProjectile::update(sf::Clock const& clock)
       _isAlive = false;
     }
   this->_pos.x = this->_pos.x + this->_speed.x;
+  this->_pos.y = this->_pos.y + this->_speed.y;
   return true;
 }
 
