@@ -122,20 +122,20 @@ void ItemController::moveShip(MovePacket *packet)
 void ItemController::addExplosion(sf::Vector2f pos)
 {
   Explosion *expl = new Explosion(pos);
-
+  
   _unlogicalItems.push_back(expl);
 }
 
 void ItemController::addSplash(std::string msg)
 {
-    _unlogicalItems.push_back(new SplashMessage(msg));
+  _unlogicalItems.push_back(new SplashMessage(msg));
 }
 
 void ItemController::deleteObject(DelItemPacket *packet)
 {
   int  id = packet->getData()->data;
-
   size_t i;
+  
   for (i = 0; i != _items.size(); ++i)
     {
       if ((dynamic_cast<IObject*>(_items[i])->getId()) == id)

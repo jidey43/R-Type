@@ -24,7 +24,7 @@ bool	        RiosAlien::update(sf::Clock const& clock)
   if ((static_cast<int>(_pos.x) % 200) == 0)
     {
       _pos.y = _pos.y - _speed.y;
-      if ((static_cast<int>(_pos.y) % 100) == 0)
+      if ((static_cast<int>(_pos.y) % 200) == 0)
 	_isShoot = true;
     }
   if ((static_cast<int>(_pos.y) % 200) == 0)

@@ -7,8 +7,7 @@ extern unsigned int _maxId;
 Alien::Alien(sf::Vector2f const& speed, sf::Vector2f const& pos, sf::Vector2i const& size, unsigned int id, float coeff)
   : Object(speed, pos, size, ObjectInfo::Type::ALIEN, id), _coeff(coeff), _patternPos(0)
 {
-  std::srand(std::time(0));
-  _pauseShoot = std::rand() % 300;
+  _pauseShoot = std::rand() % 320;
   _pauseShoot -= _pauseShoot % static_cast<int>(_speed.x);
 }
 
