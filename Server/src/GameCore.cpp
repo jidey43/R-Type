@@ -177,12 +177,15 @@ void					GameCore::processPacket(GamerInfo* client,
   switch (packet->getCommandType())
     {
     case CAUTH_UDP:
+      setAlive(client, packet);
       authGamer(client, packet);
       break;
     case FIRE:
+      setAlive(client, packet);
       gamerTryShoot(client, packet);
       break;
     case SEND_MOVE:
+      setAlive(client, packet);
       gamerMove(client, packet);
       break;
     case ALIVE:

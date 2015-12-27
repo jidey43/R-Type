@@ -6,7 +6,7 @@ GamerInfo::GamerInfo(ClientDatas* datas)
     _name(""),
     _isAuth(false),
     _id(-1),
-    _timeout(sf::Time(sf::seconds(3)))
+    _timeout(sf::Time(sf::seconds(10)))
 {
 }
 
