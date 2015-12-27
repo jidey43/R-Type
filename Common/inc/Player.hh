@@ -18,6 +18,7 @@ public:
   bool				update(sf::Clock const&, std::vector<IObject*>&);
   bool				update(sf::Clock const&);
   BasicPlayerProjectile		*BasicShoot();
+  std::vector<IObject*>*	MultiShoot();
   void				resetLoopTime();
   bool				tryShoot();
   void				setDirection(const Direction &dir);
@@ -26,6 +27,7 @@ public:
   unsigned int			getNbPlayer() const;
   void				setScore(uint32_t);
   void				speedUp();
+  void				setMultiShoot();
 
 private:
   void				checkBonus();
@@ -35,6 +37,7 @@ private:
 private:
   uint32_t			_score;
   bool				_canShoot;
+  bool				_multiShoot;
   int				_id;
 
   // Number form 0 to 3 of the player : needed for score
