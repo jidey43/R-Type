@@ -54,6 +54,8 @@ void		ItemController::levelUp(unsigned int lvl)
 {
   this->setBackground(static_cast<BackgroundType>(lvl));
   this->addSplash("NEXT LEVEL !!!");
+  _buffer.setBuffer(*(ac->getSound(NEXTLEVEL)));
+  _buffer.play();
 }
 
 void		ItemController::setBackground(BackgroundType id)

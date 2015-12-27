@@ -27,7 +27,7 @@ LevelLoader::~LevelLoader() {}
 bool		LevelLoader::verifFirst(const std::string &line)
 {
   for (int i = 0; line[i] != '\0'; i = i + 1)
-    if ((line[i] < 'a' && line[i] > 'z') || (line[i] < 'A' && line[i] > 'Z'))
+    if (!(line[i] >= 'a' && line[i] <= 'z') && !(line[i] >= '0' && line[i] <= '9'))
       return false;
   return true;
 }
@@ -35,7 +35,7 @@ bool		LevelLoader::verifFirst(const std::string &line)
 bool		LevelLoader::verifOther(const std::string &line)
 {
   for (int i = 0; line[i] != '\0'; i = i + 1)
-    if (line[i] < '0' && line[i] > '9')
+    if ((line[i] < '0' && line[i] > '9') && line[i] != '.')
       return false;
   return true;
 }
@@ -48,17 +48,18 @@ bool		LevelLoader::verifLine(const std::string &line)
 
   for (i = 0; line[i] != '\0'; i = i + 1)
     {
-      if (line[i] != ' ')
+      if (line[i] != ' ' && line[i] != '\t')
 	{
 	  t.push_back(line[i]);
 	}
-      if (line[i + 1] == ' ' && line[i] != ' ')
+      if ((line[i + 1] == ' ' || line[i + 1] == '\t' || line[i + 1] == '\0') && (line[i] != ' ' && line[i] != '\t'))
 	{
 	  tmp.push_back(t);
 	  t.clear();
 	}
     }
-  if (tmp.size() != 8)
+  std::cout << tmp.size() << std::endl;
+  if (tmp.size() != 9)
     return (false);
   if (verifFirst(tmp.front()) == false)
     return (false);
@@ -129,15 +130,13 @@ Waves						*LevelLoader::getNextWave()
   buffer >> coeff;
 
   for (inb = 0; name != _compare[inb]; inb = inb + 1)
-    if (inb == 12)
+    if (inb == ObjectInfo::NUMBEROFWAVE - 1)
       return (NULL);
-
-  if (inb > 13)
-    return (NULL);
 
   ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;
   _lines.pop_front();
   Waves	*wave = new Waves(nb, time, freq, pos, speed, coeff, type);
+  std::cout << coeff << std::endl;
   return (wave);
 }
 
