@@ -46,6 +46,7 @@ void					Manager::loop()
 
 void	Manager::sendAlive(sf::Time const& count)
 {
+  std::cout << "last alive : " << _lastAliveSent.asMilliseconds() << std::endl;
   _lastAliveSent -= count;
   if (_lastAliveSent <= sf::Time(sf::milliseconds(0)))
     {

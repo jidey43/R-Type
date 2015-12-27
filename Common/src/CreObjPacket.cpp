@@ -1,7 +1,7 @@
 # include <string.h>
 # include "CreObjPacket.h"
 
-CreObjPacket::CreObjPacket(ServerUDPResponse resp, int idx, int id, float x, float y, float speed, ObjectInfo::ShotType type):
+CreObjPacket::CreObjPacket(ServerUDPResponse resp, int idx, int id, float x, float y, float speedX, float speedY, ObjectInfo::ShotType type):
 AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data(new CreObjData), _header(new ServerUDPHeader)
 {
   _header->magic = MAGIC;
@@ -11,7 +11,8 @@ AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)), _data
   _data->id = id;
   _data->x = x;
   _data->y = y;
-  _data->speed = speed;
+  _data->speedX = speedX;
+  _data->speedY = speedY;
   _data->type = type;
   _data->magic = MAGIC;
 }

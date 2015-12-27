@@ -68,5 +68,5 @@ bool			GamerInfo::updateAlive(sf::Time const& count)
 
 void			GamerInfo::resetAlive()
 {
-  _timeout = sf::Time(sf::seconds(3));
+  _timeout = sf::Time(sf::seconds(10));
 }

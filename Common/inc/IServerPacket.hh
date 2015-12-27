@@ -83,11 +83,11 @@ typedef struct
 
 typedef struct
 {
-
   int				id;
   float				x;
   float				y;
-  float				speed;
+  float				speedX;
+  float				speedY;
   ObjectInfo::ShotType		type;
   uint32_t			magic;
 }				CreObjData;

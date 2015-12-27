@@ -13,6 +13,7 @@ class CreObjPacket : public AServerPacket<ServerUDPResponse>
 	       float,
 	       float,
 	       float,
+	       float,
 	       ObjectInfo::ShotType type);
   CreObjPacket(ServerUDPHeader*);
   ~CreObjPacket();
