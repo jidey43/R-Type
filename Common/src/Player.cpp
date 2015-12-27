@@ -8,7 +8,7 @@ Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, unsigned i
     _score(0),
     _canShoot(true),
     _nbPlayer(nbPlayer),
-    _pauseShotDelayTemp(sf::milliseconds(500)),
+    _pauseShotDelayTemp(sf::milliseconds(400)),
     _pauseShotDelay(_pauseShotDelayTemp),
     _lastLoopTime(sf::milliseconds(0)),
     _bonusSpeedTaken(false),
@@ -27,7 +27,7 @@ void		Player::resetLoopTime()
 
 void		Player::setBackDelay()
 {
-  _pauseShotDelayTemp = sf::milliseconds(500);
+  _pauseShotDelayTemp = sf::milliseconds(400);
 }
 
 void		Player::speedUp()
