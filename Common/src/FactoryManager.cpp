@@ -84,7 +84,7 @@ bool				FactoryManager::remainingAliens()
 {
   for (std::vector<IAlienFactory*>::iterator it = _factories.begin(); it != _factories.end(); it++)
     {
-      if (!(*it)->isOver())
+      if (!(*it)->isOver() && (*it)->getType() != ObjectInfo::WaveType::OBSTACLE)
 	return false;
     }
   return true;

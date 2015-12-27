@@ -11,6 +11,7 @@
 #include "CreIAPacket.h"
 #include "MovePacket.h"
 #include "AlivePacket.hh"
+#include "BonusPacket.hh"
 
 extern ViewController *vc;
 extern AssetsController *ac;

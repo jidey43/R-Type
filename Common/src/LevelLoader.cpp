@@ -19,7 +19,7 @@ LevelLoader::LevelLoader()
   _compare[7] = "york";
   _compare[8] = "xelf16";
   _compare[9] = "obstacle";
-  _compare[10] = "speedBonus";
+  _compare[10] = "speedbonus";
 }
 
 LevelLoader::~LevelLoader() {}
@@ -58,7 +58,6 @@ bool		LevelLoader::verifLine(const std::string &line)
 	  t.clear();
 	}
     }
-  std::cout << tmp.size() << std::endl;
   if (tmp.size() != 9)
     return (false);
   if (verifFirst(tmp.front()) == false)
@@ -130,7 +129,7 @@ Waves						*LevelLoader::getNextWave()
   buffer >> coeff;
 
   for (inb = 0; name != _compare[inb]; inb = inb + 1)
-    if (inb == ObjectInfo::NUMBEROFWAVE - 1)
+    if (inb == ObjectInfo::NUMBEROFWAVE)
       return (NULL);
 
   ObjectInfo::WaveType			type = (ObjectInfo::WaveType)inb;

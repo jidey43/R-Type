@@ -27,6 +27,7 @@
 #include "ScoreController.hh"
 #include "SplashMessage.hh"
 #include "BonusSpeedGraphical.hh"
+#include "BonusPacket.hh"
 
 extern ViewController *vc;
 class                           ItemController
@@ -40,6 +41,7 @@ public:
   void						update();
   void						addShip(CrePlayPacket *packet);
   void						addObj(CreObjPacket *packet);
+  void						addObj(BonusPacket *packet);
   void						moveShip(MovePacket *packet);
   void						deleteObject(DelItemPacket *packet);
   void						addExplosion(sf::Vector2f);
@@ -54,6 +56,7 @@ private:
   sf::Sprite*					_background;
   int						_playerCount;
   ScoreController				_scoreCtrl;
+  sf::Sound                     _buffer;
   // Needed To handle score
   std::vector<bool>				_availableNbPlayer;
 };

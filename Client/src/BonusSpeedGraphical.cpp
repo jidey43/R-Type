@@ -19,27 +19,25 @@ BonusSpeedGraphical::BonusSpeedGraphical(sf::Vector2f const& speed,
 
 BonusSpeedGraphical::~BonusSpeedGraphical()
 {
-
 }
 
 bool                BonusSpeedGraphical::update(sf::Clock const& clock)
 {
-        if ((clock.getElapsedTime() - _lastUpdate) > _referential)
+  if ((clock.getElapsedTime() - _lastUpdate) > _referential)
     {
-        if (_incr)
+      if (_incr)
         {
             if (_angle >= 30)
-                _incr = !_incr;
+	      _incr = !_incr;
             _angle++;
         }
-        else
+      else
         {
-            if (_angle <= -30)
+	  if (_angle <= -30)
                 _incr = !_incr;
-            _angle--;
+	  _angle--;
         }
-        _sprite->setRotation(_angle);
-    _lastUpdate = clock.getElapsedTime();
+      _sprite->setRotation(_angle);
+      _lastUpdate = clock.getElapsedTime();
     }
-
 }

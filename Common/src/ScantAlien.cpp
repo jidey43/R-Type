@@ -31,8 +31,8 @@ bool		ScantAlien::update(sf::Clock const& clock)
   // else
   //   {
   upPattern();
-  _pos.x -= 70 * (cos(_patternPos * _f * _speed.x) - 1);
-  _pos.y += 70 * sin(_patternPos * _f * _speed.x);
+  _pos.x -= cos(_patternPos * _f * _speed.x);
+  _pos.y +=  sin(_patternPos * _f * _speed.x);
     // }
   if (static_cast<int>(_pos.x + _pauseShoot) % 320 == 0)
     _isShoot = true;
