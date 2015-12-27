@@ -134,7 +134,6 @@ void			Server::joinGame(ClientInfo* client, int id)
 
 void			Server::setNick(ClientInfo* client)
 {
-  std::cout << static_cast<NickPacket*>(client->getPacket())->getData()->data << std::endl;
   client->setNickname(static_cast<NickPacket*>(client->getPacket())->getData()->data);
   _network->sendToClient(client, new AuthTCPPacket(AUTH, SUCCESS));
 }

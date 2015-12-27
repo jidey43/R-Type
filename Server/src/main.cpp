@@ -14,5 +14,4 @@ int	main(int ac, char **av)
     }
   Server* server = new Server(av[1], av[2]);
   delete(server);
-  std::cout << "ok" << std::endl;
 }

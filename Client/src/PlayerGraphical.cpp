@@ -13,7 +13,6 @@ PlayerGraphical::PlayerGraphical(sf::Vector2f speed,
     playerSkinId += 1;
     if (playerSkinId >= 4)
       playerSkinId = 0;
-      std::cout << playerSkinId << std::endl;
     _spriteStatic->setTexture(*(ac->getShipTexture((Ship)playerSkinId)));
     _spriteStatic->setPosition(
 			       _pos.x - (270 / 6),

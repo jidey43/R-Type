@@ -86,8 +86,6 @@ void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
 {
   ServerUDPResponse		packetType = res->getCommandType();
 
-  if (packetType == BONUS_PACKET)
-    std::cout << "OKOKOKOKOKOKOKOK" << std::endl;
   switch (packetType)
     {
     case CRE_PLAY:

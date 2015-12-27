@@ -89,7 +89,6 @@ IClientPacket<ClientUDPCommand>*		PacketFactory::build(ClientUDPHeader *header)
       return new DisconnectPacket(header);
       break;
     default:
-      std::cout << "PACKET NULL = SIZE : " << header->size << ", command :" << header->command << ", magic :" << header->magic << std::endl;
       return NULL;
       break;
     }
