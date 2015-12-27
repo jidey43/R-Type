@@ -8,7 +8,7 @@ Player::Player(sf::Vector2f speed, sf::Vector2f pos, unsigned int id, unsigned i
     _score(0),
     _canShoot(true),
     _nbPlayer(nbPlayer),
-    _pauseShotDelayTemp(sf::milliseconds(500)),
+    _pauseShotDelayTemp(sf::milliseconds(250)),
     _pauseShotDelay(_pauseShotDelayTemp),
     _lastLoopTime(sf::milliseconds(0)),
     _bonusSpeedTaken(false),
@@ -27,7 +27,7 @@ void		Player::resetLoopTime()
 
 void		Player::setBackDelay()
 {
-  _pauseShotDelayTemp = sf::milliseconds(500);
+  _pauseShotDelayTemp = sf::milliseconds(250);
 }
 
 void		Player::speedUp()
@@ -50,7 +50,7 @@ void		Player::checkBonus()
 {
   if (_bonusSpeedTaken)
     {
-      _pauseShotDelayTemp = sf::milliseconds(250);
+      _pauseShotDelayTemp = sf::milliseconds(125);
       _bonusSpeed += sf::seconds(5);
       _bonusSpeedTaken = false;
       if (std::find(_actions.begin(), _actions.end(), &Player::handleBonusSpeed) == _actions.end())
