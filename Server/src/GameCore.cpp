@@ -105,8 +105,7 @@ void				GameCore::updateMap()
 	if ((*it)->getObjType() == ObjectInfo::BONUS)
 	  {
 	    _map->addObject(*it);
-	    toSend->push_back(new BonusPacket(BONUS_PACKET, ObjectInfo::SPEED, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y));
-	    std::cout << "Sent BonusPacket" << std::endl;
+	    toSend->push_back(new BonusPacket(BONUS_PACKET, ObjectInfo::SPEED, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x));
 	  }
 	else
 	  {

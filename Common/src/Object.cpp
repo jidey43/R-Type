@@ -72,6 +72,8 @@ bool			Object::isCaseToCheck(IObject* obj)
 {
   return ((this->getObjType() == ObjectInfo::PLAYER && ((obj->getObjType() == ObjectInfo::SHOT
 							 && static_cast<Projectile*>(obj)->getRealType() == ObjectInfo::ALIENREGULAR) || obj->getObjType() == ObjectInfo::ALIEN))
+	  || (this->getObjType() == ObjectInfo::PLAYER && obj->getObjType() == ObjectInfo::BONUS)
+	  || (this->getObjType() == ObjectInfo::BONUS && obj->getObjType() == ObjectInfo::PLAYER)
 	  || (this->getObjType() == ObjectInfo::ALIEN && ((obj->getObjType() == ObjectInfo::SHOT
 							   && static_cast<Projectile*>(obj)->getRealType() == ObjectInfo::PLAYERREGULAR) || obj->getObjType() == ObjectInfo::PLAYER))
 	  || (this->getObjType() == ObjectInfo::SHOT && static_cast<Projectile*>(this)->getRealType() == ObjectInfo::PLAYERREGULAR && obj->getObjType() == ObjectInfo::ALIEN)
@@ -89,9 +91,15 @@ void			Object::changeScores(IObject* obj)
 void			Object::handleBonuses(IObject *obj)
 {
   if (this->getObjType() == ObjectInfo::PLAYER && obj->getObjType() == ObjectInfo::BONUS)
-    static_cast<ABonus*>(obj)->actionBonus(this);
+    {
+      static_cast<ABonus*>(obj)->actionBonus(this);
+      std::cout << "Bonus Taken" << std::endl;
+    }
   if (this->getObjType() == ObjectInfo::BONUS && obj->getObjType() == ObjectInfo::PLAYER)
-    static_cast<ABonus*>(this)->actionBonus(static_cast<Object*>(obj));
+    {
+      static_cast<ABonus*>(this)->actionBonus(static_cast<Object*>(obj));
+      std::cout << "Bonus Taken" << std::endl;
+    }
 }
 
 bool			Object::collision(std::vector<IObject*>& map)
@@ -113,8 +121,14 @@ bool			Object::collision(std::vector<IObject*>& map)
 		    && (this->getPos().y + this->getSize().y >= (*it)->getPos().y)))
 
 	      {
-		_life = _life - 1;
-		static_cast<Object*>(*it)->damage();
+		if (this->getObjType() != ObjectInfo::PLAYER || (*it)->getObjType() != ObjectInfo::BONUS)
+		  {
+		    _life = _life - 1;
+		  }
+		if (this->getObjType() != ObjectInfo::BONUS)
+		  {
+		    static_cast<Object*>(*it)->damage();
+		  }
 		changeScores(*it);
 		handleBonuses(*it);
 	      }
