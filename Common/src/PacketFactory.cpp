@@ -31,8 +31,8 @@ IServerPacket<ServerUDPResponse>*	PacketFactory::build(ServerUDPHeader *header)
     case MOVE:
       return new MovePacket(header);
       break;
-    case BONUS_SPEED:
-      return new BonusSpeedPacket(header);
+    case BONUS_PACKET:
+      return new BonusPacket(header);
       break;
     default:
       return NULL;

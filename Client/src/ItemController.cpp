@@ -88,6 +88,23 @@ void ItemController::addObj(CreObjPacket *packet)
     _items.emplace_back(new BasicAlienProjectileGrapical(sf::Vector2f(speed, speed), pos, (unsigned int)id));
 }
 
+void ItemController::addObj(BonusPacket *packet)
+{
+  std::cout << "AddObj BonusPacket" << std::endl;
+  int id = packet->getData()->id;
+  sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
+  ObjectInfo::BonusType type = packet->getData()->type;
+
+  switch (type)
+    {
+    case ObjectInfo::SPEED :
+      _items.emplace_back(new BonusSpeedGraphical(sf::Vector2f(4, 4), pos, id, 0));
+      break;
+    default :
+      break;
+    }
+}
+
 void ItemController::moveShip(MovePacket *packet)
 {
   int id = packet->getData()->id;

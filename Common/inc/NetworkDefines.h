@@ -57,7 +57,7 @@ typedef enum
     CRE_IA,
     DEL_ITEM,
     NEXT_LVL,
-    BONUS_SPEED,
+    BONUS_PACKET,
     MOVE
   }		ServerUDPResponse;
 

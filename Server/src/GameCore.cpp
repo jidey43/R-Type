@@ -101,8 +101,17 @@ void				GameCore::updateMap()
   if (aliens->size() > 0)
     for (auto it = aliens->begin(); it != aliens->end(); ++it)
       {
-	_map->addAlien(*it);
-	toSend->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getCoeff(), static_cast<Alien*>((*it))->getRealType()));
+	if ((*it)->getObjType() == ObjectInfo::BONUS)
+	  {
+	    _map->addObject(*it);
+	    toSend->push_back(new BonusPacket(BONUS_PACKET, ObjectInfo::SPEED, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y));
+	    std::cout << "Sent BonusPacket" << std::endl;
+	  }
+	else
+	  {
+	    _map->addAlien(*it);
+	    toSend->push_back(new CreIAPacket(CRE_IA, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x, static_cast<Alien*>((*it))->getCoeff(), static_cast<Alien*>((*it))->getRealType()));
+	  }
       }
   _map->updateMap(_clock);
   toSend->insert(toSend->begin(), _map->getMap()->begin(), _map->getMap()->end());
@@ -137,6 +146,8 @@ void				GameCore::sendMap(GamerInfo* client, std::vector<IServerPacket<ServerUDP
   while (!toSendMap->empty())
     {
       packetToSend = toSendMap->back();
+      if (packetToSend->getCommandType() == BONUS_PACKET)
+	std::cout << "SENT SENT SENT" << std::endl;
       if (client)
 	_network->sendTo(client, packetToSend);
       else
