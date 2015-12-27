@@ -1,3 +1,15 @@
+multishootbonus    1  1900  10  4 4  1 1 0
+multishootbonus    1  1900  10  4 4  7 1 0
+multishootbonus    1  1900  10  4 4  22 1 0
+multishootbonus    1  1900  10  4 4  37 1 0
+multishootbonus    1  1900  10  4 4  50 1 0
+
+speedbonus    1  1900  1000  4 4  3 1 0
+speedbonus    1  1900  1000  3 4  10 1 0
+speedbonus    1  1900  1000  4 4  20 1 0
+speedbonus    1  1900  1000  4 4  45 1 0
+
+
 rios           10 1900 800  4 4  1 0.5 3
 
 dokan	       3 1900  800  4 4  10 2      1
