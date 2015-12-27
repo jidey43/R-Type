@@ -8,23 +8,23 @@
 
 class                   BonusSpeedGraphical : public BonusSpeed, public GraphicalItem
 {
-  public:
-    BonusSpeedGraphical(
-			sf::Vector2f const& speed,
-			sf::Vector2f const& pos,
-			unsigned int id,
-			float);
+public:
+  BonusSpeedGraphical(
+		      sf::Vector2f const&,
+		      sf::Vector2f const&,
+		      unsigned int,
+		      float);
 
-    ~BonusSpeedGraphical();
+  ~BonusSpeedGraphical();
 
-  public:
-  	bool				update(sf::Clock const&);
+public:
+  bool		update(sf::Clock const&);
 
 private:
-    sf::Time        _referential;
-    sf::Time        _lastUpdate;
-    bool            _incr;
-    float           _angle;
+  sf::Time	_referential;
+  sf::Time	_lastUpdate;
+  bool		_incr;
+  float		_angle;
 
 };
 

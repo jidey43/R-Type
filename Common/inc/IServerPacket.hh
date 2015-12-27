@@ -65,6 +65,15 @@ typedef struct
 typedef struct
 {
   int				id;
+  ObjectInfo::BonusType		type;
+  float				x;
+  float				y;
+  uint32_t			magic;
+}				BonusData;
+
+typedef struct
+{
+  int				id;
   float				x;
   float				y;
   uint32_t			score;
@@ -112,6 +121,7 @@ public:
   virtual T			getCommandType() const = 0;
   virtual size_t		getPacketSize() const = 0;
 };
+
 # pragma pack ()
 
 #endif

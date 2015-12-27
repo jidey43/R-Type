@@ -1,8 +1,6 @@
 
 faire des bonus de vitesse / freq de tir / invincibilité ?
 
-avoir des (pattern déplacement, shot) différent pour chaque alien
-
 compat windows
 
 les scant aliens tirent un peu trop.......
@@ -12,8 +10,6 @@ faire du level design
 les cliens sont déconnectés par updateAliveClient quand on connecte plusieurs clients ?????
 
 FAIRE UN MAX DE DEBUG
-
-
 
 
 OPTIONAL :
