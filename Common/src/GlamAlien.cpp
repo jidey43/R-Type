@@ -23,6 +23,11 @@ bool		GlamAlien::update(sf::Clock const& clock)
     _isAlive = false;
   this->_pos.x = this->_pos.x - this->_speed.x;
   this->_pos.y = _pos.y - (_a * _coeff * cos(_f * (this->_pos.x / 150.0) * M_PI));
+  if (_pos.x < 600)
+    {
+      upPattern();
+      _pos.y += _patternPos / 2;
+    }
   if (static_cast<int>(_pos.x + _pauseShoot) % 320 == 0)
     _isShoot = true;
   return true;
