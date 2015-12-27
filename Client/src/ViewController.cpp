@@ -3,7 +3,7 @@
 
 ViewController::ViewController()
 {
-  _mainWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "RType" ,sf::Style::Fullscreen);
+  _mainWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080), "RType" ,sf::Style::None);
   _mainWindow->setKeyRepeatEnabled(false);
   _soundTrack = ac->getSoundTrack();
   _focus = true;
@@ -69,7 +69,7 @@ char ViewController::getTextEntered()
         if (e.type == sf::Event::LostFocus)
             _focus = false;
         if (e.type == sf::Event::GainedFocus)
-            _focus = true;            
+            _focus = true;
 	    if (e.type == sf::Event::TextEntered)
 	      {
 		if (e.text.unicode < 128)

@@ -65,6 +65,7 @@ typedef struct
 typedef struct
 {
   int				id;
+  float				speed;
   ObjectInfo::BonusType		type;
   float				x;
   float				y;

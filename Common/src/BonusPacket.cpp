@@ -1,7 +1,13 @@
 # include <string.h>
 # include "BonusPacket.hh"
 
-BonusPacket::BonusPacket(ServerUDPResponse resp, ObjectInfo::BonusType bonusType, int idx, int id, float x, float y)
+BonusPacket::BonusPacket(ServerUDPResponse resp,
+			 ObjectInfo::BonusType bonusType,
+			 int idx,
+			 int id,
+			 float x,
+			 float y,
+			 float speed)
   : AServerPacket<ServerUDPResponse>(resp, sizeof(*_data) + sizeof(*_header)),
     _data(new BonusData),
     _header(new ServerUDPHeader)
@@ -13,6 +19,7 @@ BonusPacket::BonusPacket(ServerUDPResponse resp, ObjectInfo::BonusType bonusType
   _data->id = id;
   _data->x = x;
   _data->y = y;
+  _data->speed = speed;
   _data->type = bonusType;
   _data->magic = MAGIC;
 }
@@ -49,7 +56,7 @@ bool			BonusPacket::checkHeader()
 
 char*				BonusPacket::deserialize()
 {
-  char*				buff = new char[sizeof(*_header) + sizeof(*_data)];
+  char*				buff = new char[sizeof(*_header) + sizeof(*_data) + 1];
 
   memcpy(buff, _header, sizeof(*_header));
   memcpy(buff + sizeof(*_header), _data, sizeof(*_data));

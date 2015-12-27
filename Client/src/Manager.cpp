@@ -2,7 +2,7 @@
 
 Manager::Manager(CUDPNetworkHandler *udpHand)
   : _udpHand(udpHand),
-    _refAlive(sf::Time(sf::milliseconds(500))),
+    _refAlive(sf::Time(sf::milliseconds(50))),
     _lastAliveSent(_refAlive),
     _lvl(1)
 {
@@ -101,7 +101,6 @@ void Manager::treatPacket(IServerPacket<ServerUDPResponse>* res)
       _itemCtrl->addAlien(static_cast<CreIAPacket*>(res));
       break;
     case BONUS_PACKET:
-      std::cout << "RECEIVED BONUS PACKET" << std::endl;
       _itemCtrl->addObj(static_cast<BonusPacket*>(res));
       break;
     case DEL_ITEM:

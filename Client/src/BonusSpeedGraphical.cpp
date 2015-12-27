@@ -23,6 +23,12 @@ BonusSpeedGraphical::~BonusSpeedGraphical()
 
 bool                BonusSpeedGraphical::update(sf::Clock const& clock)
 {
+  bool ret = BonusSpeed::update(clock);
+
+  _sprite->setPosition(
+		       _pos.x,
+		       _pos.y
+		       );
   if ((clock.getElapsedTime() - _lastUpdate) > _referential)
     {
       if (_incr)
@@ -40,4 +46,5 @@ bool                BonusSpeedGraphical::update(sf::Clock const& clock)
       _sprite->setRotation(_angle);
       _lastUpdate = clock.getElapsedTime();
     }
+  return ret;
 }

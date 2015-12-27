@@ -105,8 +105,7 @@ void				GameCore::updateMap()
 	if ((*it)->getObjType() == ObjectInfo::BONUS)
 	  {
 	    _map->addObject(*it);
-	    toSend->push_back(new BonusPacket(BONUS_PACKET, ObjectInfo::SPEED, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y));
-	    std::cout << "Sent BonusPacket" << std::endl;
+	    toSend->push_back(new BonusPacket(BONUS_PACKET, ObjectInfo::SPEED, 0, (*it)->getId(), (*it)->getPos().x, (*it)->getPos().y, (*it)->getSpeed().x));
 	  }
 	else
 	  {
@@ -178,12 +177,15 @@ void					GameCore::processPacket(GamerInfo* client,
   switch (packet->getCommandType())
     {
     case CAUTH_UDP:
+      setAlive(client, packet);
       authGamer(client, packet);
       break;
     case FIRE:
+      setAlive(client, packet);
       gamerTryShoot(client, packet);
       break;
     case SEND_MOVE:
+      setAlive(client, packet);
       gamerMove(client, packet);
       break;
     case ALIVE:

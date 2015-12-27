@@ -88,11 +88,12 @@ void ItemController::addObj(BonusPacket *packet)
   int id = packet->getData()->id;
   sf::Vector2f pos(packet->getData()->x, packet->getData()->y);
   ObjectInfo::BonusType type = packet->getData()->type;
+  sf::Vector2f speed(packet->getData()->speed, packet->getData()->speed);
 
   switch (type)
     {
     case ObjectInfo::SPEED :
-      _items.emplace_back(new BonusSpeedGraphical(sf::Vector2f(4, 4), pos, id, 0));
+      _items.emplace_back(new BonusSpeedGraphical(speed, pos, id, 0));
       break;
     default :
       break;
