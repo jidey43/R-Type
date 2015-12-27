@@ -93,12 +93,10 @@ void			Object::handleBonuses(IObject *obj)
   if (this->getObjType() == ObjectInfo::PLAYER && obj->getObjType() == ObjectInfo::BONUS)
     {
       static_cast<ABonus*>(obj)->actionBonus(this);
-      std::cout << "Bonus Taken" << std::endl;
     }
   if (this->getObjType() == ObjectInfo::BONUS && obj->getObjType() == ObjectInfo::PLAYER)
     {
       static_cast<ABonus*>(this)->actionBonus(static_cast<Object*>(obj));
-      std::cout << "Bonus Taken" << std::endl;
     }
 }
 

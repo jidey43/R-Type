@@ -36,6 +36,7 @@ private:
   std::vector<IServerPacket<ServerUDPResponse>*>	*_deserializedMap;
   std::vector<IObject*>					_toAppend;
   int                          _alienCount;
+  int				_fact;
 };
 
 #endif
