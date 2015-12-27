@@ -10,7 +10,7 @@ GlamAlien::GlamAlien(sf::Vector2f const& speed, sf::Vector2f const& pos, unsigne
   _realType = ObjectInfo::GLAM;
   _f = 1;
   _rad = 6;
-  _a = 2;
+  _a = 3;
 }
 
 GlamAlien::~GlamAlien()
@@ -22,8 +22,8 @@ bool		GlamAlien::update(sf::Clock const& clock)
       || _pos.y + _size.y < 0 || _pos.y > MAP_SIZE_Y)
     _isAlive = false;
   this->_pos.x = this->_pos.x - this->_speed.x;
-  this->_pos.y = _pos.y - (_a * _coeff * cos(_f * (this->_pos.x / 150.0) * M_PI));
-  if (_pos.x < 700)
+  this->_pos.y = _pos.y - (_a * cos(_f * (this->_pos.x / 150.0) * M_PI));
+  if (_pos.x < _coeff)
     {
       upPattern();
       _pos.y += _patternPos / 3;

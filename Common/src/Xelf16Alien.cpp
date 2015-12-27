@@ -8,7 +8,7 @@ Xelf16Alien::Xelf16Alien(sf::Vector2f const& speed, sf::Vector2f const& pos, uns
   : Alien(speed, pos, sf::Vector2i(500, 500), id, coeff)
 {
   _bossFactor = _pos.x;
-  _life = 50;
+  _life = 70;
   _realType = ObjectInfo::XELF16;
   _f = 3;
   _a = 5;
@@ -25,9 +25,11 @@ bool		Xelf16Alien::update(sf::Clock const& clock)
     _isAlive = false;
   if (_pos.x > 1400)
     this->_pos.x = this->_pos.x - this->_speed.x;
+  else
+    upPattern();
   _bossFactor -= _speed.x;
   this->_pos.y = _pos.y - (_a * cos((0.23 * _f * (_bossFactor / 150) * M_PI) + _rad));
-  if (static_cast<int>(_pos.x + _pauseShoot) % 320 == 0)
+  if (static_cast<int>(_patternPos) % 30 == 1)
     _isShoot = true;
   return true;
 }
@@ -45,9 +47,9 @@ IObject		*Xelf16Alien::BasicShoot()
   sf::Vector2f speed;
 
   pos.x = _pos.x;
-  pos.y = _pos.y + (_size.y / 2);
+  pos.y = _pos.y + (_size.y / 9) * (1 + std::rand() % 8);
   _isShoot = false;
-  speed.x = _speed.y + (_speed.y / 3);
+  speed.x = _speed.y + (_speed.y / 3) + _patternPos / 1000;
   speed.y = speed.x;
   return new BasicAlienProjectile(speed, pos, _maxId++);
 }

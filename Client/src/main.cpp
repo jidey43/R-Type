@@ -1,4 +1,5 @@
 # include <iostream>
+# include <ctime>
 # include "ViewController.hh"
 # include "Manager.hh"
 # include "MenuController.hh"
@@ -9,7 +10,6 @@
 
 ViewController *vc;
 AssetsController *ac;
-
 
 int main(int argc, char **av)
 {
@@ -28,6 +28,7 @@ int main(int argc, char **av)
   CUDPNetworkHandler *udpHand;
   GameSelectorController *menu2;
 
+  std::srand(std::time(0));
   while (true)
     {
       menu = new MenuController(&tcpHand);
